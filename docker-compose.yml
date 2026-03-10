@@ -1,8 +1,8 @@
 services:
   web:
     image: ${DOCKERHUB_USERNAME}/flux-lab-landing:${IMAGE_TAG:-latest}
-    ports:
-      - "3000:3000"
+    expose:
+      - "3000"
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://localhost:3000/"]
@@ -10,3 +10,14 @@ services:
       timeout: 5s
       retries: 3
       start_period: 10s
+
+  nginx:
+    image: nginx:1.27-alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      web:
+        condition: service_healthy
+    restart: unless-stopped
