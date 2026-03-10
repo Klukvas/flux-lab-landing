@@ -46,6 +46,7 @@ jobs:
           sparse-checkout: |
             docker-compose.yml
             nginx.conf
+            init-letsencrypt.sh
           sparse-checkout-cone-mode: false
 
       - name: Copy deploy files to server
@@ -55,7 +56,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          source: "docker-compose.yml,nginx.conf"
+          source: "docker-compose.yml,nginx.conf,init-letsencrypt.sh"
           target: /opt/flux-lab-landing
 
       - name: Deploy to server
