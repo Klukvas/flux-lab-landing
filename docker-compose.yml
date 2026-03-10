@@ -2,7 +2,7 @@ services:
   web:
     image: ${DOCKERHUB_USERNAME}/flux-lab-landing:${IMAGE_TAG:-latest}
     ports:
-      - "127.0.0.1:3000:3000"
+      - "3000:3000"
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://localhost:3000/"]
