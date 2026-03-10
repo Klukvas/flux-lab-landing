@@ -1,0 +1,267 @@
+{
+  "metadata": {
+    "title": "fluxLab.dev — Software Development Studio",
+    "description": "We build modern web & mobile applications. Six production projects and counting."
+  },
+  "nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "services": "Services",
+    "blog": "Blog",
+    "about": "About",
+    "careers": "Careers",
+    "contact": "Contact"
+  },
+  "home": {
+    "hero": {
+      "title": "6 Products. 46K+ Users. One Team.",
+      "subtitle": "Kyiv-based dev studio that builds, ships, and scales SaaS products. Need the same team behind your next project?",
+      "cta": "View Our Work",
+      "secondaryCta": "Get in Touch",
+      "trustProducts": "Products Live",
+      "trustUsers": "Users",
+      "trustCompanies": "Companies",
+      "trustYears": "Years"
+    },
+    "featuredProjects": {
+      "title": "Featured Projects",
+      "subtitle": "A selection of our recent work",
+      "viewAll": "View All Projects"
+    },
+    "techStack": {
+      "title": "Our Tech Stack",
+      "subtitle": "Technologies we use to build great products",
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "devops": "DevOps",
+      "tools": "Tools"
+    },
+    "stats": {
+      "projects": "Products Live",
+      "experience": "Years of Experience",
+      "technologies": "Technologies",
+      "users": "Active Users",
+      "companies": "Companies Served"
+    },
+    "testimonials": {
+      "title": "What Our Clients Say",
+      "subtitle": "Real results from real partnerships",
+      "project": "re: {project}"
+    },
+    "whyUs": {
+      "title": "Why fluxLab?",
+      "subtitle": "What makes us different from other dev studios",
+      "productBuilders": "Product Builders, Not Just Coders",
+      "productBuildersDesc": "We've built 6 of our own SaaS products. We think in user flows and business metrics, not just tickets.",
+      "fullOwnership": "Full Ownership",
+      "fullOwnershipDesc": "One team from design to deployment. No hand-offs, no gaps.",
+      "battleTested": "Battle-Tested Stack",
+      "battleTestedDesc": "React, Next.js, Node.js, PostgreSQL — same stack powering our 46K+ user products.",
+      "transparent": "Transparent Process",
+      "transparentDesc": "Weekly demos, shared repos, direct Slack access. You see everything."
+    },
+    "cta": {
+      "title": "Let's Talk About Your Project",
+      "subtitle": "Free 30-minute consultation. No commitment.",
+      "button": "Schedule a Free Call",
+      "secondaryButton": "View Our Work"
+    }
+  },
+  "projects": {
+    "title": "Our Projects",
+    "subtitle": "Explore our portfolio of digital products",
+    "filterAll": "All",
+    "viewProject": "View Project",
+    "users": "Users",
+    "companies": "Companies",
+    "techStack": "Tech Stack",
+    "features": "Key Features",
+    "screenshots": "Screenshots",
+    "visitSite": "Visit Site",
+    "viewCode": "View Code",
+    "overview": "Overview",
+    "challenge": "The Challenge",
+    "solution": "Our Solution",
+    "targetAudience": "Who It's For",
+    "highlights": "Key Results",
+    "integrations": "Integrations",
+    "launched": "Launched",
+    "getStarted": "Ready to Build Something Similar?",
+    "getStartedDesc": "Let's discuss how we can help you solve your business challenges with custom software.",
+    "contactUs": "Contact Us"
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "How we can help you",
+    "outsourcing": {
+      "title": "Development Outsourcing",
+      "description": "Extend your team with our experienced developers"
+    },
+    "consulting": {
+      "title": "Technical Consulting",
+      "description": "Expert guidance on architecture, technology choices, and best practices"
+    },
+    "custom": {
+      "title": "Custom Development",
+      "description": "End-to-end development of web and mobile applications"
+    },
+    "engagement": {
+      "title": "Engagement Models",
+      "subtitle": "Flexible options to fit your needs",
+      "dedicatedTeam": "Dedicated Team",
+      "dedicatedTeamPrice": "From $8K/month",
+      "dedicatedTeamDesc": "2-5 developers embedded in your workflow. Ideal for long-term product development and ongoing feature work.",
+      "projectBased": "Project-Based",
+      "projectBasedPrice": "From $15K",
+      "projectBasedDesc": "Fixed scope, clear milestones, predictable budget. Best for well-defined products with a known deadline.",
+      "staffAug": "Staff Augmentation",
+      "staffAugPrice": "From $4K/month per dev",
+      "staffAugDesc": "Individual senior developers who plug into your existing team. Perfect for filling skill gaps fast."
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "q1": "What's a typical project timeline?",
+      "a1": "Most projects take 4-12 weeks from kickoff to launch, depending on scope. We define milestones upfront so you always know where things stand.",
+      "q2": "How does communication work?",
+      "a2": "Shared Slack channel, weekly demo calls, and access to our project management board. You're never in the dark.",
+      "q3": "Can I hire individual developers?",
+      "a3": "Yes — our staff augmentation model lets you bring on senior developers one at a time, fully integrated into your team.",
+      "q4": "What happens after launch?",
+      "a4": "We offer ongoing support and maintenance packages. Many clients keep us on retainer for feature development and bug fixes.",
+      "q5": "Do you work with startups?",
+      "a5": "Absolutely. We offer flexible engagement models that scale with your budget. Several of our own products started as lean MVPs."
+    },
+    "process": {
+      "title": "Our Process",
+      "step": "Step",
+      "discovery": "Discovery",
+      "design": "Design",
+      "development": "Development",
+      "testing": "Testing",
+      "deployment": "Deployment",
+      "support": "Support"
+    }
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Insights, tutorials, and updates from our team",
+    "readMore": "Read More",
+    "publishedOn": "Published on",
+    "minRead": "min read",
+    "tableOfContents": "Table of Contents",
+    "tags": "Tags",
+    "noPosts": "No posts found"
+  },
+  "about": {
+    "title": "About Us",
+    "subtitle": "The team behind fluxLab.dev",
+    "mission": {
+      "title": "Our Mission",
+      "description": "We started as four developers who met on a project and discovered we build better together. After selling our first product, we went all-in on creating software that solves real problems. Today, fluxLab.dev is a product studio with six applications and a shared belief that great code changes lives."
+    },
+    "values": {
+      "title": "Our Values",
+      "quality": "Quality First",
+      "qualityDesc": "We never compromise on code quality and user experience",
+      "innovation": "Innovation",
+      "innovationDesc": "We embrace new technologies and creative solutions",
+      "transparency": "Transparency",
+      "transparencyDesc": "Open communication and honest relationships with clients",
+      "growth": "Continuous Growth",
+      "growthDesc": "We invest in learning and professional development"
+    },
+    "team": {
+      "title": "Our Team",
+      "subtitle": "Meet the people behind the products"
+    },
+    "timeline": {
+      "2021": {
+        "title": "How We Met",
+        "description": "Our paths crossed on a large-scale enterprise project. Four developers from different backgrounds found themselves on the same team, and the chemistry was immediate. We shared the same drive for clean code, user-centric design, and late-night debugging sessions fueled by too much coffee."
+      },
+      "2022": {
+        "title": "The Side Project",
+        "description": "When the corporate contract ended, we weren't ready to go our separate ways. We started meeting on weekends to build a SaaS tool we wished had existed during our day jobs. What began as a casual experiment quickly turned into something real — a polished product that people actually wanted to use."
+      },
+      "2023": {
+        "title": "First Exit",
+        "description": "Our side project caught the attention of a larger company, and we closed our first acquisition deal. The experience was eye-opening: we realized we could build, ship, and sell software as a team. We quit our jobs and officially founded fluxLab.dev as a full-time studio."
+      },
+      "2024": {
+        "title": "Building for the Market",
+        "description": "Instead of chasing client contracts, we made a bold decision: build our own products. We launched EFluxCom, WashFlow, and our Accounting platform — each solving real problems we had observed across industries. The bet paid off as all three gained traction with paying customers."
+      },
+      "2025": {
+        "title": "Scaling the Portfolio",
+        "description": "With three successful products under our belt, we expanded to six. Jobber, Market, and LifeSpan joined the lineup. Our team grew, our processes matured, and our vision sharpened: create software that works so well, it sells itself. This is just the beginning."
+      },
+      "title": "Our Journey"
+    }
+  },
+  "careers": {
+    "title": "Careers",
+    "subtitle": "Join our team and build amazing products",
+    "openPositions": "Open Positions",
+    "noPositions": "No open positions at the moment. Check back later!",
+    "apply": "Apply Now",
+    "requirements": "Requirements",
+    "benefits": "Benefits",
+    "form": {
+      "name": "Full Name",
+      "email": "Email",
+      "position": "Position",
+      "message": "Cover Letter",
+      "resume": "Resume Link",
+      "submit": "Submit Application",
+      "success": "Application submitted successfully!",
+      "error": "Failed to submit. Please try again."
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Let's discuss your next project",
+    "form": {
+      "name": "Your Name",
+      "email": "Your Email",
+      "subject": "Subject",
+      "message": "Message",
+      "submit": "Send Message",
+      "success": "Message sent successfully! We'll get back to you soon.",
+      "error": "Failed to send. Please try again."
+    },
+    "info": {
+      "email": "Email",
+      "location": "Location",
+      "social": "Follow Us"
+    }
+  },
+  "footer": {
+    "description": "Software development studio building modern digital products.",
+    "navigation": "Navigation",
+    "legal": "Legal",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "rights": "All rights reserved."
+  },
+  "testimonials": {
+    "efluxcom": {
+      "quote": "Reduced our energy monitoring costs by 27% in the first quarter. The dashboard gives us real-time visibility we never had before.",
+      "role": "CTO"
+    },
+    "washflow": {
+      "quote": "Went from spreadsheets to managing 120 locations in one platform. Our operators finally have the tools they deserve.",
+      "role": "Founder"
+    },
+    "accounting": {
+      "quote": "890K+ invoices processed with zero downtime. The automation alone saved us 40 hours per week across the team.",
+      "role": "CFO"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "backToHome": "Back to Home",
+    "notFound": "Page Not Found",
+    "notFoundDescription": "The page you are looking for does not exist."
+  }
+}
