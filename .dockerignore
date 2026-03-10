@@ -1,0 +1,15 @@
+node_modules
+.next
+.git
+.github
+tests
+*.md
+.env*
+.gitignore
+.eslintrc*
+eslint.config.*
+vitest.config.*
+playwright.config.*
+tsconfig.tsbuildinfo
+Dockerfile
+docker-compose.yml
