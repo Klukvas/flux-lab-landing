@@ -17,10 +17,10 @@ export function generatePageMetadata({
   locale = 'en',
 }: GenerateMetadataParams): Metadata {
   const url = `${SITE_URL}/${locale}${path}`;
-  const ogImage = image ?? `${SITE_URL}/og-default.png`;
+  const ogImage = image ?? '/og-default.png';
 
   return {
-    title: `${title} | ${SITE_NAME}`,
+    title,
     description,
     alternates: {
       canonical: url,
@@ -34,7 +34,7 @@ export function generatePageMetadata({
       description,
       url,
       siteName: SITE_NAME,
-      images: [{ url: ogImage, width: 1200, height: 630 }],
+      images: [{ url: ogImage, width: 1200, height: 630, alt: title }],
       locale: locale === 'uk' ? 'uk_UA' : 'en_US',
       type: 'website',
     },

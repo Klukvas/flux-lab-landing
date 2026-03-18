@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Container } from "@/components/ui";
@@ -59,8 +60,15 @@ export function Footer() {
             <div>
               <Link
                 href="/"
-                className="text-xl font-semibold text-foreground"
+                className="flex items-center gap-2 text-xl font-semibold text-foreground"
               >
+                <Image
+                  src="/logo.png"
+                  alt="fluxLab.dev"
+                  width={28}
+                  height={28}
+                  className="h-7 w-7"
+                />
                 fluxLab.dev
               </Link>
               <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">

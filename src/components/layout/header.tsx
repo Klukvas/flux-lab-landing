@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { navigationItems } from "@/data/navigation";
@@ -15,7 +16,17 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-gray-200/50 bg-white/70 backdrop-blur-xl dark:border-gray-800/50 dark:bg-gray-950/70">
       <Container>
         <div className="flex h-16 items-center justify-between">
-          <Link href="/" className="text-xl font-semibold text-foreground">
+          <Link
+            href="/"
+            className="flex items-center gap-2 text-xl font-semibold text-foreground"
+          >
+            <Image
+              src="/logo.png"
+              alt="fluxLab.dev"
+              width={32}
+              height={32}
+              className="h-8 w-8"
+            />
             fluxLab.dev
           </Link>
 
