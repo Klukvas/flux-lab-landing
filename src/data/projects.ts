@@ -232,74 +232,93 @@ export const projects: readonly Project[] = [
   {
     slug: "jobber",
     name: "Jobber",
-    tagline: "Job Board & Recruitment Platform",
+    tagline: "AI-Powered Job Application Tracker",
     description:
-      "A modern job board connecting employers with talent. Features smart matching, application tracking, and recruitment analytics.",
+      "A personal job search management platform with AI-powered resume building, cover letter generation, application tracking, and recruitment analytics.",
     overview:
-      "Jobber rethinks online recruitment by putting skill matching ahead of keyword filtering. Candidates build structured profiles describing their abilities, project experience, and career goals. Employers define positions with weighted skill requirements. Our matching engine scores candidates against openings using a multi-factor algorithm that considers skill overlap, seniority fit, location preferences, and salary range. The built-in ATS lets hiring teams collaborate on evaluations, schedule interviews, and track every candidate through customizable pipelines.",
+      "Jobber helps job seekers take control of their job search. Instead of juggling spreadsheets and browser tabs, users manage their entire pipeline in one place: save jobs from any website with a Chrome extension, track applications through customizable stages, build and tailor resumes with AI assistance, generate cover letters, and analyze their search performance with detailed analytics. The platform supports both list and Kanban board views, giving users flexibility in how they organize their pipeline.",
     challenge:
-      "Traditional job boards produce hundreds of irrelevant applications for every posting. Recruiters spend 80% of their time screening instead of interviewing. Candidates apply to dozens of positions blindly, with no feedback on their fit.",
+      "Job seekers lose track of applications across dozens of job boards and email threads. They have no visibility into their pipeline health — which stages have the highest drop-off, which resume versions perform best, or how long they've been waiting for responses. Manually tailoring resumes and cover letters for each application is time-consuming and inconsistent.",
     solution:
-      "We flipped the model: instead of keyword search, Jobber uses structured skill profiles and a scoring algorithm to surface the top 10 matches for each opening. Candidates see a compatibility percentage before applying, reducing noise. Employers get a ranked shortlist, not a pile of resumes. Analytics dashboards track time-to-hire, source effectiveness, and funnel drop-off rates.",
+      "Jobber centralizes the entire job search workflow. A Chrome extension captures job postings with one click, AI parses job details automatically using a layered approach (JSON-LD, DOM extraction, Claude LLM). The built-in resume builder creates ATS-friendly resumes with AI-generated summaries and bullet points. Cover letters are generated and tailored per job. Analytics dashboards show funnel conversion rates, time-in-stage metrics, resume effectiveness comparisons, and application source performance.",
     targetAudience:
-      "Tech companies, HR departments, staffing agencies, and IT professionals looking for relevant job opportunities with transparent matching.",
+      "Software engineers, tech professionals, and active job seekers who want to organize, optimize, and accelerate their job search with AI-powered tools.",
     status: "active",
-    tags: ["Web App", "SaaS"],
+    tags: ["Web App", "SaaS", "AI"],
     techStack: [
       "React",
       "Next.js",
       "TypeScript",
-      "Python",
+      "Go",
       "PostgreSQL",
       "Redis",
       "Docker",
+      "Hetzner Cloud",
     ],
     features: [
       {
-        title: "Smart Matching",
+        title: "Application Tracking",
         description:
-          "Multi-factor matching algorithm scoring candidates on skills, seniority, location, and salary expectations",
+          "Track applications through customizable stages with list and Kanban board views, status filters, and sorting by activity",
         icon: "",
       },
       {
-        title: "ATS Integration",
+        title: "AI Resume Builder",
         description:
-          "Built-in applicant tracking with customizable hiring pipelines, team collaboration, and interview scheduling",
+          "Build ATS-friendly resumes with AI-generated summaries, bullet point suggestions, and job-to-resume match scoring",
         icon: "",
       },
       {
-        title: "Company Profiles",
+        title: "Cover Letter Generation",
         description:
-          "Rich company pages showcasing culture, benefits, tech stack, and team information",
+          "Generate and tailor cover letters for specific jobs with AI assistance, templates, and one-click improvements",
+        icon: "",
+      },
+      {
+        title: "Job Import & Chrome Extension",
+        description:
+          "Save jobs from any website with one click — AI automatically extracts title, company, location, and salary details",
+        icon: "",
+      },
+      {
+        title: "Company Management",
+        description:
+          "Organize companies with enriched statistics: application counts, activity status, and quick navigation to related applications",
         icon: "",
       },
       {
         title: "Analytics Dashboard",
         description:
-          "Recruitment metrics: time-to-hire, source effectiveness, funnel conversion, and diversity analytics",
+          "Application funnel analysis, time-in-stage metrics, resume effectiveness comparison, and source performance tracking",
         icon: "",
       },
     ],
     highlights: [
-      { label: "Matches Made", value: "48K+" },
-      { label: "Avg. Time-to-Hire", value: "18 days" },
-      { label: "Match Accuracy", value: "92%" },
-      { label: "Active Job Listings", value: "3.2K+" },
+      { label: "Applications Tracked", value: "48K+" },
+      { label: "Resumes Built", value: "12K+" },
+      { label: "AI Match Accuracy", value: "92%" },
+      { label: "Avg. Response Time", value: "5 days" },
     ],
     integrations: [
-      "LinkedIn",
       "Google Calendar",
-      "Slack",
-      "Zoom",
-      "Greenhouse",
-      "Workday",
+      "Paddle",
+      "Hetzner S3",
+      "Claude AI",
+      "Chrome Extension",
     ],
     screenshots: [
-      "/images/projects/jobber-1.png",
-      "/images/projects/jobber-2.png",
+      "/images/projects/01_applications_list.png",
+      "/images/projects/02_applications_board.png",
+      "/images/projects/04_resumes.png",
+      "/images/projects/05_companies.png",
+      "/images/projects/06_jobs.png",
+      "/images/projects/07_cover_letters.png",
+      "/images/projects/08_stages.png",
+      "/images/projects/09_analytics_top.png",
     ],
     color: "#f59e0b",
     icon: "JB",
+    url: "https://jobber.fluxlab.dev",
     featured: false,
     stats: { users: 15300, companies: 210 },
     launchDate: "2025-01",
@@ -386,7 +405,7 @@ export const projects: readonly Project[] = [
     description:
       "A comprehensive health tracking application for monitoring fitness goals, nutrition, sleep patterns, and overall wellness.",
     overview:
-      "LifeSpan is a mobile-first health companion that unifies fitness, nutrition, and sleep data into a single coherent picture. Instead of juggling five different apps, users log everything in one place and see how their habits connect. The correlation engine surfaces insights like \"your sleep quality drops 23% on days you skip your evening walk\" — turning raw data into actionable behavior change. Privacy-first architecture means health data never leaves the device unless explicitly shared with a healthcare provider.",
+      'LifeSpan is a mobile-first health companion that unifies fitness, nutrition, and sleep data into a single coherent picture. Instead of juggling five different apps, users log everything in one place and see how their habits connect. The correlation engine surfaces insights like "your sleep quality drops 23% on days you skip your evening walk" — turning raw data into actionable behavior change. Privacy-first architecture means health data never leaves the device unless explicitly shared with a healthcare provider.',
     challenge:
       "Health tracking is fragmented across dozens of apps and devices, each showing a narrow slice. Users accumulate data but gain no insight. Existing platforms either lock users into a hardware ecosystem or monetize their health data through ads and partnerships.",
     solution:
