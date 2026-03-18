@@ -1,0 +1,92 @@
+---
+title: PostgreSQL Performance Lessons From Running 6 SaaS Products
+description: Real-world PostgreSQL optimization techniques learned from operating six production SaaS databases at fluxLab.dev, including indexing, query tuning, and connection pooling.
+date: 2025-02-05
+author: fluxLab.dev
+tags: [PostgreSQL, Performance, Database, SaaS]
+---
+
+## Introduction
+
+Every SaaS product at fluxLab.dev runs on PostgreSQL. Across six products and 46,000+ users, we've accumulated practical knowledge about what makes PostgreSQL fast — and what makes it slow. These are the lessons that actually mattered in production.
+
+## Lesson 1: Indexes Are Not Free
+
+The instinct to "just add an index" backfires quickly. Every index slows down writes and consumes memory. We follow a simple rule: only add indexes that serve a real query pattern, verified with `EXPLAIN ANALYZE`.
+
+### What Worked
+
+```sql
+-- Composite index for common filter + sort pattern
+CREATE INDEX idx_applications_user_status
+ON applications (user_id, status)
+WHERE status = 'active';
+```
+
+Partial indexes are powerful. In Jobber, most queries filter by `user_id` and `status = 'active'`. A partial index on just active records is smaller and faster than a full index.
+
+### What Didn't Work
+
+Adding indexes on every foreign key by default. For small tables (under 10K rows), sequential scans are often faster than index lookups. We removed 12 unnecessary indexes across our databases and saw write performance improve by 15%.
+
+## Lesson 2: N+1 Queries Hide in ORMs
+
+We stopped using ORMs after our third product. With raw SQL and `pgx` in Go, every query is visible and intentional.
+
+### The Pattern We Use
+
+Instead of fetching an application, then its job, then its resume, then its stages — we use a single query with JOINs and aggregate the result in Go:
+
+```sql
+SELECT a.id, a.status, a.applied_date,
+       j.title as job_title,
+       r.title as resume_title,
+       s.name as current_stage
+FROM applications a
+JOIN jobs j ON j.id = a.job_id
+JOIN resumes r ON r.id = a.resume_id
+LEFT JOIN stages s ON s.id = a.current_stage_id
+WHERE a.user_id = $1
+ORDER BY a.updated_at DESC
+LIMIT 20 OFFSET $2;
+```
+
+One query instead of four. Response time dropped from 120ms to 8ms.
+
+## Lesson 3: Connection Pooling Matters More Than You Think
+
+PostgreSQL creates a new process for every connection. With 100 concurrent users, that's 100 OS processes consuming memory. We use `pgxpool` with carefully tuned settings:
+
+- **Max connections**: 25 per service instance (not 100)
+- **Min connections**: 5 (keeps warm connections ready)
+- **Max idle time**: 5 minutes
+- **Health check period**: 30 seconds
+
+For our Hetzner Cloud servers with 4GB RAM, 25 connections per service is the sweet spot. More connections actually decrease throughput due to context switching.
+
+## Lesson 4: Use EXPLAIN ANALYZE, Not EXPLAIN
+
+`EXPLAIN` shows the query plan. `EXPLAIN ANALYZE` actually runs the query and shows real execution times. The difference matters because PostgreSQL's cost estimates can be wrong.
+
+We run `EXPLAIN ANALYZE` on every query that takes more than 50ms in production logs. This catches slow queries before users complain.
+
+## Lesson 5: Timestamp Columns Need Timezone Awareness
+
+We learned this the hard way with WashFlow. Use `TIMESTAMPTZ` (timestamp with time zone), not `TIMESTAMP`. Store everything in UTC. Convert to local time only in the frontend.
+
+```sql
+created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+```
+
+## Lesson 6: Soft Deletes Create Query Complexity
+
+We tried soft deletes (adding a `deleted_at` column) in our Accounting product. Every query needed `WHERE deleted_at IS NULL`, and we missed it in several places. Now we prefer hard deletes with proper foreign key constraints and a separate audit log table when we need history.
+
+## Lesson 7: Migrations Must Be Reversible
+
+Every migration at fluxLab.dev has both `up` and `down` scripts. We use `golang-migrate` and test rollbacks in staging before deploying to production. This has saved us twice when a migration caused unexpected issues.
+
+## Conclusion
+
+PostgreSQL is remarkably capable out of the box. Most performance issues we've encountered were caused by our own mistakes: missing indexes, N+1 queries, too many connections, or wrong column types. The best optimization is writing correct queries from the start — and measuring everything with `EXPLAIN ANALYZE`.

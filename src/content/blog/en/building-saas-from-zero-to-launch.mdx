@@ -1,0 +1,98 @@
+---
+title: Building a SaaS Product From Zero to Launch in 8 Weeks
+description: The step-by-step playbook fluxLab.dev uses to take SaaS products from idea to production, covering architecture, MVP scoping, deployment, and launch.
+date: 2025-03-05
+author: fluxLab.dev
+tags: [SaaS, Startup, Architecture, DevOps]
+---
+
+## Introduction
+
+At fluxLab.dev, we've launched six SaaS products. Each launch taught us something new about speed, scope, and what actually matters for day one. This is our playbook for going from zero to production in 8 weeks.
+
+## Week 1–2: Scope and Architecture
+
+The most important decision happens before you write a single line of code: defining what the MVP is NOT.
+
+### Ruthless Scoping
+
+For every feature idea, we ask: "Will users pay for this in the first month?" If the answer isn't a clear yes, it goes to the backlog. When we built Jobber, the MVP had four features: application tracking, resume upload, job import, and a basic Kanban board. No AI, no analytics, no cover letters. Those came later.
+
+### Tech Stack Selection
+
+Our default stack for new products:
+
+- **Frontend**: Next.js + TypeScript + Tailwind CSS
+- **Backend**: Go with chi router and pgx
+- **Database**: PostgreSQL + Redis
+- **Infrastructure**: Docker + Hetzner Cloud + GitHub Actions
+- **Payments**: Paddle (for SaaS billing, tax handling)
+
+We pick boring, proven technologies. Innovation should be in the product, not the infrastructure.
+
+## Week 3–4: Core Development
+
+### Database-First Design
+
+We design the database schema before writing application code. PostgreSQL migrations using golang-migrate ensure every schema change is versioned and reversible.
+
+### API-First Development
+
+The backend API is defined and documented before the frontend starts consuming it. We use Swagger for API documentation, which serves as the contract between frontend and backend developers.
+
+### Parallel Development
+
+Frontend and backend teams work simultaneously against the API contract. The frontend uses mock data initially, then switches to the real API as endpoints become available.
+
+## Week 5–6: Integration and Polish
+
+### Authentication
+
+We implement JWT-based authentication with refresh token rotation. Email verification and password reset flows are non-negotiable for launch.
+
+### Payment Integration
+
+Paddle handles subscription billing, tax calculation, and invoicing. We integrate webhooks to sync subscription status and enforce plan limits.
+
+### Error Handling
+
+Every API endpoint returns structured error responses. The frontend displays user-friendly messages. The backend logs detailed context for debugging.
+
+## Week 7: Testing and Security
+
+### Testing Strategy
+
+- **Unit tests** for business logic (80%+ coverage target)
+- **Integration tests** for API endpoints with a real database
+- **Manual QA** for critical user flows
+
+### Security Checklist
+
+Before launch, we verify: no hardcoded secrets, all inputs validated, SQL injection prevented, CORS configured, rate limiting enabled, and HTTPS enforced.
+
+## Week 8: Deployment and Launch
+
+### Infrastructure Setup
+
+Our deployment pipeline: GitHub Actions builds a Docker image, pushes to registry, SSHs to the server, pulls the new image, and restarts with zero downtime.
+
+### Monitoring
+
+Health check endpoints verify PostgreSQL and Redis connectivity. Structured JSON logs make it easy to search and alert on errors.
+
+### Launch Day
+
+We deploy on Monday morning (Kyiv time), monitor closely for 48 hours, and fix any issues immediately. Having the entire team available during launch week is critical.
+
+## What We've Learned
+
+After six launches, our biggest lessons:
+
+1. **Ship smaller, ship sooner** — a working MVP with 4 features beats a planned product with 20
+2. **Pick boring tech** — reliability matters more than novelty
+3. **Automate deployment early** — manual deploys don't scale past the first week
+4. **Talk to users immediately** — real feedback beats assumptions every time
+
+## Conclusion
+
+Building a SaaS product doesn't require a massive team or months of development. With the right stack, clear scope, and disciplined execution, a small team can go from idea to paying customers in 8 weeks. At fluxLab.dev, this playbook has worked six times — and counting.

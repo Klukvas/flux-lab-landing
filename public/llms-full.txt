@@ -1,0 +1,72 @@
+# fluxLab.dev — Full Context for LLMs
+
+> Kyiv-based software development studio building production SaaS products. 6 live products, 46K+ users, 800+ companies.
+
+## Company Overview
+
+fluxLab.dev is a software development studio founded in Kyiv, Ukraine. We specialize in building end-to-end SaaS products — from architecture and design to deployment and scaling. Our team has shipped six production products, each solving real business problems in different verticals: energy management, laundry operations, financial accounting, job search, e-commerce, and health tracking.
+
+We are not an outsourcing agency. We build our own products and also help clients build theirs using the same battle-tested stack and processes.
+
+## Products in Detail
+
+### EFluxCom — Smart Energy Management
+- URL: https://efluxcom.com
+- Status: Active (launched March 2024)
+- Users: 12,400 | Companies: 85
+- Description: Comprehensive energy management system for monitoring, analyzing, and optimizing power consumption across commercial and residential properties. AI engine analyzes patterns and recommends load-shifting strategies cutting costs by up to 30%.
+- Tech: React, Next.js, TypeScript, Node.js, PostgreSQL, Redis, Docker, AWS
+
+### WashFlow — Laundry Business Management
+- URL: https://washflow.app
+- Status: Active (launched May 2024)
+- Users: 8,700 | Companies: 120
+- Description: All-in-one management platform for laundry businesses. Barcode-driven workflow engine, route optimization, integrated CRM with loyalty programs.
+- Tech: React, Next.js, TypeScript, NestJS, PostgreSQL, React Native, Docker
+
+### Accounting — Financial Management
+- Status: Active (launched June 2024)
+- Users: 6,200 | Companies: 340
+- Description: Streamlined accounting for SMBs in Ukraine/Eastern Europe. Multi-currency, automatic VAT, bank sync with Monobank/PrivatBank, 1C/BAS export.
+- Tech: React, TypeScript, Node.js, PostgreSQL, Redis, Docker, AWS
+
+### Jobber — AI-Powered Job Application Tracker
+- URL: https://jobber.fluxlab.dev
+- Status: Active (launched January 2025)
+- Users: 15,300 | Companies: 210
+- Description: Personal job search management platform. Chrome extension imports jobs. AI (Claude) parses job details via layered approach (JSON-LD, DOM, LLM). Resume builder with AI summaries. Cover letter generation. Application tracking (list + Kanban). Analytics with funnel, time-in-stage, resume effectiveness, source performance.
+- Tech: Go (chi, pgx), Next.js, TypeScript, PostgreSQL, Redis, Docker, Hetzner Cloud, Caddy
+- AI: Claude API (Haiku for parsing, Sonnet for generation)
+- Payments: Paddle
+
+### Market — E-Commerce Marketplace
+- Status: Beta (launched February 2025)
+- Users: 3,400 | Companies: 45
+- Description: White-label multi-vendor marketplace. Plugin architecture, split payments, escrow, Elasticsearch search.
+- Tech: React, Next.js, TypeScript, Node.js, PostgreSQL, Redis
+
+### LifeSpan — Health Tracking
+- Status: Coming Soon (Q3 2025)
+- Description: Mobile-first health companion. Privacy-first with on-device ML.
+- Tech: React Native, TypeScript, Node.js, PostgreSQL, Redis
+
+## Technical Expertise
+
+Languages: TypeScript, Go, SQL
+Frontend: React, Next.js, Tailwind CSS, React Native
+Backend: Go (chi, pgx), Node.js, NestJS
+Databases: PostgreSQL 16, Redis
+Infrastructure: Docker, Hetzner Cloud, Caddy, GitHub Actions, Terraform
+AI: Claude API (Anthropic) — layered approach, model selection by task
+
+## Development Process
+
+8-week MVP cycle: Scope → Database-first design → API-first development → Parallel frontend/backend → Testing (80%+ coverage) → Security review → Docker deployment → Launch
+
+## Contact
+
+- Website: https://fluxlab.dev
+- Email: hello@fluxlab.dev
+- Location: Kyiv, Ukraine
+- GitHub: https://github.com/fluxlab
+- Blog: https://fluxlab.dev/en/blog

@@ -1,0 +1,89 @@
+---
+title: Why We Chose Go for Our SaaS Backend at fluxLab.dev
+description: How fluxLab.dev migrated from Node.js to Go for production SaaS backends and achieved 3x throughput improvement with lower memory usage.
+date: 2025-02-20
+author: fluxLab.dev
+tags: [Go, Backend, SaaS, Architecture]
+---
+
+## Introduction
+
+At fluxLab.dev, we build and maintain six production SaaS products serving over 46,000 users. When we started building Jobber — our AI-powered job application tracker — we made a deliberate choice to use Go instead of Node.js for the backend. Here's why, and what we learned.
+
+## The Problem with Node.js at Scale
+
+Node.js served us well for our earlier products like WashFlow and EFluxCom. But as traffic grew, we hit familiar pain points:
+
+- **Memory consumption** climbed unpredictably under load
+- **CPU-bound operations** (PDF generation, AI response parsing) blocked the event loop
+- **Dependency bloat** made Docker images large and slow to deploy
+- **Error handling** with async/await chains became hard to trace
+
+We needed something with better concurrency primitives, lower resource usage, and a simpler deployment story.
+
+## Why Go?
+
+After evaluating Rust, Go, and staying with Node.js + worker threads, we chose Go for several reasons:
+
+### Concurrency Model
+
+Go's goroutines and channels handle thousands of concurrent connections with minimal overhead. For Jobber, where users trigger AI parsing jobs, calendar syncs, and webhook processing simultaneously, this was critical.
+
+### Compilation and Deployment
+
+A single static binary. No `node_modules`, no runtime dependencies. Our Docker images dropped from 400MB to 12MB. CI/CD pipelines run 4x faster.
+
+### Standard Library
+
+Go's standard library covers HTTP servers, JSON handling, cryptography, and database drivers without external dependencies. We use only a handful of third-party packages: `pgx` for PostgreSQL, `chi` for routing, and `golang-migrate` for database migrations.
+
+### Error Handling
+
+Go's explicit error handling felt verbose at first but proved invaluable in production. Every error path is visible, logged, and handled. No more silent promise rejections.
+
+## Architecture Decisions
+
+Our Go backend follows a clean layered architecture:
+
+```
+/cmd/api         → Application entry point
+/internal/handler → HTTP handlers (thin layer)
+/internal/service → Business logic
+/internal/repository → Database access (pgx)
+/internal/model  → Domain models
+/internal/middleware → Auth, CORS, rate limiting
+```
+
+Key patterns we adopted:
+
+- **Repository pattern** with interfaces for testability
+- **Dependency injection** via constructor functions — no framework magic
+- **Context propagation** for request-scoped values and cancellation
+- **Structured logging** with `slog` for JSON log output
+
+## Results After 6 Months
+
+Comparing Jobber's Go backend with similar Node.js services:
+
+- **Memory usage**: 30MB idle vs 180MB (6x reduction)
+- **Throughput**: 12,000 req/s vs 4,000 req/s on the same hardware
+- **P99 latency**: 8ms vs 25ms for API endpoints
+- **Docker image**: 12MB vs 400MB
+- **Cold start**: 50ms vs 2s
+
+## Lessons Learned
+
+Go isn't perfect. Here's what tripped us up:
+
+- **Generics** are still limited compared to TypeScript's type system
+- **ORM alternatives** are weaker — we use raw SQL with `pgx` and are happier for it
+- **Frontend developers** need ramp-up time if they're used to JavaScript everywhere
+- **Testing** requires more boilerplate for mocks compared to Jest
+
+## When We Still Use Node.js
+
+We haven't abandoned Node.js entirely. Our Next.js frontends still run on Node.js, and for quick internal tools, TypeScript remains faster to prototype with. The key insight: pick the right tool for the job.
+
+## Conclusion
+
+For CPU-efficient, memory-lean backend services that need to handle concurrent workloads reliably, Go has been a clear win for fluxLab.dev. If you're building a SaaS product and hitting scaling walls with Node.js, Go deserves serious consideration.

@@ -1,0 +1,42 @@
+# fluxLab.dev
+
+> Kyiv-based software development studio building production SaaS products.
+
+## About
+
+fluxLab.dev is a software development studio based in Kyiv, Ukraine. We build, ship, and scale SaaS products. We have 6 live production products serving 46,000+ users across 800+ companies.
+
+## Products
+
+- [EFluxCom](https://efluxcom.com): Smart energy management platform for monitoring and optimizing power consumption. 12,400 users, 85 companies. Tech: React, Next.js, TypeScript, Node.js, PostgreSQL, AWS.
+- [WashFlow](https://washflow.app): All-in-one laundry business management suite with order tracking, route optimization, and customer portal. 8,700 users, 120 companies. Tech: React, Next.js, TypeScript, NestJS, PostgreSQL, React Native.
+- [Accounting](https://fluxlab.dev/en/projects/accounting): Modern financial management platform for SMBs in Ukraine and Eastern Europe. Automated invoicing, expense tracking, VAT calculations, 1C/BAS export. 6,200 users, 340 companies.
+- [Jobber](https://jobber.fluxlab.dev): AI-powered job application tracker with resume builder, cover letter generation, job import via Chrome extension, and recruitment analytics. Built with Go, Next.js, PostgreSQL, Claude AI. 15,300 users.
+- [Market](https://fluxlab.dev/en/projects/market): Multi-vendor e-commerce marketplace platform with split payments, Elasticsearch, and seller management. Beta.
+- [LifeSpan](https://fluxlab.dev/en/projects/lifespan): Health and wellness tracking mobile app. Coming soon.
+
+## Tech Stack
+
+- Frontend: React, Next.js, TypeScript, Tailwind CSS, React Native
+- Backend: Go, Node.js, NestJS
+- Databases: PostgreSQL, Redis
+- DevOps: Docker, Hetzner Cloud, GitHub Actions, Terraform
+- AI: Claude API (Anthropic)
+- Payments: Paddle, Stripe, LiqPay
+
+## Team
+
+Small, senior team based in Kyiv, Ukraine. 3+ years of experience building production SaaS products together.
+
+## Contact
+
+- Website: https://fluxlab.dev
+- Email: hello@fluxlab.dev
+- Location: Kyiv, Ukraine
+- GitHub: https://github.com/fluxlab
+
+## Blog
+
+Technical blog covering Go backend development, React performance, PostgreSQL optimization, Docker deployment, AI integration, multi-language apps, and SaaS product building.
+
+Blog URL: https://fluxlab.dev/en/blog

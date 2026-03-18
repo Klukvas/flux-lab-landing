@@ -1,0 +1,133 @@
+---
+title: Building Multi-Language Next.js Apps With next-intl
+description: How fluxLab.dev implements internationalization in Next.js applications using next-intl, supporting English and Ukrainian with SEO-friendly URL routing.
+date: 2025-01-15
+author: fluxLab.dev
+tags: [Next.js, i18n, TypeScript, SEO]
+---
+
+## Introduction
+
+All fluxLab.dev websites support multiple languages. Our portfolio site serves English and Ukrainian, and our products like Jobber are built with internationalization from day one. We use `next-intl` with Next.js App Router for a clean, type-safe implementation.
+
+## Why next-intl?
+
+We evaluated three options:
+
+- **next-intl**: First-class App Router support, type-safe message access, SEO-friendly routing
+- **next-i18next**: Mature but designed for Pages Router, awkward with App Router
+- **react-intl**: Low-level, requires more boilerplate
+
+`next-intl` won because it integrates naturally with Server Components and provides locale-prefixed routes (`/en/projects`, `/uk/projects`) out of the box.
+
+## Project Structure
+
+```
+src/
+  i18n/
+    config.ts      → Locale definitions
+    routing.ts     → Route configuration
+    request.ts     → Server-side locale resolution
+    navigation.ts  → Localized Link and redirect
+  messages/
+    en.json        → English translations
+    uk.json        → Ukrainian translations
+  app/
+    [locale]/
+      page.tsx     → Locale-aware pages
+      layout.tsx   → Locale provider
+```
+
+## Translation Files
+
+We organize translations by page/feature, not by component:
+
+```json
+{
+  "metadata": {
+    "title": "fluxLab.dev — Software Development Studio",
+    "description": "We build modern web & mobile applications."
+  },
+  "nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "services": "Services"
+  },
+  "projects": {
+    "title": "Our Projects",
+    "visitSite": "Visit Site",
+    "features": "Key Features"
+  }
+}
+```
+
+This structure scales better than per-component files because related translations stay together.
+
+## Server Components
+
+In Server Components, use `getTranslations`:
+
+```tsx
+export default async function ProjectsPage() {
+  const t = await getTranslations('projects');
+  return <h1>{t('title')}</h1>;
+}
+```
+
+No client-side JavaScript added. The translation resolves at build time for static pages.
+
+## Client Components
+
+For interactive components, use `useTranslations`:
+
+```tsx
+'use client';
+
+export function Header() {
+  const t = useTranslations('nav');
+  return <nav>{t('home')}</nav>;
+}
+```
+
+## SEO Considerations
+
+Multi-language sites need extra SEO attention:
+
+### Locale-Prefixed URLs
+
+Every page has a unique URL per language: `/en/projects/jobber` and `/uk/projects/jobber`. Search engines index each version separately.
+
+### Hreflang Tags
+
+We generate alternate language links in metadata:
+
+```tsx
+alternates: {
+  canonical: url,
+  languages: {
+    en: `${SITE_URL}/en${path}`,
+    uk: `${SITE_URL}/uk${path}`,
+  },
+}
+```
+
+This tells Google which version to show to Ukrainian vs. English speakers.
+
+### Translated Meta Descriptions
+
+Every page has unique meta descriptions per language — not just translated titles. This improves click-through rates for each locale.
+
+### Sitemap Coverage
+
+Our sitemap generates URLs for every page × every locale combination. For our portfolio site with 6 projects and 10 blog posts, that's ~60 sitemap entries ensuring complete coverage.
+
+## Common Pitfalls
+
+1. **Don't translate URLs** — `/uk/проекти` looks clever but breaks bookmarks and analytics
+2. **Don't auto-redirect by IP** — let users choose their language, search engines need to access all versions
+3. **Don't forget the default locale** — redirect `/projects` to `/en/projects` consistently
+4. **Do translate alt text** — images need localized descriptions for accessibility and SEO
+
+## Conclusion
+
+`next-intl` makes internationalization straightforward in Next.js App Router applications. With proper SEO setup (hreflang, localized sitemaps, translated metadata), multi-language support becomes a competitive advantage rather than a maintenance burden.

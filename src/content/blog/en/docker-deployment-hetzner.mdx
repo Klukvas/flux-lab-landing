@@ -1,0 +1,136 @@
+---
+title: Deploying SaaS Products With Docker on Hetzner Cloud
+description: A practical guide to deploying containerized SaaS applications on Hetzner Cloud with Docker Compose, automated CI/CD, and zero-downtime deployments.
+date: 2025-01-25
+author: fluxLab.dev
+tags: [Docker, DevOps, Hetzner, CI/CD]
+---
+
+## Introduction
+
+At fluxLab.dev, all six of our production SaaS products run on Hetzner Cloud. We chose Hetzner over AWS for a simple reason: cost. A CX31 instance (4 vCPU, 8GB RAM) costs €8.50/month — roughly 5x cheaper than equivalent AWS instances. For bootstrapped SaaS products, this matters.
+
+## Our Stack
+
+Every product follows the same deployment pattern:
+
+- **Docker Compose** for container orchestration
+- **Caddy** as reverse proxy with automatic HTTPS
+- **GitHub Actions** for CI/CD
+- **Hetzner Object Storage** for file uploads (S3-compatible)
+
+## Docker Compose Setup
+
+A typical production `docker-compose.yml` for our products:
+
+```yaml
+services:
+  app:
+    image: registry/app:latest
+    restart: unless-stopped
+    environment:
+      - DATABASE_URL=postgres://...
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+```
+
+### Why Caddy Over Nginx
+
+Caddy provides automatic HTTPS with Let's Encrypt — no certbot setup, no certificate renewal cron jobs. The Caddyfile is readable:
+
+```
+jobber.fluxlab.dev {
+    reverse_proxy app:3000
+}
+```
+
+That's it. HTTPS just works.
+
+## CI/CD Pipeline
+
+Our GitHub Actions workflow builds Docker images, pushes them to the registry, and deploys with SSH:
+
+### Build Stage
+
+The build stage uses Docker Buildx with layer caching. For our Next.js frontends, this brings build times from 8 minutes to under 2 minutes on subsequent builds.
+
+### Deploy Stage
+
+Deployment is a simple SSH script: pull the new image, restart the service. Docker Compose handles the rest.
+
+```yaml
+- name: Deploy
+  run: |
+    ssh deploy@${{ secrets.SERVER_IP }} << 'EOF'
+      cd /opt/app
+      docker compose pull app
+      docker compose up -d app
+    EOF
+```
+
+## Zero-Downtime Deployments
+
+For zero-downtime deployments, we rely on Docker Compose's rolling update behavior with health checks. The new container starts, passes its health check, and only then does the old container stop.
+
+## Monitoring
+
+### Health Checks
+
+Every service exposes a `/health` endpoint that verifies database and Redis connectivity. We check this endpoint every 30 seconds.
+
+### Logs
+
+All services output structured JSON logs. We use `docker compose logs -f --since 1h` for real-time debugging and rotate logs with Docker's built-in log rotation.
+
+## Cost Breakdown
+
+Running Jobber in production on Hetzner:
+
+- **CX31 server** (4 vCPU, 8GB RAM): €8.50/month
+- **100GB volume** for PostgreSQL: €4.40/month
+- **Object Storage** (S3): ~€2/month
+- **Total**: ~€15/month
+
+Compare this to AWS (t3.medium + RDS + S3): ~€80/month minimum. For a bootstrapped SaaS product, this 5x cost difference is significant.
+
+## Lessons Learned
+
+1. **Health checks are essential** — without them, Docker restarts broken containers instantly, causing restart loops
+2. **Always use volumes for databases** — losing PostgreSQL data is not recoverable
+3. **Pin image versions** — `postgres:16-alpine`, not `postgres:latest`
+4. **Automate everything** — manual deploys are the #1 source of production incidents
+5. **Keep secrets in environment variables** — never commit `.env` files to git
+
+## Conclusion
+
+Docker on Hetzner Cloud gives fluxLab.dev production-grade infrastructure at a fraction of cloud provider costs. For SaaS products with predictable traffic patterns, dedicated servers with Docker Compose are simpler and cheaper than Kubernetes or serverless architectures.

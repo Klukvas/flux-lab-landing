@@ -1,0 +1,103 @@
+---
+title: How We Built an AI-Powered Job Application Tracker
+description: The technical story behind Jobber by fluxLab.dev — building a job search management platform with AI resume matching, automated job parsing, and analytics.
+date: 2025-03-15
+author: fluxLab.dev
+tags: [AI, Jobber, Product, Go]
+---
+
+## Introduction
+
+Jobber started as an internal tool. Engineers at fluxLab.dev were tracking job applications in spreadsheets — losing track of which resume went where, which companies they'd heard back from, and which interviews were next. We built Jobber to solve our own problem, then realized every job seeker has the same pain.
+
+## The Problem
+
+Job searching is chaotic. A typical active job seeker:
+
+- Applies to 20-50 positions across multiple job boards
+- Has 2-3 resume versions for different role types
+- Tracks applications in a spreadsheet that becomes outdated within a week
+- Misses follow-up deadlines because there's no reminder system
+- Has no idea which resume version or application source performs best
+
+## The Solution: Jobber
+
+Jobber is a personal job search management platform. It handles the entire pipeline from finding a job to tracking the outcome:
+
+### Job Import
+
+Users save jobs from any website using a Chrome extension. When they click "Save to Jobber," the extension captures the page content and sends it to our backend.
+
+The backend uses a three-layer parsing approach:
+
+1. **JSON-LD extraction** — structured data from LinkedIn, Indeed, Glassdoor (45% of imports)
+2. **DOM pattern matching** — site-specific selectors for known job boards (30%)
+3. **Claude AI fallback** — LLM extracts job details from raw page text (19%)
+
+This layered approach achieves a 94% success rate while keeping AI costs minimal.
+
+### Application Tracking
+
+Applications are organized in both list and Kanban board views. Users can:
+
+- Track status: Applied → Screening → Interview → Offer → Rejected
+- Add notes and comments at each stage
+- Set custom stage templates that match their interview process
+- Filter by company, status, or date range
+
+### AI Resume Builder
+
+Jobber includes a full resume builder with AI assistance:
+
+- **Section management**: Work experience, education, skills, projects, certifications
+- **AI summary generation**: Creates a professional summary from work history
+- **Bullet point suggestions**: Generates achievement-focused bullet points
+- **ATS compatibility check**: Ensures resume format works with applicant tracking systems
+
+### Resume-to-Job Match Score
+
+Users can check how well their resume matches a specific job posting. The AI analyzes:
+
+- Skill overlap (technical and soft skills)
+- Experience level alignment
+- Missing keywords
+- Category-by-category breakdown
+
+This helps users decide whether to apply or tailor their resume first.
+
+### Cover Letter Generation
+
+For each application, Jobber generates a tailored cover letter based on:
+
+- The job description and requirements
+- The user's resume content
+- Company information
+
+Users can edit, improve, or regenerate cover letters with AI assistance.
+
+### Analytics
+
+The analytics dashboard provides insights that spreadsheets can't:
+
+- **Application funnel**: Conversion rates through each stage
+- **Time in stages**: Average days spent waiting at each step
+- **Resume effectiveness**: Which resume versions get the best response rates
+- **Source performance**: Which job boards produce the most interviews
+- **Response rate**: Overall and per-company callback rates
+
+## Tech Stack
+
+- **Frontend**: Next.js, TypeScript, Tailwind CSS
+- **Backend**: Go with chi router, pgx for PostgreSQL
+- **Database**: PostgreSQL + Redis
+- **AI**: Claude API (Haiku for parsing, Sonnet for generation)
+- **Infrastructure**: Docker, Hetzner Cloud, Caddy
+- **Payments**: Paddle for subscription billing
+
+## What's Next
+
+We're working on Google Calendar integration for scheduling interviews directly from Jobber, reminder notifications for follow-ups, and a tagging system for organizing applications by priority.
+
+## Conclusion
+
+Jobber proves that AI features don't need to be the entire product — they enhance a solid workflow. The core value is organization and visibility. AI makes it faster and smarter. If you're actively job searching, give Jobber a try at jobber.fluxlab.dev.
