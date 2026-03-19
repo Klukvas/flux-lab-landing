@@ -34,22 +34,28 @@ export function ProjectCard({ project }: ProjectCardProps) {
               {project.name}
             </h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">
-              {project.tagline}
+              {t.has(`${project.slug}.tagline`)
+                ? t(`${project.slug}.tagline`)
+                : project.tagline}
             </p>
           </div>
         </div>
-        <Badge variant={statusVariant[project.status]}>{project.status}</Badge>
+        <Badge variant={statusVariant[project.status]}>
+          {t.has(`status.${project.status}`)
+            ? t(`status.${project.status}`)
+            : project.status}
+        </Badge>
       </div>
 
       <p className="mt-4 text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
-        {project.description}
+        {t.has(`${project.slug}.description`)
+          ? t(`${project.slug}.description`)
+          : project.description}
       </p>
 
       <div className="mt-4 flex flex-wrap gap-1.5">
         {project.tags.map((tag) => (
-          <Badge key={tag}>
-            {tag}
-          </Badge>
+          <Badge key={tag}>{tag}</Badge>
         ))}
       </div>
 

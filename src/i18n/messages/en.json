@@ -68,6 +68,12 @@
     }
   },
   "projects": {
+    "status": {
+      "active": "Active",
+      "beta": "Beta",
+      "coming-soon": "Coming Soon",
+      "archived": "Archived"
+    },
     "title": "Our Projects",
     "subtitle": "Explore our portfolio of digital products",
     "filterAll": "All",
@@ -173,6 +179,9 @@
       "q5": "Do you work with startups?",
       "a5": "Absolutely. We offer flexible engagement models that scale with your budget. Several of our own products started as lean MVPs."
     },
+    "outsourcingFeatures": ["Dedicated development teams", "Flexible scaling", "Seamless integration", "Regular reporting"],
+    "consultingFeatures": ["Architecture review", "Technology assessment", "Performance audit", "Security analysis"],
+    "customFeatures": ["Full-stack development", "Mobile applications", "API development", "Cloud infrastructure"],
     "process": {
       "title": "Our Process",
       "step": "Step",
@@ -214,7 +223,25 @@
     },
     "team": {
       "title": "Our Team",
-      "subtitle": "Meet the people behind the products"
+      "subtitle": "Meet the people behind the products",
+      "members": {
+        "0": {
+          "role": "Founder & Lead Developer",
+          "bio": "Full-stack developer with 8+ years of experience building scalable web applications. Architected all six fluxLab products from the ground up."
+        },
+        "1": {
+          "role": "Frontend Developer",
+          "bio": "React specialist focused on building beautiful, accessible user interfaces. Leads the design system powering all fluxLab products."
+        },
+        "2": {
+          "role": "Backend Developer",
+          "bio": "Backend engineer specializing in Node.js, databases, and cloud infrastructure. Built the API layer handling 890K+ monthly transactions."
+        },
+        "3": {
+          "role": "UI/UX Designer",
+          "bio": "Designer crafting intuitive and visually compelling digital experiences. Responsible for the UX across all six products in the portfolio."
+        }
+      }
     },
     "timeline": {
       "2021": {
