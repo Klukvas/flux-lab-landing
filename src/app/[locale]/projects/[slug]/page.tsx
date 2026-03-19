@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { getProjectBySlug, getProjectSlugs } from "@/data/projects";
 import { generatePageMetadata } from "@/lib/metadata";
 import { locales } from "@/i18n/config";
+import type { ProjectScreenshot } from "@/types";
 import { ProjectHero } from "@/components/projects/project-hero";
 import { ProjectOverview } from "@/components/projects/project-overview";
 import { ProjectChallenge } from "@/components/projects/project-challenge";
@@ -47,6 +48,35 @@ export default async function ProjectDetailPage({
 
   const t = await getTranslations("projects");
 
+  const i18nKey = `${slug}Screenshots` as const;
+  const localizedScreenshots: ProjectScreenshot[] = project.screenshots.map(
+    (screenshot, idx) => {
+      const key = `${i18nKey}.${idx}` as Parameters<typeof t>[0];
+      const hasTranslation = t.has(key);
+      if (!hasTranslation) return screenshot;
+
+      const titleKey = `${i18nKey}.${idx}.title` as Parameters<typeof t>[0];
+      const descKey = `${i18nKey}.${idx}.description` as Parameters<
+        typeof t
+      >[0];
+
+      const features: string[] = [];
+      for (let i = 0; i < screenshot.features.length; i++) {
+        const fKey = `${i18nKey}.${idx}.features.${i}` as Parameters<
+          typeof t
+        >[0];
+        features.push(t.has(fKey) ? t(fKey) : screenshot.features[i]);
+      }
+
+      return {
+        src: screenshot.src,
+        title: t.has(titleKey) ? t(titleKey) : screenshot.title,
+        description: t.has(descKey) ? t(descKey) : screenshot.description,
+        features,
+      };
+    },
+  );
+
   return (
     <>
       <ProjectHero
@@ -64,9 +94,9 @@ export default async function ProjectDetailPage({
         targetAudienceLabel={t("targetAudience")}
         launchedLabel={t("launched")}
       />
-      {project.screenshots.length > 0 && (
+      {localizedScreenshots.length > 0 && (
         <ProjectShowcase
-          screenshots={project.screenshots}
+          screenshots={localizedScreenshots}
           title={t("screenshots")}
           color={project.color}
           url={project.url}
