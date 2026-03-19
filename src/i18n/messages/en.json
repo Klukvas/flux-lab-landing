@@ -205,21 +205,27 @@
   },
   "about": {
     "title": "About Us",
-    "subtitle": "The team behind fluxLab.dev",
+    "subtitle": "We build software that sells itself.",
     "mission": {
-      "title": "Our Mission",
-      "description": "We started as four developers who met on a project and discovered we build better together. After selling our first product, we went all-in on creating software that solves real problems. Today, fluxLab.dev is a product studio with six applications and a shared belief that great code changes lives."
+      "title": "We're a product studio, not an agency.",
+      "description": "We build our own SaaS products from scratch — and help clients do the same. Every architecture decision, every deployment pipeline, every performance optimization we recommend has been battle-tested on our own products first. When we say something works at scale, we have the metrics to prove it."
+    },
+    "stats": {
+      "products": "Products Live",
+      "users": "Users",
+      "companies": "Companies Served",
+      "years": "Years Building Together"
     },
     "values": {
-      "title": "Our Values",
-      "quality": "Quality First",
-      "qualityDesc": "We never compromise on code quality and user experience",
-      "innovation": "Innovation",
-      "innovationDesc": "We embrace new technologies and creative solutions",
-      "transparency": "Transparency",
-      "transparencyDesc": "Open communication and honest relationships with clients",
-      "growth": "Continuous Growth",
-      "growthDesc": "We invest in learning and professional development"
+      "title": "How We Work",
+      "quality": "Ship in 8 Weeks",
+      "qualityDesc": "Every product starts with a ruthlessly scoped MVP. We've launched six products — each went from idea to paying customers in under two months.",
+      "innovation": "Own What We Build",
+      "innovationDesc": "We don't hand off code and walk away. We operate our own products 24/7, so we know what 'production-ready' actually means.",
+      "transparency": "No Black Boxes",
+      "transparencyDesc": "Shared repos, weekly demos, direct Slack access. You see every commit, every decision, every trade-off as it happens.",
+      "growth": "Measure Everything",
+      "growthDesc": "We track response times, conversion rates, and deployment frequency across all six products. If we can't measure it, we don't ship it."
     },
     "team": {
       "title": "Our Team",
@@ -245,26 +251,31 @@
     },
     "timeline": {
       "2021": {
-        "title": "How We Met",
-        "description": "Our paths crossed on a large-scale enterprise project. Four developers from different backgrounds found themselves on the same team, and the chemistry was immediate. We shared the same drive for clean code, user-centric design, and late-night debugging sessions fueled by too much coffee."
+        "title": "Team Formed",
+        "description": "Four senior developers from enterprise backgrounds joined forces. Combined 20+ years of experience in React, Node.js, PostgreSQL, and cloud infrastructure."
       },
       "2022": {
-        "title": "The Side Project",
-        "description": "When the corporate contract ended, we weren't ready to go our separate ways. We started meeting on weekends to build a SaaS tool we wished had existed during our day jobs. What began as a casual experiment quickly turned into something real — a polished product that people actually wanted to use."
+        "title": "First Product Shipped",
+        "description": "Built and launched our first SaaS product in 10 weeks. Reached 1,000 users in the first month and attracted an acquisition offer within 6 months."
       },
       "2023": {
-        "title": "First Exit",
-        "description": "Our side project caught the attention of a larger company, and we closed our first acquisition deal. The experience was eye-opening: we realized we could build, ship, and sell software as a team. We quit our jobs and officially founded fluxLab.dev as a full-time studio."
+        "title": "Studio Founded",
+        "description": "Closed our first product exit. Used the proceeds to found fluxLab.dev as a full-time product studio. Established our 8-week MVP playbook."
       },
       "2024": {
-        "title": "Building for the Market",
-        "description": "Instead of chasing client contracts, we made a bold decision: build our own products. We launched EFluxCom, WashFlow, and our Accounting platform — each solving real problems we had observed across industries. The bet paid off as all three gained traction with paying customers."
+        "title": "3 Products, 27K Users",
+        "description": "Launched EFluxCom (energy management), WashFlow (laundry operations), and Accounting (financial management). All three reached paying customers within weeks of launch."
       },
       "2025": {
-        "title": "Scaling the Portfolio",
-        "description": "With three successful products under our belt, we expanded to six. Jobber, Market, and LifeSpan joined the lineup. Our team grew, our processes matured, and our vision sharpened: create software that works so well, it sells itself. This is just the beginning."
+        "title": "6 Products, 46K+ Users",
+        "description": "Expanded to six products with Jobber (AI job tracker), Market (e-commerce), and LifeSpan (health). Added Go to our stack. Serving 800+ companies across multiple industries."
       },
-      "title": "Our Journey"
+      "title": "Track Record"
+    },
+    "cta": {
+      "title": "Want the same team behind your next product?",
+      "description": "We bring the same stack, processes, and speed that powers our 46K+ user products.",
+      "button": "Let's Talk"
     }
   },
   "careers": {
