@@ -16,6 +16,13 @@ export interface ProjectHighlight {
   readonly value: string;
 }
 
+export interface ProjectScreenshot {
+  readonly src: string;
+  readonly title: string;
+  readonly description: string;
+  readonly features: readonly string[];
+}
+
 export interface Project {
   readonly slug: string;
   readonly name: string;
@@ -31,7 +38,7 @@ export interface Project {
   readonly features: readonly ProjectFeature[];
   readonly highlights: readonly ProjectHighlight[];
   readonly integrations: readonly string[];
-  readonly screenshots: readonly string[];
+  readonly screenshots: readonly ProjectScreenshot[];
   readonly color: string;
   readonly icon: string;
   readonly url?: string;

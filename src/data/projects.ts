@@ -67,10 +67,7 @@ export const projects: readonly Project[] = [
       "AWS IoT Core",
       "Zapier",
     ],
-    screenshots: [
-      "/images/projects/efluxcom-1.png",
-      "/images/projects/efluxcom-2.png",
-    ],
+    screenshots: [],
     color: "#22c55e",
     icon: "EF",
     url: "https://efluxcom.com",
@@ -143,10 +140,7 @@ export const projects: readonly Project[] = [
       "Mailchimp",
       "Slack",
     ],
-    screenshots: [
-      "/images/projects/washflow-1.png",
-      "/images/projects/washflow-2.png",
-    ],
+    screenshots: [],
     color: "#3b82f6",
     icon: "WF",
     url: "https://washflow.app",
@@ -219,10 +213,7 @@ export const projects: readonly Project[] = [
       "1C",
       "Nova Poshta",
     ],
-    screenshots: [
-      "/images/projects/accounting-1.png",
-      "/images/projects/accounting-2.png",
-    ],
+    screenshots: [],
     color: "#8b5cf6",
     icon: "AC",
     featured: true,
@@ -307,14 +298,108 @@ export const projects: readonly Project[] = [
       "Chrome Extension",
     ],
     screenshots: [
-      "/images/projects/01_applications_list.png",
-      "/images/projects/02_applications_board.png",
-      "/images/projects/04_resumes.png",
-      "/images/projects/05_companies.png",
-      "/images/projects/06_jobs.png",
-      "/images/projects/07_cover_letters.png",
-      "/images/projects/08_stages.png",
-      "/images/projects/09_analytics_top.png",
+      {
+        src: "/images/projects/01_applications_list.png",
+        title: "Application Tracking — List View",
+        description:
+          "The central hub for managing your job search pipeline. Every application is displayed as a card showing the job title, company, role, current status, linked resume, and timestamps.",
+        features: [
+          "Color-coded status badges: Active, Offer, Rejected, On Hold, Archived",
+          "Sort by Last Activity, Status, or Applied Date",
+          "Toggle between List and Board views",
+          "Each card shows linked resume and application/update dates",
+        ],
+      },
+      {
+        src: "/images/projects/02_applications_board.png",
+        title: "Application Tracking — Kanban Board",
+        description:
+          "Visualize your pipeline as a Kanban board organized by status or interview stage. Drag-and-drop cards between columns to update application progress instantly.",
+        features: [
+          "Two board modes: By Status and By Stage",
+          "Drag-and-drop with optimistic UI updates",
+          "Column counts show pipeline distribution at a glance",
+          "Same card details as list view — no context lost",
+        ],
+      },
+      {
+        src: "/images/projects/04_resumes.png",
+        title: "Resume Management & AI Builder",
+        description:
+          "Manage multiple resume versions — both uploaded PDFs and resumes built directly in Jobber. The AI builder generates professional summaries and bullet points tailored to your experience.",
+        features: [
+          "Filter by All, Uploaded, or Built resumes",
+          "Visual resume previews with live formatting",
+          "Sort by Last Modified, Created Date, or Title",
+          "Track which resumes are used in how many applications",
+          "Active/Inactive status to manage resume versions",
+        ],
+      },
+      {
+        src: "/images/projects/05_companies.png",
+        title: "Company Management",
+        description:
+          "Organize and track all companies you're applying to. Each card shows enriched statistics calculated from your applications — total count, active applications, last activity, and derived status.",
+        features: [
+          "Auto-derived company status: Idle, Active, Interviewing",
+          "Total and active application counts per company",
+          "Sort by Name, Last Activity, or Applications count",
+          'Quick "View Applications" link to filtered application list',
+          "Company location and notes for context",
+        ],
+      },
+      {
+        src: "/images/projects/06_jobs.png",
+        title: "Job Board & Chrome Extension Import",
+        description:
+          "Browse and manage all saved job postings. Jobs can be added manually or imported from any website with one click using the Chrome extension — AI automatically parses job details.",
+        features: [
+          "Chrome extension banner: save jobs from any website",
+          "Sort by Created Date, Job Title, or Company Name",
+          "Each card shows company, source (LinkedIn, Referral, etc.), posting link, and application count",
+          "View Posting links open the original job listing",
+          "AI-powered parsing extracts title, company, location, and salary",
+        ],
+      },
+      {
+        src: "/images/projects/07_cover_letters.png",
+        title: "AI Cover Letter Generation",
+        description:
+          "Create and manage cover letters tailored to specific jobs and companies. AI generates drafts based on the job description and your resume, which you can edit and refine.",
+        features: [
+          "Card-based gallery of all cover letters",
+          "Each letter linked to a specific company",
+          "AI generation with one-click improvements",
+          "Edit timestamps to track latest versions",
+          'Create new cover letters with the "+" button',
+        ],
+      },
+      {
+        src: "/images/projects/08_stages.png",
+        title: "Customizable Interview Stage Templates",
+        description:
+          "Define your interview pipeline stages once, then reuse them across all applications. Recommended stages can be added with one click, or create custom stages that match your process.",
+        features: [
+          "Recommended stages: Applied, Phone Screen, Technical Interview, On-site, HR, Offer, Rejected",
+          'One-click "Add All" to apply recommended stages',
+          "Custom stage creation with ordering",
+          "Edit and delete stages with confirmation",
+          "Numbered sequence for clear pipeline visualization",
+        ],
+      },
+      {
+        src: "/images/projects/09_analytics_top.png",
+        title: "Analytics Dashboard",
+        description:
+          "Get data-driven insights into your job search. The dashboard shows KPI cards, a visual application funnel with conversion rates, and additional reports for time-in-stage, resume effectiveness, and source performance.",
+        features: [
+          "KPI cards: Total Applications, Active, Closed, Response Rate, Avg. Response Time",
+          "Application Funnel: visual stage-by-stage conversion with drop-off rates",
+          "Time in Stages: average days spent at each interview step",
+          "Resume Effectiveness: compare which resume versions perform best",
+          "Application Sources: track which job boards produce the most results",
+        ],
+      },
     ],
     color: "#f59e0b",
     icon: "JB",
@@ -388,10 +473,7 @@ export const projects: readonly Project[] = [
       "Cloudinary",
       "Segment",
     ],
-    screenshots: [
-      "/images/projects/market-1.png",
-      "/images/projects/market-2.png",
-    ],
+    screenshots: [],
     color: "#ec4899",
     icon: "MK",
     featured: false,
@@ -455,10 +537,7 @@ export const projects: readonly Project[] = [
       "Withings",
       "MyFitnessPal",
     ],
-    screenshots: [
-      "/images/projects/lifespan-1.png",
-      "/images/projects/lifespan-2.png",
-    ],
+    screenshots: [],
     color: "#14b8a6",
     icon: "LS",
     featured: false,

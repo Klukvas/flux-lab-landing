@@ -2,6 +2,7 @@ export type {
   Project,
   ProjectFeature,
   ProjectHighlight,
+  ProjectScreenshot,
   ProjectStats,
   ProjectStatus,
 } from "./project";

@@ -11,7 +11,7 @@ import { ProjectHighlights } from "@/components/projects/project-highlights";
 import { ProjectTechStack } from "@/components/projects/project-tech-stack";
 import { ProjectIntegrations } from "@/components/projects/project-integrations";
 import { ProjectCta } from "@/components/projects/project-cta";
-import { ProjectScreenshots } from "@/components/projects/project-screenshots";
+import { ProjectShowcase } from "@/components/projects/project-showcase";
 
 export async function generateStaticParams() {
   const slugs = getProjectSlugs();
@@ -35,20 +35,6 @@ export async function generateMetadata({
   });
 }
 
-function screenshotPathToLabel(path: string): string {
-  const filename = path.split("/").pop() ?? "";
-  const withoutExt = filename.replace(/\.\w+$/, "");
-  const withoutPrefix = withoutExt.replace(/^\d+_/, "");
-  return (
-    withoutPrefix
-      .split(/[_-]/)
-      .filter(Boolean)
-      .filter((word) => !/^\d+$/.test(word))
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ") || filename
-  );
-}
-
 export default async function ProjectDetailPage({
   params,
 }: {
@@ -62,11 +48,6 @@ export default async function ProjectDetailPage({
   }
 
   const t = await getTranslations("projects");
-
-  const screenshots = project.screenshots.map((src) => ({
-    src,
-    alt: screenshotPathToLabel(src),
-  }));
 
   return (
     <>
@@ -85,9 +66,9 @@ export default async function ProjectDetailPage({
         targetAudienceLabel={t("targetAudience")}
         launchedLabel={t("launched")}
       />
-      {screenshots.length > 0 && (
-        <ProjectScreenshots
-          screenshots={screenshots}
+      {project.screenshots.length > 0 && (
+        <ProjectShowcase
+          screenshots={project.screenshots}
           title={t("screenshots")}
           color={project.color}
           url={project.url}
