@@ -58,7 +58,11 @@ export function Footer() {
         <div className="py-12">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             <div>
-              <Link href="/" className="flex items-center">
+              <Link
+                href="/"
+                className="flex items-center"
+                aria-label="flux-lab.dev — home"
+              >
                 <Logo size="sm" />
               </Link>
               <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">

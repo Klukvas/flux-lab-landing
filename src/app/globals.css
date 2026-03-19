@@ -48,7 +48,7 @@
   /* Brand — light mode */
   --brand: #5B4FD2;
   --brand-dark: #3D32A8;
-  --brand-dim: #3D32A8;
+  --brand-dim: #5B4FD2; /* muted variant — lighter than brand-dark */
   --brand-subtle: #E5E2FD;
 
   /* Backgrounds — light mode */

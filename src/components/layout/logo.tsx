@@ -9,20 +9,20 @@ const sizeClasses = {
 
 export function Logo({ size = "md" }: LogoProps) {
   return (
-    <span className={`flex items-center font-semibold ${sizeClasses[size]}`}>
-      <span className="font-mono tracking-tight">
-        <span className="text-[#5B4FD2] dark:text-[#7B6EF6]">[</span>
-        <span className="mx-px text-[#12102A] dark:text-white"> F </span>
-        <span className="text-[#5B4FD2] dark:text-[#7B6EF6]">]</span>
+    <span className={`flex items-center font-bold ${sizeClasses[size]}`}>
+      <span className="font-mono tracking-tight" aria-hidden="true">
+        <span className="text-brand">[</span>
+        <span className="mx-px text-foreground"> F </span>
+        <span className="text-brand">]</span>
       </span>
 
-      <span className="text-[#12102A] dark:text-white">
-        <span className="font-bold">flux-lab</span>
-        <span className="text-[#5B4FD2] dark:text-[#7B6EF6]">.dev</span>
+      <span>
+        <span className="text-foreground">flux-lab</span>
+        <span className="text-brand">.dev</span>
       </span>
 
       <span
-        className="ml-px inline-block h-[1em] w-[2px] translate-y-[1px] bg-[#5B4FD2] dark:bg-[#7B6EF6] animate-blink"
+        className="ml-px inline-block h-[1em] w-[2px] translate-y-[1px] bg-brand animate-blink"
         aria-hidden="true"
       />
     </span>

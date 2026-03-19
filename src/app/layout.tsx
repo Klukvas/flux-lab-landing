@@ -75,7 +75,7 @@ export const metadata: Metadata = {
   },
   manifest: "/site.webmanifest",
   other: {
-    "msapplication-TileColor": "#0a0a1a",
+    "msapplication-TileColor": "#07060E",
   },
 };
 
@@ -85,7 +85,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <body className={`${syne.variable} ${dmMono.variable} antialiased`}>
         {children}
       </body>

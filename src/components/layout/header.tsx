@@ -16,7 +16,11 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-gray-200/50 bg-white/70 backdrop-blur-xl dark:border-gray-800/50 dark:bg-gray-950/70">
       <Container>
         <div className="flex h-16 items-center justify-between">
-          <Link href="/" className="flex items-center">
+          <Link
+            href="/"
+            className="flex items-center"
+            aria-label="flux-lab.dev — home"
+          >
             <Logo size="md" />
           </Link>
 
