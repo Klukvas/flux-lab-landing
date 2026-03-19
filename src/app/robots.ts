@@ -24,6 +24,6 @@ export default function robots(): MetadataRoute.Robots {
         allow: ["/", "/llms.txt", "/llms-full.txt"],
       },
     ],
-    sitemap: "https://fluxlab.dev/sitemap.xml",
+    sitemap: "https://flux-lab.dev/sitemap.xml",
   };
 }

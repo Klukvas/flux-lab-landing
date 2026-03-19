@@ -65,8 +65,8 @@ AI: Claude API (Anthropic) — layered approach, model selection by task
 
 ## Contact
 
-- Website: https://fluxlab.dev
+- Website: https://flux-lab.dev
 - Email: hello@fluxlab.dev
 - Location: Kyiv, Ukraine
 - GitHub: https://github.com/fluxlab
-- Blog: https://fluxlab.dev/en/blog
+- Blog: https://flux-lab.dev/en/blog

@@ -3,7 +3,7 @@ import { locales } from "@/i18n/config";
 import { getProjectSlugs } from "@/data/projects";
 import { getAllBlogSlugs } from "@/lib/mdx";
 
-const BASE_URL = "https://fluxlab.dev";
+const BASE_URL = "https://flux-lab.dev";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
