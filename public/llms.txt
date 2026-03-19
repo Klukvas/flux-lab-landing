@@ -4,7 +4,7 @@
 
 ## About
 
-fluxLab.dev is a software development studio based in Kyiv, Ukraine. We build, ship, and scale SaaS products. We have 6 live production products serving 46,000+ users across 800+ companies.
+fluxLab.dev is a software development studio based in Kyiv, Ukraine. We build, ship, and scale SaaS products. We have multiple production products serving 46,000+ users across 800+ companies.
 
 ## Products
 

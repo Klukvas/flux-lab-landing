@@ -10,10 +10,10 @@ export function Stats() {
   const t = useTranslations("home.stats");
 
   const statItems = [
-    { value: STATS.projects, label: t("projects") },
     { value: formatNumber(STATS.users), label: t("users") },
     { value: formatNumber(STATS.companies), label: t("companies") },
     { value: `${STATS.experience}+`, label: t("experience") },
+    { value: "25+", label: t("technologies") },
   ];
 
   return (

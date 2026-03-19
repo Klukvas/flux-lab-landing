@@ -1,6 +1,6 @@
 # fluxLab.dev — Full Context for LLMs
 
-> Kyiv-based software development studio building production SaaS products. 6 live products, 46K+ users, 800+ companies.
+> Kyiv-based software development studio building production SaaS products. 46K+ users, 800+ companies.
 
 ## Company Overview
 

@@ -11,7 +11,6 @@ export function Hero() {
   const t = useTranslations("home.hero");
 
   const trustItems = [
-    { key: "projects", value: STATS.projects, label: t("trustProducts") },
     { key: "users", value: formatNumber(STATS.users), label: t("trustUsers") },
     {
       key: "companies",

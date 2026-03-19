@@ -53,7 +53,6 @@ export default async function AboutPage() {
   ];
 
   const stats = [
-    { value: String(STATS.projects), label: t("stats.products") },
     { value: "46K+", label: t("stats.users") },
     { value: "800+", label: t("stats.companies") },
     { value: `${STATS.experience}+`, label: t("stats.years") },

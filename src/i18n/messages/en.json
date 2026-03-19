@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "fluxLab.dev — Software Development Studio | Kyiv, Ukraine",
-    "description": "Kyiv-based dev studio building production SaaS products with React, Next.js, TypeScript & Go. 6 live products, 46K+ users. Custom web & mobile development."
+    "description": "Kyiv-based dev studio building production SaaS products with React, Next.js, TypeScript & Go. 46K+ users. Custom web & mobile development."
   },
   "nav": {
     "home": "Home",
@@ -14,7 +14,7 @@
   },
   "home": {
     "hero": {
-      "title": "6 Products. 46K+ Users. One Team.",
+      "title": "46K+ Users. One Team.",
       "subtitle": "Kyiv-based dev studio that builds, ships, and scales SaaS products. Need the same team behind your next project?",
       "cta": "View Our Work",
       "secondaryCta": "Get in Touch",
@@ -219,13 +219,13 @@
     "values": {
       "title": "How We Work",
       "quality": "Ship in 8 Weeks",
-      "qualityDesc": "Every product starts with a ruthlessly scoped MVP. We've launched six products — each went from idea to paying customers in under two months.",
+      "qualityDesc": "Every product starts with a ruthlessly scoped MVP. Each goes from idea to paying customers in under two months.",
       "innovation": "Own What We Build",
       "innovationDesc": "We don't hand off code and walk away. We operate our own products 24/7, so we know what 'production-ready' actually means.",
       "transparency": "No Black Boxes",
       "transparencyDesc": "Shared repos, weekly demos, direct Slack access. You see every commit, every decision, every trade-off as it happens.",
       "growth": "Measure Everything",
-      "growthDesc": "We track response times, conversion rates, and deployment frequency across all six products. If we can't measure it, we don't ship it."
+      "growthDesc": "We track response times, conversion rates, and deployment frequency across all our products. If we can't measure it, we don't ship it."
     },
     "team": {
       "title": "Our Team",
@@ -245,7 +245,7 @@
         },
         "3": {
           "role": "UI/UX Designer",
-          "bio": "Designer crafting intuitive and visually compelling digital experiences. Responsible for the UX across all six products in the portfolio."
+          "bio": "Designer crafting intuitive and visually compelling digital experiences. Responsible for the UX across all products in the portfolio."
         }
       }
     },
@@ -267,8 +267,8 @@
         "description": "Launched EFluxCom (energy management), WashFlow (laundry operations), and Accounting (financial management). All three reached paying customers within weeks of launch."
       },
       "2025": {
-        "title": "6 Products, 46K+ Users",
-        "description": "Expanded to six products with Jobber (AI job tracker), Market (e-commerce), and LifeSpan (health). Added Go to our stack. Serving 800+ companies across multiple industries."
+        "title": "46K+ Users, 800+ Companies",
+        "description": "Expanded the portfolio with Jobber (AI job tracker), Market (e-commerce), and LifeSpan (health). Added Go to our stack. Serving 800+ companies across multiple industries."
       },
       "title": "Track Record"
     },
