@@ -21,53 +21,55 @@ export function Hero() {
   ];
 
   return (
-    <section className="relative overflow-hidden py-24 sm:py-32">
+    <section className="relative overflow-hidden py-16 sm:py-24">
       <Container>
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mx-auto max-w-3xl text-center"
-        >
-          <h1 className="gradient-text text-4xl font-bold tracking-tighter sm:text-6xl lg:text-7xl">
-            {t("title")}
-          </h1>
-          <p className="mt-6 text-xl text-gray-500 dark:text-gray-400">
-            {t("subtitle")}
-          </p>
-          <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-            <Link href="/projects">
-              <Button size="lg">{t("cta")}</Button>
-            </Link>
-            <Link href="/contact">
-              <Button variant="outline" size="lg">
-                {t("secondaryCta")}
-              </Button>
-            </Link>
-          </div>
-
-          {/* Trust bar */}
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+          {/* Left — text */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="mt-12 flex flex-wrap items-center justify-center gap-x-4 gap-y-3 text-sm text-gray-500 sm:gap-x-8 sm:gap-y-4 dark:text-gray-400"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
           >
-            {trustItems.map((item, idx) => (
-              <div key={item.key} className="flex items-center gap-2">
-                <span className="font-semibold text-foreground">
+            <h1 className="gradient-text text-4xl font-bold tracking-tighter sm:text-5xl lg:text-6xl">
+              {t("title")}
+            </h1>
+            <p className="mt-5 text-lg text-gray-500 dark:text-gray-400">
+              {t("subtitle")}
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Link href="/projects">
+                <Button size="lg">{t("cta")}</Button>
+              </Link>
+              <Link href="/contact">
+                <Button variant="outline" size="lg">
+                  {t("secondaryCta")}
+                </Button>
+              </Link>
+            </div>
+          </motion.div>
+
+          {/* Right — trust metrics */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="grid grid-cols-3 gap-4"
+          >
+            {trustItems.map((item) => (
+              <div
+                key={item.key}
+                className="rounded-xl border border-gray-200 bg-white p-5 text-center dark:border-gray-800 dark:bg-gray-950"
+              >
+                <div className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
                   {item.value}
-                </span>
-                <span>{item.label}</span>
-                {idx < trustItems.length - 1 && (
-                  <span className="ml-6 hidden text-gray-300 dark:text-gray-700 sm:inline">
-                    ·
-                  </span>
-                )}
+                </div>
+                <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                  {item.label}
+                </div>
               </div>
             ))}
           </motion.div>
-        </motion.div>
+        </div>
       </Container>
 
       {/* Grid background decoration */}
