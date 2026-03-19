@@ -8,8 +8,6 @@ import { ProjectOverview } from "@/components/projects/project-overview";
 import { ProjectChallenge } from "@/components/projects/project-challenge";
 import { ProjectFeatures } from "@/components/projects/project-features";
 import { ProjectHighlights } from "@/components/projects/project-highlights";
-import { ProjectTechStack } from "@/components/projects/project-tech-stack";
-import { ProjectIntegrations } from "@/components/projects/project-integrations";
 import { ProjectCta } from "@/components/projects/project-cta";
 import { ProjectShowcase } from "@/components/projects/project-showcase";
 
@@ -84,11 +82,6 @@ export default async function ProjectDetailPage({
       <ProjectHighlights
         highlights={project.highlights}
         title={t("highlights")}
-      />
-      <ProjectTechStack techStack={project.techStack} title={t("techStack")} />
-      <ProjectIntegrations
-        integrations={project.integrations}
-        title={t("integrations")}
       />
       <ProjectCta
         title={t("getStarted")}
