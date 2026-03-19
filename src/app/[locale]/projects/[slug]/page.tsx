@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { getProjectBySlug, getProjectSlugs } from "@/data/projects";
 import { generatePageMetadata } from "@/lib/metadata";
 import { locales } from "@/i18n/config";
-import type { ProjectScreenshot } from "@/types";
+import type { ProjectScreenshot, ProjectFeature, ProjectHighlight } from "@/types";
 import { ProjectHero } from "@/components/projects/project-hero";
 import { ProjectOverview } from "@/components/projects/project-overview";
 import { ProjectChallenge } from "@/components/projects/project-challenge";
@@ -26,12 +26,21 @@ export async function generateMetadata({
   const project = getProjectBySlug(slug);
   if (!project) return {};
 
+  const t = await getTranslations("projects");
+  const k = `${slug}.tagline` as Parameters<typeof t>[0];
+  const tagline = t.has(k) ? t(k) : project.tagline;
+
   return generatePageMetadata({
     title: project.name,
-    description: project.tagline,
+    description: tagline,
     path: `/projects/${slug}`,
     locale,
   });
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function tGet(t: any, key: string, fallback: string): string {
+  return t.has(key) ? t(key) : fallback;
 }
 
 export default async function ProjectDetailPage({
@@ -47,48 +56,69 @@ export default async function ProjectDetailPage({
   }
 
   const t = await getTranslations("projects");
+  const p = slug;
 
-  const i18nKey = `${slug}Screenshots` as const;
+  // Localize project text fields
+  const tagline = tGet(t, `${p}.tagline`, project.tagline);
+  const description = tGet(t, `${p}.description`, project.description);
+  const overview = tGet(t, `${p}.overview`, project.overview);
+  const challenge = tGet(t, `${p}.challenge`, project.challenge);
+  const solution = tGet(t, `${p}.solution`, project.solution);
+  const targetAudience = tGet(t, `${p}.targetAudience`, project.targetAudience);
+
+  // Localize features
+  const features: ProjectFeature[] = project.features.map((f, idx) => ({
+    title: tGet(t, `${p}.features.${idx}.title`, f.title),
+    description: tGet(t, `${p}.features.${idx}.description`, f.description),
+    icon: f.icon,
+  }));
+
+  // Localize highlights
+  const highlights: ProjectHighlight[] = project.highlights.map((h, idx) => ({
+    label: tGet(t, `${p}.highlights.${idx}.label`, h.label),
+    value: tGet(t, `${p}.highlights.${idx}.value`, h.value),
+  }));
+
+  // Localize screenshots
+  const scrKey = `${p}Screenshots`;
   const localizedScreenshots: ProjectScreenshot[] = project.screenshots.map(
     (screenshot, idx) => {
-      const key = `${i18nKey}.${idx}` as Parameters<typeof t>[0];
-      const hasTranslation = t.has(key);
-      if (!hasTranslation) return screenshot;
+      const hasIt = t.has(`${scrKey}.${idx}` as Parameters<typeof t>[0]);
+      if (!hasIt) return screenshot;
 
-      const titleKey = `${i18nKey}.${idx}.title` as Parameters<typeof t>[0];
-      const descKey = `${i18nKey}.${idx}.description` as Parameters<
-        typeof t
-      >[0];
-
-      const features: string[] = [];
+      const feats: string[] = [];
       for (let i = 0; i < screenshot.features.length; i++) {
-        const fKey = `${i18nKey}.${idx}.features.${i}` as Parameters<
-          typeof t
-        >[0];
-        features.push(t.has(fKey) ? t(fKey) : screenshot.features[i]);
+        feats.push(tGet(t, `${scrKey}.${idx}.features.${i}`, screenshot.features[i]));
       }
 
       return {
         src: screenshot.src,
-        title: t.has(titleKey) ? t(titleKey) : screenshot.title,
-        description: t.has(descKey) ? t(descKey) : screenshot.description,
-        features,
+        title: tGet(t, `${scrKey}.${idx}.title`, screenshot.title),
+        description: tGet(t, `${scrKey}.${idx}.description`, screenshot.description),
+        features: feats,
       };
     },
   );
 
+  // Build localized hero project
+  const localizedProject = {
+    ...project,
+    tagline,
+    description,
+  };
+
   return (
     <>
       <ProjectHero
-        project={project}
+        project={localizedProject}
         visitSiteLabel={t("visitSite")}
         viewCodeLabel={t("viewCode")}
         usersLabel={t("users")}
         companiesLabel={t("companies")}
       />
       <ProjectOverview
-        overview={project.overview}
-        targetAudience={project.targetAudience}
+        overview={overview}
+        targetAudience={targetAudience}
         launchDate={project.launchDate}
         title={t("overview")}
         targetAudienceLabel={t("targetAudience")}
@@ -103,16 +133,13 @@ export default async function ProjectDetailPage({
         />
       )}
       <ProjectChallenge
-        challenge={project.challenge}
-        solution={project.solution}
+        challenge={challenge}
+        solution={solution}
         challengeLabel={t("challenge")}
         solutionLabel={t("solution")}
       />
-      <ProjectFeatures features={project.features} title={t("features")} />
-      <ProjectHighlights
-        highlights={project.highlights}
-        title={t("highlights")}
-      />
+      <ProjectFeatures features={features} title={t("features")} />
+      <ProjectHighlights highlights={highlights} title={t("highlights")} />
       <ProjectCta
         title={t("getStarted")}
         description={t("getStartedDesc")}
