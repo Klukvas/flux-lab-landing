@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96">
+  <defs>
+    <radialGradient id="g" cx="30%" cy="22%" r="58%">
+      <stop offset="0%" stop-color="#7B6EF6" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#7B6EF6" stop-opacity="0"/>
+    </radialGradient>
+    <style>
+      @keyframes fl1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5.0px)} }
+      @keyframes fl2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5.0px)} }
+      @keyframes fl3 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5.0px)} }
+      .l1 { animation:fl1 2.4s ease-in-out infinite; }
+      .l2 { animation:fl2 2.4s ease-in-out infinite .32s; }
+      .l3 { animation:fl3 2.4s ease-in-out infinite .64s; }
+    </style>
+  </defs>
+  <rect width="96" height="96" rx="21" fill="#0a0916"/>
+  <rect width="96" height="96" rx="21" fill="url(#g)"/>
+  <rect width="96" height="96" rx="21" fill="none" stroke="rgba(123,110,246,0.22)" stroke-width="1.1"/>
+  <g transform="translate(17.0,22.0)">
+    <svg width="62" height="52" viewBox="0 0 62 52" overflow="visible">
+    <g class="l1"><polygon points="31.0,3.0 57.0,15.0 31.0,27.0 5.0,15.0" fill="white" opacity="0.92"/></g>
+    <line x1="5.0" y1="15.0" x2="5.0" y2="25.0" stroke="rgba(255,255,255,0.18)" stroke-width="1.4"/>
+    <line x1="57.0" y1="15.0" x2="57.0" y2="25.0" stroke="rgba(255,255,255,0.18)" stroke-width="1.4"/>
+    <line x1="31.0" y1="27.0" x2="31.0" y2="36.0" stroke="rgba(123,110,246,0.35)" stroke-width="1.4"/>
+    <g class="l2">
+      <line x1="5.0" y1="25.0" x2="31.0" y2="36.0" stroke="#9E94F9" stroke-width="2.1" stroke-linecap="round" opacity="0.68"/>
+      <line x1="31.0" y1="36.0" x2="57.0" y2="25.0" stroke="#9E94F9" stroke-width="2.1" stroke-linecap="round" opacity="0.68"/>
+    </g>
+    <line x1="5.0" y1="25.0" x2="5.0" y2="35.0" stroke="rgba(123,110,246,0.28)" stroke-width="1.4"/>
+    <line x1="57.0" y1="25.0" x2="57.0" y2="35.0" stroke="rgba(123,110,246,0.28)" stroke-width="1.4"/>
+    <line x1="31.0" y1="36.0" x2="31.0" y2="47.0" stroke="rgba(123,110,246,0.45)" stroke-width="1.4"/>
+    <g class="l3">
+      <line x1="5.0" y1="35.0" x2="31.0" y2="47.0" stroke="#7B6EF6" stroke-width="2.6" stroke-linecap="round"/>
+      <line x1="31.0" y1="47.0" x2="57.0" y2="35.0" stroke="#7B6EF6" stroke-width="2.6" stroke-linecap="round"/>
+    </g>
+    </svg>
+  </g>
+</svg>

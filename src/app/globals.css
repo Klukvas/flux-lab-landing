@@ -152,15 +152,21 @@ html {
   background: radial-gradient(ellipse 50% 50% at 50% 50%, #262626 0%, transparent 70%);
 }
 
-/* Blinking cursor for logo */
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+/* Logo layer animations */
+@keyframes layer-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
 }
 
-.animate-blink {
-  animation: blink 1s step-end infinite;
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.38; }
 }
+
+.animate-layer-1 { animation: layer-float 2.4s ease-in-out infinite; }
+.animate-layer-2 { animation: layer-float 2.4s ease-in-out infinite 0.32s; }
+.animate-layer-3 { animation: layer-float 2.4s ease-in-out infinite 0.64s; }
+.animate-glow-pulse { animation: glow-pulse 2.4s ease-in-out infinite; }
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {

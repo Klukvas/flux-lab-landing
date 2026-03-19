@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <defs>
+    <radialGradient id="g" cx="30%" cy="22%" r="58%">
+      <stop offset="0%" stop-color="#7B6EF6" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#7B6EF6" stop-opacity="0"/>
+    </radialGradient>
+    <style>
+      @keyframes fl1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-1.7px)} }
+      @keyframes fl2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-1.7px)} }
+      @keyframes fl3 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-1.7px)} }
+      .l1 { animation:fl1 2.4s ease-in-out infinite; }
+      .l2 { animation:fl2 2.4s ease-in-out infinite .32s; }
+      .l3 { animation:fl3 2.4s ease-in-out infinite .64s; }
+    </style>
+  </defs>
+  <rect width="32" height="32" rx="7" fill="#0a0916"/>
+  <rect width="32" height="32" rx="7" fill="url(#g)"/>
+  <rect width="32" height="32" rx="7" fill="none" stroke="rgba(123,110,246,0.22)" stroke-width="1"/>
+  <g transform="translate(5.5,7.5)">
+    <svg width="21" height="17" viewBox="0 0 21 17" overflow="visible">
+    <g class="l1"><polygon points="10.3,1.0 19.0,5.0 10.3,9.0 1.7,5.0" fill="white" opacity="0.92"/></g>
+    <g class="l2">
+      <line x1="1.7" y1="8.3" x2="10.3" y2="12.0" stroke="#9E94F9" stroke-width="0.7" stroke-linecap="round" opacity="0.68"/>
+      <line x1="10.3" y1="12.0" x2="19.0" y2="8.3" stroke="#9E94F9" stroke-width="0.7" stroke-linecap="round" opacity="0.68"/>
+    </g>
+    <g class="l3">
+      <line x1="1.7" y1="11.7" x2="10.3" y2="15.7" stroke="#7B6EF6" stroke-width="0.9" stroke-linecap="round"/>
+      <line x1="10.3" y1="15.7" x2="19.0" y2="11.7" stroke="#7B6EF6" stroke-width="0.9" stroke-linecap="round"/>
+    </g>
+    </svg>
+  </g>
+</svg>

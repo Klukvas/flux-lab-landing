@@ -2,29 +2,76 @@ interface LogoProps {
   readonly size?: "sm" | "md";
 }
 
-const sizeClasses = {
-  sm: "text-lg gap-1.5",
-  md: "text-xl gap-2",
+const sizeConfig = {
+  sm: { icon: 28, svg: 18, svgH: 15, name: "text-[22px]", tld: "text-[9px]", gap: "gap-2" },
+  md: { icon: 36, svg: 24, svgH: 20, name: "text-[28px]", tld: "text-[11px]", gap: "gap-2.5" },
 } as const;
 
-export function Logo({ size = "md" }: LogoProps) {
+function LayersIcon({ width, height }: { readonly width: number; readonly height: number }) {
   return (
-    <span className={`flex items-center font-bold ${sizeClasses[size]}`}>
-      <span className="font-mono tracking-tight" aria-hidden="true">
-        <span className="text-brand">[</span>
-        <span className="mx-px text-foreground"> F </span>
-        <span className="text-brand">]</span>
-      </span>
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 62 52"
+      fill="none"
+      className="relative z-10 overflow-visible"
+      aria-hidden="true"
+    >
+      <g className="animate-layer-1">
+        <polygon points="31,3 57,15 31,27 5,15" fill="currentColor" opacity=".92" />
+      </g>
+      <line x1="5" y1="15" x2="5" y2="25" stroke="currentColor" strokeWidth="1.4" opacity=".18" />
+      <line x1="57" y1="15" x2="57" y2="25" stroke="currentColor" strokeWidth="1.4" opacity=".18" />
+      <line x1="31" y1="27" x2="31" y2="36" className="stroke-brand" strokeWidth="1.4" opacity=".35" />
+      <g className="animate-layer-2">
+        <line x1="5" y1="25" x2="31" y2="36" stroke="#9E94F9" strokeWidth="2.1" strokeLinecap="round" opacity=".68" />
+        <line x1="31" y1="36" x2="57" y2="25" stroke="#9E94F9" strokeWidth="2.1" strokeLinecap="round" opacity=".68" />
+      </g>
+      <line x1="5" y1="25" x2="5" y2="35" className="stroke-brand" strokeWidth="1.4" opacity=".28" />
+      <line x1="57" y1="25" x2="57" y2="35" className="stroke-brand" strokeWidth="1.4" opacity=".28" />
+      <line x1="31" y1="36" x2="31" y2="47" className="stroke-brand" strokeWidth="1.4" opacity=".45" />
+      <g className="animate-layer-3">
+        <line x1="5" y1="35" x2="31" y2="47" className="stroke-brand" strokeWidth="2.6" strokeLinecap="round" />
+        <line x1="31" y1="47" x2="57" y2="35" className="stroke-brand" strokeWidth="2.6" strokeLinecap="round" />
+      </g>
+    </svg>
+  );
+}
 
-      <span>
-        <span className="text-foreground">flux-lab</span>
-        <span className="text-brand">.dev</span>
-      </span>
+export function Logo({ size = "md" }: LogoProps) {
+  const cfg = sizeConfig[size];
 
+  return (
+    <span className={`flex items-center ${cfg.gap}`}>
+      {/* Icon container */}
       <span
-        className="ml-px inline-block h-[1em] w-[2px] translate-y-[1px] bg-brand animate-blink"
-        aria-hidden="true"
-      />
+        className="relative flex flex-shrink-0 items-center justify-center overflow-hidden rounded-lg border text-white dark:text-white"
+        style={{
+          width: cfg.icon,
+          height: cfg.icon,
+          background: '#0a0916',
+          borderColor: 'rgba(123,110,246,0.22)',
+          boxShadow: '0 0 0 1px rgba(123,110,246,0.07), 0 6px 20px rgba(123,110,246,0.15)',
+        }}
+      >
+        {/* Glow */}
+        <span
+          className="absolute inset-0 animate-glow-pulse"
+          style={{ background: 'radial-gradient(ellipse at 32% 24%, rgba(123,110,246,0.26) 0%, transparent 60%)' }}
+          aria-hidden="true"
+        />
+        <LayersIcon width={cfg.svg} height={cfg.svgH} />
+      </span>
+
+      {/* Wordmark */}
+      <span className="flex flex-col leading-none">
+        <span className={`font-sans font-extrabold tracking-[-0.05em] text-foreground ${cfg.name}`}>
+          flux-lab
+        </span>
+        <span className={`font-mono font-medium tracking-[0.3em] text-brand ${cfg.tld}`}>
+          .dev
+        </span>
+      </span>
     </span>
   );
 }
