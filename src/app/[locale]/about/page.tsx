@@ -5,8 +5,7 @@ import {
   Card,
   AnimatedSection,
 } from "@/components/ui";
-import { TeamCard } from "@/components/about/team-card";
-import { teamMembers, timelineEvents } from "@/data/team";
+import { timelineEvents } from "@/data/team";
 import { generatePageMetadata } from "@/lib/metadata";
 
 export async function generateMetadata({
@@ -86,41 +85,6 @@ export default async function AboutPage() {
           </div>
         </Container>
       </AnimatedSection>
-
-      <section className="py-24">
-        <Container>
-          <SectionHeading
-            title={t("team.title")}
-            subtitle={t("team.subtitle")}
-          />
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {teamMembers.map((member, index) => {
-              const roleKey = `team.members.${index}.role`;
-              const bioKey = `team.members.${index}.bio`;
-              let translatedRole: string | undefined;
-              let translatedBio: string | undefined;
-              try {
-                translatedRole = t.has(roleKey) ? t(roleKey) : undefined;
-              } catch {
-                translatedRole = undefined;
-              }
-              try {
-                translatedBio = t.has(bioKey) ? t(bioKey) : undefined;
-              } catch {
-                translatedBio = undefined;
-              }
-              return (
-                <TeamCard
-                  key={member.name}
-                  member={member}
-                  translatedRole={translatedRole}
-                  translatedBio={translatedBio}
-                />
-              );
-            })}
-          </div>
-        </Container>
-      </section>
 
       <AnimatedSection className="py-24">
         <Container>
