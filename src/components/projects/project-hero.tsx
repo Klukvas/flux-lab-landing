@@ -29,51 +29,50 @@ export function ProjectHero({
   };
 
   return (
-    <section className="relative py-24">
+    <section className="relative py-12 sm:py-16">
       <div className="absolute inset-0 -z-10 grid-bg opacity-40" />
       <div className="absolute inset-0 -z-10 glow" />
       <Container>
         <div className="mx-auto max-w-3xl text-center">
-          <span className="flex h-16 w-16 items-center justify-center rounded-2xl border border-gray-200 text-xl font-bold text-foreground dark:border-gray-800 mx-auto">
-            {project.icon}
-          </span>
-          <div className="mt-4 flex items-center justify-center gap-2">
-            <h1 className="gradient-text text-4xl font-bold tracking-tighter sm:text-5xl lg:text-6xl">
+          <div className="flex items-center justify-center gap-3">
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-gray-200 text-sm font-bold text-foreground dark:border-gray-800">
+              {project.icon}
+            </span>
+            <h1 className="gradient-text text-3xl font-bold tracking-tighter sm:text-4xl">
               {project.name}
             </h1>
             <Badge variant={statusVariant[project.status]}>
               {project.status}
             </Badge>
           </div>
-          <p className="mt-2 text-xl text-gray-500 dark:text-gray-400">
+          <p className="mt-2 text-lg text-gray-500 dark:text-gray-400">
             {project.tagline}
           </p>
-          <p className="mt-6 text-lg text-gray-500 dark:text-gray-400">
+          <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
             {project.description}
           </p>
 
-          {project.stats && (
-            <div className="mt-8 flex justify-center gap-8">
-              <div className="rounded-xl border border-gray-200 px-6 py-4 text-center dark:border-gray-800">
-                <div className="text-2xl font-bold tracking-tight text-foreground">
-                  {formatStat(project.stats.users)}
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
+            {project.stats && (
+              <>
+                <div className="flex items-center gap-2 rounded-lg border border-gray-200 px-4 py-2 dark:border-gray-800">
+                  <span className="text-lg font-bold text-foreground">
+                    {formatStat(project.stats.users)}
+                  </span>
+                  <span className="text-xs text-gray-500 dark:text-gray-400">
+                    {usersLabel}
+                  </span>
                 </div>
-                <div className="text-sm text-gray-500 dark:text-gray-400">
-                  {usersLabel}
+                <div className="flex items-center gap-2 rounded-lg border border-gray-200 px-4 py-2 dark:border-gray-800">
+                  <span className="text-lg font-bold text-foreground">
+                    {formatStat(project.stats.companies)}
+                  </span>
+                  <span className="text-xs text-gray-500 dark:text-gray-400">
+                    {companiesLabel}
+                  </span>
                 </div>
-              </div>
-              <div className="rounded-xl border border-gray-200 px-6 py-4 text-center dark:border-gray-800">
-                <div className="text-2xl font-bold tracking-tight text-foreground">
-                  {formatStat(project.stats.companies)}
-                </div>
-                <div className="text-sm text-gray-500 dark:text-gray-400">
-                  {companiesLabel}
-                </div>
-              </div>
-            </div>
-          )}
-
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
+              </>
+            )}
             {project.url && (
               <a href={project.url} target="_blank" rel="noopener noreferrer">
                 <Button>{visitSiteLabel}</Button>
