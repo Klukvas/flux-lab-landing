@@ -1,16 +1,18 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Syne, DM_Mono } from "next/font/google";
 import { SITE_NAME, SITE_URL, SITE_DESCRIPTION } from "@/lib/constants";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const syne = Syne({
+  variable: "--font-syne",
   subsets: ["latin"],
+  weight: ["700", "800"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const dmMono = DM_Mono({
+  variable: "--font-dm-mono",
   subsets: ["latin"],
+  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
@@ -56,7 +58,9 @@ export const metadata: Metadata = {
     title: `${SITE_NAME} — Software Development Studio`,
     description: SITE_DESCRIPTION,
     url: SITE_URL,
-    images: [{ url: "/og-default.png", width: 1200, height: 630, alt: SITE_NAME }],
+    images: [
+      { url: "/og-default.png", width: 1200, height: 630, alt: SITE_NAME },
+    ],
     locale: "en_US",
   },
   twitter: {
@@ -82,9 +86,7 @@ export default function RootLayout({
 }>) {
   return (
     <html suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${syne.variable} ${dmMono.variable} antialiased`}>
         {children}
       </body>
     </html>

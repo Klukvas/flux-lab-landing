@@ -1,9 +1,9 @@
-import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Container } from "@/components/ui";
 import { SITE_NAME, SOCIAL_LINKS } from "@/lib/constants";
 import { navigationItems } from "@/data/navigation";
+import { Logo } from "./logo";
 
 function GitHubIcon() {
   return (
@@ -58,18 +58,8 @@ export function Footer() {
         <div className="py-12">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             <div>
-              <Link
-                href="/"
-                className="flex items-center gap-2 text-xl font-semibold text-foreground"
-              >
-                <Image
-                  src="/logo.png"
-                  alt="fluxLab.dev"
-                  width={28}
-                  height={28}
-                  className="h-7 w-7"
-                />
-                fluxLab.dev
+              <Link href="/" className="flex items-center">
+                <Logo size="sm" />
               </Link>
               <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
                 {t("footer.description")}
