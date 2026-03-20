@@ -1,7 +1,7 @@
 import { getTranslations, getLocale } from "next-intl/server";
 import { Container, SectionHeading } from "@/components/ui";
 import { BlogCard } from "@/components/blog/blog-card";
-import { getBlogPosts } from "@/lib/mdx";
+import { getAllBlogPosts } from "@/lib/mdx";
 import { generatePageMetadata } from "@/lib/metadata";
 
 export async function generateMetadata({
@@ -22,7 +22,20 @@ export async function generateMetadata({
 export default async function BlogPage() {
   const locale = await getLocale();
   const t = await getTranslations("blog");
-  const posts = getBlogPosts(locale);
+  const allPosts = getAllBlogPosts();
+
+  // Group: current locale first, then the rest
+  const currentLocalePosts = allPosts.filter((p) => p.locale === locale);
+  const otherPosts = allPosts.filter((p) => p.locale !== locale);
+  const sortedPosts = [...currentLocalePosts, ...otherPosts];
+
+  // Deduplicate by slug — keep current locale version, skip duplicate from other locale
+  const seen = new Set<string>();
+  const posts = sortedPosts.filter((post) => {
+    if (seen.has(post.slug)) return false;
+    seen.add(post.slug);
+    return true;
+  });
 
   return (
     <section className="py-24">
@@ -35,7 +48,7 @@ export default async function BlogPage() {
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {posts.map((post) => (
-              <BlogCard key={post.slug} post={post} />
+              <BlogCard key={`${post.slug}-${post.locale}`} post={post} />
             ))}
           </div>
         )}

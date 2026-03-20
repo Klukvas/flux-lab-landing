@@ -87,6 +87,32 @@ export function getBlogPost(
   };
 }
 
+export function getAllBlogPosts(): BlogPostMeta[] {
+  const allPosts: BlogPostMeta[] = [];
+  const seen = new Set<string>();
+
+  const dirs = fs.existsSync(BLOG_DIR)
+    ? fs
+        .readdirSync(BLOG_DIR)
+        .filter((d) => fs.statSync(path.join(BLOG_DIR, d)).isDirectory())
+    : [];
+
+  for (const locale of dirs) {
+    const posts = getBlogPosts(locale);
+    for (const post of posts) {
+      const key = `${post.slug}:${post.locale}`;
+      if (!seen.has(key)) {
+        seen.add(key);
+        allPosts.push(post);
+      }
+    }
+  }
+
+  return allPosts.sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+  );
+}
+
 export function getAllBlogTags(locale: string): string[] {
   const posts = getBlogPosts(locale);
   const tagSet = new Set(posts.flatMap((p) => p.tags));
