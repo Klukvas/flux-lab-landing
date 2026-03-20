@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Image from 'next/image';
-import { motion, AnimatePresence, type PanInfo } from 'framer-motion';
-import { Container, SectionHeading } from '@/components/ui';
+import { useState } from "react";
+import Image from "next/image";
+import { motion, AnimatePresence, type PanInfo } from "framer-motion";
+import { Container, SectionHeading } from "@/components/ui";
 
 interface Screenshot {
   readonly src: string;
@@ -19,7 +19,12 @@ interface ProjectScreenshotsProps {
 
 const SWIPE_THRESHOLD = 50;
 
-export function ProjectScreenshots({ screenshots, title, color, url }: ProjectScreenshotsProps) {
+export function ProjectScreenshots({
+  screenshots,
+  title,
+  color,
+  url,
+}: ProjectScreenshotsProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   if (screenshots.length === 0) return null;
@@ -31,14 +36,16 @@ export function ProjectScreenshots({ screenshots, title, color, url }: ProjectSc
   };
 
   const goPrev = () => {
-    setSelectedIndex((prev) => (prev - 1 + screenshots.length) % screenshots.length);
+    setSelectedIndex(
+      (prev) => (prev - 1 + screenshots.length) % screenshots.length,
+    );
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'ArrowLeft') {
+    if (e.key === "ArrowLeft") {
       e.preventDefault();
       goPrev();
-    } else if (e.key === 'ArrowRight') {
+    } else if (e.key === "ArrowRight") {
       e.preventDefault();
       goNext();
     }
@@ -52,9 +59,7 @@ export function ProjectScreenshots({ screenshots, title, color, url }: ProjectSc
     }
   };
 
-  const displayUrl = url
-    ? url.replace(/^https?:\/\//, '')
-    : 'preview';
+  const displayUrl = url ? url.replace(/^https?:\/\//, "") : "preview";
 
   return (
     <section className="py-24">
@@ -86,7 +91,10 @@ export function ProjectScreenshots({ screenshots, title, color, url }: ProjectSc
               {/* Browser chrome bar */}
               <div className="flex items-center gap-2 border-b border-gray-200 bg-gray-50 px-3 py-2.5 sm:gap-3 sm:px-4 sm:py-3 dark:border-gray-800 dark:bg-gray-900">
                 {/* Traffic lights — hidden on small mobile */}
-                <div className="hidden gap-1.5 xs:flex sm:flex" aria-hidden="true">
+                <div
+                  className="hidden gap-1.5 xs:flex sm:flex"
+                  aria-hidden="true"
+                >
                   <div className="h-2.5 w-2.5 rounded-full bg-red-400 sm:h-3 sm:w-3" />
                   <div className="h-2.5 w-2.5 rounded-full bg-yellow-400 sm:h-3 sm:w-3" />
                   <div className="h-2.5 w-2.5 rounded-full bg-green-400 sm:h-3 sm:w-3" />
@@ -94,8 +102,19 @@ export function ProjectScreenshots({ screenshots, title, color, url }: ProjectSc
 
                 {/* Address bar */}
                 <div className="flex flex-1 items-center gap-2 rounded-md bg-white px-3 py-1.5 text-xs text-gray-400 dark:bg-gray-800 dark:text-gray-500">
-                  <svg aria-hidden="true" className="h-3 w-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                  <svg
+                    aria-hidden="true"
+                    className="h-3 w-3 flex-shrink-0"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"
+                    />
                   </svg>
                   <span className="truncate">{displayUrl}</span>
                 </div>
@@ -107,7 +126,11 @@ export function ProjectScreenshots({ screenshots, title, color, url }: ProjectSc
               </div>
 
               {/* Main screenshot area with swipe support */}
-              <div className="relative touch-pan-y" aria-live="polite" aria-atomic="true">
+              <div
+                className="relative touch-pan-y"
+                aria-live="polite"
+                aria-atomic="true"
+              >
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={selectedIndex}
@@ -140,8 +163,19 @@ export function ProjectScreenshots({ screenshots, title, color, url }: ProjectSc
                       className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-black/40 p-3 text-white backdrop-blur-sm transition-opacity hover:bg-black/60 sm:left-3 sm:p-2"
                       aria-label="Previous screenshot"
                     >
-                      <svg aria-hidden="true" className="h-5 w-5 sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                      <svg
+                        aria-hidden="true"
+                        className="h-5 w-5 sm:h-4 sm:w-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2.5}
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M15.75 19.5L8.25 12l7.5-7.5"
+                        />
                       </svg>
                     </button>
                     <button
@@ -149,8 +183,19 @@ export function ProjectScreenshots({ screenshots, title, color, url }: ProjectSc
                       className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-black/40 p-3 text-white backdrop-blur-sm transition-opacity hover:bg-black/60 sm:right-3 sm:p-2"
                       aria-label="Next screenshot"
                     >
-                      <svg aria-hidden="true" className="h-5 w-5 sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                      <svg
+                        aria-hidden="true"
+                        className="h-5 w-5 sm:h-4 sm:w-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2.5}
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                        />
                       </svg>
                     </button>
                   </>
@@ -159,9 +204,15 @@ export function ProjectScreenshots({ screenshots, title, color, url }: ProjectSc
 
               {/* Screenshot label bar */}
               <div className="flex items-center justify-between border-t border-gray-200 px-3 py-2.5 sm:px-4 dark:border-gray-800">
-                <p className="min-w-0 flex-1 truncate text-xs font-medium text-foreground sm:text-sm">{selected.alt}</p>
+                <p className="min-w-0 flex-1 truncate text-xs font-medium text-foreground sm:text-sm">
+                  {selected.alt}
+                </p>
                 {/* Dot indicators on mobile — with proper touch targets */}
-                <div className="flex items-center gap-0.5 sm:hidden" role="tablist" aria-label="Screenshot navigation">
+                <div
+                  className="flex items-center gap-0.5 sm:hidden"
+                  role="tablist"
+                  aria-label="Screenshot navigation"
+                >
                   {screenshots.map((screenshot, idx) => (
                     <button
                       key={screenshot.src}
@@ -172,10 +223,12 @@ export function ProjectScreenshots({ screenshots, title, color, url }: ProjectSc
                       aria-selected={idx === selectedIndex}
                     >
                       <span
-                        className="block h-1.5 rounded-full transition-[width,background-color]"
+                        className="block h-1.5 rounded-full bg-gray-300 transition-[width,background-color]"
                         style={{
-                          width: idx === selectedIndex ? '16px' : '6px',
-                          backgroundColor: idx === selectedIndex ? color : '#d1d5db',
+                          width: idx === selectedIndex ? "16px" : "6px",
+                          ...(idx === selectedIndex
+                            ? { backgroundColor: color }
+                            : {}),
                         }}
                       />
                     </button>
@@ -186,7 +239,11 @@ export function ProjectScreenshots({ screenshots, title, color, url }: ProjectSc
           </motion.div>
 
           {/* Thumbnail strip (hidden on mobile, dots shown instead) */}
-          <div className="hidden gap-3 sm:flex" role="tablist" aria-label="Screenshot thumbnails">
+          <div
+            className="hidden gap-3 sm:flex"
+            role="tablist"
+            aria-label="Screenshot thumbnails"
+          >
             {screenshots.map((screenshot, idx) => (
               <motion.button
                 key={screenshot.src}
@@ -203,8 +260,9 @@ export function ProjectScreenshots({ screenshots, title, color, url }: ProjectSc
                 <div
                   className="overflow-hidden rounded-lg border-2 transition-[border-color,box-shadow]"
                   style={{
-                    borderColor: idx === selectedIndex ? color : 'transparent',
-                    boxShadow: idx === selectedIndex ? `0 0 12px ${color}33` : 'none',
+                    borderColor: idx === selectedIndex ? color : "transparent",
+                    boxShadow:
+                      idx === selectedIndex ? `0 0 12px ${color}33` : "none",
                   }}
                 >
                   <div className="relative aspect-[2/1] w-full">
@@ -222,9 +280,10 @@ export function ProjectScreenshots({ screenshots, title, color, url }: ProjectSc
                 </div>
                 <p className="mt-2 truncate text-center text-xs">
                   <span
-                    className={idx === selectedIndex
-                      ? 'font-medium'
-                      : 'text-gray-400 dark:text-gray-500'
+                    className={
+                      idx === selectedIndex
+                        ? "font-medium"
+                        : "text-gray-500 dark:text-gray-400"
                     }
                     style={idx === selectedIndex ? { color } : undefined}
                   >

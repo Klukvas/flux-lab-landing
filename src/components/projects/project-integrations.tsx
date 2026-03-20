@@ -19,7 +19,7 @@ export function ProjectIntegrations({ integrations, title }: ProjectIntegrations
               className="flex items-center gap-2 rounded-md border border-gray-200 bg-white px-4 py-2.5 text-sm text-foreground dark:border-gray-800 dark:bg-gray-950"
             >
               <svg
-                className="h-4 w-4 text-gray-400 dark:text-gray-500"
+                className="h-4 w-4 text-gray-500 dark:text-gray-400"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}

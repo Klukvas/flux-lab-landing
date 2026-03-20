@@ -32,7 +32,7 @@ export async function Testimonials() {
                   <div className="text-sm text-gray-500 dark:text-gray-400">
                     {tData(`${testimonial.id}.role`)}, {testimonial.company}
                   </div>
-                  <div className="mt-1 text-xs text-gray-400 dark:text-gray-500">
+                  <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">
                     {tHome("project", { project: testimonial.project })}
                   </div>
                 </figcaption>

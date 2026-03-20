@@ -39,7 +39,7 @@ export function ApplicationForm() {
 
   if (status === "success") {
     return (
-      <div className="rounded-xl border border-gray-200 p-6 text-center dark:border-gray-800">
+      <div className="rounded-xl border border-gray-200 bg-white p-6 text-center dark:border-gray-800 dark:bg-gray-950">
         <p className="text-foreground">{t("success")}</p>
       </div>
     );

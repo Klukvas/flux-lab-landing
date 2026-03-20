@@ -9,6 +9,19 @@
   --font-sans: var(--font-syne);
   --font-mono: var(--font-dm-mono);
 
+  /* Gray ramp — maps Tailwind gray-* utilities to our violet-tinted CSS vars */
+  --color-gray-50: var(--gray-50);
+  --color-gray-100: var(--gray-100);
+  --color-gray-200: var(--gray-200);
+  --color-gray-300: var(--gray-300);
+  --color-gray-400: var(--gray-400);
+  --color-gray-500: var(--gray-500);
+  --color-gray-600: var(--gray-600);
+  --color-gray-700: var(--gray-700);
+  --color-gray-800: var(--gray-800);
+  --color-gray-900: var(--gray-900);
+  --color-gray-950: var(--gray-950);
+
   /* Brand palette — Tailwind utilities: bg-brand, text-brand-dark, etc. */
   --color-brand: var(--brand);
   --color-brand-dark: var(--brand-dark);

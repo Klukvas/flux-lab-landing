@@ -83,7 +83,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </span>
         ))}
         {project.techStack.length > 5 && (
-          <span className="text-xs text-gray-400 dark:text-gray-500">
+          <span className="text-xs text-gray-500 dark:text-gray-400">
             +{project.techStack.length - 5}
           </span>
         )}
