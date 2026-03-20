@@ -10,16 +10,16 @@ export function CTA() {
   return (
     <AnimatedSection className="py-24">
       <Container>
-        <div className="mx-auto max-w-2xl rounded-xl border border-gray-200 bg-foreground p-6 text-center sm:p-12 dark:border-gray-800">
-          <h2 className="text-3xl font-bold tracking-tighter text-background sm:text-4xl">
+        <div className="mx-auto max-w-2xl rounded-xl border border-brand-dark/20 bg-brand p-6 text-center sm:p-12 dark:border-brand/30">
+          <h2 className="text-3xl font-bold tracking-tighter text-white sm:text-4xl">
             {t("title")}
           </h2>
-          <p className="mt-4 text-lg text-background/70">{t("subtitle")}</p>
+          <p className="mt-4 text-lg text-white/70">{t("subtitle")}</p>
           <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Link href="/contact">
               <Button
                 size="lg"
-                className="bg-background text-foreground hover:opacity-90"
+                className="bg-white text-brand-dark hover:opacity-90"
               >
                 {t("button")}
               </Button>
@@ -28,7 +28,7 @@ export function CTA() {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-background/30 text-background hover:bg-background/10"
+                className="border-white/30 text-white hover:bg-white/10"
               >
                 {t("secondaryButton")}
               </Button>
