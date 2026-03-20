@@ -45,7 +45,7 @@
 }
 
 :root {
-  --background: #F4F3FF;
+  --background: #FFFFFF;
   --foreground: #07060E;
   --gray-50: #E8E7EF;
   --gray-100: #DDDCE6;
@@ -66,7 +66,7 @@
   --brand-subtle: #E5E2FD;
 
   /* Backgrounds — light mode */
-  --bg-page: #F4F3FF;
+  --bg-page: #FFFFFF;
   --bg-card: #FFFFFF;
   --bg-elevated: #EEEDFB;
 
@@ -131,14 +131,14 @@ html {
 
 /* Gradient text utility */
 .gradient-text {
-  background: linear-gradient(to right, var(--foreground), var(--foreground) 40%, #7A768F);
+  background: linear-gradient(to right, var(--foreground), var(--foreground) 60%, #9896A8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .dark .gradient-text {
-  background: linear-gradient(to right, var(--foreground), var(--foreground) 40%, #7A768F);
+  background: linear-gradient(to right, var(--foreground), var(--foreground) 50%, #7A768F);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -159,7 +159,7 @@ html {
 
 /* Subtle radial glow */
 .glow {
-  background: radial-gradient(ellipse 50% 50% at 50% 50%, #B2AFBF 0%, transparent 70%);
+  background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(123,110,246,0.06) 0%, transparent 70%);
 }
 
 .dark .glow {
