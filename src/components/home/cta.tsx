@@ -20,10 +20,7 @@ export function CTA() {
           <p className="mt-4 text-lg text-white/90">{t("subtitle")}</p>
           <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Link href="/contact">
-              <Button
-                size="lg"
-                className="bg-white text-brand-dark hover:opacity-90"
-              >
+              <Button size="lg" variant="inverted">
                 {t("button")}
               </Button>
             </Link>

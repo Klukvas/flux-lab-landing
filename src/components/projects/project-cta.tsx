@@ -25,9 +25,7 @@ export function ProjectCta({
           <p className="mt-3 text-white/90">{description}</p>
           <div className="mt-6">
             <Link href="/contact">
-              <Button className="bg-white text-brand-dark hover:opacity-90">
-                {buttonLabel}
-              </Button>
+              <Button variant="inverted">{buttonLabel}</Button>
             </Link>
           </div>
         </div>

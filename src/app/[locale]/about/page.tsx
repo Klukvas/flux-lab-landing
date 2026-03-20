@@ -180,9 +180,7 @@ export default async function AboutPage() {
               </p>
               <div className="mt-8">
                 <Link href="/contact">
-                  <Button className="bg-white text-brand-dark hover:opacity-90">
-                    {t("cta.button")}
-                  </Button>
+                  <Button variant="inverted">{t("cta.button")}</Button>
                 </Link>
               </div>
             </div>
