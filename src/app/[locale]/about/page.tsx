@@ -156,7 +156,10 @@ export default async function AboutPage() {
       {/* CTA */}
       <section className="py-16">
         <Container>
-          <div className="relative overflow-hidden rounded-2xl border border-brand-dark/20 bg-brand px-8 py-14 text-center dark:border-brand/30 dark:bg-brand-dark sm:px-16">
+          <div
+            className="relative overflow-hidden rounded-2xl border border-brand/20 px-8 py-14 text-center sm:px-16"
+            style={{ background: "#3D32A8" }}
+          >
             {/* Glow decoration */}
             <div
               className="absolute -left-20 -top-20 h-60 w-60 rounded-full opacity-20 blur-3xl"

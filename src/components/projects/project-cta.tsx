@@ -15,7 +15,10 @@ export function ProjectCta({
   return (
     <section className="py-24">
       <Container>
-        <div className="mx-auto max-w-2xl rounded-xl border border-brand-dark/20 bg-brand px-8 py-12 text-center dark:border-brand/30 dark:bg-brand-dark">
+        <div
+          className="mx-auto max-w-2xl rounded-xl border border-brand/20 px-8 py-12 text-center"
+          style={{ background: "#3D32A8" }}
+        >
           <h2 className="text-2xl font-bold tracking-tighter text-white sm:text-3xl">
             {title}
           </h2>

@@ -10,7 +10,10 @@ export function CTA() {
   return (
     <AnimatedSection className="py-24">
       <Container>
-        <div className="mx-auto max-w-2xl rounded-xl border border-brand-dark/20 bg-brand p-6 text-center sm:p-12 dark:border-brand/30 dark:bg-brand-dark">
+        <div
+          className="mx-auto max-w-2xl rounded-xl border border-brand/20 p-6 text-center sm:p-12"
+          style={{ background: "#3D32A8" }}
+        >
           <h2 className="text-3xl font-bold tracking-tighter text-white sm:text-4xl">
             {t("title")}
           </h2>
