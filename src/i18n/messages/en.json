@@ -136,6 +136,38 @@
         "description": "Get data-driven insights into your job search. The dashboard shows KPI cards, a visual application funnel with conversion rates, and additional reports for time-in-stage, resume effectiveness, and source performance.",
         "features": ["KPI cards: Total Applications, Active, Closed, Response Rate, Avg. Response Time", "Application Funnel: visual stage-by-stage conversion with drop-off rates", "Time in Stages: average days spent at each interview step", "Resume Effectiveness: compare which resume versions perform best", "Application Sources: track which job boards produce the most results"]
       }
+    },
+    "washflowScreenshots": {
+      "0": {
+        "title": "Orders — Schedule View",
+        "description": "A real-time scheduling board that shows all wash posts and their bookings throughout the day. Staff can see at a glance which posts are free, occupied, or upcoming — making it easy to plan walk-ins and avoid double-bookings.",
+        "features": ["Time grid with 30-minute slots across all wash posts", "Color-coded cells: free, booked, in-progress, completed", "Filter by branch and specific wash post", "Date picker for viewing past and future schedules", "Switch between Orders list and Schedule views"]
+      },
+      "1": {
+        "title": "Create Order — Step-by-Step Wizard",
+        "description": "A guided multi-step flow for creating new orders. The wizard walks staff through selecting a branch, services, time slot, client, vehicle, and worker — then displays a clear summary before confirming the booking.",
+        "features": ["7-step wizard: Branch → Services → Time Slot → Client → Vehicle → Worker → Review", "Review & Confirm screen shows all selected details at a glance", "Total amount calculated automatically from selected services", "Notes field for special instructions or damage notes", "Back navigation to edit any previous step"]
+      },
+      "2": {
+        "title": "Client Management",
+        "description": "A searchable database of all clients with contact details and linked vehicles. Staff can quickly find a returning customer, see their history, and create new client profiles on the spot.",
+        "features": ["Search clients by name, phone, or email", "Vehicle count per client for quick reference", "Creation date tracking for customer retention analytics", "Paginated table with 20 entries per page", "One-click client creation from the top bar"]
+      },
+      "3": {
+        "title": "Vehicle Registry",
+        "description": "Every vehicle that visits the car wash is registered with its make, model, license plate, and linked owner. This lets the system auto-fill vehicle details during order creation and track service history per car.",
+        "features": ["Vehicle details: make/model, license plate, year, linked client", "Active/inactive status toggle for filtering", "Quick add from the vehicle list or during order creation", "Full vehicle history tied to the owner's account", "Pagination and sorting for large fleets"]
+      },
+      "4": {
+        "title": "Team Management",
+        "description": "Manage all staff members — operators, receptionists, managers, and admins — with their contact info, assigned role, and branch. Each user's access is determined by their role's permission set.",
+        "features": ["Role-based assignment: Admin, Manager, Operator, Receptionist", "Branch assignment for multi-location businesses", "Contact details: email and phone per user", "Quick edit and delete actions per row", "Invite new team members with one click"]
+      },
+      "5": {
+        "title": "Roles & Permissions",
+        "description": "Granular access control with per-module CRUD permissions. Business owners define exactly what each role can see and do — from viewing analytics to editing orders or managing payments.",
+        "features": ["Modules: Analytics, Audit, Branches, Clients, Orders, Payments, Roles, Scheduling", "CRUD toggles per module: Create, View, Edit, Delete", "Permission counter showing selected out of total", "Custom role creation with any permission combination", "Changes apply instantly across all users with that role"]
+      }
     }
   },
   "services": {
@@ -264,7 +296,7 @@
       },
       "2024": {
         "title": "3 Products, 27K Users",
-        "description": "Launched EFluxCom (energy management), WashFlow (laundry operations), and Accounting (financial management). All three reached paying customers within weeks of launch."
+        "description": "Launched EFluxCom (energy management), WashFlow (car wash CRM), and Accounting (financial management). All three reached paying customers within weeks of launch."
       },
       "2025": {
         "title": "46K+ Users, 800+ Companies",

@@ -78,69 +78,149 @@ export const projects: readonly Project[] = [
   {
     slug: "washflow",
     name: "WashFlow",
-    tagline: "Laundry Business Management Suite",
+    tagline: "Multi-Tenant Car Wash CRM",
     description:
-      "An all-in-one management platform for laundry businesses. Handles orders, inventory, customer management, and delivery scheduling.",
+      "A full-stack SaaS platform for managing car wash businesses. Scheduling engine, CRM, role-based access control, multi-tenancy, and online booking.",
     overview:
-      "WashFlow digitizes every aspect of running a laundry or dry-cleaning business. From the moment a customer drops off an order to the final delivery, every step is tracked, timestamped, and visible to both staff and customers. The web dashboard gives owners full control over pricing, promotions, and employee schedules, while the mobile app lets drivers manage pickups and deliveries with optimized routes. Customers get real-time SMS and push notifications, plus a self-service portal to place orders and track progress.",
+      "WashFlow is a multi-tenant CRM built specifically for car wash businesses. The scheduling engine uses row-level locking to prevent double-bookings and tracks workforce capacity in real time. Staff manage orders through a visual schedule grid or a step-by-step wizard, while a client and vehicle registry keeps full service history. Granular RBAC with 47 permissions lets owners define exactly what each role can access. Customers can book online through a public booking page or an embeddable widget. The platform handles the full subscription lifecycle with Paddle billing — from a 30-day free trial through tiered plans with add-on resource packs.",
     challenge:
-      "Most laundry businesses still run on paper tickets and spreadsheets. Orders get lost, delivery routes are inefficient, and owners have no visibility into real performance metrics. Off-the-shelf POS systems don't understand the unique workflow of garment care.",
+      "Most car wash businesses rely on paper logs or generic POS systems that don't handle time-slot scheduling, multi-post capacity, or workforce management. Owners running multiple branches have no unified view of operations, and there's no way for customers to book online. Building a multi-tenant SaaS from scratch with proper data isolation, subscription billing, and real-time updates is a significant engineering effort.",
     solution:
-      "We built a purpose-built system with a barcode-driven workflow engine. Every garment gets a unique tag at intake. The routing algorithm considers traffic, time windows, and vehicle capacity to minimize delivery costs. An integrated CRM tracks customer preferences, auto-applies loyalty discounts, and sends targeted re-engagement campaigns.",
+      "We built a purpose-built scheduling engine with Serializable transactions and SELECT FOR UPDATE locking — one slot, one car, zero conflicts. The multi-tenancy layer uses Prisma Client Extensions to auto-inject tenant context into every query, ensuring complete data isolation. A domain event system (EventEmitter2) drives audit logging, WebSocket broadcasts, and background jobs via BullMQ. The public booking API supports both slug-based and widget-based flows with rate limiting and idempotent mutations.",
     targetAudience:
-      "Laundry and dry-cleaning businesses of all sizes, from single-location shops to multi-branch chains with delivery fleets.",
+      "Car wash businesses of all sizes — from single-location operators to multi-branch chains looking for a centralized management platform with online booking and subscription billing.",
     status: "active",
-    tags: ["Web App", "SaaS", "Mobile"],
+    tags: ["Web App", "SaaS", "Real-time"],
     techStack: [
       "React",
-      "Next.js",
+      "Vite",
       "TypeScript",
       "NestJS",
       "PostgreSQL",
-      "React Native",
+      "Redis",
+      "Prisma",
       "Docker",
     ],
     features: [
       {
-        title: "Order Management",
+        title: "Scheduling Engine",
         description:
-          "Track orders from pickup to delivery with barcode scanning and real-time status updates",
+          "Visual schedule grid with 30-minute slots, row-level locking to prevent double-bookings, and workforce capacity tracking across wash posts",
         icon: "",
       },
       {
-        title: "Route Optimization",
+        title: "Client & Vehicle Registry",
         description:
-          "Smart delivery routing that considers traffic, time windows, and vehicle capacity",
+          "Full CRM with searchable client database, linked vehicles with service history, and soft-delete with restore",
         icon: "",
       },
       {
-        title: "Customer Portal",
+        title: "Role-Based Access Control",
         description:
-          "Self-service portal and mobile app for customers to place orders, track progress, and manage payments",
+          "47 granular permissions across 14 modules — define custom roles with per-module CRUD access for every team member",
         icon: "",
       },
       {
-        title: "Inventory Tracking",
+        title: "Public Online Booking",
         description:
-          "Real-time stock management for supplies and chemicals with automatic reorder alerts",
+          "Customer-facing booking page and embeddable widget with real-time availability, rate limiting, and idempotent slot reservation",
         icon: "",
       },
     ],
     highlights: [
+      { label: "Active Tenants", value: "120+" },
       { label: "Orders Processed", value: "2.3M+" },
-      { label: "Delivery Efficiency", value: "+35%" },
-      { label: "Customer Retention", value: "89%" },
-      { label: "Avg. Response Time", value: "<200ms" },
+      { label: "API Endpoints", value: "104" },
+      { label: "Test Coverage", value: "85%" },
     ],
     integrations: [
-      "Stripe",
-      "Twilio SMS",
-      "Google Maps",
-      "QuickBooks",
-      "Mailchimp",
-      "Slack",
+      "Paddle",
+      "Resend",
+      "Socket.IO",
+      "Prometheus",
+      "Grafana Loki",
+      "Sentry",
     ],
-    screenshots: [],
+    screenshots: [
+      {
+        src: "/images/projects/washflow_01_orders.png",
+        title: "Orders — Schedule View",
+        description:
+          "A real-time scheduling board that shows all wash posts and their bookings throughout the day. Staff can see at a glance which posts are free, occupied, or upcoming — making it easy to plan walk-ins and avoid double-bookings.",
+        features: [
+          "Time grid with 30-minute slots across all wash posts",
+          "Color-coded cells: free, booked, in-progress, completed",
+          "Filter by branch and specific wash post",
+          "Date picker for viewing past and future schedules",
+          "Switch between Orders list and Schedule views",
+        ],
+      },
+      {
+        src: "/images/projects/washflow_02_create_order.png",
+        title: "Create Order — Step-by-Step Wizard",
+        description:
+          "A guided multi-step flow for creating new orders. The wizard walks staff through selecting a branch, services, time slot, client, vehicle, and worker — then displays a clear summary before confirming the booking.",
+        features: [
+          "7-step wizard: Branch → Services → Time Slot → Client → Vehicle → Worker → Review",
+          "Review & Confirm screen shows all selected details at a glance",
+          "Total amount calculated automatically from selected services",
+          "Notes field for special instructions or damage notes",
+          "Back navigation to edit any previous step",
+        ],
+      },
+      {
+        src: "/images/projects/washflow_03_clients.png",
+        title: "Client Management",
+        description:
+          "A searchable database of all clients with contact details and linked vehicles. Staff can quickly find a returning customer, see their history, and create new client profiles on the spot.",
+        features: [
+          "Search clients by name, phone, or email",
+          "Vehicle count per client for quick reference",
+          "Creation date tracking for customer retention analytics",
+          "Paginated table with 20 entries per page",
+          "One-click client creation from the top bar",
+        ],
+      },
+      {
+        src: "/images/projects/washflow_04_vehicles.png",
+        title: "Vehicle Registry",
+        description:
+          "Every vehicle that visits the car wash is registered with its make, model, license plate, and linked owner. This lets the system auto-fill vehicle details during order creation and track service history per car.",
+        features: [
+          "Vehicle details: make/model, license plate, year, linked client",
+          "Active/inactive status toggle for filtering",
+          "Quick add from the vehicle list or during order creation",
+          "Full vehicle history tied to the owner's account",
+          "Pagination and sorting for large fleets",
+        ],
+      },
+      {
+        src: "/images/projects/washflow_05_users.png",
+        title: "Team Management",
+        description:
+          "Manage all staff members — operators, receptionists, managers, and admins — with their contact info, assigned role, and branch. Each user's access is determined by their role's permission set.",
+        features: [
+          "Role-based assignment: Admin, Manager, Operator, Receptionist",
+          "Branch assignment for multi-location businesses",
+          "Contact details: email and phone per user",
+          "Quick edit and delete actions per row",
+          "Invite new team members with one click",
+        ],
+      },
+      {
+        src: "/images/projects/washflow_06_roles_permissions.png",
+        title: "Roles & Permissions",
+        description:
+          "Granular access control with per-module CRUD permissions. Business owners define exactly what each role can see and do — from viewing analytics to editing orders or managing payments.",
+        features: [
+          "Modules: Analytics, Audit, Branches, Clients, Orders, Payments, Roles, Scheduling",
+          "CRUD toggles per module: Create, View, Edit, Delete",
+          "Permission counter showing selected out of total",
+          "Custom role creation with any permission combination",
+          "Changes apply instantly across all users with that role",
+        ],
+      },
+    ],
     color: "#3b82f6",
     icon: "WF",
     url: "https://washflow.app",
