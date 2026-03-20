@@ -1,4 +1,4 @@
-import { getTranslations, getLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { Container, SectionHeading } from "@/components/ui";
 import { BlogCard } from "@/components/blog/blog-card";
 import { getAllBlogPosts } from "@/lib/mdx";
@@ -20,22 +20,8 @@ export async function generateMetadata({
 }
 
 export default async function BlogPage() {
-  const locale = await getLocale();
   const t = await getTranslations("blog");
-  const allPosts = getAllBlogPosts();
-
-  // Group: current locale first, then the rest
-  const currentLocalePosts = allPosts.filter((p) => p.locale === locale);
-  const otherPosts = allPosts.filter((p) => p.locale !== locale);
-  const sortedPosts = [...currentLocalePosts, ...otherPosts];
-
-  // Deduplicate by slug — keep current locale version, skip duplicate from other locale
-  const seen = new Set<string>();
-  const posts = sortedPosts.filter((post) => {
-    if (seen.has(post.slug)) return false;
-    seen.add(post.slug);
-    return true;
-  });
+  const posts = getAllBlogPosts();
 
   return (
     <section className="py-24">
