@@ -10,11 +10,11 @@ export function CTA() {
   return (
     <AnimatedSection className="py-24">
       <Container>
-        <div className="mx-auto max-w-2xl rounded-xl border border-brand-dark/20 bg-brand p-6 text-center sm:p-12 dark:border-brand/30">
+        <div className="mx-auto max-w-2xl rounded-xl border border-brand-dark/20 bg-brand p-6 text-center sm:p-12 dark:border-brand/30 dark:bg-brand-dark">
           <h2 className="text-3xl font-bold tracking-tighter text-white sm:text-4xl">
             {t("title")}
           </h2>
-          <p className="mt-4 text-lg text-white/70">{t("subtitle")}</p>
+          <p className="mt-4 text-lg text-white/90">{t("subtitle")}</p>
           <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Link href="/contact">
               <Button

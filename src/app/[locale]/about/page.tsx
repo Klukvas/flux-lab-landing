@@ -1,10 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import {
-  Container,
-  Button,
-  AnimatedSection,
-} from "@/components/ui";
+import { Container, Button, AnimatedSection } from "@/components/ui";
 import { timelineEvents } from "@/data/team";
 import { STATS } from "@/lib/constants";
 import { generatePageMetadata } from "@/lib/metadata";
@@ -28,10 +24,26 @@ export default async function AboutPage() {
   const t = await getTranslations("about");
 
   const values = [
-    { title: t("values.quality"), description: t("values.qualityDesc"), num: "01" },
-    { title: t("values.innovation"), description: t("values.innovationDesc"), num: "02" },
-    { title: t("values.transparency"), description: t("values.transparencyDesc"), num: "03" },
-    { title: t("values.growth"), description: t("values.growthDesc"), num: "04" },
+    {
+      title: t("values.quality"),
+      description: t("values.qualityDesc"),
+      num: "01",
+    },
+    {
+      title: t("values.innovation"),
+      description: t("values.innovationDesc"),
+      num: "02",
+    },
+    {
+      title: t("values.transparency"),
+      description: t("values.transparencyDesc"),
+      num: "03",
+    },
+    {
+      title: t("values.growth"),
+      description: t("values.growthDesc"),
+      num: "04",
+    },
   ];
 
   const stats = [
@@ -144,28 +156,28 @@ export default async function AboutPage() {
       {/* CTA */}
       <section className="py-16">
         <Container>
-          <div className="relative overflow-hidden rounded-2xl border border-brand/20 bg-gray-950 px-8 py-14 text-center dark:bg-white sm:px-16">
+          <div className="relative overflow-hidden rounded-2xl border border-brand-dark/20 bg-brand px-8 py-14 text-center dark:border-brand/30 dark:bg-brand-dark sm:px-16">
             {/* Glow decoration */}
             <div
               className="absolute -left-20 -top-20 h-60 w-60 rounded-full opacity-20 blur-3xl"
-              style={{ backgroundColor: '#7B6EF6' }}
+              style={{ backgroundColor: "#7B6EF6" }}
               aria-hidden="true"
             />
             <div
               className="absolute -bottom-20 -right-20 h-60 w-60 rounded-full opacity-10 blur-3xl"
-              style={{ backgroundColor: '#7B6EF6' }}
+              style={{ backgroundColor: "#7B6EF6" }}
               aria-hidden="true"
             />
             <div className="relative">
-              <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl dark:text-gray-950">
+              <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
                 {t("cta.title")}
               </h2>
-              <p className="mx-auto mt-3 max-w-lg text-gray-400 dark:text-gray-500">
+              <p className="mx-auto mt-3 max-w-lg text-white/90">
                 {t("cta.description")}
               </p>
               <div className="mt-8">
                 <Link href="/contact">
-                  <Button className="bg-white text-gray-950 hover:bg-gray-100 dark:bg-gray-950 dark:text-white dark:hover:bg-gray-900">
+                  <Button className="bg-white text-brand-dark hover:opacity-90">
                     {t("cta.button")}
                   </Button>
                 </Link>

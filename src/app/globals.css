@@ -49,7 +49,7 @@
   /* Brand — light mode */
   --brand: #5B4FD2;
   --brand-dark: #3D32A8;
-  --brand-dim: #5B4FD2; /* muted variant — lighter than brand-dark */
+  --brand-dim: #7B6EF6; /* muted/lighter variant for subtle contexts */
   --brand-subtle: #E5E2FD;
 
   /* Backgrounds — light mode */
@@ -71,17 +71,17 @@
 .dark {
   --background: #07060E;
   --foreground: #E8E7EF;
-  --gray-50: #04030A;
-  --gray-100: #07060E;
-  --gray-200: #0C0B1A;
-  --gray-300: #14112B;
-  --gray-400: #2A2647;
+  --gray-50: #E8E7EF;
+  --gray-100: #DDDCE6;
+  --gray-200: #B2AFBF;
+  --gray-300: #9896A8;
+  --gray-400: #7A768F;
   --gray-500: #46425E;
-  --gray-600: #7A768F;
-  --gray-700: #B2AFBF;
-  --gray-800: #DDDCE6;
-  --gray-900: #E8E7EF;
-  --gray-950: #F4F3FF;
+  --gray-600: #2A2647;
+  --gray-700: #14112B;
+  --gray-800: #0C0B1A;
+  --gray-900: #07060E;
+  --gray-950: #04030A;
 
   /* Brand — dark mode */
   --brand: #7B6EF6;
@@ -125,7 +125,7 @@ html {
 }
 
 .dark .gradient-text {
-  background: linear-gradient(to right, var(--foreground), var(--foreground) 40%, #46425E);
+  background: linear-gradient(to right, var(--foreground), var(--foreground) 40%, #7A768F);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
