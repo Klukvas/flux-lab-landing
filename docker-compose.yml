@@ -3,6 +3,9 @@ services:
     image: ${DOCKERHUB_USERNAME}/flux-lab-landing:${IMAGE_TAG:-latest}
     expose:
       - "3000"
+    environment:
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "node", "-e", "fetch('http://localhost:3000/').then(r=>{process.exit(r.ok?0:1)}).catch(()=>process.exit(1))"]
