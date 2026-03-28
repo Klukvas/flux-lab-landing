@@ -30,9 +30,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
             {project.icon}
           </span>
           <div>
-            <h3 className="text-lg font-semibold text-foreground">
+            <h2 className="text-lg font-semibold text-foreground">
               {project.name}
-            </h3>
+            </h2>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               {t.has(`${project.slug}.tagline`)
                 ? t(`${project.slug}.tagline`)

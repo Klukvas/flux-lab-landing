@@ -40,7 +40,7 @@ export function BlogCard({ post }: BlogCardProps) {
             {post.readingTime} {t("minRead")}
           </span>
         </div>
-        <h3 className="text-lg font-semibold text-foreground">{post.title}</h3>
+        <h2 className="text-lg font-semibold text-foreground">{post.title}</h2>
         <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
           {post.description}
         </p>

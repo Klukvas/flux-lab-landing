@@ -53,9 +53,9 @@ export function ServiceCard({ service }: ServiceCardProps) {
             />
           </svg>
         </div>
-        <h3 className="text-xl font-semibold text-foreground">
+        <h2 className="text-xl font-semibold text-foreground">
           {t(service.titleKey)}
-        </h3>
+        </h2>
         <p className="text-gray-500 dark:text-gray-400">
           {t(service.descriptionKey)}
         </p>
