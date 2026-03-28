@@ -325,6 +325,7 @@
       "message": "Cover Letter",
       "resume": "Resume Link",
       "submit": "Submit Application",
+      "sending": "Submitting...",
       "success": "Application submitted successfully!",
       "error": "Failed to submit. Please try again."
     }
@@ -338,6 +339,7 @@
       "subject": "Subject",
       "message": "Message",
       "submit": "Send Message",
+      "sending": "Sending...",
       "success": "Message sent successfully! We'll get back to you soon.",
       "error": "Failed to send. Please try again."
     },
@@ -374,6 +376,7 @@
     "error": "Something went wrong",
     "backToHome": "Back to Home",
     "notFound": "Page Not Found",
-    "notFoundDescription": "The page you are looking for does not exist."
+    "notFoundDescription": "The page you are looking for does not exist.",
+    "support": "Open support chat"
   }
 }

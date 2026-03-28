@@ -6,6 +6,7 @@ import { routing } from "@/i18n/routing";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { ScrollToTop } from "@/components/layout/scroll-to-top";
+import { SupportButton } from "@/components/layout/support-button";
 import { JsonLd } from "@/components/seo/json-ld";
 
 export default async function LocaleLayout({
@@ -32,6 +33,7 @@ export default async function LocaleLayout({
           <main className="flex-1">{children}</main>
           <Footer />
           <ScrollToTop />
+          <SupportButton />
         </div>
       </ThemeProvider>
     </NextIntlClientProvider>

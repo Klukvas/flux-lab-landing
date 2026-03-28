@@ -5,9 +5,11 @@ import { useTranslations } from "next-intl";
 import { Button, Input, Textarea } from "@/components/ui";
 import { contactFormSchema, type ContactFormData } from "@/lib/validation";
 
+type FormStatus = "idle" | "sending" | "success" | "error";
+
 export function ContactForm() {
   const t = useTranslations("contact.form");
-  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const [status, setStatus] = useState<FormStatus>("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -31,7 +33,23 @@ export function ContactForm() {
     }
 
     setErrors({});
-    setStatus("success");
+    setStatus("sending");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(result.data),
+      });
+
+      if (!response.ok) {
+        throw new Error("Request failed");
+      }
+
+      setStatus("success");
+    } catch {
+      setStatus("error");
+    }
   }
 
   if (status === "success") {
@@ -74,7 +92,12 @@ export function ContactForm() {
         error={errors.message}
         required
       />
-      <Button type="submit">{t("submit")}</Button>
+      {status === "error" && (
+        <p className="text-sm text-red-500">{t("error")}</p>
+      )}
+      <Button type="submit" disabled={status === "sending"}>
+        {status === "sending" ? t("sending") : t("submit")}
+      </Button>
     </form>
   );
 }
