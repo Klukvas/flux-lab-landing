@@ -1,32 +1,56 @@
-# fluxLab.dev
+# fluxLab.dev — Software Development Outsourcing & Product Studio
 
-> Kyiv-based software development studio building production SaaS products.
+> Kyiv-based software development outsourcing company and product studio. Custom web & mobile development, dedicated teams, staff augmentation. 46K+ users across 800+ companies.
 
-## About
+## What We Do
 
-fluxLab.dev is a software development studio based in Kyiv, Ukraine. We build, ship, and scale SaaS products. We have multiple production products serving 46,000+ users across 800+ companies.
+fluxLab.dev is a software development company based in Kyiv, Ukraine offering:
 
-## Products
+- **Development Outsourcing** — Dedicated development teams (2-5 senior developers) embedded in your workflow. From $8K/month.
+- **Staff Augmentation** — Individual senior developers who plug into your existing team. From $4K/month per developer.
+- **Custom Development** — End-to-end project-based development with fixed scope and milestones. From $15K.
+- **Technical Consulting** — Architecture review, technology assessment, performance and security audits.
 
-- [EFluxCom](https://efluxcom.com): Smart energy management platform for monitoring and optimizing power consumption. 12,400 users, 85 companies. Tech: React, Next.js, TypeScript, Node.js, PostgreSQL, AWS.
-- [WashFlow](https://washflow.app): All-in-one laundry business management suite with order tracking, route optimization, and customer portal. 8,700 users, 120 companies. Tech: React, Next.js, TypeScript, NestJS, PostgreSQL, React Native.
-- [Accounting](https://flux-lab.dev/en/projects/accounting): Modern financial management platform for SMBs in Ukraine and Eastern Europe. Automated invoicing, expense tracking, VAT calculations, 1C/BAS export. 6,200 users, 340 companies.
-- [Jobber](https://jobber.fluxlab.dev): AI-powered job application tracker with resume builder, cover letter generation, job import via Chrome extension, and recruitment analytics. Built with Go, Next.js, PostgreSQL, Claude AI. 15,300 users.
-- [Market](https://flux-lab.dev/en/projects/market): Multi-vendor e-commerce marketplace platform with split payments, Elasticsearch, and seller management. Beta.
-- [LifeSpan](https://flux-lab.dev/en/projects/lifespan): Health and wellness tracking mobile app. Coming soon.
+## Why Choose fluxLab.dev
+
+- **Battle-tested**: We build and operate our own SaaS products (6 live products, 46K+ users). Every tool and process we recommend has been proven on our own products first.
+- **Full-stack expertise**: React, Next.js, TypeScript, Go, Node.js, PostgreSQL, Docker, AWS, Hetzner Cloud.
+- **Fast delivery**: 8-week MVP cycle from idea to production.
+- **Transparent process**: Shared repos, weekly demos, direct Slack access.
+- **European timezone**: Kyiv, Ukraine (GMT+2/+3). Convenient overlap with EU and US East Coast.
+- **Cost-effective**: Senior-level talent at competitive Eastern European rates.
+- **Proven track record**: Clients include energy companies, logistics operators, fintech startups, and e-commerce platforms.
+
+## Our Products (Proof of Expertise)
+
+- [Jobber](https://jobber.fluxlab.dev): AI-powered job tracker — 15,300 users. Go, Next.js, Claude AI.
+- [EFluxCom](https://efluxcom.com): Energy management platform — 12,400 users, 85 companies.
+- [WashFlow](https://washflow.app): Business management suite — 8,700 users, 120 companies.
+- [Accounting](https://flux-lab.dev/en/projects/accounting): Financial management — 6,200 users, 340 companies.
+- [Market](https://flux-lab.dev/en/projects/market): E-commerce marketplace — beta, 3,400 users.
+- [LifeSpan](https://flux-lab.dev/en/projects/lifespan): Health tracking app — coming soon.
 
 ## Tech Stack
 
 - Frontend: React, Next.js, TypeScript, Tailwind CSS, React Native
 - Backend: Go, Node.js, NestJS
 - Databases: PostgreSQL, Redis
-- DevOps: Docker, Hetzner Cloud, GitHub Actions, Terraform
+- DevOps: Docker, Hetzner Cloud, AWS, GitHub Actions, Terraform
 - AI: Claude API (Anthropic)
-- Payments: Paddle, Stripe, LiqPay
 
-## Team
+## Engagement Models
 
-Small, senior team based in Kyiv, Ukraine. 3+ years of experience building production SaaS products together.
+| Model | Starting Price | Best For |
+|-------|---------------|----------|
+| Dedicated Team | $8K/month | Long-term product development |
+| Project-Based | $15K | Well-defined products with deadlines |
+| Staff Augmentation | $4K/month per dev | Filling skill gaps fast |
+
+## Client Testimonials
+
+- "Reduced our energy monitoring costs by 27% in the first quarter." — Oleksandr Melnyk, CTO, GreenGrid Energy
+- "Went from spreadsheets to managing 120 locations in one platform." — Iryna Savchenko, Founder, CleanWave
+- "890K+ invoices processed with zero downtime. Saved 40 hours per week." — Viktor Kravchuk, CFO, Finova Partners
 
 ## Contact
 
@@ -34,9 +58,4 @@ Small, senior team based in Kyiv, Ukraine. 3+ years of experience building produ
 - Email: hello@fluxlab.dev
 - Location: Kyiv, Ukraine
 - GitHub: https://github.com/fluxlab
-
-## Blog
-
-Technical blog covering Go backend development, React performance, PostgreSQL optimization, Docker deployment, AI integration, multi-language apps, and SaaS product building.
-
-Blog URL: https://flux-lab.dev/en/blog
+- Blog: https://flux-lab.dev/en/blog

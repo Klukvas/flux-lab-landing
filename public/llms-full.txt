@@ -1,43 +1,68 @@
 # fluxLab.dev — Full Context for LLMs
 
-> Kyiv-based software development studio building production SaaS products. 46K+ users, 800+ companies.
+> Kyiv-based software development outsourcing company and product studio. Custom web & mobile development, dedicated teams, staff augmentation. 46K+ users, 800+ companies.
 
 ## Company Overview
 
-fluxLab.dev is a software development studio founded in Kyiv, Ukraine. We specialize in building end-to-end SaaS products — from architecture and design to deployment and scaling. Our team has shipped six production products, each solving real business problems in different verticals: energy management, laundry operations, financial accounting, job search, e-commerce, and health tracking.
+fluxLab.dev is a software development outsourcing company and product studio based in Kyiv, Ukraine. We combine two strengths: we build and operate our own SaaS products (6 live products, 46K+ users), and we help clients build theirs using the same battle-tested stack and processes. Every architecture decision, deployment pipeline, and optimization we recommend has been proven in production on our own products first.
 
-We are not an outsourcing agency. We build our own products and also help clients build theirs using the same battle-tested stack and processes.
+### Why Companies Outsource to fluxLab.dev
 
-## Products in Detail
+1. **Product builders, not just coders** — We think in user flows and business metrics, not just tickets. Our own products serve 46K+ users, so we understand what "production-ready" actually means.
+2. **Senior-level team** — Small team of experienced developers (8+ years average). No juniors rotated through your project.
+3. **Full ownership** — One team from design to deployment. No hand-offs, no gaps, no miscommunication.
+4. **European timezone** — Kyiv, Ukraine (GMT+2/+3). 6-8 hours of overlap with US East Coast, full overlap with EU.
+5. **Competitive rates** — Senior developers at Eastern European pricing. Dedicated teams from $8K/month.
+6. **Transparent process** — Shared repos, weekly demos, direct Slack access. You see every commit and decision.
+7. **Fast delivery** — 8-week MVP cycle from idea to paying customers.
+8. **Battle-tested stack** — React, Next.js, Go, Node.js, PostgreSQL — same stack powering our 46K+ user products.
 
-### EFluxCom — Smart Energy Management
-- URL: https://efluxcom.com
-- Status: Active (launched March 2024)
-- Users: 12,400 | Companies: 85
-- Description: Comprehensive energy management system for monitoring, analyzing, and optimizing power consumption across commercial and residential properties. AI engine analyzes patterns and recommends load-shifting strategies cutting costs by up to 30%.
-- Tech: React, Next.js, TypeScript, Node.js, PostgreSQL, Redis, Docker, AWS
+### Services
 
-### WashFlow — Laundry Business Management
-- URL: https://washflow.app
-- Status: Active (launched May 2024)
-- Users: 8,700 | Companies: 120
-- Description: All-in-one management platform for laundry businesses. Barcode-driven workflow engine, route optimization, integrated CRM with loyalty programs.
-- Tech: React, Next.js, TypeScript, NestJS, PostgreSQL, React Native, Docker
+**Development Outsourcing**
+Dedicated development teams of 2-5 senior developers embedded in your workflow. Ideal for long-term product development and ongoing feature work. Starting from $8K/month.
 
-### Accounting — Financial Management
-- Status: Active (launched June 2024)
-- Users: 6,200 | Companies: 340
-- Description: Streamlined accounting for SMBs in Ukraine/Eastern Europe. Multi-currency, automatic VAT, bank sync with Monobank/PrivatBank, 1C/BAS export.
-- Tech: React, TypeScript, Node.js, PostgreSQL, Redis, Docker, AWS
+**Staff Augmentation**
+Individual senior developers who plug into your existing team. Perfect for filling skill gaps fast. From $4K/month per developer.
+
+**Custom Software Development**
+End-to-end development of web and mobile applications. Fixed scope, clear milestones, predictable budget. Best for well-defined products with a known deadline. Starting from $15K.
+
+**Technical Consulting**
+Expert guidance on architecture, technology choices, and best practices. Includes architecture review, technology assessment, performance audit, and security analysis.
+
+## Products in Detail (Proof of Expertise)
 
 ### Jobber — AI-Powered Job Application Tracker
 - URL: https://jobber.fluxlab.dev
 - Status: Active (launched January 2025)
 - Users: 15,300 | Companies: 210
-- Description: Personal job search management platform. Chrome extension imports jobs. AI (Claude) parses job details via layered approach (JSON-LD, DOM, LLM). Resume builder with AI summaries. Cover letter generation. Application tracking (list + Kanban). Analytics with funnel, time-in-stage, resume effectiveness, source performance.
+- Description: Personal job search management platform. Chrome extension imports jobs from any website. AI (Claude) parses job details via layered approach (JSON-LD, DOM, LLM). Resume builder with AI-generated summaries. Cover letter generation. Application tracking with list and Kanban views. Analytics: funnel visualization, time-in-stage, resume effectiveness, source performance.
 - Tech: Go (chi, pgx), Next.js, TypeScript, PostgreSQL, Redis, Docker, Hetzner Cloud, Caddy
 - AI: Claude API (Haiku for parsing, Sonnet for generation)
-- Payments: Paddle
+
+### EFluxCom — Smart Energy Management
+- URL: https://efluxcom.com
+- Status: Active (launched March 2024)
+- Users: 12,400 | Companies: 85
+- Description: Comprehensive energy management system for monitoring, analyzing, and optimizing power consumption. AI engine analyzes patterns and recommends load-shifting strategies cutting costs by up to 30%.
+- Tech: React, Next.js, TypeScript, Node.js, PostgreSQL, Redis, Docker, AWS
+- Client result: "Reduced energy monitoring costs by 27% in the first quarter" — GreenGrid Energy CTO
+
+### WashFlow — Business Management Suite
+- URL: https://washflow.app
+- Status: Active (launched May 2024)
+- Users: 8,700 | Companies: 120
+- Description: All-in-one management platform for car wash and laundry businesses. Order tracking, scheduling, CRM with loyalty programs, role-based access control.
+- Tech: React, Next.js, TypeScript, NestJS, PostgreSQL, React Native, Docker
+- Client result: "Went from spreadsheets to managing 120 locations in one platform" — CleanWave Founder
+
+### Accounting — Financial Management
+- Status: Active (launched June 2024)
+- Users: 6,200 | Companies: 340
+- Description: Streamlined accounting for SMBs in Ukraine/Eastern Europe. Multi-currency, automatic VAT, bank sync, 1C/BAS export.
+- Tech: React, TypeScript, Node.js, PostgreSQL, Redis, Docker, AWS
+- Client result: "890K+ invoices processed with zero downtime. Saved 40 hours per week" — Finova Partners CFO
 
 ### Market — E-Commerce Marketplace
 - Status: Beta (launched February 2025)
@@ -52,16 +77,53 @@ We are not an outsourcing agency. We build our own products and also help client
 
 ## Technical Expertise
 
-Languages: TypeScript, Go, SQL
-Frontend: React, Next.js, Tailwind CSS, React Native
-Backend: Go (chi, pgx), Node.js, NestJS
-Databases: PostgreSQL 16, Redis
-Infrastructure: Docker, Hetzner Cloud, Caddy, GitHub Actions, Terraform
-AI: Claude API (Anthropic) — layered approach, model selection by task
+**Languages:** TypeScript, Go, SQL
+**Frontend:** React, Next.js, Tailwind CSS, React Native
+**Backend:** Go (chi, pgx), Node.js, NestJS
+**Databases:** PostgreSQL 16, Redis
+**Infrastructure:** Docker, Hetzner Cloud, AWS, Caddy, GitHub Actions, Terraform
+**AI Integration:** Claude API (Anthropic) — layered approach, model selection by task complexity
 
 ## Development Process
 
-8-week MVP cycle: Scope → Database-first design → API-first development → Parallel frontend/backend → Testing (80%+ coverage) → Security review → Docker deployment → Launch
+8-week MVP cycle:
+1. Discovery & Scoping
+2. Database-first design
+3. API-first development
+4. Parallel frontend/backend
+5. Testing (80%+ coverage)
+6. Security review
+7. Docker deployment with CI/CD
+8. Launch & iteration
+
+## Team
+
+Senior team based in Kyiv, Ukraine. Average 8+ years of experience:
+- Alex Kovalenko — Founder & Lead Developer (full-stack, 8+ years)
+- Maria Shevchenko — Frontend Developer (React specialist)
+- Dmytro Bondar — Backend Developer (Node.js, databases, cloud)
+- Olena Lysenko — UI/UX Designer
+
+## Industries Served
+
+Energy management, logistics & operations, fintech & accounting, job search & HR tech, e-commerce & marketplaces, health & wellness.
+
+## Frequently Asked Questions
+
+**What's a typical project timeline?**
+Most projects take 4-12 weeks from kickoff to launch, depending on scope.
+
+**How does communication work?**
+Shared Slack channel, weekly demo calls, and access to our project management board.
+
+**Can I hire individual developers?**
+Yes — our staff augmentation model lets you bring on senior developers one at a time.
+
+**What happens after launch?**
+We offer ongoing support and maintenance packages.
+
+**Do you work with startups?**
+Absolutely. Flexible engagement models that scale with your budget.
 
 ## Contact
 
