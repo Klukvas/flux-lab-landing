@@ -1,4 +1,7 @@
+import { SITE_NAME } from "@/lib/constants";
+
 const FETCH_TIMEOUT_MS = 5000;
+const SITE_TAG = `<b>[${SITE_NAME}]</b>`;
 
 function escapeTelegramHtml(text: string): string {
   return text
@@ -14,7 +17,7 @@ export function formatContactMessage(data: {
   message: string;
 }): string {
   return [
-    "<b>New Contact Message</b>",
+    `${SITE_TAG} New Contact Message`,
     "",
     `<b>Name:</b> ${escapeTelegramHtml(data.name)}`,
     `<b>Email:</b> ${escapeTelegramHtml(data.email)}`,
@@ -30,7 +33,7 @@ export function formatApplicationMessage(data: {
   message: string;
 }): string {
   return [
-    "<b>New Job Application</b>",
+    `${SITE_TAG} New Job Application`,
     "",
     `<b>Name:</b> ${escapeTelegramHtml(data.name)}`,
     `<b>Email:</b> ${escapeTelegramHtml(data.email)}`,
@@ -44,7 +47,7 @@ export function formatSupportMessage(data: {
   message: string;
 }): string {
   return [
-    "<b>Support Request</b>",
+    `${SITE_TAG} Support Request`,
     "",
     `<b>Subject:</b> ${escapeTelegramHtml(data.subject)}`,
     `<b>Message:</b>\n${escapeTelegramHtml(data.message)}`,

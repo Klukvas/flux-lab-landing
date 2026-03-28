@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { headers } from "next/headers";
+import { SITE_NAME } from "@/lib/constants";
 import { applicationFormSchema, validateResumeFile } from "@/lib/validation";
 import {
   formatApplicationMessage,
@@ -55,7 +56,10 @@ export async function POST(request: Request) {
 
     const text = formatApplicationMessage(result.data);
     await sendTelegramMessage(text);
-    await sendTelegramDocument(file, `Resume: ${result.data.name}`);
+    await sendTelegramDocument(
+      file,
+      `[${SITE_NAME}] Resume: ${result.data.name}`,
+    );
 
     return NextResponse.json({ success: true });
   } catch (error) {
