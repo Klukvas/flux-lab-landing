@@ -371,12 +371,21 @@
       "role": "CFO"
     }
   },
+  "support": {
+    "title": "How can we help?",
+    "subject": "Subject",
+    "message": "Describe your issue...",
+    "submit": "Send",
+    "sending": "Sending...",
+    "success": "Sent! We'll get back to you shortly.",
+    "error": "Failed to send. Please try again.",
+    "aria": "Open support form"
+  },
   "common": {
     "loading": "Loading...",
     "error": "Something went wrong",
     "backToHome": "Back to Home",
     "notFound": "Page Not Found",
-    "notFoundDescription": "The page you are looking for does not exist.",
-    "support": "Open support chat"
+    "notFoundDescription": "The page you are looking for does not exist."
   }
 }

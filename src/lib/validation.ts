@@ -24,3 +24,13 @@ export const applicationFormSchema = z.object({
 });
 
 export type ApplicationFormData = z.infer<typeof applicationFormSchema>;
+
+export const supportFormSchema = z.object({
+  subject: z.string().min(3, "Subject must be at least 3 characters").max(200),
+  message: z
+    .string()
+    .min(10, "Message must be at least 10 characters")
+    .max(3000),
+});
+
+export type SupportFormData = z.infer<typeof supportFormSchema>;

@@ -41,6 +41,18 @@ export function formatApplicationMessage(data: {
   ].join("\n");
 }
 
+export function formatSupportMessage(data: {
+  subject: string;
+  message: string;
+}): string {
+  return [
+    "<b>Support Request</b>",
+    "",
+    `<b>Subject:</b> ${escapeTelegramHtml(data.subject)}`,
+    `<b>Message:</b>\n${escapeTelegramHtml(data.message)}`,
+  ].join("\n");
+}
+
 export async function sendTelegramMessage(text: string): Promise<void> {
   const botToken = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
