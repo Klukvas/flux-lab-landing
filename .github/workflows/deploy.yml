@@ -64,18 +64,27 @@ jobs:
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           IMAGE_TAG: sha-${{ github.sha }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          envs: DOCKERHUB_USERNAME,IMAGE_TAG
+          envs: DOCKERHUB_USERNAME,IMAGE_TAG,TELEGRAM_BOT_TOKEN,TELEGRAM_CHAT_ID
           script: |
             export PATH=$PATH:/usr/bin:/usr/local/bin
             cd /opt/flux-lab-landing
 
             export DOCKERHUB_USERNAME="$DOCKERHUB_USERNAME"
             export IMAGE_TAG="$IMAGE_TAG"
+
+            cat > .env <<EOL
+            DOCKERHUB_USERNAME=$DOCKERHUB_USERNAME
+            IMAGE_TAG=$IMAGE_TAG
+            TELEGRAM_BOT_TOKEN=$TELEGRAM_BOT_TOKEN
+            TELEGRAM_CHAT_ID=$TELEGRAM_CHAT_ID
+            EOL
 
             docker compose pull
             docker compose up -d
