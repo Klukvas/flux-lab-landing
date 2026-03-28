@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { Button, Input, Textarea } from "@/components/ui";
 import {
   applicationFormSchema,
+  validateResumeFile,
   type ApplicationFormData,
 } from "@/lib/validation";
 
@@ -18,19 +19,37 @@ export function ApplicationForm() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(
-      formData.entries(),
-    ) as unknown as ApplicationFormData;
 
-    const result = applicationFormSchema.safeParse(data);
+    const textData = {
+      name: formData.get("name") as string,
+      email: formData.get("email") as string,
+      position: formData.get("position") as string,
+      message: formData.get("message") as string,
+    } satisfies ApplicationFormData;
+
+    const fieldErrors: Record<string, string> = {};
+
+    const result = applicationFormSchema.safeParse(textData);
     if (!result.success) {
-      const fieldErrors: Record<string, string> = {};
       for (const issue of result.error.issues) {
         const path = issue.path[0];
         if (typeof path === "string") {
           fieldErrors[path] = issue.message;
         }
       }
+    }
+
+    const file = formData.get("resume") as File | null;
+    if (!file || file.size === 0) {
+      fieldErrors.resume = t("resumeRequired");
+    } else {
+      const fileValidation = validateResumeFile(file);
+      if (!fileValidation.valid) {
+        fieldErrors.resume = fileValidation.error;
+      }
+    }
+
+    if (Object.keys(fieldErrors).length > 0) {
       setErrors(fieldErrors);
       return;
     }
@@ -41,8 +60,7 @@ export function ApplicationForm() {
     try {
       const response = await fetch("/api/application", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(result.data),
+        body: formData,
       });
 
       if (!response.ok) {
@@ -87,14 +105,25 @@ export function ApplicationForm() {
         error={errors.position}
         required
       />
-      <Input
-        id="resume"
-        name="resume"
-        type="url"
-        label={t("resume")}
-        error={errors.resume}
-        required
-      />
+      <div className="space-y-1">
+        <label
+          htmlFor="resume"
+          className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+        >
+          {t("resume")}
+        </label>
+        <input
+          id="resume"
+          name="resume"
+          type="file"
+          accept=".pdf,.doc,.docx"
+          required
+          className="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 file:mr-3 file:rounded-md file:border-0 file:bg-brand file:px-3 file:py-1 file:text-sm file:font-medium file:text-white hover:file:bg-brand-dark dark:border-gray-700 dark:bg-gray-950 dark:text-gray-100"
+        />
+        {errors.resume && (
+          <p className="text-sm text-red-500">{errors.resume}</p>
+        )}
+      </div>
       <Textarea
         id="message"
         name="message"
