@@ -21,12 +21,25 @@ export function parseFrontmatter(content: string): {
       meta[key] = value
         .slice(1, -1)
         .split(",")
-        .map((s) => s.trim().replace(/['"]/g, ""));
+        .map((s) => unquote(s.trim()));
     } else {
-      meta[key] = value.replace(/['"]/g, "");
+      meta[key] = unquote(value);
     }
   }
   return { meta, body: match[2] };
+}
+
+/**
+ * Strips one pair of wrapping quotes. Quotes inside a value stay: Ukrainian spelling
+ * needs the apostrophe ("пам'яті"), and English needs it in contractions.
+ */
+function unquote(value: string): string {
+  const first = value[0];
+  const isWrapped =
+    value.length >= 2 &&
+    (first === '"' || first === "'") &&
+    value[value.length - 1] === first;
+  return isWrapped ? value.slice(1, -1) : value;
 }
 
 function toPostMeta(
