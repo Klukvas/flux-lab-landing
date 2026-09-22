@@ -29,6 +29,11 @@ export async function generateMetadata({
     description: post.meta.description,
     path: `/blog/${slug}`,
     locale,
+    article: {
+      publishedTime: post.meta.date,
+      modifiedTime: post.meta.updated,
+      tags: post.meta.tags,
+    },
   });
 }
 

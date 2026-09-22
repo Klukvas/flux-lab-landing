@@ -18,8 +18,8 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "services" });
   return generatePageMetadata({
-    title: t("title"),
-    description: t("subtitle"),
+    title: t("metaTitle"),
+    description: t("metaDescription"),
     path: "/services",
     locale,
   });
@@ -55,7 +55,11 @@ export default async function ServicesPage({
       />
       <section className="py-24">
         <Container>
-          <SectionHeading title={t("title")} subtitle={t("subtitle")} />
+          <SectionHeading
+          as="h1"
+          title={t("title")}
+          subtitle={t("subtitle")}
+        />
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {services.map((service) => (
               <ServiceCard key={service.id} service={service} />

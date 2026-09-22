@@ -26,13 +26,13 @@ export async function generateMetadata({
   const project = getProjectBySlug(slug);
   if (!project) return {};
 
-  const t = await getTranslations("projects");
-  const k = `${slug}.tagline` as Parameters<typeof t>[0];
-  const tagline = t.has(k) ? t(k) : project.tagline;
+  const t = await getTranslations({ locale, namespace: "projects" });
+  const tagline = tGet(t, `${slug}.tagline`, project.tagline);
+  const description = tGet(t, `${slug}.description`, project.description);
 
   return generatePageMetadata({
-    title: project.name,
-    description: tagline,
+    title: `${project.name} — ${tagline}`,
+    description,
     path: `/projects/${slug}`,
     locale,
   });

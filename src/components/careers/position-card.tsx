@@ -15,9 +15,9 @@ export function PositionCard({ position }: PositionCardProps) {
       <div className="flex flex-col gap-3">
         <div className="flex items-start justify-between">
           <div>
-            <h3 className="text-lg font-semibold text-foreground">
+            <h2 className="text-lg font-semibold text-foreground">
               {position.title}
-            </h3>
+            </h2>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               {position.department} · {position.location}
             </p>

@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "title": "fluxLab.dev — Software Development Studio | Kyiv, Ukraine",
-    "description": "Kyiv-based dev studio building production SaaS products with React, Next.js, TypeScript & Go. 46K+ users. Custom web & mobile development."
+    "title": "Software Development Company in Ukraine | fluxLab.dev",
+    "description": "Kyiv product studio behind SaaS apps used by 46K+ people. Hire our senior React, Next.js and Go team: dedicated teams from $8K/month."
   },
   "nav": {
     "home": "Home",
@@ -14,6 +14,7 @@
   },
   "home": {
     "hero": {
+      "eyebrow": "Software development studio · Kyiv, Ukraine",
       "title": "46K+ Users. One Team.",
       "subtitle": "Kyiv-based dev studio that builds, ships, and scales SaaS products. Need the same team behind your next project?",
       "cta": "View Our Work",
@@ -76,6 +77,8 @@
     },
     "title": "Our Projects",
     "subtitle": "Explore our portfolio of digital products",
+    "metaTitle": "Case Studies: SaaS Products We Built and Run",
+    "metaDescription": "Case studies of SaaS products we designed, built and run: a car wash CRM, an AI job tracker, energy management and accounting tools.",
     "filterAll": "All",
     "viewProject": "View Project",
     "users": "Users",
@@ -171,8 +174,10 @@
     }
   },
   "services": {
-    "title": "Our Services",
+    "title": "Software Development Services",
     "subtitle": "How we can help you",
+    "metaTitle": "Custom Software Development & Dedicated Teams",
+    "metaDescription": "Custom web and SaaS development, dedicated teams from $8K/month and staff augmentation from $4K per developer. Senior React, Next.js and Go engineers.",
     "outsourcing": {
       "title": "Development Outsourcing",
       "description": "Extend your team with our experienced developers"
@@ -226,8 +231,10 @@
     }
   },
   "blog": {
-    "title": "Blog",
+    "title": "Engineering Blog",
     "subtitle": "Insights, tutorials, and updates from our team",
+    "metaTitle": "Engineering Blog: SaaS, Go, React & PostgreSQL",
+    "metaDescription": "Practical notes from building SaaS in production: Go backends, React performance, PostgreSQL tuning, Docker deployment and AI features.",
     "readMore": "Read More",
     "publishedOn": "Published on",
     "minRead": "min read",
@@ -238,6 +245,8 @@
   "about": {
     "title": "About Us",
     "subtitle": "We build software that sells itself.",
+    "metaTitle": "About Us: Product Studio from Kyiv, Ukraine",
+    "metaDescription": "We build, launch and run our own SaaS products, then bring the same senior team to client work. Meet the Kyiv studio behind products used by 46K+ people.",
     "mission": {
       "title": "We're a product studio, not an agency.",
       "description": "We build our own SaaS products from scratch — and help clients do the same. Every architecture decision, every deployment pipeline, every performance optimization we recommend has been battle-tested on our own products first. When we say something works at scale, we have the metrics to prove it."
@@ -313,6 +322,8 @@
   "careers": {
     "title": "Careers",
     "subtitle": "Join our team and build amazing products",
+    "metaTitle": "Remote Developer Jobs: Go, React, DevOps",
+    "metaDescription": "Remote jobs at a Kyiv product studio: senior frontend, Go backend, full-stack, DevOps and technical writer roles on SaaS products used by 46K+ people.",
     "openPositions": "Open Positions",
     "noPositions": "No open positions at the moment. Check back later!",
     "apply": "Apply Now",
@@ -334,6 +345,8 @@
   "contact": {
     "title": "Contact Us",
     "subtitle": "Let's discuss your next project",
+    "metaTitle": "Hire a Development Team: Contact Us",
+    "metaDescription": "Tell us about your product or hiring needs. Dedicated teams, project-based development and staff augmentation from a senior team in Kyiv, Ukraine.",
     "form": {
       "name": "Your Name",
       "email": "Your Email",

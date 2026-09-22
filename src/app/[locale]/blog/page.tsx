@@ -12,8 +12,8 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "blog" });
   return generatePageMetadata({
-    title: t("title"),
-    description: t("subtitle"),
+    title: t("metaTitle"),
+    description: t("metaDescription"),
     path: "/blog",
     locale,
   });
@@ -26,7 +26,11 @@ export default async function BlogPage() {
   return (
     <section className="py-24">
       <Container>
-        <SectionHeading title={t("title")} subtitle={t("subtitle")} />
+        <SectionHeading
+          as="h1"
+          title={t("title")}
+          subtitle={t("subtitle")}
+        />
         {posts.length === 0 ? (
           <p className="text-center text-gray-500 dark:text-gray-400">
             {t("noPosts")}

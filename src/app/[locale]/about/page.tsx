@@ -13,8 +13,8 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "about" });
   return generatePageMetadata({
-    title: t("title"),
-    description: t("subtitle"),
+    title: t("metaTitle"),
+    description: t("metaDescription"),
     path: "/about",
     locale,
   });
