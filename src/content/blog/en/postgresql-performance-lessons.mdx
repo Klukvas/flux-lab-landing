@@ -1,6 +1,6 @@
 ---
 title: PostgreSQL Performance Lessons From Running 6 SaaS Products
-description: Real-world PostgreSQL optimization techniques learned from operating multiple production SaaS databases at fluxLab.dev, including indexing, query tuning, and connection pooling.
+description: PostgreSQL optimization lessons from running production SaaS databases at fluxLab.dev: indexing, query tuning, N+1 queries and connection pooling.
 date: 2025-02-05
 author: fluxLab.dev
 tags: [PostgreSQL, Performance, Database, SaaS]
@@ -81,7 +81,7 @@ updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 
 ## Lesson 6: Soft Deletes Create Query Complexity
 
-We tried soft deletes (adding a `deleted_at` column) in our Accounting product. Every query needed `WHERE deleted_at IS NULL`, and we missed it in several places. Now we prefer hard deletes with proper foreign key constraints and a separate audit log table when we need history.
+We tried soft deletes (adding a `deleted_at` column) in our [Accounting](/en/projects/accounting) product. Every query needed `WHERE deleted_at IS NULL`, and we missed it in several places. Now we prefer hard deletes with proper foreign key constraints and a separate audit log table when we need history.
 
 ## Lesson 7: Migrations Must Be Reversible
 
@@ -90,3 +90,5 @@ Every migration at fluxLab.dev has both `up` and `down` scripts. We use `golang-
 ## Conclusion
 
 PostgreSQL is remarkably capable out of the box. Most performance issues we've encountered were caused by our own mistakes: missing indexes, N+1 queries, too many connections, or wrong column types. The best optimization is writing correct queries from the start — and measuring everything with `EXPLAIN ANALYZE`.
+
+If your database is slowing your product down, a performance audit is part of our [technical consulting](/en/services).

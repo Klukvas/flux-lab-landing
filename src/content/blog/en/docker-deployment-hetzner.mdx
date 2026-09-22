@@ -69,7 +69,7 @@ services:
 Caddy provides automatic HTTPS with Let's Encrypt — no certbot setup, no certificate renewal cron jobs. The Caddyfile is readable:
 
 ```
-jobber.fluxlab.dev {
+jobber-app.com {
     reverse_proxy app:3000
 }
 ```
@@ -134,3 +134,5 @@ Compare this to AWS (t3.medium + RDS + S3): ~€80/month minimum. For a bootstra
 ## Conclusion
 
 Docker on Hetzner Cloud gives fluxLab.dev production-grade infrastructure at a fraction of cloud provider costs. For SaaS products with predictable traffic patterns, dedicated servers with Docker Compose are simpler and cheaper than Kubernetes or serverless architectures.
+
+Want a second pair of eyes on your deployment setup? Infrastructure reviews are part of our [technical consulting](/en/services).

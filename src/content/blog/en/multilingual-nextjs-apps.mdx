@@ -107,11 +107,12 @@ alternates: {
   languages: {
     en: `${SITE_URL}/en${path}`,
     uk: `${SITE_URL}/uk${path}`,
+    'x-default': `${SITE_URL}/en${path}`,
   },
 }
 ```
 
-This tells Google which version to show to Ukrainian vs. English speakers.
+This tells Google which version to show to Ukrainian vs. English speakers. The `x-default` entry names the page for everyone else; we point it at the English version.
 
 ### Translated Meta Descriptions
 
@@ -119,7 +120,7 @@ Every page has unique meta descriptions per language — not just translated tit
 
 ### Sitemap Coverage
 
-Our sitemap generates URLs for every page × every locale combination. For our portfolio site with 6 projects and 10 blog posts, that's ~60 sitemap entries ensuring complete coverage.
+Our sitemap generates URLs for every page × every locale combination. For our portfolio site with 6 projects, 11 blog posts and our job openings, that's about 60 sitemap entries, each listing its language alternates.
 
 ## Common Pitfalls
 
@@ -131,3 +132,5 @@ Our sitemap generates URLs for every page × every locale combination. For our p
 ## Conclusion
 
 `next-intl` makes internationalization straightforward in Next.js App Router applications. With proper SEO setup (hreflang, localized sitemaps, translated metadata), multi-language support becomes a competitive advantage rather than a maintenance burden.
+
+Building a product for more than one market? We ship multilingual Next.js apps for clients too: [see our services](/en/services).

@@ -1,6 +1,6 @@
 ---
 title: React Performance Patterns We Use in Production
-description: Practical React performance optimization techniques used across fluxLab.dev products, including code splitting, memoization, virtualization, and image optimization.
+description: Practical React performance techniques from fluxLab.dev products: code splitting, memoization, virtualization and image optimization.
 date: 2025-02-12
 author: fluxLab.dev
 tags: [React, Performance, Next.js, Frontend]
@@ -109,7 +109,7 @@ Common catches:
 We track Core Web Vitals in production:
 
 - **LCP** (Largest Contentful Paint): Target under 2.5s
-- **FID** (First Input Delay): Target under 100ms
+- **INP** (Interaction to Next Paint): Target under 200ms
 - **CLS** (Cumulative Layout Shift): Target under 0.1
 
 Our portfolio site (flux-lab.dev) scores 95+ on Lighthouse for all metrics.
@@ -117,3 +117,5 @@ Our portfolio site (flux-lab.dev) scores 95+ on Lighthouse for all metrics.
 ## Conclusion
 
 React performance optimization is about making smart choices consistently: Server Components over Client Components, lazy loading over eager loading, and measuring before optimizing. These patterns keep our products fast across all our production deployments.
+
+If your React app feels slow and you're not sure why, [we can help](/en/services). Every engagement starts with measuring.
