@@ -6,26 +6,32 @@ const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
 
 describe("sitemap", () => {
   const entries = sitemap();
+  const urls = entries.map((entry) => entry.url);
   const byUrl = new Map(entries.map((entry) => [entry.url, entry]));
 
-  it("lists every page in both languages, job postings included", () => {
-    const urls = entries.map((entry) => entry.url);
-
+  it("lists each URL once, job postings in both languages included", () => {
     expect(urls).toContain("https://flux-lab.dev/en/careers/go-backend-developer");
     expect(urls).toContain("https://flux-lab.dev/uk/careers/go-backend-developer");
-    expect(urls.filter((url) => url.startsWith("https://flux-lab.dev/en"))).toHaveLength(
-      urls.filter((url) => url.startsWith("https://flux-lab.dev/uk")).length,
-    );
     expect(new Set(urls).size).toBe(urls.length);
   });
 
-  it("gives every URL its language alternates plus x-default", () => {
+  it("points every hreflang alternate at a page the sitemap itself lists", () => {
+    // A translation that doesn't exist yet would otherwise be announced as a 404.
+    const listed = new Set(urls);
     for (const entry of entries) {
-      expect(Object.keys(entry.alternates?.languages ?? {}).sort()).toEqual([
-        "en",
-        "uk",
-        "x-default",
-      ]);
+      for (const alternate of Object.values(entry.alternates?.languages ?? {})) {
+        expect(listed.has(alternate)).toBe(true);
+      }
+    }
+  });
+
+  it("declares each URL among its own alternates, plus an x-default", () => {
+    for (const entry of entries) {
+      const languages = entry.alternates?.languages ?? {};
+      const locale = new URL(entry.url).pathname.split("/")[1];
+
+      expect(languages[locale as keyof typeof languages]).toBe(entry.url);
+      expect(languages["x-default"]).toBeDefined();
     }
     expect(
       byUrl.get("https://flux-lab.dev/uk/services")?.alternates?.languages,

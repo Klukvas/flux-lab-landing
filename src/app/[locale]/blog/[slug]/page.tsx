@@ -1,7 +1,12 @@
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container, Badge } from "@/components/ui";
-import { getBlogPost, getAllBlogSlugs, getRelatedPosts } from "@/lib/mdx";
+import {
+  getBlogPost,
+  getAllBlogSlugs,
+  getBlogPostLocales,
+  getRelatedPosts,
+} from "@/lib/mdx";
 import { generatePageMetadata } from "@/lib/metadata";
 import { formatDate } from "@/lib/utils";
 import { locales } from "@/i18n/config";
@@ -32,6 +37,7 @@ export async function generateMetadata({
     description: post.meta.description,
     path: `/blog/${slug}`,
     locale,
+    availableLocales: getBlogPostLocales(slug),
     article: {
       publishedTime: post.meta.date,
       modifiedTime: post.meta.updated,

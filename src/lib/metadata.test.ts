@@ -17,6 +17,21 @@ describe("generatePageMetadata", () => {
     });
   });
 
+  it("lists only the translations that exist", () => {
+    const metadata = generatePageMetadata({
+      title: "Post",
+      description: "Only in Ukrainian so far",
+      path: "/blog/draft",
+      locale: "uk",
+      availableLocales: ["uk"],
+    });
+
+    expect(metadata.alternates?.languages).toEqual({
+      uk: "https://flux-lab.dev/uk/blog/draft",
+      "x-default": "https://flux-lab.dev/uk/blog/draft",
+    });
+  });
+
   it("makes each locale's canonical point at itself", () => {
     const metadata = generatePageMetadata({
       title: "Careers",

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { defaultLocale, locales, type Locale } from "@/i18n/config";
 import { SITE_NAME, SITE_URL } from "./constants";
 
 /** Google trims snippets at roughly 155–160 characters; longer text ends mid-sentence. */
@@ -8,6 +9,27 @@ export const META_DESCRIPTION_MAX_LENGTH = 160;
 export const TITLE_MAX_LENGTH = 60;
 
 const BRAND_SUFFIX = ` | ${SITE_NAME}`;
+
+/**
+ * hreflang map for a path: one entry per locale that has the page, plus x-default,
+ * which is English when it exists and otherwise the only version there is. Listing a
+ * missing translation would point Google at a 404 and break the whole set.
+ */
+export function buildLanguageAlternates(
+  path: string,
+  availableLocales: readonly Locale[] = locales,
+): Record<string, string> {
+  const xDefaultLocale = availableLocales.includes(defaultLocale)
+    ? defaultLocale
+    : availableLocales[0];
+  if (!xDefaultLocale) {
+    return {};
+  }
+  return Object.fromEntries([
+    ...availableLocales.map((locale) => [locale, `${SITE_URL}/${locale}${path}`]),
+    ["x-default", `${SITE_URL}/${xDefaultLocale}${path}`],
+  ]);
+}
 
 interface ArticleMetadata {
   readonly publishedTime: string;
@@ -21,6 +43,8 @@ interface GenerateMetadataParams {
   readonly path?: string;
   readonly image?: string;
   readonly locale?: string;
+  /** Locales this page exists in; defaults to all. Blog posts can lack a translation. */
+  readonly availableLocales?: readonly Locale[];
   readonly article?: ArticleMetadata;
 }
 
@@ -48,6 +72,7 @@ export function generatePageMetadata({
   path = "",
   image,
   locale = "en",
+  availableLocales,
   article,
 }: GenerateMetadataParams): Metadata {
   const url = `${SITE_URL}/${locale}${path}`;
@@ -76,11 +101,7 @@ export function generatePageMetadata({
     description: metaDescription,
     alternates: {
       canonical: url,
-      languages: {
-        en: `${SITE_URL}/en${path}`,
-        uk: `${SITE_URL}/uk${path}`,
-        "x-default": `${SITE_URL}/en${path}`,
-      },
+      languages: buildLanguageAlternates(path, availableLocales),
     },
     openGraph: article
       ? {

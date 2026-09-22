@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { locales, type Locale } from "@/i18n/config";
 import type { BlogPostMeta } from "@/types";
 
 const BLOG_DIR = path.join(process.cwd(), "src/content/blog");
@@ -122,6 +123,13 @@ export function getAllBlogTags(locale: string): string[] {
   const posts = getBlogPosts(locale);
   const tagSet = new Set(posts.flatMap((p) => p.tags));
   return [...tagSet].sort();
+}
+
+/** Locales that have this post, so hreflang never points at a missing translation. */
+export function getBlogPostLocales(slug: string): Locale[] {
+  return locales.filter((locale) =>
+    fs.existsSync(path.join(BLOG_DIR, locale, `${slug}.mdx`)),
+  );
 }
 
 export function getAllBlogSlugs(locale: string): string[] {

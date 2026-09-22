@@ -1,5 +1,10 @@
 import { describe, it, expect } from "vitest";
-import { getBlogPosts, getRelatedPosts, parseFrontmatter } from "./mdx";
+import {
+  getBlogPostLocales,
+  getBlogPosts,
+  getRelatedPosts,
+  parseFrontmatter,
+} from "./mdx";
 
 function frontmatter(lines: string): string {
   return `---\n${lines}\n---\nBody text\n`;
@@ -57,5 +62,15 @@ describe("getRelatedPosts", () => {
 
   it("returns nothing for an unknown post", () => {
     expect(getRelatedPosts("en", "no-such-post")).toEqual([]);
+  });
+});
+
+describe("getBlogPostLocales", () => {
+  it("reports every language a post is written in", () => {
+    expect(getBlogPostLocales("go-backend-for-saas")).toEqual(["en", "uk"]);
+  });
+
+  it("reports none for a post that doesn't exist", () => {
+    expect(getBlogPostLocales("no-such-post")).toEqual([]);
   });
 });
