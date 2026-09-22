@@ -24,7 +24,7 @@ export function ProjectHighlights({ highlights, title }: ProjectHighlightsProps)
               transition={{ duration: 0.4, delay: idx * 0.1 }}
               className="rounded-xl border border-gray-200 bg-white p-5 text-center dark:border-gray-800 dark:bg-gray-950"
             >
-              <div className="text-2xl font-bold tracking-tight text-foreground">
+              <div className="text-2xl font-bold text-foreground">
                 {item.value}
               </div>
               <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">

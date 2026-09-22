@@ -29,7 +29,7 @@ export function Stats() {
               transition={{ duration: 0.4, delay: idx * 0.1 }}
               className="rounded-xl border border-gray-200 p-6 text-center dark:border-gray-800"
             >
-              <div className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+              <div className="text-4xl font-bold text-foreground sm:text-5xl">
                 {stat.value}
               </div>
               <div className="mt-2 text-sm text-gray-500 dark:text-gray-400">

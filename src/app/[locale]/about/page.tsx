@@ -63,7 +63,7 @@ export default async function AboutPage() {
               <p className="text-sm font-medium uppercase tracking-widest text-brand">
                 {t("title")}
               </p>
-              <h1 className="mt-3 text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+              <h1 className="mt-3 text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl">
                 {t("mission.title")}
               </h1>
               <p className="mt-5 text-lg leading-relaxed text-gray-500 dark:text-gray-400">
@@ -79,7 +79,7 @@ export default async function AboutPage() {
                     key={stat.label}
                     className="flex items-center gap-4 rounded-xl border border-gray-200 bg-white px-6 py-4 dark:border-gray-800 dark:bg-gray-950"
                   >
-                    <span className="text-3xl font-bold tracking-tight text-brand">
+                    <span className="text-3xl font-bold text-brand">
                       {stat.value}
                     </span>
                     <span className="text-sm text-gray-500 dark:text-gray-400">
@@ -172,7 +172,7 @@ export default async function AboutPage() {
               aria-hidden="true"
             />
             <div className="relative">
-              <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
+              <h2 className="text-2xl font-bold text-white sm:text-3xl">
                 {t("cta.title")}
               </h2>
               <p className="mx-auto mt-3 max-w-lg text-white/90">

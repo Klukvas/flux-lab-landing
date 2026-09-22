@@ -48,7 +48,7 @@ export default async function PrivacyPolicyPage({
             <p className="text-sm font-medium uppercase tracking-widest text-brand">
               {t("eyebrow")}
             </p>
-            <h1 className="mt-3 text-4xl font-bold tracking-tighter text-foreground sm:text-5xl">
+            <h1 className="mt-3 text-4xl font-bold text-foreground sm:text-5xl">
               {policy.title}
             </h1>
             <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">

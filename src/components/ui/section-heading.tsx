@@ -25,7 +25,7 @@ export function SectionHeading({
     >
       <h2
         className={cn(
-          'text-3xl font-bold tracking-tighter text-foreground sm:text-4xl lg:text-5xl',
+          'text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl',
           gradient && 'gradient-text'
         )}
       >

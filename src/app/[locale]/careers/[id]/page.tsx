@@ -73,7 +73,7 @@ export default async function CareerDetailPage({
         <div className="grid gap-12 lg:grid-cols-3">
           <div className="lg:col-span-2">
             <div className="mb-6 flex flex-wrap items-center gap-3">
-              <h1 className="text-3xl font-bold tracking-tighter text-foreground sm:text-4xl">
+              <h1 className="text-3xl font-bold text-foreground sm:text-4xl">
                 {position.title}
               </h1>
               <Badge>{position.type}</Badge>

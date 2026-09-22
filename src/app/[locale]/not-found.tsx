@@ -9,7 +9,7 @@ export default function NotFoundPage() {
     <section className="flex flex-1 items-center justify-center py-24">
       <Container>
         <div className="text-center">
-          <h1 className="text-6xl font-bold tracking-tighter text-foreground">
+          <h1 className="text-6xl font-bold text-foreground">
             404
           </h1>
           <h2 className="mt-4 text-2xl font-semibold text-foreground">

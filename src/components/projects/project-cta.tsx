@@ -19,7 +19,7 @@ export function ProjectCta({
           className="mx-auto max-w-2xl rounded-xl border border-brand/20 px-8 py-12 text-center"
           style={{ background: "#3D32A8" }}
         >
-          <h2 className="text-2xl font-bold tracking-tighter text-white sm:text-3xl">
+          <h2 className="text-2xl font-bold text-white sm:text-3xl">
             {title}
           </h2>
           <p className="mt-3 text-white/90">{description}</p>

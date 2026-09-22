@@ -38,7 +38,7 @@ export function ProjectHero({
             <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-gray-200 text-sm font-bold text-foreground dark:border-gray-800">
               {project.icon}
             </span>
-            <h1 className="gradient-text text-3xl font-bold tracking-tighter sm:text-4xl">
+            <h1 className="gradient-text text-3xl font-bold sm:text-4xl">
               {project.name}
             </h1>
             <Badge variant={statusVariant[project.status]}>

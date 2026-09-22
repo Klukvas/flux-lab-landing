@@ -72,7 +72,7 @@ export default async function BlogPostPage({
                 <span>·</span>
                 <span>{post.meta.author}</span>
               </div>
-              <h1 className="mt-4 text-4xl font-bold tracking-tighter text-foreground sm:text-5xl">
+              <h1 className="mt-4 text-4xl font-bold text-foreground sm:text-5xl">
                 {post.meta.title}
               </h1>
               <p className="mt-4 text-lg text-gray-500 dark:text-gray-400">

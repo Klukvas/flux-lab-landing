@@ -30,7 +30,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h1 className="gradient-text text-4xl font-bold tracking-tighter sm:text-5xl lg:text-6xl">
+            <h1 className="gradient-text text-4xl font-bold sm:text-5xl lg:text-6xl">
               {t("title")}
             </h1>
             <p className="mt-5 text-lg text-gray-500 dark:text-gray-400">
@@ -61,7 +61,7 @@ export function Hero() {
                 key={item.key}
                 className="rounded-xl border border-gray-200 bg-white p-5 text-center dark:border-gray-800 dark:bg-gray-950"
               >
-                <div className="text-2xl font-bold tracking-tight text-brand sm:text-3xl">
+                <div className="text-2xl font-bold text-brand sm:text-3xl">
                   {item.value}
                 </div>
                 <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">

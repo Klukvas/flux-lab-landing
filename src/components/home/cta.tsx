@@ -14,7 +14,7 @@ export function CTA() {
           className="mx-auto max-w-2xl rounded-xl border border-brand/20 p-6 text-center sm:p-12"
           style={{ background: "#3D32A8" }}
         >
-          <h2 className="text-3xl font-bold tracking-tighter text-white sm:text-4xl">
+          <h2 className="text-3xl font-bold text-white sm:text-4xl">
             {t("title")}
           </h2>
           <p className="mt-4 text-lg text-white/90">{t("subtitle")}</p>

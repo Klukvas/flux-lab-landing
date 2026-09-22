@@ -33,7 +33,7 @@ export async function EngagementModels() {
               <h3 className="text-lg font-semibold text-foreground">
                 {t(model.titleKey)}
               </h3>
-              <div className="mt-2 text-2xl font-bold tracking-tight text-foreground">
+              <div className="mt-2 text-2xl font-bold text-foreground">
                 {t(model.priceKey)}
               </div>
               <p className="mt-4 flex-1 text-gray-500 dark:text-gray-400">
