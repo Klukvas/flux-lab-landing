@@ -9,7 +9,10 @@ import { Footer } from "@/components/layout/footer";
 import { ScrollToTop } from "@/components/layout/scroll-to-top";
 import { SupportButton } from "@/components/layout/support-button";
 import { JsonLd } from "@/components/seo/json-ld";
-import { CookieConsentBanner } from "@/components/analytics";
+import {
+  CookieConsentBanner,
+  TrafficSourceRecorder,
+} from "@/components/analytics";
 import { isAnalyticsEnabled } from "@/lib/analytics";
 import { CONSENT_COOKIE_NAME, parseConsentChoice } from "@/lib/cookie-consent";
 
@@ -42,6 +45,7 @@ export default async function LocaleLayout({
           <Footer />
           <ScrollToTop />
           <SupportButton />
+          <TrafficSourceRecorder />
           {isAnalyticsEnabled() && (
             <CookieConsentBanner initialChoice={consentChoice} />
           )}

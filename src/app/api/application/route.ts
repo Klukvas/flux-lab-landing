@@ -8,6 +8,7 @@ import {
   sendTelegramDocument,
 } from "@/lib/telegram";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { collectSubmissionSource } from "@/lib/traffic-source";
 
 export async function POST(request: Request) {
   try {
@@ -54,7 +55,8 @@ export async function POST(request: Request) {
       );
     }
 
-    const text = formatApplicationMessage(result.data);
+    const source = collectSubmissionSource(formData, headersList);
+    const text = formatApplicationMessage(result.data, source);
     await sendTelegramMessage(text);
     await sendTelegramDocument(
       file,

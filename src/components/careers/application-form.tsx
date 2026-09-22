@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Button, Input, Textarea } from "@/components/ui";
 import {
@@ -9,6 +9,7 @@ import {
   type ApplicationFormData,
 } from "@/lib/validation";
 import { trackFormSubmitted } from "@/lib/analytics";
+import { withTrafficSource } from "@/lib/traffic-source-client";
 
 type FormStatus = "idle" | "sending" | "success" | "error";
 
@@ -16,6 +17,9 @@ export function ApplicationForm() {
   const t = useTranslations("careers.form");
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
+  // Seconds from seeing the form to sending it travel with the application:
+  // a cover letter "written" in three seconds points at an auto-apply script.
+  const openedAt = useRef(Date.now());
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -61,7 +65,9 @@ export function ApplicationForm() {
     try {
       const response = await fetch("/api/application", {
         method: "POST",
-        body: formData,
+        body: withTrafficSource(formData, {
+          secondsOnForm: Math.round((Date.now() - openedAt.current) / 1000),
+        }),
       });
 
       if (!response.ok) {
