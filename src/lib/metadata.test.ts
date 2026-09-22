@@ -57,6 +57,15 @@ describe("generatePageMetadata titles", () => {
     );
   });
 
+  it("drops the brand suffix when it would push the title past 60 characters", () => {
+    const title = "Adding AI Features to SaaS Products Without Breaking the Bank";
+
+    const metadata = generatePageMetadata({ title, description: "Post" });
+
+    expect(metadata.title).toEqual({ absolute: title });
+    expect(metadata.openGraph?.title).toBe(title);
+  });
+
   it("marks articles with their publish and revision dates", () => {
     const metadata = generatePageMetadata({
       title: "Post",

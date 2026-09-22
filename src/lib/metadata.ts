@@ -4,6 +4,11 @@ import { SITE_NAME, SITE_URL } from "./constants";
 /** Google trims snippets at roughly 155–160 characters; longer text ends mid-sentence. */
 export const META_DESCRIPTION_MAX_LENGTH = 160;
 
+/** Titles past about 60 characters get cut off in search results. */
+export const TITLE_MAX_LENGTH = 60;
+
+const BRAND_SUFFIX = ` | ${SITE_NAME}`;
+
 interface ArticleMetadata {
   readonly publishedTime: string;
   readonly modifiedTime?: string;
@@ -47,9 +52,13 @@ export function generatePageMetadata({
 }: GenerateMetadataParams): Metadata {
   const url = `${SITE_URL}/${locale}${path}`;
   const ogImage = image ?? "/og-default.png";
-  // Titles that already name the brand ("… at fluxLab.dev") skip the " | fluxLab.dev" suffix.
-  const hasBrand = title.includes(SITE_NAME);
-  const fullTitle = hasBrand ? title : `${title} | ${SITE_NAME}`;
+  // The brand suffix is dropped when the title already names the brand or when the
+  // suffix would push it past what search results show; Google displays the site name
+  // above the title anyway.
+  const skipsBrand =
+    title.includes(SITE_NAME) ||
+    title.length + BRAND_SUFFIX.length > TITLE_MAX_LENGTH;
+  const fullTitle = skipsBrand ? title : `${title}${BRAND_SUFFIX}`;
   const metaDescription = toMetaDescription(description);
   const openGraphLocale = locale === "uk" ? "uk_UA" : "en_US";
 
@@ -63,7 +72,7 @@ export function generatePageMetadata({
   };
 
   return {
-    title: hasBrand ? { absolute: title } : title,
+    title: skipsBrand ? { absolute: title } : title,
     description: metaDescription,
     alternates: {
       canonical: url,
