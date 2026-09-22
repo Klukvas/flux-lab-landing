@@ -27,6 +27,7 @@ export function generatePageMetadata({
       languages: {
         en: `${SITE_URL}/en${path}`,
         uk: `${SITE_URL}/uk${path}`,
+        "x-default": `${SITE_URL}/en${path}`,
       },
     },
     openGraph: {
