@@ -1,42 +1,267 @@
 ---
-title: TypeScript Best Practices for 2025
-description: Essential TypeScript patterns and best practices for writing maintainable, type-safe code.
+title: TypeScript Practices We Use in Production
+description: How we write TypeScript at fluxLab.dev, shown in this site's own code: strict mode, literal unions, readonly types, Zod validation and fail-fast config.
 date: 2025-01-10
+updated: 2026-09-22
 author: fluxLab.dev
-tags: [TypeScript, Best Practices]
+tags: [TypeScript, Best Practices, Zod]
 ---
 
-## Introduction
+The examples in this post come from the code of flux-lab.dev, the site you're reading: a Next.js app in English and Ukrainian with a blog, three forms and a cookie consent banner. None of it is exotic. These are small habits that let the compiler catch mistakes before a visitor does.
 
-TypeScript has become the standard for building robust JavaScript applications. Here are the best practices we follow at fluxLab.dev.
+## Start with strict mode
 
-## Immutability First
+The part of our `tsconfig.json` that matters most:
 
-Always prefer immutable data structures. Use `readonly` modifiers and `as const` assertions.
+```json
+{
+  "compilerOptions": {
+    "strict": true,
+    "noEmit": true,
+    "isolatedModules": true
+  }
+}
+```
+
+`strict` switches on a group of checks. The one we rely on most is `strictNullChecks`: `null` and `undefined` become their own types, so a value that can be missing says so, and every caller has to handle it. `noImplicitAny` refuses to fall back to `any` when inference fails, and `useUnknownInCatchVariables` types caught errors as `unknown`.
+
+With `noEmit`, TypeScript only checks the code. Next.js does the compiling, one file at a time, and `isolatedModules` flags code that a single-file compiler can't handle. That's why our types barrel file re-exports with `export type { ... }`.
+
+Types are erased before the code runs. A request body, a cookie or an environment variable never passed through the compiler, so each one needs a check at runtime.
+
+## Model states as unions, not booleans
+
+The application form's status is `"idle" | "sending" | "success" | "error"`. Separate `isSending`, `isSuccess` and `isError` flags would allow eight combinations, and half of them make no sense, like sending and failed at once. The union allows only the four real ones.
+
+Unions beat plain strings too. `trackFormSubmitted` reports job applications to GA4 as their own event and everything else as a lead. If it took a `string`, a typo like `"aplication"` would quietly count a candidate as a lead. It takes `"contact" | "support" | "application"`, so the typo doesn't compile.
+
+Sometimes "no answer yet" is a state of its own. The cookie banner shows a small reminder after a decline and the full prompt before any choice, and a boolean can't tell those apart:
+
+```tsx
+export type ConsentChoice = "granted" | "denied";
+
+// cookie-consent-banner.tsx, simplified: choice is ConsentChoice | null
+if (choice === "granted") return null;
+if (choice === "denied") return <ConsentReminder onOpen={reopen} />;
+return <ConsentDialog onDecide={decide} />; // null: no answer yet
+```
+
+A function that can fail returns a discriminated union:
 
 ```typescript
-interface User {
-  readonly id: string;
-  readonly name: string;
-  readonly email: string;
+export function validateResumeFile(
+  file: File,
+): { valid: true } | { valid: false; error: string } {
+  if (file.size > MAX_FILE_SIZE) {
+    return { valid: false, error: "File must be under 10 MB" };
+  }
+  if (!ALLOWED_FILE_TYPES.includes(file.type)) {
+    return { valid: false, error: "Only PDF, DOC, DOCX files are allowed" };
+  }
+  return { valid: true };
+}
+```
+
+The form can only read `error` after checking `valid`.
+
+## Keep data readonly
+
+Every field in our domain types is `readonly`, arrays included. Here is part of the type behind this post:
+
+```typescript
+export interface BlogPostMeta {
+  readonly slug: string;
+  readonly title: string;
+  readonly date: string;
+  /** ISO date of the last substantive revision; absent when the post was never revised. */
+  readonly updated?: string;
+  readonly tags: readonly string[];
+  readonly readingTime: number;
+}
+```
+
+Optional fields say what can be missing: a post that was never revised has no `updated` date, and the article's structured data falls back with `post.updated ?? post.date`.
+
+Data files use the same types: the list of services is a `readonly Service[]`, so no page can push to it or reassign a field. To change a value, we build a new one: `serializeConsentCookie` adds `Secure` with `[...attributes, "Secure"]` instead of a `push`. None of this freezes anything at runtime; the compiler simply rejects code that mutates shared data.
+
+## Validate external data at the boundary
+
+Each form has one Zod schema, and its TypeScript type is inferred from it, so the check and the type can't drift apart:
+
+```typescript
+import { z } from "zod/v4";
+
+export const contactFormSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters").max(100),
+  email: z.email("Please enter a valid email address"),
+  subject: z.string().min(3, "Subject must be at least 3 characters").max(200),
+  message: z
+    .string()
+    .min(10, "Message must be at least 10 characters")
+    .max(3000),
+});
+
+export type ContactFormData = z.infer<typeof contactFormSchema>;
+```
+
+The schema runs twice. In the browser, it turns failures into messages next to each field. The API route runs it again, because a request can come from anywhere, not only from our form:
+
+```typescript
+const body = await request.json();
+const result = contactFormSchema.safeParse(body);
+
+if (!result.success) {
+  return NextResponse.json(
+    { success: false, error: "Invalid form data" },
+    { status: 400 },
+  );
 }
 
-const ROLES = ['admin', 'user', 'guest'] as const;
-type Role = (typeof ROLES)[number];
+const text = formatContactMessage(result.data);
 ```
 
-## Strict Configuration
+`request.json()` resolves to `any`, so the body goes into `safeParse` and nowhere else. Only `result.data`, which is fully typed, travels further.
 
-Enable strict mode in your `tsconfig.json` for maximum type safety.
+Not every failure should block a request. A contact request that fails gets a 400, but the hidden attribution fields on the job application form (referrer, landing page, time on the form) degrade instead: if their schema fails, the application goes through with its source treated as unknown. As a comment in `traffic-source.ts` puts it, attribution must never cost us an application.
 
-## Type Narrowing
+## Use satisfies to check without widening
 
-Use type guards and discriminated unions for safe type narrowing:
+The application form checks the object it builds from `FormData` against the schema's inferred type:
 
 ```typescript
-type Result<T> = { success: true; data: T } | { success: false; error: string };
+const textData = {
+  name: formData.get("name") as string,
+  email: formData.get("email") as string,
+  position: formData.get("position") as string,
+  message: formData.get("message") as string,
+} satisfies ApplicationFormData;
+
+const result = applicationFormSchema.safeParse(textData);
 ```
+
+A missing or misspelled field is a compile error, so when the schema gains a field, this object has to gain it too. The `as string` casts are the weak spot: `formData.get` returns `string | File | null`, and a cast checks nothing. They're acceptable only because `safeParse` runs right after and rejects anything that isn't a string.
+
+Unlike an annotation, `satisfies` checks a value without replacing its type. Here the two happen to match; the difference shows with wider types. An illustration with the type of our analytics event parameters:
+
+```typescript
+type AnalyticsEventParams = Record<string, string | number | boolean>;
+
+const annotated: AnalyticsEventParams = { form_name: "contact" };
+annotated.form_name; // string | number | boolean
+annotated.from_name; // compiles: any key is allowed
+
+const checked = { form_name: "contact" } satisfies AnalyticsEventParams;
+checked.form_name; // string
+checked.from_name; // error: property does not exist
+```
+
+Annotate when you want the declared type, as in function signatures. Use `satisfies` when you want the check without losing detail.
+
+## Derive types from data
+
+When the values exist at runtime anyway, we derive the type from them:
+
+```typescript
+export const locales = ['en', 'uk'] as const;
+export type Locale = (typeof locales)[number];
+
+export const localeNames: Record<Locale, string> = {
+  en: 'English',
+  uk: 'Українська',
+};
+```
+
+`as const` keeps the elements as the literals `'en'` and `'uk'` instead of `string`, and indexing the array's type with `number` turns them into a union. The same array drives next-intl's routing, the sitemap and `generateStaticParams`. Add a locale and `localeNames` stops compiling until it has an entry for it. `traffic-source.ts` derives `UtmKey` from a `UTM_KEYS` array the same way, and `z.infer` applies the idea to a schema.
+
+## Narrow unknown input instead of casting it
+
+The consent cookie holds one of two words, and anyone can edit it in devtools, so its value goes through a parser that accepts `unknown`:
+
+```typescript
+export function parseConsentChoice(value: unknown): ConsentChoice | null {
+  return value === "granted" || value === "denied" ? value : null;
+}
+
+/** Reads the stored choice from a raw `Cookie` header or `document.cookie` string. */
+export function readConsentFromCookieString(
+  cookieString: string,
+): ConsentChoice | null {
+  const prefix = `${CONSENT_COOKIE_NAME}=`;
+  const pair = cookieString
+    .split(";")
+    .map((part) => part.trim())
+    .find((part) => part.startsWith(prefix));
+  return pair ? parseConsentChoice(pair.slice(prefix.length)) : null;
+}
+```
+
+The two comparisons narrow `unknown` to `ConsentChoice` without a cast. A missing or tampered cookie becomes `null`, which the banner already handles as "no answer yet".
+
+Globals deserve the same suspicion. `window.gtag` exists only when analytics is configured and the GA script has run, so we declare it optional. The compiler then rejects any call that skips the check, and we keep that check in one function:
+
+```typescript
+declare global {
+  interface Window {
+    gtag?: (...args: unknown[]) => void;
+  }
+}
+
+function callGtag(...args: unknown[]): void {
+  if (typeof window === "undefined" || typeof window.gtag !== "function") {
+    return;
+  }
+  window.gtag(...args);
+}
+```
+
+## Fail fast on bad config
+
+Environment variables are external input too. This is how we read the GA4 measurement ID:
+
+```typescript
+const GA_MEASUREMENT_ID_PATTERN = /^G-[A-Z0-9]+$/;
+
+export function getGaMeasurementId(): string | undefined {
+  const measurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+  if (!measurementId) {
+    return undefined;
+  }
+  if (!GA_MEASUREMENT_ID_PATTERN.test(measurementId)) {
+    throw new Error(
+      `NEXT_PUBLIC_GA_MEASUREMENT_ID must look like "G-XXXXXXXXXX", got "${measurementId}"`,
+    );
+  }
+  return measurementId;
+}
+```
+
+Missing and malformed are different cases. No ID means the site runs without analytics. A malformed ID is a mistake, so the function throws a message that names the variable and shows the bad value. As the comment above it says, a typo should fail the build instead of silently sending nothing to GA.
+
+The Telegram credentials that deliver form submissions to us are checked too:
+
+```typescript
+function getTelegramCredentials() {
+  const botToken = process.env.TELEGRAM_BOT_TOKEN;
+  const chatId = process.env.TELEGRAM_CHAT_ID;
+
+  if (!botToken || !chatId) {
+    throw new Error("TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID must be set");
+  }
+
+  return { botToken, chatId };
+}
+```
+
+After the `throw`, TypeScript knows both values are strings, so the return type is `{ botToken: string; chatId: string }` without a single `!`. Skip the check, and a missing token ends up in the request URL as the text `undefined`, with an error from Telegram's API that never names the missing variable.
+
+## What we avoid
+
+- **`any`.** It switches off checking for a value and everything derived from it. We take `unknown` and narrow instead. Our lint preset reports an explicit `any` as an error, so an exception has to carry a visible `eslint-disable` comment.
+- **Non-null assertions.** `value!` tells the compiler a value is there without checking it; if that's wrong, you find out at runtime. We handle the missing case instead, with a clear error as in `getTelegramCredentials` or an explicit fallback with `?.` and `??`. There isn't a single `!` assertion in this codebase.
+- **Enums.** A union of string literals covers the same cases, compiles to nothing, and its values are plain strings that compare directly with data from a cookie or JSON. Enums emit JavaScript, so tools that only strip types, such as Node.js's built-in TypeScript support, reject them. This codebase has none.
 
 ## Conclusion
 
-Following these TypeScript best practices leads to more maintainable and reliable codebases. Start with strict configuration and build good habits from day one.
+Most of this comes down to two habits: state exactly what a value can be, and check anything from outside before trusting it. `strict` holds us to the first. Zod schemas, small parse functions and config checks cover the second.
+
+If you want that discipline in your own codebase, take a look at [our services](/en/services). And if this is how you like to write TypeScript, [we're hiring](/en/careers/senior-frontend).

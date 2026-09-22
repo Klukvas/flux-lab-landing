@@ -1,27 +1,267 @@
 ---
-title: Кращі Практики TypeScript 2025
-description: Основні патерни та кращі практики TypeScript для написання підтримуваного, типобезпечного коду.
+title: Практики TypeScript, які ми використовуємо на продакшні
+description: Як ми пишемо TypeScript у fluxLab.dev на прикладах коду цього сайту: строгий режим, об'єднання літералів, readonly-типи, Zod і перевірка конфігурації.
 date: 2025-01-10
+updated: 2026-09-22
 author: fluxLab.dev
-tags: [TypeScript, Кращі Практики]
+tags: [TypeScript, Кращі практики, Zod]
 ---
 
-## Вступ
+Приклади в цій статті взято з коду flux-lab.dev, сайту, який ви зараз читаєте: це Next.js-застосунок англійською та українською мовами з блогом, трьома формами та банером згоди на cookie. Нічого екзотичного тут немає. Це невеликі звички, завдяки яким компілятор ловить помилки раніше, ніж на них натрапить відвідувач.
 
-TypeScript став стандартом для створення надійних JavaScript-додатків. Ось кращі практики, яких ми дотримуємося у fluxLab.dev.
+## Почніть зі строгого режиму
 
-## Незмінність Передусім
+Найважливіша частина нашого `tsconfig.json`:
 
-Завжди віддавайте перевагу незмінним структурам даних. Використовуйте модифікатори `readonly` та твердження `as const`.
-
-```typescript
-interface User {
-  readonly id: string;
-  readonly name: string;
-  readonly email: string;
+```json
+{
+  "compilerOptions": {
+    "strict": true,
+    "noEmit": true,
+    "isolatedModules": true
+  }
 }
 ```
 
+`strict` вмикає цілу групу перевірок. Найбільше ми покладаємося на `strictNullChecks`: `null` і `undefined` стають окремими типами, тож значення, якого може не бути, прямо про це заявляє, і кожне місце, де воно використовується, мусить цей випадок обробити. `noImplicitAny` не дає компілятору мовчки підставити `any`, коли вивести тип не вдалося, а `useUnknownInCatchVariables` типізує перехоплені помилки як `unknown`.
+
+З `noEmit` TypeScript лише перевіряє код. Компілює його Next.js, по одному файлу, а `isolatedModules` позначає код, з яким не впорається компілятор, що бачить лише один файл. Саме тому наш barrel-файл із типами реекспортує їх через `export type { ... }`.
+
+Ще до запуску коду типи стираються. Тіло запиту, cookie чи змінна середовища ніколи не проходили через компілятор, тож кожне з них потребує перевірки під час виконання.
+
+## Моделюйте стани об'єднаннями, а не булевими прапорцями
+
+Статус форми заявки має тип `"idle" | "sending" | "success" | "error"`. Окремі прапорці `isSending`, `isSuccess` та `isError` дали б вісім комбінацій, і половина з них не має сенсу, як-от «надсилається» та «помилка» одночасно. Об'єднання допускає лише чотири реальні стани.
+
+Об'єднання кращі й за звичайні рядки. `trackFormSubmitted` передає в GA4 заявки на вакансії окремою подією, а все інше рахує як ліди. Якби функція приймала `string`, одрук на кшталт `"aplication"` непомітно записав би кандидата в ліди. Вона приймає `"contact" | "support" | "application"`, тож такий одрук просто не скомпілюється.
+
+Іноді відсутність відповіді сама по собі є станом. Банер згоди на cookie показує невелике нагадування після відмови й повноцінний запит, доки вибору ще не зроблено, а булеве значення ці випадки не розрізнить:
+
+```tsx
+export type ConsentChoice = "granted" | "denied";
+
+// cookie-consent-banner.tsx, спрощено: choice має тип ConsentChoice | null
+if (choice === "granted") return null;
+if (choice === "denied") return <ConsentReminder onOpen={reopen} />;
+return <ConsentDialog onDecide={decide} />; // null: відповіді ще немає
+```
+
+Функція, яка може завершитися невдачею, повертає дискриміноване об'єднання:
+
+```typescript
+export function validateResumeFile(
+  file: File,
+): { valid: true } | { valid: false; error: string } {
+  if (file.size > MAX_FILE_SIZE) {
+    return { valid: false, error: "File must be under 10 MB" };
+  }
+  if (!ALLOWED_FILE_TYPES.includes(file.type)) {
+    return { valid: false, error: "Only PDF, DOC, DOCX files are allowed" };
+  }
+  return { valid: true };
+}
+```
+
+Форма може прочитати `error` лише після перевірки `valid`.
+
+## Тримайте дані незмінними
+
+Кожне поле в наших доменних типах позначене `readonly`, включно з масивами. Ось частина типу, що описує цю статтю:
+
+```typescript
+export interface BlogPostMeta {
+  readonly slug: string;
+  readonly title: string;
+  readonly date: string;
+  /** ISO-дата останньої суттєвої редакції; відсутня, якщо статтю ніколи не редагували. */
+  readonly updated?: string;
+  readonly tags: readonly string[];
+  readonly readingTime: number;
+}
+```
+
+Необов'язкові поля кажуть, чого може не бути: у статті, яку ніколи не редагували, немає дати `updated`, і тоді структуровані дані беруть дату публікації: `post.updated ?? post.date`.
+
+Файли з даними використовують ті самі типи: список послуг має тип `readonly Service[]`, тож жодна сторінка не може додати до нього елемент чи перезаписати поле. Щоб змінити значення, ми створюємо нове: `serializeConsentCookie` додає `Secure` через `[...attributes, "Secure"]`, а не через `push`. Під час виконання нічого з цього об'єкти не заморожує; просто компілятор відхиляє код, який змінює спільні дані.
+
+## Перевіряйте зовнішні дані на межі системи
+
+Кожна форма має одну Zod-схему, а її TypeScript-тип виводиться з цієї схеми, тож перевірка й тип не можуть розійтися:
+
+```typescript
+import { z } from "zod/v4";
+
+export const contactFormSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters").max(100),
+  email: z.email("Please enter a valid email address"),
+  subject: z.string().min(3, "Subject must be at least 3 characters").max(200),
+  message: z
+    .string()
+    .min(10, "Message must be at least 10 characters")
+    .max(3000),
+});
+
+export type ContactFormData = z.infer<typeof contactFormSchema>;
+```
+
+Схема спрацьовує двічі. У браузері вона перетворює помилки на повідомлення біля відповідних полів. API-маршрут запускає її ще раз, бо запит може прийти звідки завгодно, а не лише з нашої форми:
+
+```typescript
+const body = await request.json();
+const result = contactFormSchema.safeParse(body);
+
+if (!result.success) {
+  return NextResponse.json(
+    { success: false, error: "Invalid form data" },
+    { status: 400 },
+  );
+}
+
+const text = formatContactMessage(result.data);
+```
+
+`request.json()` повертає `Promise<any>`, тож тіло запиту потрапляє в `safeParse` і більше нікуди. Далі передається лише `result.data`, повністю типізований.
+
+Не кожна помилка має блокувати запит. Запит із контактної форми, що не пройшов схему, отримує відповідь 400, а от приховані поля атрибуції у формі заявки (реферер, сторінка входу, час на формі) нічого не блокують: якщо вони не проходять свою схему, заявка все одно надходить, а її джерело вважається невідомим. Як сказано в коментарі в `traffic-source.ts`, атрибуція ніколи не повинна коштувати нам заявки.
+
+## Використовуйте satisfies для перевірки без розширення типу
+
+Форма заявки перевіряє об'єкт, який збирає з `FormData`, на відповідність типу, виведеному зі схеми:
+
+```typescript
+const textData = {
+  name: formData.get("name") as string,
+  email: formData.get("email") as string,
+  position: formData.get("position") as string,
+  message: formData.get("message") as string,
+} satisfies ApplicationFormData;
+
+const result = applicationFormSchema.safeParse(textData);
+```
+
+Пропущене поле або поле з одруком дає помилку компіляції, тож коли в схемі з'являється нове поле, воно мусить з'явитися і в цьому об'єкті. Слабке місце тут у приведеннях `as string`: `formData.get` повертає `string | File | null`, а приведення нічого не перевіряє. Вони прийнятні лише тому, що одразу після них виконується `safeParse`, який відхиляє все, що не є рядком.
+
+На відміну від анотації, `satisfies` перевіряє значення, не замінюючи його тип. Тут обидва варіанти дають однаковий тип; різниця проявляється на ширших типах. Ось ілюстрація з типом параметрів наших аналітичних подій:
+
+```typescript
+type AnalyticsEventParams = Record<string, string | number | boolean>;
+
+const annotated: AnalyticsEventParams = { form_name: "contact" };
+annotated.form_name; // string | number | boolean
+annotated.from_name; // компілюється: дозволено будь-який ключ
+
+const checked = { form_name: "contact" } satisfies AnalyticsEventParams;
+checked.form_name; // string
+checked.from_name; // помилка: такої властивості немає
+```
+
+Анотуйте, коли вам потрібен саме оголошений тип, як у сигнатурах функцій. Використовуйте `satisfies`, коли потрібна перевірка без втрати деталей.
+
+## Виводьте типи з даних
+
+Коли значення все одно існують під час виконання, ми виводимо тип із них:
+
+```typescript
+export const locales = ['en', 'uk'] as const;
+export type Locale = (typeof locales)[number];
+
+export const localeNames: Record<Locale, string> = {
+  en: 'English',
+  uk: 'Українська',
+};
+```
+
+`as const` зберігає елементи як літерали `'en'` і `'uk'`, а не як `string`, а індексація типу масиву через `number` перетворює їх на об'єднання. Той самий масив визначає маршрутизацію next-intl, sitemap і `generateStaticParams`. Додайте локаль, і `localeNames` перестане компілюватися, доки не отримає запис для неї. `traffic-source.ts` так само виводить `UtmKey` з масиву `UTM_KEYS`, а `z.infer` застосовує цю ідею до схеми.
+
+## Звужуйте unknown замість приведення типів
+
+Cookie згоди містить одне з двох слів, і будь-хто може змінити його в DevTools, тому його значення проходить через парсер, що приймає `unknown`:
+
+```typescript
+export function parseConsentChoice(value: unknown): ConsentChoice | null {
+  return value === "granted" || value === "denied" ? value : null;
+}
+
+/** Читає збережений вибір із сирого заголовка `Cookie` або рядка `document.cookie`. */
+export function readConsentFromCookieString(
+  cookieString: string,
+): ConsentChoice | null {
+  const prefix = `${CONSENT_COOKIE_NAME}=`;
+  const pair = cookieString
+    .split(";")
+    .map((part) => part.trim())
+    .find((part) => part.startsWith(prefix));
+  return pair ? parseConsentChoice(pair.slice(prefix.length)) : null;
+}
+```
+
+Два порівняння звужують `unknown` до `ConsentChoice` без жодного приведення. Відсутній або підроблений cookie перетворюється на `null`, а цей випадок банер і так обробляє як «відповіді ще немає».
+
+Глобальним змінним ми довіряємо так само мало. `window.gtag` існує, лише коли аналітику налаштовано і скрипт GA уже виконався, тому ми оголошуємо його необов'язковим. Тоді компілятор відхиляє будь-який виклик без перевірки, а саму перевірку ми тримаємо в одній функції:
+
+```typescript
+declare global {
+  interface Window {
+    gtag?: (...args: unknown[]) => void;
+  }
+}
+
+function callGtag(...args: unknown[]): void {
+  if (typeof window === "undefined" || typeof window.gtag !== "function") {
+    return;
+  }
+  window.gtag(...args);
+}
+```
+
+## Хибна конфігурація має падати одразу
+
+Змінні середовища теж є зовнішніми даними. Ось як ми читаємо ідентифікатор GA4 (Measurement ID):
+
+```typescript
+const GA_MEASUREMENT_ID_PATTERN = /^G-[A-Z0-9]+$/;
+
+export function getGaMeasurementId(): string | undefined {
+  const measurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+  if (!measurementId) {
+    return undefined;
+  }
+  if (!GA_MEASUREMENT_ID_PATTERN.test(measurementId)) {
+    throw new Error(
+      `NEXT_PUBLIC_GA_MEASUREMENT_ID must look like "G-XXXXXXXXXX", got "${measurementId}"`,
+    );
+  }
+  return measurementId;
+}
+```
+
+Відсутній і некоректний ідентифікатор є різними випадками. Без ідентифікатора сайт просто працює без аналітики. Некоректний ідентифікатор свідчить про помилку, тож функція кидає виняток із повідомленням, яке називає змінну і показує хибне значення. Як сказано в коментарі над функцією, одрук має зупинити збірку, а не мовчки залишити GA без даних.
+
+Облікові дані Telegram, через які до нас надходять заявки з форм, перевіряються так само:
+
+```typescript
+function getTelegramCredentials() {
+  const botToken = process.env.TELEGRAM_BOT_TOKEN;
+  const chatId = process.env.TELEGRAM_CHAT_ID;
+
+  if (!botToken || !chatId) {
+    throw new Error("TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID must be set");
+  }
+
+  return { botToken, chatId };
+}
+```
+
+Після `throw` TypeScript знає, що обидва значення є рядками, тож функція повертає `{ botToken: string; chatId: string }` без жодного `!`. Без цієї перевірки відсутній токен потрапив би в URL запиту як текст `undefined`, а помилка прийшла б від API Telegram і нічого не сказала б про відсутню змінну.
+
+## Чого ми уникаємо
+
+- **`any`.** Він вимикає перевірку для значення і всього, що з нього виведено. Натомість ми беремо `unknown` і звужуємо. Наш пресет лінтера вважає явний `any` помилкою, тож кожен виняток мусить мати помітний коментар `eslint-disable`.
+- **Non-null assertions.** `value!` запевняє компілятор, що значення є, нічого не перевіряючи; якщо це не так, ви дізнаєтеся про це вже під час виконання. Натомість ми обробляємо випадок, коли значення немає: зрозумілою помилкою, як у `getTelegramCredentials`, або явним запасним значенням через `?.` і `??`. У цій кодовій базі немає жодного `!`.
+- **Enum.** Об'єднання рядкових літералів покриває ті самі випадки, повністю зникає після компіляції, а його значення є звичайними рядками, які напряму порівнюються з даними з cookie чи JSON. Enum генерує JavaScript, тому інструменти, які лише стирають типи, як-от вбудована підтримка TypeScript у Node.js, його не приймають. У цій кодовій базі їх немає.
+
 ## Висновок
 
-Дотримання цих кращих практик TypeScript веде до більш підтримуваних та надійних кодових баз.
+Здебільшого все зводиться до двох звичок: точно описувати, яким може бути значення, і перевіряти все, що приходить ззовні, перш ніж йому довіряти. `strict` не дає нам відступити від першої. Zod-схеми, невеликі функції-парсери та перевірки конфігурації забезпечують другу.
+
+Якщо хочете такої ж дисципліни у своїй кодовій базі, перегляньте [наші послуги](/uk/services). А якщо ви пишете TypeScript саме так, [ми шукаємо senior фронтенд-розробника](/uk/careers/senior-frontend).
