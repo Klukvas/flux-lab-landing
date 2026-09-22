@@ -1,33 +1,34 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { SMOOTH_SPRING } from "@/lib/motion";
+import { useScrolledPast } from "./use-scrolled-past";
+
+const SHOW_AFTER_PX = 400;
 
 export function ScrollToTop() {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    function handleScroll() {
-      setIsVisible(window.scrollY > 400);
-    }
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const isVisible = useScrolledPast(SHOW_AFTER_PX);
+  const prefersReducedMotion = useReducedMotion();
 
   function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    // An explicit "smooth" overrides the reduced-motion rule in globals.css, so honor it here.
+    window.scrollTo({
+      top: 0,
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+    });
   }
 
   return (
     <AnimatePresence>
       {isVisible && (
         <motion.button
+          type="button"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.8 }}
+          transition={SMOOTH_SPRING}
           onClick={scrollToTop}
-          className="fixed bottom-22 right-6 z-50 rounded-full bg-foreground p-3 text-background transition-opacity hover:opacity-80"
+          className="pressable fixed bottom-22 right-6 z-50 rounded-full bg-foreground p-3 text-background hover:bg-gray-700 dark:hover:bg-gray-100"
           aria-label="Scroll to top"
         >
           <svg
@@ -37,6 +38,7 @@ export function ScrollToTop() {
             strokeWidth={2}
             stroke="currentColor"
             className="h-5 w-5"
+            aria-hidden="true"
           >
             <path
               strokeLinecap="round"
