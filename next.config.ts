@@ -5,6 +5,16 @@ const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
 const nextConfig: NextConfig = {
   output: 'standalone',
+  async headers() {
+    return [
+      {
+        // The site is HTTPS-only behind Cloudflare. Subdomains are left out on purpose,
+        // since they may host other products.
+        source: '/:path*',
+        headers: [{ key: 'Strict-Transport-Security', value: 'max-age=31536000' }],
+      },
+    ];
+  },
   async redirects() {
     return [
       {
