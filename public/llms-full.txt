@@ -128,7 +128,7 @@ Absolutely. Flexible engagement models that scale with your budget.
 ## Contact
 
 - Website: https://flux-lab.dev
-- Email: hello@fluxlab.dev
+- Email: hello@flux-lab.dev
 - Location: Kyiv, Ukraine
 - GitHub: https://github.com/fluxlab
 - Blog: https://flux-lab.dev/en/blog
