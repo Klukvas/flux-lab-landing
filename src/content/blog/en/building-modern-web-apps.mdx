@@ -1,44 +1,187 @@
 ---
-title: Building Modern Web Applications with Next.js 15
-description: A comprehensive guide to building production-ready web applications using Next.js 15, TypeScript, and Tailwind CSS.
+title: How We Build Production Web Apps With Next.js
+description: The Next.js 16 code behind flux-lab.dev: Server Components, locale-prefixed routing, per-page hreflang, Zod-validated forms, Tailwind 4 and Docker.
 date: 2024-12-15
+updated: 2026-09-22
 author: fluxLab.dev
-tags: [Next.js, TypeScript, Tutorial]
+tags: [Next.js, React, TypeScript]
 ---
 
-## Introduction
+This site, flux-lab.dev, runs on Next.js 16 with the App Router, React 19, Tailwind CSS 4, next-intl 4 and Zod 4. Every code sample below comes from its repository, edited for length.
 
-Building modern web applications requires the right combination of tools and best practices. In this article, we explore how Next.js 15 with its App Router provides an excellent foundation for production-ready applications.
+## Why the App Router
 
-## Why Next.js 15?
+A company site is more work than it looks: pages in two languages, metadata for search engines, forms that reach a server, and a deploy that runs the same way every time. The App Router covers all of it in one codebase. Metadata, `sitemap.ts` and `robots.ts` are plain TypeScript, and form endpoints are route handlers in the same app, so there is no separate backend to deploy. Product front ends need the same pieces, with more forms and more state.
 
-Next.js 15 brings several improvements that make it the go-to framework for React applications:
+## Server Components by default
 
-- **App Router**: A new routing paradigm based on React Server Components
-- **Server Actions**: Simplified server-side mutations
-- **Streaming**: Progressive rendering with Suspense
-- **Static Generation**: Build-time rendering for optimal performance
+Every page and layout in the repository is a Server Component. Pages read their params, load translations with `getTranslations`, pull content from Markdown files or typed data modules, and call `notFound()` for unknown slugs. None of that code is sent to the browser.
 
-## Getting Started
+The `'use client'` directive mostly sits on leaves that handle interaction or animation: the three forms, the header (it tracks scroll position and menu state), the theme toggle, the locale switcher, the cookie consent banner and animated sections. Animation is the largest group, because Framer Motion runs in the browser. Where possible, the animated wrapper stays thin and the content comes in as server-rendered `children`:
 
-Setting up a new Next.js 15 project is straightforward:
+```tsx
+// src/components/home/why-us.tsx: a Server Component, no directive
+export async function WhyUs() {
+  const t = await getTranslations("home.whyUs");
 
-```bash
-npx create-next-app@latest my-app --typescript --tailwind --app
+  return (
+    <AnimatedSection className="py-24">
+      <Container>
+        <SectionHeading title={t("title")} subtitle={t("subtitle")} />
+        {/* the cards are rendered here, on the server */}
+      </Container>
+    </AnimatedSection>
+  );
+}
 ```
 
-This command scaffolds a project with TypeScript and Tailwind CSS pre-configured.
+`AnimatedSection` is a small client component around `motion.section`. `WhyUs` stays on the server, so its translations and markup arrive already rendered and its own code never ships to the browser.
 
-## Key Patterns
+## Locale-prefixed routing with next-intl
 
-### Server Components
+Every page URL carries its language: `/en/services` for readers in the United States, `/uk/services` for Ukraine. One routing config feeds both the middleware and the navigation helpers:
 
-Server Components are the default in Next.js 15. They run on the server and don't add to the client-side JavaScript bundle.
+```ts
+// src/i18n/routing.ts
+export const routing = defineRouting({
+  locales: ['en', 'uk'],
+  defaultLocale: 'en',
+  // hreflang is declared in page metadata instead
+  alternateLinks: false,
+});
 
-### Client Components
+// src/middleware.ts
+export default createMiddleware(routing);
 
-Use the `'use client'` directive when you need interactivity, browser APIs, or React hooks.
+export const config = {
+  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)'],
+};
+```
 
-## Conclusion
+The matcher skips API routes, Next.js internals and files, so an unprefixed path like `/careers` redirects to a locale instead of returning a 404. We set `alternateLinks: false` because the middleware's `Link` header repeated the hreflang that page metadata already declares, and its `x-default` pointed at unprefixed URLs. Hreflang in one place is easier to keep correct. The `[locale]` layout checks the segment with `hasLocale` and calls `notFound()` for anything else.
 
-Next.js 15 provides a powerful foundation for building modern web applications. Combined with TypeScript for type safety and Tailwind CSS for styling, it enables rapid development without sacrificing quality.
+## Metadata, canonical URLs and hreflang on every page
+
+Each page exports `generateMetadata` and hands its title, description, path and locale to one helper:
+
+```ts
+// src/lib/metadata.ts (trimmed)
+export function generatePageMetadata({
+  title,
+  description,
+  path = "",
+  locale = "en",
+}: GenerateMetadataParams): Metadata {
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `${SITE_URL}/${locale}${path}`,
+      languages: {
+        en: `${SITE_URL}/en${path}`,
+        uk: `${SITE_URL}/uk${path}`,
+        "x-default": `${SITE_URL}/en${path}`,
+      },
+    },
+  };
+}
+```
+
+Each language version is canonical to itself, and both versions list each other plus an `x-default` that points to English. Pointing the Ukrainian canonical at the English page would ask Google to treat it as a duplicate and index only the English one. The same helper fills the Open Graph and Twitter tags and sets `og:locale` to `en_US` or `uk_UA`. Blog posts also emit Article and BreadcrumbList JSON-LD from their frontmatter, with `dateModified` taken from an optional `updated` field.
+
+## One list of slugs for routes and the sitemap
+
+Blog posts are Markdown files under `src/content/blog`, one folder per locale. On the post page, `generateStaticParams` returns every locale and slug pair from `getAllBlogSlugs(locale)`, and `sitemap.ts` reads the same folders, dating each entry from the post's frontmatter. Case studies do the same with `getProjectSlugs()`. A new post shows up in the routes and the sitemap together, and a slug without a file hits `notFound()`.
+
+`generateStaticParams` is also what lets Next.js prerender those pages at build time, as long as nothing above them reads the request. One `cookies()` or `headers()` call in a shared layout renders every route below it per request. Our consent banner used to read its cookie in the layout, and that alone kept all 60 pages dynamic, until the banner moved to reading the cookie in the browser. With next-intl, static rendering also needs `setRequestLocale` in each layout and page. The route table that `next build` prints marks every route as static or dynamic, so check it after changing a layout.
+
+## Forms: one Zod schema, checked twice
+
+The contact, job application and support forms post to route handlers under `src/app/api`, and their schemas live in `src/lib/validation.ts`. Each form runs `safeParse` in the browser for instant field errors. The route handler runs the same schema again, because a request can reach the endpoint without going through the form:
+
+```ts
+// src/app/api/contact/route.ts (trimmed)
+export async function POST(request: Request) {
+  try {
+    const result = contactFormSchema.safeParse(await request.json());
+    if (!result.success) {
+      return NextResponse.json(
+        { success: false, error: "Invalid form data" },
+        { status: 400 },
+      );
+    }
+    await sendTelegramMessage(formatContactMessage(result.data));
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error("[api/contact]", error);
+    return NextResponse.json(
+      { success: false, error: "Failed to send message" },
+      { status: 500 },
+    );
+  }
+}
+```
+
+Bad input gets a 400 with a generic message, and the field-level messages stay in the form. Unexpected errors are logged on the server, and the visitor sees a short failure message, not a stack trace. Valid submissions go to a Telegram chat. The application handler also checks the résumé's size and file type. With `z.infer`, each form's TypeScript type comes from its schema.
+
+## Tailwind CSS 4 and design tokens
+
+Tailwind 4 moves configuration into CSS, and the repository has no `tailwind.config` file. Colors are CSS variables mapped to utilities with `@theme inline`, and dark mode redefines the variables under a `.dark` class that next-themes toggles:
+
+```css
+/* src/app/globals.css (trimmed) */
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --color-brand: var(--brand);
+  --color-bg-card: var(--bg-card);
+}
+
+:root { --brand: #5B4FD2; --bg-card: #FFFFFF; }
+.dark { --brand: #7B6EF6; --bg-card: #0C0B1A; }
+```
+
+A utility such as `text-brand` follows the theme without a `dark:` variant. The gray ramp is remapped the same way, so every `gray-*` class uses the brand's violet-tinted neutrals.
+
+## Motion that respects reduced motion
+
+Motion here comes from several places, and each needs its own switch for visitors who turn on reduced motion. A `prefers-reduced-motion` media query in `globals.css` cuts CSS transitions and animations to near zero and turns off smooth scrolling. That rule cannot reach Framer Motion, which animates from JavaScript, so the app is wrapped in `<MotionConfig reducedMotion="user">`: movement and layout animations are dropped, and fades stay. The scroll-to-top button calls `window.scrollTo`, and an explicit `behavior: "smooth"` overrides the CSS rule, so the button reads `useReducedMotion()` and scrolls instantly instead.
+
+## A standalone Docker image behind nginx
+
+`next.config.ts` sets `output: 'standalone'`, so the build emits a small Node server plus only the dependencies it traced. The Dockerfile's runner stage copies just that output:
+
+```dockerfile
+FROM node:22.16-alpine AS runner
+WORKDIR /app
+ENV NODE_ENV=production
+
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+USER nextjs
+EXPOSE 3000
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
+CMD ["node", "server.js"]
+```
+
+The standalone server listens on the address in `HOSTNAME`, and Docker sets that variable to the container ID, so we pin it to `0.0.0.0`. `NEXT_PUBLIC_*` values are inlined into the client bundle at build time, so the analytics ID arrives as a build argument, while the Telegram token stays a runtime variable.
+
+On every push to `main`, GitHub Actions builds the image, tags it with the commit SHA, pushes it to Docker Hub and runs `docker compose pull` and `docker compose up -d` on the server over SSH. Compose runs three services: the app, nginx for TLS and proxying, and certbot for Let's Encrypt renewals. nginx starts only after the app's health check passes, and the check uses Node's built-in `fetch`, so the image needs no curl.
+
+## Testing: Vitest for logic, Playwright for flows
+
+Vitest runs in jsdom, and each test file sits next to the code it covers. The tests target places where a mistake would go unnoticed. `metadata.test.ts` checks that the helper declares both locales plus `x-default` and that each canonical points at its own page. `mdx.test.ts` checks that the frontmatter parser keeps the apostrophe in Ukrainian words like пам'яті, and `telegram.test.ts` checks HTML escaping and the message length limit. The theme toggle test, written with Testing Library, guards against a bug the component once had: under the default `system` setting, `theme` stays `system` even on a dark page, so the first click did nothing until the toggle switched to `resolvedTheme`.
+
+Flows that cross the browser and the server, like submitting a form or switching language on a case study page, are what Playwright is for. Its config is in place and starts the dev server by itself, so `pnpm test:e2e` needs no extra setup once specs exist.
+
+## What carries over
+
+Nothing here is specific to a studio website. Pages and layouts stay on the server, client code sits at the leaves, one helper owns metadata, one schema guards each form, and every deploy runs the image the build produced. If you want a site or product built this way, see [our services](/en/services) or browse [our case studies](/en/projects).

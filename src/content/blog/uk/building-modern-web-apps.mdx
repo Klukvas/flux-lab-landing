@@ -1,32 +1,187 @@
 ---
-title: Створення Сучасних Веб-Додатків з Next.js 15
-description: Повний посібник зі створення веб-додатків виробничого рівня з використанням Next.js 15, TypeScript та Tailwind CSS.
+title: Як ми будуємо продакшн веб-додатки на Next.js
+description: Як влаштований наш сайт на Next.js 16: Server Components, маршрути з префіксами локалей, hreflang на кожній сторінці, форми з Zod, Tailwind 4 і Docker.
 date: 2024-12-15
+updated: 2026-09-22
 author: fluxLab.dev
-tags: [Next.js, TypeScript, Туторіал]
+tags: [Next.js, React, TypeScript]
 ---
 
-## Вступ
+Цей сайт, flux-lab.dev, працює на Next.js 16 з App Router, React 19, Tailwind CSS 4, next-intl 4 та Zod 4. Усі приклади коду нижче взяті з його репозиторію і скорочені.
 
-Створення сучасних веб-додатків вимагає правильного поєднання інструментів та кращих практик. У цій статті ми розглянемо, як Next.js 15 з його App Router забезпечує відмінну основу для додатків виробничого рівня.
+## Чому App Router
 
-## Чому Next.js 15?
+Сайт компанії вимагає більше роботи, ніж здається: сторінки двома мовами, метадані для пошукових систем, форми, що доходять до сервера, і деплой, який щоразу проходить однаково. App Router закриває все це в одній кодовій базі. Метадані, `sitemap.ts` і `robots.ts` пишуться звичайним TypeScript, а ендпоінти форм працюють як route handlers у тому ж додатку, тож окремого бекенду для деплою немає. Фронтенду продуктів потрібні ті самі елементи, тільки форм і стану там більше.
 
-Next.js 15 приносить кілька покращень, які роблять його основним фреймворком для React-додатків:
+## Server Components за замовчуванням
 
-- **App Router**: Нова парадигма маршрутизації на основі React Server Components
-- **Server Actions**: Спрощені серверні мутації
-- **Streaming**: Прогресивний рендеринг з Suspense
-- **Статична Генерація**: Рендеринг під час збірки для оптимальної продуктивності
+Усі сторінки й layout у репозиторії є Server Components. Сторінки читають свої params, завантажують переклади через `getTranslations`, беруть контент із Markdown-файлів або типізованих модулів даних і викликають `notFound()` для невідомих slug. Жоден рядок цього коду не потрапляє в браузер.
 
-## Початок Роботи
+Директива `'use client'` здебільшого стоїть у листках дерева компонентів, які відповідають за взаємодію або анімацію: три форми, хедер (він відстежує прокручування і стан меню), перемикач теми, перемикач мови, банер згоди на cookies та анімовані секції. Анімація становить найбільшу групу, бо Framer Motion працює в браузері. Де можливо, анімована обгортка лишається тонкою, а контент приходить у неї як відрендерені на сервері `children`:
 
-Налаштування нового проєкту Next.js 15 просте:
+```tsx
+// src/components/home/why-us.tsx: Server Component, без директиви
+export async function WhyUs() {
+  const t = await getTranslations("home.whyUs");
 
-```bash
-npx create-next-app@latest my-app --typescript --tailwind --app
+  return (
+    <AnimatedSection className="py-24">
+      <Container>
+        <SectionHeading title={t("title")} subtitle={t("subtitle")} />
+        {/* картки рендеряться тут, на сервері */}
+      </Container>
+    </AnimatedSection>
+  );
+}
 ```
 
-## Висновок
+`AnimatedSection` є невеликою клієнтською обгорткою над `motion.section`. `WhyUs` лишається на сервері, тому його переклади й розмітка приходять уже відрендереними, а власний код секції в браузер не потрапляє.
 
-Next.js 15 забезпечує потужну основу для створення сучасних веб-додатків.
+## Маршрути з префіксами локалей у next-intl
+
+URL кожної сторінки містить мову: `/en/services` для читачів у США, `/uk/services` для України. Одну конфігурацію маршрутизації використовують і middleware, і навігаційні хелпери:
+
+```ts
+// src/i18n/routing.ts
+export const routing = defineRouting({
+  locales: ['en', 'uk'],
+  defaultLocale: 'en',
+  // hreflang оголошують метадані сторінок
+  alternateLinks: false,
+});
+
+// src/middleware.ts
+export default createMiddleware(routing);
+
+export const config = {
+  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)'],
+};
+```
+
+Matcher пропускає API-маршрути, внутрішні шляхи Next.js і файли, тож шлях без префікса, як-от `/careers`, перенаправляє на версію з локаллю, а не віддає 404. Ми вимкнули `alternateLinks`, бо заголовок `Link` від middleware повторював hreflang, який уже оголошують метадані сторінок, а його `x-default` вказував на URL без префікса. Hreflang в одному місці легше тримати без помилок. Layout `[locale]` перевіряє сегмент через `hasLocale` і викликає `notFound()` для будь-якого іншого значення.
+
+## Метадані, canonical і hreflang на кожній сторінці
+
+Кожна сторінка експортує `generateMetadata` і передає заголовок, опис, шлях і локаль одному хелперу:
+
+```ts
+// src/lib/metadata.ts (скорочено)
+export function generatePageMetadata({
+  title,
+  description,
+  path = "",
+  locale = "en",
+}: GenerateMetadataParams): Metadata {
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `${SITE_URL}/${locale}${path}`,
+      languages: {
+        en: `${SITE_URL}/en${path}`,
+        uk: `${SITE_URL}/uk${path}`,
+        "x-default": `${SITE_URL}/en${path}`,
+      },
+    },
+  };
+}
+```
+
+Canonical кожної мовної версії вказує на неї саму, а обидві версії посилаються одна на одну й на `x-default`, що веде на англійську. Якби canonical української сторінки вказував на англійську, Google сприйняв би її як дублікат і проіндексував би лише англійську версію. Той самий хелпер заповнює теги Open Graph і Twitter та ставить `og:locale` у значення `en_US` або `uk_UA`. Статті блогу також додають JSON-LD типів Article і BreadcrumbList зі свого frontmatter, а `dateModified` береться з необов'язкового поля `updated`.
+
+## Один список slug для маршрутів і sitemap
+
+Статті блогу зберігаються як Markdown-файли в `src/content/blog`, окрема тека для кожної локалі. На сторінці статті `generateStaticParams` повертає всі пари локалі та slug з `getAllBlogSlugs(locale)`, а `sitemap.ts` читає ті самі теки й датує кожен запис за frontmatter статті. Кейси влаштовані так само, через `getProjectSlugs()`. Нова стаття з'являється в маршрутах і в sitemap одночасно, а для slug без файлу спрацьовує `notFound()`.
+
+Саме `generateStaticParams` дозволяє Next.js відрендерити ці сторінки заздалегідь, під час збірки, якщо ніщо вище за деревом не читає запит. Один виклик `cookies()` чи `headers()` у спільному layout змушує Next.js рендерити кожен маршрут під ним заново на кожен запит. Наш банер згоди колись читав свій cookie в layout, і лише через це всі 60 сторінок були динамічними, доки банер не почав читати cookie в браузері. З next-intl статичний рендеринг також потребує `setRequestLocale` у кожному layout і на кожній сторінці. Таблиця маршрутів, яку виводить `next build`, позначає кожен маршрут як статичний або динамічний, тож перевіряйте її після змін у layout.
+
+## Форми: одна схема Zod, дві перевірки
+
+Контактна форма, форма відгуку на вакансію і форма підтримки надсилають дані в route handlers у `src/app/api`, а їхні схеми лежать у `src/lib/validation.ts`. Кожна форма запускає `safeParse` у браузері, щоб одразу показати помилки в полях. Route handler ще раз перевіряє дані тією самою схемою, бо запит може потрапити на ендпоінт в обхід форми:
+
+```ts
+// src/app/api/contact/route.ts (скорочено)
+export async function POST(request: Request) {
+  try {
+    const result = contactFormSchema.safeParse(await request.json());
+    if (!result.success) {
+      return NextResponse.json(
+        { success: false, error: "Invalid form data" },
+        { status: 400 },
+      );
+    }
+    await sendTelegramMessage(formatContactMessage(result.data));
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error("[api/contact]", error);
+    return NextResponse.json(
+      { success: false, error: "Failed to send message" },
+      { status: 500 },
+    );
+  }
+}
+```
+
+На некоректні дані handler відповідає 400 із загальним повідомленням, а помилки окремих полів показує сама форма. Неочікувані помилки логуються на сервері, і відвідувач бачить коротке повідомлення про збій замість stack trace. Коректні заявки йдуть у чат Telegram. Handler відгуків на вакансії додатково перевіряє розмір і тип файлу резюме. Завдяки `z.infer` TypeScript-тип кожної форми виводиться з її схеми.
+
+## Tailwind CSS 4 і дизайн-токени
+
+Tailwind 4 переносить конфігурацію в CSS, і файлу `tailwind.config` у репозиторії немає. Кольори задано CSS-змінними, які `@theme inline` прив'язує до утиліт, а темна тема перевизначає ці змінні під класом `.dark`, який перемикає next-themes:
+
+```css
+/* src/app/globals.css (скорочено) */
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --color-brand: var(--brand);
+  --color-bg-card: var(--bg-card);
+}
+
+:root { --brand: #5B4FD2; --bg-card: #FFFFFF; }
+.dark { --brand: #7B6EF6; --bg-card: #0C0B1A; }
+```
+
+Утиліта на кшталт `text-brand` сама змінюється разом із темою, без варіанта `dark:`. Сіру шкалу перевизначено так само, тож кожен клас `gray-*` використовує фірмові нейтральні відтінки з фіолетовим підтоном.
+
+## Анімація з урахуванням reduced motion
+
+Анімація на сайті береться з кількох джерел, і кожне потребує окремого перемикача для відвідувачів, які ввімкнули в системі зменшення руху. Медіазапит `prefers-reduced-motion` у `globals.css` скорочує CSS-переходи й анімації майже до нуля та вимикає плавне прокручування. Це правило не дістає до бібліотеки Framer Motion, яка анімує елементи через JavaScript, тому весь додаток обгорнуто в `<MotionConfig reducedMotion="user">`: рух і layout-анімації вимикаються, тоді як анімації прозорості лишаються. Кнопка повернення нагору викликає `window.scrollTo`, а явне `behavior: "smooth"` має пріоритет над CSS-правилом, тож кнопка читає `useReducedMotion()` і в такому разі прокручує миттєво.
+
+## Standalone-образ Docker за nginx
+
+`next.config.ts` задає `output: 'standalone'`, тож збірка видає невеликий Node-сервер і лише ті залежності, які Next.js знайшов під час трасування. Етап runner у Dockerfile копіює тільки цей результат:
+
+```dockerfile
+FROM node:22.16-alpine AS runner
+WORKDIR /app
+ENV NODE_ENV=production
+
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+USER nextjs
+EXPOSE 3000
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
+CMD ["node", "server.js"]
+```
+
+Standalone-сервер слухає адресу зі змінної `HOSTNAME`, а Docker записує в цю змінну ID контейнера, тому ми явно задаємо `0.0.0.0`. Значення `NEXT_PUBLIC_*` вбудовуються в клієнтський бандл під час збірки, тож ID аналітики передається як build-аргумент, а токен Telegram лишається змінною середовища, яку контейнер отримує під час запуску.
+
+Після кожного пушу в `main` GitHub Actions збирає образ, тегує його SHA коміту, пушить у Docker Hub і через SSH запускає на сервері `docker compose pull` та `docker compose up -d`. Compose піднімає три сервіси: додаток, nginx для TLS і проксування та certbot для оновлення сертифікатів Let's Encrypt. nginx стартує лише після того, як додаток пройде health check, а сама перевірка використовує вбудований у Node `fetch`, тож curl в образі не потрібен.
+
+## Тестування: Vitest для логіки, Playwright для сценаріїв
+
+Vitest працює в jsdom, і кожен тестовий файл лежить поруч із кодом, який перевіряє. Тести стоять там, де помилку легко не помітити. `metadata.test.ts` перевіряє, що хелпер оголошує обидві локалі плюс `x-default` і що canonical кожної версії вказує на її власну сторінку. `mdx.test.ts` перевіряє, що парсер frontmatter зберігає апостроф в українських словах на кшталт «пам'яті», а `telegram.test.ts` перевіряє екранування HTML і ліміт довжини повідомлення. Тест перемикача теми, написаний з Testing Library, не дає повернутися багу, який колись мав компонент: за стандартного налаштування `system` значення `theme` лишається `system` навіть на темній сторінці, тож перший клік нічого не робив, доки перемикач не почав читати `resolvedTheme`.
+
+Сценарії, що зачіпають і браузер, і сервер, як-от надсилання форми чи зміна мови на сторінці кейсу, — це завдання для Playwright. Його конфіг уже налаштований і сам запускає dev-сервер, тож коли з'являться сценарії, `pnpm test:e2e` не потребуватиме додаткового налаштування.
+
+## Що з цього можна перенести
+
+Ніщо з цього не прив'язане саме до сайту студії. Сторінки й layout залишаються на сервері, клієнтський код живе в листках дерева компонентів, один хелпер відповідає за метадані, одна схема захищає кожну форму, а кожен деплой запускає той самий образ, який дала збірка. Якщо вам потрібен сайт або продукт, зроблений так само, перегляньте [наші послуги](/uk/services) або [наші кейси](/uk/projects).
