@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { supportFormSchema, type SupportFormData } from "@/lib/validation";
+import { trackFormSubmitted } from "@/lib/analytics";
 
 type FormStatus = "idle" | "sending" | "success" | "error";
 
@@ -55,6 +56,7 @@ export function SupportButton() {
       }
 
       setStatus("success");
+      trackFormSubmitted("support");
     } catch {
       setStatus("error");
     }

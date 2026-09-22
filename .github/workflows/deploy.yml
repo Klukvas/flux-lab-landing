@@ -30,6 +30,8 @@ jobs:
         with:
           context: .
           push: true
+          build-args: |
+            NEXT_PUBLIC_GA_MEASUREMENT_ID=${{ vars.NEXT_PUBLIC_GA_MEASUREMENT_ID }}
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/flux-lab-landing:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/flux-lab-landing:sha-${{ github.sha }}

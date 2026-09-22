@@ -350,12 +350,30 @@
       "social": "Follow Us"
     }
   },
+  "cookieConsent": {
+    "title": "Cookies on this site",
+    "description": "We use Google Analytics cookies to understand how visitors use the site. Nothing is stored until you choose, and you can change your mind at any time.",
+    "learnMore": "Privacy policy",
+    "accept": "Accept",
+    "decline": "Decline",
+    "reopen": "Cookie settings",
+    "reopenHint": "You declined analytics cookies. Click to change your choice."
+  },
+  "privacy": {
+    "eyebrow": "Legal",
+    "updated": "Last updated",
+    "cookieSettings": {
+      "title": "Your cookie choice",
+      "description": "You can change whether analytics cookies are allowed. The cookie banner will appear again so you can choose."
+    }
+  },
   "footer": {
     "description": "Software development studio building modern digital products.",
     "navigation": "Navigation",
     "legal": "Legal",
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
+    "cookieSettings": "Cookie settings",
     "rights": "All rights reserved."
   },
   "testimonials": {

@@ -8,6 +8,7 @@ import {
   validateResumeFile,
   type ApplicationFormData,
 } from "@/lib/validation";
+import { trackFormSubmitted } from "@/lib/analytics";
 
 type FormStatus = "idle" | "sending" | "success" | "error";
 
@@ -68,6 +69,7 @@ export function ApplicationForm() {
       }
 
       setStatus("success");
+      trackFormSubmitted("application");
     } catch {
       setStatus("error");
     }

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Button, Input, Textarea } from "@/components/ui";
 import { contactFormSchema, type ContactFormData } from "@/lib/validation";
+import { trackFormSubmitted } from "@/lib/analytics";
 
 type FormStatus = "idle" | "sending" | "success" | "error";
 
@@ -47,6 +48,7 @@ export function ContactForm() {
       }
 
       setStatus("success");
+      trackFormSubmitted("contact");
     } catch {
       setStatus("error");
     }

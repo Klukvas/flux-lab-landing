@@ -11,6 +11,10 @@ RUN pnpm install --frozen-lockfile
 # Stage 2: Build the application
 FROM base AS builder
 WORKDIR /app
+# NEXT_PUBLIC_* values are inlined into the client bundle at build time,
+# so they must arrive as build args rather than runtime env vars.
+ARG NEXT_PUBLIC_GA_MEASUREMENT_ID
+ENV NEXT_PUBLIC_GA_MEASUREMENT_ID=$NEXT_PUBLIC_GA_MEASUREMENT_ID
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN pnpm build

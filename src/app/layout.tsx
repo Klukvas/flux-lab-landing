@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Syne, DM_Mono } from "next/font/google";
 import { SITE_NAME, SITE_URL, SITE_DESCRIPTION } from "@/lib/constants";
+import { GoogleAnalytics } from "@/components/analytics";
 import "./globals.css";
 
 const syne = Syne({
@@ -89,6 +90,7 @@ export default function RootLayout({
       <body className={`${syne.variable} ${dmMono.variable} antialiased`}>
         {children}
       </body>
+      <GoogleAnalytics />
     </html>
   );
 }
