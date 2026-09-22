@@ -1,76 +1,104 @@
 "use client";
 
-import { useState } from "react";
+import { useRef } from "react";
 import { useTranslations } from "next-intl";
-import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "@/i18n/navigation";
-import { navigationItems } from "@/data/navigation";
-import { ThemeToggle } from "./theme-toggle";
+import { AnimatePresence, motion, type Variants } from "framer-motion";
+import { Link, usePathname } from "@/i18n/navigation";
+import { isNavItemActive, navigationItems } from "@/data/navigation";
+import { QUICK_SPRING } from "@/lib/motion";
+import { cn } from "@/lib/utils";
 import { LocaleSwitcher } from "./locale-switcher";
+import { MenuIcon } from "./menu-icon";
+import { ThemeToggle } from "./theme-toggle";
+import { useMenuSheet } from "./use-menu-sheet";
 
-export function MobileNav() {
-  const [isOpen, setIsOpen] = useState(false);
+interface MobileNavProps {
+  readonly isOpen: boolean;
+  readonly onOpenChange: (isOpen: boolean) => void;
+}
+
+const SHEET_ID = "mobile-menu";
+
+// The sheet arrives as one material, then its rows drop in a beat apart from the bar
+// that opened them. On the way out everything retraces that path in one quick fade.
+const sheetVariants: Variants = {
+  open: {
+    opacity: 1,
+    transition: {
+      duration: 0.2,
+      ease: "easeOut",
+      staggerChildren: 0.03,
+      delayChildren: 0.03,
+    },
+  },
+  closed: { opacity: 0, transition: { duration: 0.2, ease: "easeIn" } },
+};
+
+const rowVariants: Variants = {
+  open: { opacity: 1, y: 0, transition: QUICK_SPRING },
+  closed: { opacity: 0, y: -8, transition: { duration: 0.15, ease: "easeIn" } },
+};
+
+export function MobileNav({ isOpen, onOpenChange }: MobileNavProps) {
   const t = useTranslations("nav");
+  const pathname = usePathname();
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  useMenuSheet({ isOpen, onClose: () => onOpenChange(false), toggleRef });
 
   return (
     <div className="lg:hidden">
       <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="rounded-md p-2 text-gray-500 hover:text-foreground dark:text-gray-400 dark:hover:text-foreground transition-colors"
+        ref={toggleRef}
+        type="button"
+        onClick={() => onOpenChange(!isOpen)}
+        className="pressable rounded-md p-2 text-gray-500 hover:text-foreground dark:text-gray-400 dark:hover:text-foreground"
         aria-label={isOpen ? "Close menu" : "Open menu"}
         aria-expanded={isOpen}
+        aria-controls={SHEET_ID}
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="h-6 w-6"
-        >
-          {isOpen ? (
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          ) : (
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-            />
-          )}
-        </svg>
+        <MenuIcon isOpen={isOpen} />
       </button>
 
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-            className="absolute left-0 right-0 top-full border-b border-gray-200/50 bg-white/70 backdrop-blur-xl dark:border-gray-800/50 dark:bg-gray-950/70"
+            id={SHEET_ID}
+            variants={sheetVariants}
+            initial="closed"
+            animate="open"
+            exit="closed"
+            className="material-sheet fixed inset-0 -z-10 overflow-y-auto overscroll-contain pt-12"
           >
-            <nav className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
-              <ul className="space-y-2">
-                {navigationItems.map((item) => (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      onClick={() => setIsOpen(false)}
-                      className="block rounded-md px-3 py-2 text-base font-medium text-gray-500 hover:text-foreground dark:text-gray-400 dark:hover:text-foreground transition-colors"
-                    >
-                      {t(item.labelKey)}
-                    </Link>
-                  </li>
-                ))}
+            <nav className="mx-auto max-w-7xl px-4 pb-10 pt-6 sm:px-6">
+              <ul className="space-y-1">
+                {navigationItems.map((item) => {
+                  const isCurrent = isNavItemActive(item.href, pathname);
+                  return (
+                    <motion.li key={item.href} variants={rowVariants}>
+                      <Link
+                        href={item.href}
+                        onClick={() => onOpenChange(false)}
+                        aria-current={isCurrent ? "page" : undefined}
+                        className={cn(
+                          "block rounded-lg px-3 py-2 text-2xl font-semibold transition-colors active:bg-gray-100 dark:active:bg-gray-800/60",
+                          isCurrent
+                            ? "text-foreground"
+                            : "text-gray-500 hover:text-foreground dark:text-gray-400 dark:hover:text-foreground",
+                        )}
+                      >
+                        {t(item.labelKey)}
+                      </Link>
+                    </motion.li>
+                  );
+                })}
               </ul>
-              <div className="mt-4 flex items-center gap-2 border-t border-gray-200 pt-4 dark:border-gray-800">
+              <motion.div
+                variants={rowVariants}
+                className="mt-6 flex items-center gap-2 border-t border-gray-200 pt-6 dark:border-gray-800"
+              >
                 <ThemeToggle />
                 <LocaleSwitcher />
-              </div>
+              </motion.div>
             </nav>
           </motion.div>
         )}
