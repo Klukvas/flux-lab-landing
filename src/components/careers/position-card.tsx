@@ -29,7 +29,7 @@ export function PositionCard({ position }: PositionCardProps) {
         </p>
         <Link
           href={`/careers/${position.id}`}
-          className="inline-flex items-center text-sm font-medium text-foreground transition-colors hover:opacity-70"
+          className="stretched-link inline-flex items-center text-sm font-medium text-foreground transition-opacity hover:opacity-70"
         >
           {t('apply')}
           <svg className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">

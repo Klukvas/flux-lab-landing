@@ -51,7 +51,7 @@ export function BlogCard({ post }: BlogCardProps) {
         </div>
         <Link
           href={href}
-          className="inline-flex items-center text-sm font-medium text-foreground transition-colors hover:opacity-70"
+          className="stretched-link inline-flex items-center text-sm font-medium text-foreground transition-opacity hover:opacity-70"
         >
           {t("readMore")}
           <svg
