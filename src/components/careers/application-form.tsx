@@ -13,7 +13,12 @@ import { withTrafficSource } from "@/lib/traffic-source-client";
 
 type FormStatus = "idle" | "sending" | "success" | "error";
 
-export function ApplicationForm() {
+interface ApplicationFormProps {
+  /** Prefills the position field when the form sits on a posting's page. */
+  readonly defaultPosition?: string;
+}
+
+export function ApplicationForm({ defaultPosition }: ApplicationFormProps) {
   const t = useTranslations("careers.form");
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -110,6 +115,7 @@ export function ApplicationForm() {
         id="position"
         name="position"
         label={t("position")}
+        defaultValue={defaultPosition}
         error={errors.position}
         required
       />

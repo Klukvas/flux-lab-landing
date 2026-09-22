@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { locales } from "@/i18n/config";
 import { getProjectSlugs } from "@/data/projects";
+import { getPositionIds } from "@/data/careers";
 import { getAllBlogSlugs } from "@/lib/mdx";
 
 const BASE_URL = "https://flux-lab.dev";
@@ -41,6 +42,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
         lastModified: new Date(),
         changeFrequency: "monthly",
         priority: 0.7,
+      });
+    }
+
+    for (const id of getPositionIds()) {
+      entries.push({
+        url: `${BASE_URL}/${locale}/careers/${id}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.6,
       });
     }
 

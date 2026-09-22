@@ -1,10 +1,10 @@
 import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
-import type { CareerPosition } from '@/types';
+import type { LocalizedCareerPosition } from '@/types';
 import { Card, Badge } from '@/components/ui';
 
 interface PositionCardProps {
-  readonly position: CareerPosition;
+  readonly position: LocalizedCareerPosition;
 }
 
 export function PositionCard({ position }: PositionCardProps) {
@@ -22,7 +22,7 @@ export function PositionCard({ position }: PositionCardProps) {
               {position.department} · {position.location}
             </p>
           </div>
-          <Badge>{position.type}</Badge>
+          <Badge>{t(`types.${position.type}`)}</Badge>
         </div>
         <p className="text-sm text-gray-500 dark:text-gray-400">
           {position.description}

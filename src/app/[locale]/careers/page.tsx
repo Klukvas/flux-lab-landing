@@ -19,18 +19,19 @@ export async function generateMetadata({
   });
 }
 
-export default async function CareersPage() {
+export default async function CareersPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   const t = await getTranslations("careers");
-  const positions = getAllPositions();
+  const positions = getAllPositions(locale);
 
   return (
     <section className="py-24">
       <Container>
-        <SectionHeading
-          as="h1"
-          title={t("title")}
-          subtitle={t("subtitle")}
-        />
+        <SectionHeading as="h1" title={t("title")} subtitle={t("subtitle")} />
         {positions.length === 0 ? (
           <p className="text-center text-gray-500 dark:text-gray-400">
             {t("noPositions")}

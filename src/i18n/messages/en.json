@@ -329,6 +329,11 @@
     "apply": "Apply Now",
     "requirements": "Requirements",
     "benefits": "Benefits",
+    "types": {
+      "full-time": "Full-time",
+      "part-time": "Part-time",
+      "contract": "Contract"
+    },
     "form": {
       "name": "Full Name",
       "email": "Email",
