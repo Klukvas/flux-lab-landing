@@ -1,68 +1,66 @@
 import type { MetadataRoute } from "next";
-import { locales } from "@/i18n/config";
+import { defaultLocale, locales, type Locale } from "@/i18n/config";
+import { SITE_URL } from "@/lib/constants";
 import { getProjectSlugs } from "@/data/projects";
 import { getPositionIds } from "@/data/careers";
-import { getAllBlogSlugs } from "@/lib/mdx";
+import { getBlogPosts } from "@/lib/mdx";
+import { getLegalDocument } from "@/lib/legal";
 
-const BASE_URL = "https://flux-lab.dev";
+const STATIC_PATHS = [
+  "",
+  "/projects",
+  "/services",
+  "/about",
+  "/careers",
+  "/contact",
+] as const;
+
+type SitemapEntry = MetadataRoute.Sitemap[number];
+
+function localizedUrl(locale: Locale, path: string): string {
+  return `${SITE_URL}/${locale}${path}`;
+}
+
+/**
+ * lastModified is set only where content carries a real revision date. Stamping
+ * every URL with the build time teaches Google to ignore lastmod altogether.
+ */
+function entry(locale: Locale, path: string, lastModified?: string): SitemapEntry {
+  const languages = Object.fromEntries([
+    ...locales.map((alternate) => [alternate, localizedUrl(alternate, path)]),
+    ["x-default", localizedUrl(defaultLocale, path)],
+  ]);
+
+  return {
+    url: localizedUrl(locale, path),
+    ...(lastModified && { lastModified }),
+    alternates: { languages },
+  };
+}
+
+function blogEntries(locale: Locale): SitemapEntry[] {
+  const posts = getBlogPosts(locale);
+  const revisionDates = posts.map((post) => post.updated ?? post.date);
+  const newestRevision = [...revisionDates].sort().at(-1);
+
+  return [
+    entry(locale, "/blog", newestRevision),
+    ...posts.map((post) =>
+      entry(locale, `/blog/${post.slug}`, post.updated ?? post.date),
+    ),
+  ];
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = [
-    "",
-    "/projects",
-    "/services",
-    "/blog",
-    "/about",
-    "/careers",
-    "/contact",
-  ];
-
-  const entries: MetadataRoute.Sitemap = [];
-
-  for (const locale of locales) {
-    for (const route of staticRoutes) {
-      entries.push({
-        url: `${BASE_URL}/${locale}${route}`,
-        lastModified: new Date(),
-        changeFrequency: route === "" ? "weekly" : "monthly",
-        priority: route === "" ? 1 : 0.8,
-      });
-    }
-
-    entries.push({
-      url: `${BASE_URL}/${locale}/privacy`,
-      lastModified: new Date(),
-      changeFrequency: "yearly",
-      priority: 0.3,
-    });
-
-    for (const slug of getProjectSlugs()) {
-      entries.push({
-        url: `${BASE_URL}/${locale}/projects/${slug}`,
-        lastModified: new Date(),
-        changeFrequency: "monthly",
-        priority: 0.7,
-      });
-    }
-
-    for (const id of getPositionIds()) {
-      entries.push({
-        url: `${BASE_URL}/${locale}/careers/${id}`,
-        lastModified: new Date(),
-        changeFrequency: "monthly",
-        priority: 0.6,
-      });
-    }
-
-    for (const slug of getAllBlogSlugs(locale)) {
-      entries.push({
-        url: `${BASE_URL}/${locale}/blog/${slug}`,
-        lastModified: new Date(),
-        changeFrequency: "monthly",
-        priority: 0.6,
-      });
-    }
-  }
-
-  return entries;
+  return locales.flatMap((locale) => [
+    ...STATIC_PATHS.map((path) => entry(locale, path)),
+    entry(
+      locale,
+      "/privacy",
+      getLegalDocument(locale, "privacy-policy")?.updatedAt,
+    ),
+    ...getProjectSlugs().map((slug) => entry(locale, `/projects/${slug}`)),
+    ...getPositionIds().map((id) => entry(locale, `/careers/${id}`)),
+    ...blogEntries(locale),
+  ]);
 }
