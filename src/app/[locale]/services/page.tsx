@@ -6,6 +6,7 @@ import { EngagementModels } from "@/components/services/engagement-models";
 import { FAQ } from "@/components/services/faq";
 import { FaqJsonLd } from "@/components/seo/faq-json-ld";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
+import { ServicesJsonLd } from "@/components/seo/services-json-ld";
 import { services } from "@/data/services";
 import { generatePageMetadata } from "@/lib/metadata";
 
@@ -31,6 +32,7 @@ export default async function ServicesPage({
 }) {
   const { locale } = await params;
   const t = await getTranslations("services");
+  const tNav = await getTranslations("nav");
 
   const faqItems = [
     { question: t("faq.q1"), answer: t("faq.a1") },
@@ -43,10 +45,11 @@ export default async function ServicesPage({
   return (
     <>
       <FaqJsonLd items={faqItems} />
+      <ServicesJsonLd locale={locale} />
       <BreadcrumbJsonLd
         locale={locale}
         items={[
-          { name: "Home", path: "" },
+          { name: tNav("home"), path: "" },
           { name: t("title"), path: "/services" },
         ]}
       />

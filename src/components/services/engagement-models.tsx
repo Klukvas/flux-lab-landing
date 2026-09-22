@@ -5,20 +5,7 @@ import {
   Card,
   AnimatedSection,
 } from "@/components/ui";
-
-const MODELS = [
-  {
-    titleKey: "dedicatedTeam",
-    priceKey: "dedicatedTeamPrice",
-    descKey: "dedicatedTeamDesc",
-  },
-  {
-    titleKey: "projectBased",
-    priceKey: "projectBasedPrice",
-    descKey: "projectBasedDesc",
-  },
-  { titleKey: "staffAug", priceKey: "staffAugPrice", descKey: "staffAugDesc" },
-] as const;
+import { engagementModels } from "@/data/services";
 
 export async function EngagementModels() {
   const t = await getTranslations("services.engagement");
@@ -28,7 +15,7 @@ export async function EngagementModels() {
       <Container>
         <SectionHeading title={t("title")} subtitle={t("subtitle")} />
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {MODELS.map((model) => (
+          {engagementModels.map((model) => (
             <Card key={model.titleKey} className="flex flex-col">
               <h3 className="text-lg font-semibold text-foreground">
                 {t(model.titleKey)}

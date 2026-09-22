@@ -1,4 +1,5 @@
 import { SITE_URL } from "@/lib/constants";
+import { JsonLdScript } from "./json-ld-script";
 
 interface BreadcrumbItem {
   readonly name: string;
@@ -22,10 +23,5 @@ export function BreadcrumbJsonLd({ items, locale }: BreadcrumbJsonLdProps) {
     })),
   };
 
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  );
+  return <JsonLdScript data={schema} />;
 }

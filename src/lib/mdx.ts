@@ -29,6 +29,28 @@ export function parseFrontmatter(content: string): {
   return { meta, body: match[2] };
 }
 
+function toPostMeta(
+  slug: string,
+  locale: string,
+  meta: Record<string, string | string[]>,
+  body: string,
+): BlogPostMeta {
+  const wordCount = body.trim().split(/\s+/).length;
+
+  return {
+    slug,
+    title: (meta.title as string) || slug,
+    description: (meta.description as string) || "",
+    date: (meta.date as string) || "",
+    updated: (meta.updated as string) || undefined,
+    author: (meta.author as string) || "fluxLab.dev",
+    tags: (meta.tags as string[]) || [],
+    readingTime: Math.max(1, Math.ceil(wordCount / 200)),
+    image: meta.image as string | undefined,
+    locale,
+  };
+}
+
 export function getBlogPosts(locale: string): BlogPostMeta[] {
   const dir = path.join(BLOG_DIR, locale);
   if (!fs.existsSync(dir)) return [];
@@ -38,20 +60,7 @@ export function getBlogPosts(locale: string): BlogPostMeta[] {
     const slug = file.replace(".mdx", "");
     const content = fs.readFileSync(path.join(dir, file), "utf-8");
     const { meta, body } = parseFrontmatter(content);
-    const wordCount = body.trim().split(/\s+/).length;
-    const readingTime = Math.max(1, Math.ceil(wordCount / 200));
-
-    return {
-      slug,
-      title: (meta.title as string) || slug,
-      description: (meta.description as string) || "",
-      date: (meta.date as string) || "",
-      author: (meta.author as string) || "fluxLab.dev",
-      tags: (meta.tags as string[]) || [],
-      readingTime,
-      image: meta.image as string | undefined,
-      locale,
-    };
+    return toPostMeta(slug, locale, meta, body);
   });
 
   return posts.sort(
@@ -68,23 +77,7 @@ export function getBlogPost(
 
   const raw = fs.readFileSync(filePath, "utf-8");
   const { meta, body } = parseFrontmatter(raw);
-  const wordCount = body.trim().split(/\s+/).length;
-  const readingTime = Math.max(1, Math.ceil(wordCount / 200));
-
-  return {
-    meta: {
-      slug,
-      title: (meta.title as string) || slug,
-      description: (meta.description as string) || "",
-      date: (meta.date as string) || "",
-      author: (meta.author as string) || "fluxLab.dev",
-      tags: (meta.tags as string[]) || [],
-      readingTime,
-      image: meta.image as string | undefined,
-      locale,
-    },
-    content: body,
-  };
+  return { meta: toPostMeta(slug, locale, meta, body), content: body };
 }
 
 export function getAllBlogPosts(): BlogPostMeta[] {

@@ -1,3 +1,5 @@
+import { JsonLdScript } from "./json-ld-script";
+
 interface FaqItem {
   readonly question: string;
   readonly answer: string;
@@ -21,10 +23,5 @@ export function FaqJsonLd({ items }: FaqJsonLdProps) {
     })),
   };
 
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  );
+  return <JsonLdScript data={schema} />;
 }

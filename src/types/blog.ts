@@ -3,6 +3,8 @@ export interface BlogPostMeta {
   readonly title: string;
   readonly description: string;
   readonly date: string;
+  /** ISO date of the last substantive revision; absent when the post was never revised. */
+  readonly updated?: string;
   readonly author: string;
   readonly tags: readonly string[];
   readonly readingTime: number;

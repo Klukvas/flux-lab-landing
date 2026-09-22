@@ -45,6 +45,7 @@ export default async function BlogPostPage({
   }
 
   const t = await getTranslations("blog");
+  const tNav = await getTranslations("nav");
 
   return (
     <>
@@ -52,7 +53,7 @@ export default async function BlogPostPage({
       <BreadcrumbJsonLd
         locale={locale}
         items={[
-          { name: "Home", path: "" },
+          { name: tNav("home"), path: "" },
           { name: t("title"), path: "/blog" },
           { name: post.meta.title, path: `/blog/${slug}` },
         ]}
