@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { usePathname } from "@/i18n/navigation";
 import { updateAnalyticsConsent } from "@/lib/analytics";
 import {
   COOKIE_CONSENT_OPEN_EVENT,
   expireAnalyticsCookies,
+  readConsentFromCookieString,
   serializeConsentCookie,
   type ConsentChoice,
 } from "@/lib/cookie-consent";
@@ -18,22 +19,35 @@ import { ConsentReminder } from "./consent-reminder";
 
 const PRIVACY_POLICY_PATH = "/privacy";
 
-interface CookieConsentBannerProps {
-  /** Choice already stored in the consent cookie, read on the server so the prompt never flashes. */
-  readonly initialChoice: ConsentChoice | null;
-}
+/** The stored choice is unknowable while prerendering; the banner waits for the browser. */
+const UNKNOWN_CHOICE = "unknown";
+type StoredChoice = ConsentChoice | null | typeof UNKNOWN_CHOICE;
 
-export function CookieConsentBanner({ initialChoice }: CookieConsentBannerProps) {
+// The cookie only changes through this component, which tracks that in state instead.
+const subscribeToNothing = () => () => {};
+const readStoredChoice = (): StoredChoice =>
+  readConsentFromCookieString(document.cookie);
+const unknownDuringPrerender = (): StoredChoice => UNKNOWN_CHOICE;
+
+export function CookieConsentBanner() {
   const pathname = usePathname();
-  const [choice, setChoice] = useState<ConsentChoice | null>(initialChoice);
+  // Pages are static, so the consent cookie is read in the browser, not on the server.
+  const storedChoice = useSyncExternalStore(
+    subscribeToNothing,
+    readStoredChoice,
+    unknownDuringPrerender,
+  );
+  // undefined until the visitor acts on this page; then it overrides the cookie.
+  const [decision, setDecision] = useState<ConsentChoice | null>();
+  const choice = decision === undefined ? storedChoice : decision;
 
   useEffect(() => {
-    const reopen = () => setChoice(null);
+    const reopen = () => setDecision(null);
     window.addEventListener(COOKIE_CONSENT_OPEN_EVENT, reopen);
     return () => window.removeEventListener(COOKIE_CONSENT_OPEN_EVENT, reopen);
   }, []);
 
-  if (choice === "granted") {
+  if (choice === UNKNOWN_CHOICE || choice === "granted") {
     return null;
   }
 
@@ -51,12 +65,12 @@ export function CookieConsentBanner({ initialChoice }: CookieConsentBannerProps)
         document.cookie = expiredCookie;
       }
     }
-    setChoice(nextChoice);
+    setDecision(nextChoice);
   }
 
   // A decline is not final: a small corner pill keeps the choice reachable.
   if (choice === "denied") {
-    return <ConsentReminder onOpen={() => setChoice(null)} />;
+    return <ConsentReminder onOpen={() => setDecision(null)} />;
   }
 
   // The modal would cover the very policy it links to, so on that page the choice

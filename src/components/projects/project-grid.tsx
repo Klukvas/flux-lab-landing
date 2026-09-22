@@ -7,7 +7,18 @@ import { SMOOTH_SPRING } from '@/lib/motion';
 import { ProjectCard } from './project-card';
 
 export function ProjectGrid() {
-  const activeTag = useSearchParams().get('tag');
+  return <ProjectGridView activeTag={useSearchParams().get('tag')} />;
+}
+
+/**
+ * The grid for a given tag. Prerendered with no tag as the Suspense fallback, so the
+ * static HTML lists every project for crawlers and first paint.
+ */
+export function ProjectGridView({
+  activeTag,
+}: {
+  readonly activeTag: string | null;
+}) {
   const projects = activeTag ? getProjectsByTag(activeTag) : getAllProjects();
 
   // Cards that stay glide to their new slots while the rest fade out where they stood,

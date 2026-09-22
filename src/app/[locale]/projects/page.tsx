@@ -1,8 +1,14 @@
 import { Suspense } from "react";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container, SectionHeading } from "@/components/ui";
-import { ProjectFilter } from "@/components/projects/project-filter";
-import { ProjectGrid } from "@/components/projects/project-grid";
+import {
+  ProjectFilter,
+  ProjectFilterView,
+} from "@/components/projects/project-filter";
+import {
+  ProjectGrid,
+  ProjectGridView,
+} from "@/components/projects/project-grid";
 import { generatePageMetadata } from "@/lib/metadata";
 
 export async function generateMetadata({
@@ -20,18 +26,32 @@ export async function generateMetadata({
   });
 }
 
-export default async function ProjectsPage() {
+export default async function ProjectsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   const t = await getTranslations("projects");
 
   return (
     <section className="py-24">
       <Container>
-        <SectionHeading
-          as="h1"
-          title={t("title")}
-          subtitle={t("subtitle")}
-        />
-        <Suspense>
+        <SectionHeading as="h1" title={t("title")} subtitle={t("subtitle")} />
+        {/* The filter reads ?tag= from the URL, which static HTML can't know, so the
+            fallback prerenders the unfiltered view and the URL's tag applies on hydration. */}
+        <Suspense
+          fallback={
+            <>
+              <div className="mb-8">
+                <ProjectFilterView activeTag={null} />
+              </div>
+              <ProjectGridView activeTag={null} />
+            </>
+          }
+        >
           <div className="mb-8">
             <ProjectFilter />
           </div>

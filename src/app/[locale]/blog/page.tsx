@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container, SectionHeading } from "@/components/ui";
 import { BlogCard } from "@/components/blog/blog-card";
 import { getBlogPosts } from "@/lib/mdx";
@@ -25,17 +25,14 @@ export default async function BlogPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("blog");
   const posts = getBlogPosts(locale);
 
   return (
     <section className="py-24">
       <Container>
-        <SectionHeading
-          as="h1"
-          title={t("title")}
-          subtitle={t("subtitle")}
-        />
+        <SectionHeading as="h1" title={t("title")} subtitle={t("subtitle")} />
         {posts.length === 0 ? (
           <p className="text-center text-gray-500 dark:text-gray-400">
             {t("noPosts")}

@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container, SectionHeading } from "@/components/ui";
 import { ContactForm } from "@/components/contact/contact-form";
 import { ContactInfo } from "@/components/contact/contact-info";
@@ -19,17 +19,20 @@ export async function generateMetadata({
   });
 }
 
-export default async function ContactPage() {
+export default async function ContactPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   const t = await getTranslations("contact");
 
   return (
     <section className="py-24">
       <Container>
-        <SectionHeading
-          as="h1"
-          title={t("title")}
-          subtitle={t("subtitle")}
-        />
+        <SectionHeading as="h1" title={t("title")} subtitle={t("subtitle")} />
         <div className="grid gap-12 lg:grid-cols-2">
           <div>
             <ContactForm />

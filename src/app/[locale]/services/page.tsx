@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container, SectionHeading } from "@/components/ui";
 import { ServiceCard } from "@/components/services/service-card";
 import { ProcessTimeline } from "@/components/services/process-timeline";
@@ -31,6 +31,7 @@ export default async function ServicesPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("services");
   const tNav = await getTranslations("nav");
 
@@ -55,11 +56,7 @@ export default async function ServicesPage({
       />
       <section className="py-24">
         <Container>
-          <SectionHeading
-          as="h1"
-          title={t("title")}
-          subtitle={t("subtitle")}
-        />
+          <SectionHeading as="h1" title={t("title")} subtitle={t("subtitle")} />
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {services.map((service) => (
               <ServiceCard key={service.id} service={service} />

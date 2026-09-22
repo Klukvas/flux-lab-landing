@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { Container, buttonStyles, AnimatedSection } from "@/components/ui";
 import { timelineEvents } from "@/data/team";
@@ -20,7 +20,14 @@ export async function generateMetadata({
   });
 }
 
-export default async function AboutPage() {
+export default async function AboutPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   const t = await getTranslations("about");
 
   const values = [

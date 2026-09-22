@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container } from "@/components/ui";
 import { BlogContent } from "@/components/blog/blog-content";
 import { CookieSettingsButton } from "@/components/analytics";
@@ -32,6 +32,7 @@ export default async function PrivacyPolicyPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const policy = getLegalDocument(locale, PRIVACY_POLICY_SLUG);
 
   if (!policy) {

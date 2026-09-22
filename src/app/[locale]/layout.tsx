@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Syne, DM_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
-import { cookies } from "next/headers";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getMessages, setRequestLocale } from "next-intl/server";
 import { ThemeProvider } from "next-themes";
 import { routing } from "@/i18n/routing";
 import { SITE_NAME, SITE_URL, SITE_DESCRIPTION } from "@/lib/constants";
@@ -19,7 +18,6 @@ import {
   TrafficSourceRecorder,
 } from "@/components/analytics";
 import { isAnalyticsEnabled } from "@/lib/analytics";
-import { CONSENT_COOKIE_NAME, parseConsentChoice } from "@/lib/cookie-consent";
 import "../globals.css";
 
 const syne = Syne({
@@ -82,6 +80,11 @@ export const metadata: Metadata = {
   },
 };
 
+/** Prerenders every page per locale; nothing in the layout depends on the request. */
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
 /** The <html> element lives here rather than in the root layout so lang matches the page's language. */
 export default async function LocaleLayout({
   children,
@@ -95,12 +98,9 @@ export default async function LocaleLayout({
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
+  setRequestLocale(locale);
 
   const messages = await getMessages();
-  const cookieStore = await cookies();
-  const consentChoice = parseConsentChoice(
-    cookieStore.get(CONSENT_COOKIE_NAME)?.value,
-  );
 
   return (
     <html lang={locale} suppressHydrationWarning>
@@ -116,9 +116,7 @@ export default async function LocaleLayout({
                 <ScrollToTop />
                 <SupportButton />
                 <TrafficSourceRecorder />
-                {isAnalyticsEnabled() && (
-                  <CookieConsentBanner initialChoice={consentChoice} />
-                )}
+                {isAnalyticsEnabled() && <CookieConsentBanner />}
               </div>
             </ThemeProvider>
           </NextIntlClientProvider>

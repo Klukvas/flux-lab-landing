@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container, SectionHeading } from "@/components/ui";
 import { PositionCard } from "@/components/careers/position-card";
 import { getAllPositions } from "@/data/careers";
@@ -25,6 +25,7 @@ export default async function CareersPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("careers");
   const positions = getAllPositions(locale);
 

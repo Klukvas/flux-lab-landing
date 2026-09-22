@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getProjectBySlug, getProjectSlugs } from "@/data/projects";
 import { generatePageMetadata } from "@/lib/metadata";
 import { locales } from "@/i18n/config";
@@ -48,7 +48,8 @@ export default async function ProjectDetailPage({
 }: {
   params: Promise<{ locale: string; slug: string }>;
 }) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
   const project = getProjectBySlug(slug);
 
   if (!project) {

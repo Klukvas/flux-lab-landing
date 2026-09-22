@@ -25,8 +25,19 @@ function showTag(tag: string | null) {
 }
 
 export function ProjectFilter() {
+  return <ProjectFilterView activeTag={useSearchParams().get('tag')} />;
+}
+
+/**
+ * The filter for a given tag. The projects page also prerenders it with no tag as the
+ * Suspense fallback, because reading search params keeps ProjectFilter out of static HTML.
+ */
+export function ProjectFilterView({
+  activeTag,
+}: {
+  readonly activeTag: string | null;
+}) {
   const t = useTranslations('projects');
-  const activeTag = useSearchParams().get('tag');
   const options = [
     { tag: null, label: t('filterAll') },
     ...getAllTags().map((tag) => ({ tag, label: tag })),

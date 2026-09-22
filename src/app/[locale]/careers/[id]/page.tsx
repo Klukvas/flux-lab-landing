@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { Container, Badge, Card } from "@/components/ui";
 import { ApplicationForm } from "@/components/careers/application-form";
@@ -38,6 +38,7 @@ export default async function CareerDetailPage({
   params: Promise<{ locale: string; id: string }>;
 }) {
   const { locale, id } = await params;
+  setRequestLocale(locale);
   const position = getPositionById(id, locale);
 
   if (!position) {

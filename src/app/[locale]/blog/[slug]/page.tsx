@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container, Badge } from "@/components/ui";
 import { getBlogPost, getAllBlogSlugs, getRelatedPosts } from "@/lib/mdx";
 import { generatePageMetadata } from "@/lib/metadata";
@@ -46,6 +46,7 @@ export default async function BlogPostPage({
   params: Promise<{ locale: string; slug: string }>;
 }) {
   const { locale, slug } = await params;
+  setRequestLocale(locale);
   const post = getBlogPost(locale, slug);
 
   if (!post) {
