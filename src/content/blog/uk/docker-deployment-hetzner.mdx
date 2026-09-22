@@ -2,13 +2,14 @@
 title: Деплой SaaS-продуктів з Docker на Hetzner Cloud
 description: Практичний гайд з розгортання контейнеризованих SaaS-додатків на Hetzner Cloud з Docker Compose, автоматизованим CI/CD та деплоєм без даунтайму.
 date: 2025-01-25
+updated: 2026-09-22
 author: fluxLab.dev
 tags: [Docker, DevOps, Hetzner, CI/CD]
 ---
 
 ## Вступ
 
-У fluxLab.dev всі шість наших продакшн SaaS-продуктів працюють на Hetzner Cloud. Ми обрали Hetzner замість AWS з простої причини: вартість. Інстанс CX31 (4 vCPU, 8ГБ RAM) коштує €8.50/місяць — приблизно в 5 разів дешевше за еквівалент на AWS.
+У fluxLab.dev всі шість наших продакшн SaaS-продуктів працюють на Hetzner Cloud. Ми обрали Hetzner замість AWS з простої причини: вартість. Інстанс CX31 (4 vCPU, 8ГБ RAM) коштує €8.50/місяць — приблизно в 5 разів дешевше за еквівалентні інстанси на AWS. Для бутстреп SaaS-продуктів це має значення.
 
 ## Наш стек
 
@@ -17,14 +18,59 @@ tags: [Docker, DevOps, Hetzner, CI/CD]
 - **Docker Compose** для оркестрації контейнерів
 - **Caddy** як реверс-проксі з автоматичним HTTPS
 - **GitHub Actions** для CI/CD
-- **Hetzner Object Storage** для файлів (S3-сумісний)
+- **Hetzner Object Storage** для завантаження файлів (S3-сумісний)
 
-## Чому Caddy замість Nginx
+## Налаштування Docker Compose
 
-Caddy надає автоматичний HTTPS з Let's Encrypt — без налаштування certbot, без крон-задач оновлення сертифікатів. Конфігурація читабельна:
+Типовий продакшн `docker-compose.yml` для наших продуктів:
+
+```yaml
+services:
+  app:
+    image: registry/app:latest
+    restart: unless-stopped
+    environment:
+      - DATABASE_URL=postgres://...
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+```
+
+### Чому Caddy замість Nginx
+
+Caddy надає автоматичний HTTPS з Let's Encrypt — без налаштування certbot, без крон-задач на поновлення сертифікатів. Caddyfile простий і читабельний:
 
 ```
-jobber.fluxlab.dev {
+jobber-app.com {
     reverse_proxy app:3000
 }
 ```
@@ -33,32 +79,61 @@ jobber.fluxlab.dev {
 
 ## CI/CD пайплайн
 
-GitHub Actions білдить Docker-образ з кешуванням шарів через Buildx, пушить у реєстр та деплоїть через SSH.
+Наш workflow у GitHub Actions білдить Docker-образи, пушить їх у реєстр та деплоїть через SSH:
 
-Для zero-downtime деплою ми покладаємось на поведінку Docker Compose з health checks. Новий контейнер стартує, проходить health check, і лише тоді старий контейнер зупиняється.
+### Етап білду
+
+Етап білду використовує Docker Buildx з кешуванням шарів. Для наших Next.js-фронтендів це скорочує час білду з 8 хвилин до менш ніж 2 хвилин на наступних білдах.
+
+### Етап деплою
+
+Деплой — це простий SSH-скрипт: підтягнути новий образ, перезапустити сервіс. Решту бере на себе Docker Compose.
+
+```yaml
+- name: Deploy
+  run: |
+    ssh deploy@${{ secrets.SERVER_IP }} << 'EOF'
+      cd /opt/app
+      docker compose pull app
+      docker compose up -d app
+    EOF
+```
+
+## Деплой без даунтайму
+
+Для деплою без даунтайму ми покладаємось на поведінку Docker Compose під час rolling update разом із health checks. Новий контейнер стартує, проходить health check, і лише тоді старий контейнер зупиняється.
 
 ## Моніторинг
 
-Кожен сервіс виставляє ендпоінт `/health`, що перевіряє підключення до PostgreSQL та Redis. Всі сервіси виводять структуровані JSON-логи.
+### Health checks
+
+Кожен сервіс виставляє ендпоінт `/health`, що перевіряє з'єднання з базою даних та Redis. Ми перевіряємо цей ендпоінт кожні 30 секунд.
+
+### Логи
+
+Усі сервіси виводять структуровані JSON-логи. Для дебагу в реальному часі ми використовуємо `docker compose logs -f --since 1h` і ротуємо логи вбудованим механізмом ротації Docker.
 
 ## Вартість
 
 Запуск Jobber на продакшні на Hetzner:
 
-- **CX31 сервер**: €8.50/місяць
+- **CX31 сервер** (4 vCPU, 8ГБ RAM): €8.50/місяць
 - **100ГБ volume** для PostgreSQL: €4.40/місяць
-- **Object Storage**: ~€2/місяць
+- **Object Storage** (S3): ~€2/місяць
 - **Всього**: ~€15/місяць
 
-Порівняйте з AWS (t3.medium + RDS + S3): ~€80/місяць мінімум. Для бутстреп SaaS-продукту ця різниця в 5 разів значуща.
+Порівняйте це з AWS (t3.medium + RDS + S3): щонайменше ~€80/місяць. Для бутстреп SaaS-продукту ця різниця у 5 разів — суттєва.
 
 ## Уроки
 
-1. **Health checks обов'язкові** — без них Docker миттєво перезапускає зламані контейнери
+1. **Health checks обов'язкові** — без них Docker миттєво перезапускає зламані контейнери, спричиняючи цикли перезапуску
 2. **Завжди використовуй volumes для баз даних** — втрата даних PostgreSQL невідновна
 3. **Фіксуй версії образів** — `postgres:16-alpine`, а не `postgres:latest`
 4. **Автоматизуй все** — ручні деплої — джерело №1 інцидентів на продакшні
+5. **Тримай секрети у змінних середовища** — ніколи не додавай файли `.env` у git
 
 ## Висновок
 
-Docker на Hetzner Cloud дає fluxLab.dev інфраструктуру продакшн-класу за частину вартості хмарних провайдерів. Для SaaS-продуктів з передбачуваними навантаженнями виділені сервери з Docker Compose простіші та дешевші за Kubernetes.
+Docker на Hetzner Cloud дає fluxLab.dev інфраструктуру продакшн-класу за частину вартості хмарних провайдерів. Для SaaS-продуктів із передбачуваними патернами трафіку виділені сервери з Docker Compose простіші й дешевші за Kubernetes або serverless-архітектури.
+
+Хочете, щоб хтось незалежний подивився на ваш деплой? Аудит інфраструктури — частина нашого [технічного консалтингу](/uk/services).
