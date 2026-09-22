@@ -20,7 +20,7 @@ describe("sitemap", () => {
     const listed = new Set(urls);
     for (const entry of entries) {
       for (const alternate of Object.values(entry.alternates?.languages ?? {})) {
-        expect(listed.has(alternate)).toBe(true);
+        expect(alternate !== undefined && listed.has(alternate)).toBe(true);
       }
     }
   });
