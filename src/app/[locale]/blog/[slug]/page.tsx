@@ -1,13 +1,16 @@
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { Container, Badge } from "@/components/ui";
-import { getBlogPost, getAllBlogSlugs } from "@/lib/mdx";
+import { getBlogPost, getAllBlogSlugs, getRelatedPosts } from "@/lib/mdx";
 import { generatePageMetadata } from "@/lib/metadata";
 import { formatDate } from "@/lib/utils";
 import { locales } from "@/i18n/config";
 import { BlogContent } from "@/components/blog/blog-content";
+import { PostFooter } from "@/components/blog/post-footer";
 import { ArticleJsonLd } from "@/components/seo/article-json-ld";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
+
+const RELATED_POST_COUNT = 2;
 
 export async function generateStaticParams() {
   return locales.flatMap((locale) =>
@@ -92,6 +95,9 @@ export default async function BlogPostPage({
             </header>
 
             <BlogContent content={post.content} />
+            <PostFooter
+              relatedPosts={getRelatedPosts(locale, slug, RELATED_POST_COUNT)}
+            />
           </div>
         </Container>
       </article>

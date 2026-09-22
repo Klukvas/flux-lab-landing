@@ -240,7 +240,12 @@
     "minRead": "min read",
     "tableOfContents": "Table of Contents",
     "tags": "Tags",
-    "noPosts": "No posts found"
+    "noPosts": "No posts found",
+    "related": "Keep reading",
+    "ctaTitle": "Need a team that builds like this?",
+    "ctaDescription": "We design, build and run SaaS products with React, Next.js and Go, for ourselves and for our clients.",
+    "ctaButton": "See our services",
+    "ctaSecondary": "Get in touch"
   },
   "about": {
     "title": "About Us",

@@ -1,46 +1,31 @@
-import Link from "next/link";
-import { useTranslations, useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import type { BlogPostMeta } from "@/types";
 import { Card, Badge } from "@/components/ui";
 import { formatDate } from "@/lib/utils";
 
 interface BlogCardProps {
   readonly post: BlogPostMeta;
+  /** h2 on the blog index, h3 where the cards sit under a section heading. */
+  readonly headingLevel?: "h2" | "h3";
 }
 
-const localeLabels: Record<string, string> = {
-  en: "EN",
-  uk: "UK",
-};
-
-export function BlogCard({ post }: BlogCardProps) {
+export function BlogCard({ post, headingLevel: Heading = "h2" }: BlogCardProps) {
   const t = useTranslations("blog");
-  const currentLocale = useLocale();
-  const isOtherLocale = post.locale !== currentLocale;
-
-  // Always link to the post's own locale so the content matches
-  const href = `/${post.locale}/blog/${post.slug}`;
 
   return (
     <Card hover>
       <div className="flex flex-col gap-3">
         <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-          <span
-            className={`inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none ${
-              isOtherLocale
-                ? "bg-brand/10 text-brand"
-                : "bg-success/10 text-success"
-            }`}
-          >
-            {localeLabels[post.locale] ?? post.locale.toUpperCase()}
-          </span>
           <time dateTime={post.date}>{formatDate(post.date, post.locale)}</time>
           <span>·</span>
           <span>
             {post.readingTime} {t("minRead")}
           </span>
         </div>
-        <h2 className="text-lg font-semibold text-foreground">{post.title}</h2>
+        <Heading className="text-lg font-semibold text-foreground">
+          {post.title}
+        </Heading>
         <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
           {post.description}
         </p>
@@ -50,7 +35,7 @@ export function BlogCard({ post }: BlogCardProps) {
           ))}
         </div>
         <Link
-          href={href}
+          href={`/blog/${post.slug}`}
           className="stretched-link inline-flex items-center text-sm font-medium text-foreground transition-opacity hover:opacity-70"
         >
           {t("readMore")}

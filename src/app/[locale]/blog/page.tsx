@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { Container, SectionHeading } from "@/components/ui";
 import { BlogCard } from "@/components/blog/blog-card";
-import { getAllBlogPosts } from "@/lib/mdx";
+import { getBlogPosts } from "@/lib/mdx";
 import { generatePageMetadata } from "@/lib/metadata";
 
 export async function generateMetadata({
@@ -19,9 +19,14 @@ export async function generateMetadata({
   });
 }
 
-export default async function BlogPage() {
+export default async function BlogPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   const t = await getTranslations("blog");
-  const posts = getAllBlogPosts();
+  const posts = getBlogPosts(locale);
 
   return (
     <section className="py-24">
@@ -38,7 +43,7 @@ export default async function BlogPage() {
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {posts.map((post) => (
-              <BlogCard key={`${post.slug}-${post.locale}`} post={post} />
+              <BlogCard key={post.slug} post={post} />
             ))}
           </div>
         )}

@@ -93,30 +93,29 @@ export function getBlogPost(
   return { meta: toPostMeta(slug, locale, meta, body), content: body };
 }
 
-export function getAllBlogPosts(): BlogPostMeta[] {
-  const allPosts: BlogPostMeta[] = [];
-  const seen = new Set<string>();
+/**
+ * Other posts in the same language, most shared tags first. Ties keep
+ * getBlogPosts' newest-first order because Array.prototype.sort is stable.
+ */
+export function getRelatedPosts(
+  locale: string,
+  slug: string,
+  limit = 3,
+): BlogPostMeta[] {
+  const posts = getBlogPosts(locale);
+  const current = posts.find((post) => post.slug === slug);
+  if (!current) return [];
 
-  const dirs = fs.existsSync(BLOG_DIR)
-    ? fs
-        .readdirSync(BLOG_DIR)
-        .filter((d) => fs.statSync(path.join(BLOG_DIR, d)).isDirectory())
-    : [];
-
-  for (const locale of dirs) {
-    const posts = getBlogPosts(locale);
-    for (const post of posts) {
-      const key = `${post.slug}:${post.locale}`;
-      if (!seen.has(key)) {
-        seen.add(key);
-        allPosts.push(post);
-      }
-    }
-  }
-
-  return allPosts.sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-  );
+  const currentTags = new Set(current.tags);
+  return posts
+    .filter((post) => post.slug !== slug)
+    .map((post) => ({
+      post,
+      sharedTags: post.tags.filter((tag) => currentTags.has(tag)).length,
+    }))
+    .sort((a, b) => b.sharedTags - a.sharedTags)
+    .slice(0, limit)
+    .map(({ post }) => post);
 }
 
 export function getAllBlogTags(locale: string): string[] {

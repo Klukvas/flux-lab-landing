@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { parseFrontmatter } from "./mdx";
+import { getBlogPosts, getRelatedPosts, parseFrontmatter } from "./mdx";
 
 function frontmatter(lines: string): string {
   return `---\n${lines}\n---\nBody text\n`;
@@ -32,5 +32,30 @@ describe("parseFrontmatter", () => {
     const { body } = parseFrontmatter(frontmatter("title: Post"));
 
     expect(body).toBe("Body text\n");
+  });
+});
+
+describe("getRelatedPosts", () => {
+  it("suggests other posts in the same language, never the post itself", () => {
+    const related = getRelatedPosts("uk", "go-backend-for-saas");
+
+    expect(related.length).toBeGreaterThan(0);
+    expect(related.every((post) => post.locale === "uk")).toBe(true);
+    expect(related.map((post) => post.slug)).not.toContain("go-backend-for-saas");
+  });
+
+  it("ranks posts by how many tags they share with the current one", () => {
+    const current = getBlogPosts("en").find(
+      (post) => post.slug === "go-backend-for-saas",
+    );
+    const sharedCounts = getRelatedPosts("en", "go-backend-for-saas", 10).map(
+      (post) => post.tags.filter((tag) => current?.tags.includes(tag)).length,
+    );
+
+    expect(sharedCounts).toEqual([...sharedCounts].sort((a, b) => b - a));
+  });
+
+  it("returns nothing for an unknown post", () => {
+    expect(getRelatedPosts("en", "no-such-post")).toEqual([]);
   });
 });
