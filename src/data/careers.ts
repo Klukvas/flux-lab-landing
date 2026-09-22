@@ -52,6 +52,10 @@ const WORLDWIDE = ["United States", "Canada", ...EUROPE] as const;
 /** The date the current set of roles went live on the site. */
 const POSTED_2026_03_20 = "2026-03-20";
 
+/**
+ * Open roles. When a role is filled, delete it here: its page then returns 404 and
+ * Google Jobs drops the posting, which is how Google asks for filled jobs to go.
+ */
 export const positions: readonly CareerPosition[] = [
   {
     id: "senior-frontend",

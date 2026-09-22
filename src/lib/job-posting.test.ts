@@ -54,6 +54,18 @@ describe("buildJobPostingSchema", () => {
     );
   });
 
+  it("adds a closing date only for roles that have one", () => {
+    const openEnded = buildJobPostingSchema(position(), "en", LABELS);
+    const closing = buildJobPostingSchema(
+      position({ validThrough: "2026-12-31" }),
+      "en",
+      LABELS,
+    );
+
+    expect(openEnded).not.toHaveProperty("validThrough");
+    expect(closing).toHaveProperty("validThrough", "2026-12-31");
+  });
+
   it("points at the posting in the page's language", () => {
     const schema = buildJobPostingSchema(position(), "uk", LABELS);
 

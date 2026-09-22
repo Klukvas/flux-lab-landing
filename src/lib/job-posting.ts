@@ -52,6 +52,7 @@ export function buildJobPostingSchema(
       value: position.id,
     },
     datePosted: position.datePosted,
+    ...(position.validThrough && { validThrough: position.validThrough }),
     employmentType: EMPLOYMENT_TYPES[position.type],
     hiringOrganization: {
       "@type": "Organization",

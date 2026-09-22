@@ -17,6 +17,11 @@ interface CareerPositionFacts {
   readonly type: EmploymentType;
   /** ISO date the role was first published (JobPosting datePosted). */
   readonly datePosted: string;
+  /**
+   * ISO closing date, only for roles that close on a known date. Google Jobs hides the
+   * posting after it. Open-ended roles leave it out, as Google's guidelines ask.
+   */
+  readonly validThrough?: string;
   /** Countries candidates may work from (JobPosting applicantLocationRequirements). */
   readonly applicantCountries: readonly string[];
 }
