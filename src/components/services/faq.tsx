@@ -22,11 +22,11 @@ export async function FAQ() {
               key={item.q}
               className="group rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-950"
             >
-              <summary className="cursor-pointer px-6 py-4 text-foreground font-medium select-none list-none flex items-center justify-between">
+              <summary className="flex cursor-pointer select-none list-none items-center justify-between rounded-xl px-6 py-4 font-medium text-foreground transition-colors active:bg-gray-50 dark:active:bg-gray-900">
                 {t(item.q)}
                 <span
                   aria-hidden="true"
-                  className="ml-4 text-gray-400 transition-transform group-open:rotate-45"
+                  className="ml-4 text-gray-400 transition-[rotate] duration-[450ms] ease-spring group-open:rotate-45"
                 >
                   +
                 </span>
