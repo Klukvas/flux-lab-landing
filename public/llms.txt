@@ -23,8 +23,8 @@ fluxLab.dev is a software development company based in Kyiv, Ukraine offering:
 
 ## Our Products (Proof of Expertise)
 
-- [Jobber](https://jobber.fluxlab.dev): AI-powered job tracker — 15,300 users. Go, Next.js, Claude AI.
-- [EFluxCom](https://efluxcom.com): Energy management platform — 12,400 users, 85 companies.
+- [Jobber](https://jobber-app.com): AI-powered job tracker — 15,300 users. Go, Next.js, Claude AI.
+- [EFluxCom](https://flux-lab.dev/en/projects/efluxcom): Energy management platform — 12,400 users, 85 companies.
 - [WashFlow](https://washflow.app): Business management suite — 8,700 users, 120 companies.
 - [Accounting](https://flux-lab.dev/en/projects/accounting): Financial management — 6,200 users, 340 companies.
 - [Market](https://flux-lab.dev/en/projects/market): E-commerce marketplace — beta, 3,400 users.
@@ -46,16 +46,9 @@ fluxLab.dev is a software development company based in Kyiv, Ukraine offering:
 | Project-Based | $15K | Well-defined products with deadlines |
 | Staff Augmentation | $4K/month per dev | Filling skill gaps fast |
 
-## Client Testimonials
-
-- "Reduced our energy monitoring costs by 27% in the first quarter." — Oleksandr Melnyk, CTO, GreenGrid Energy
-- "Went from spreadsheets to managing 120 locations in one platform." — Iryna Savchenko, Founder, CleanWave
-- "890K+ invoices processed with zero downtime. Saved 40 hours per week." — Viktor Kravchuk, CFO, Finova Partners
-
 ## Contact
 
 - Website: https://flux-lab.dev
 - Email: hello@flux-lab.dev
 - Location: Kyiv, Ukraine
-- GitHub: https://github.com/fluxlab
 - Blog: https://flux-lab.dev/en/blog

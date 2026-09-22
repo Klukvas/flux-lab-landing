@@ -6,11 +6,15 @@ export const SITE_DESCRIPTION =
 export const CONTACT_EMAIL = "hello@flux-lab.dev";
 export const CONTACT_LOCATION = "Kyiv, Ukraine";
 
-export const SOCIAL_LINKS = {
-  github: "https://github.com/fluxlab", // TODO: Replace with real profile URL
-  linkedin: "https://linkedin.com/company/fluxlab", // TODO: Replace with real profile URL
-  twitter: "https://twitter.com/fluxlab", // TODO: Replace with real profile URL
-} as const;
+export type SocialNetwork = "github" | "linkedin" | "twitter";
+
+/**
+ * Official company profiles only. They feed the footer, the contact page and the
+ * schema.org sameAs list, which tells Google these accounts are this company, so a
+ * network stays out until its profile exists.
+ */
+export const SOCIAL_LINKS: Readonly<Partial<Record<SocialNetwork, string>>> =
+  {};
 
 export const STATS = {
   projects: 0,

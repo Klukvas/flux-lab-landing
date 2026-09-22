@@ -34,7 +34,7 @@ Expert guidance on architecture, technology choices, and best practices. Include
 ## Products in Detail (Proof of Expertise)
 
 ### Jobber — AI-Powered Job Application Tracker
-- URL: https://jobber.fluxlab.dev
+- URL: https://jobber-app.com
 - Status: Active (launched January 2025)
 - Users: 15,300 | Companies: 210
 - Description: Personal job search management platform. Chrome extension imports jobs from any website. AI (Claude) parses job details via layered approach (JSON-LD, DOM, LLM). Resume builder with AI-generated summaries. Cover letter generation. Application tracking with list and Kanban views. Analytics: funnel visualization, time-in-stage, resume effectiveness, source performance.
@@ -42,12 +42,11 @@ Expert guidance on architecture, technology choices, and best practices. Include
 - AI: Claude API (Haiku for parsing, Sonnet for generation)
 
 ### EFluxCom — Smart Energy Management
-- URL: https://efluxcom.com
+- Case study: https://flux-lab.dev/en/projects/efluxcom
 - Status: Active (launched March 2024)
 - Users: 12,400 | Companies: 85
 - Description: Comprehensive energy management system for monitoring, analyzing, and optimizing power consumption. AI engine analyzes patterns and recommends load-shifting strategies cutting costs by up to 30%.
 - Tech: React, Next.js, TypeScript, Node.js, PostgreSQL, Redis, Docker, AWS
-- Client result: "Reduced energy monitoring costs by 27% in the first quarter" — GreenGrid Energy CTO
 
 ### WashFlow — Business Management Suite
 - URL: https://washflow.app
@@ -55,14 +54,12 @@ Expert guidance on architecture, technology choices, and best practices. Include
 - Users: 8,700 | Companies: 120
 - Description: All-in-one management platform for car wash and laundry businesses. Order tracking, scheduling, CRM with loyalty programs, role-based access control.
 - Tech: React, Next.js, TypeScript, NestJS, PostgreSQL, React Native, Docker
-- Client result: "Went from spreadsheets to managing 120 locations in one platform" — CleanWave Founder
 
 ### Accounting — Financial Management
 - Status: Active (launched June 2024)
 - Users: 6,200 | Companies: 340
 - Description: Streamlined accounting for SMBs in Ukraine/Eastern Europe. Multi-currency, automatic VAT, bank sync, 1C/BAS export.
 - Tech: React, TypeScript, Node.js, PostgreSQL, Redis, Docker, AWS
-- Client result: "890K+ invoices processed with zero downtime. Saved 40 hours per week" — Finova Partners CFO
 
 ### Market — E-Commerce Marketplace
 - Status: Beta (launched February 2025)
@@ -96,14 +93,6 @@ Expert guidance on architecture, technology choices, and best practices. Include
 7. Docker deployment with CI/CD
 8. Launch & iteration
 
-## Team
-
-Senior team based in Kyiv, Ukraine. Average 8+ years of experience:
-- Alex Kovalenko — Founder & Lead Developer (full-stack, 8+ years)
-- Maria Shevchenko — Frontend Developer (React specialist)
-- Dmytro Bondar — Backend Developer (Node.js, databases, cloud)
-- Olena Lysenko — UI/UX Designer
-
 ## Industries Served
 
 Energy management, logistics & operations, fintech & accounting, job search & HR tech, e-commerce & marketplaces, health & wellness.
@@ -130,5 +119,4 @@ Absolutely. Flexible engagement models that scale with your budget.
 - Website: https://flux-lab.dev
 - Email: hello@flux-lab.dev
 - Location: Kyiv, Ukraine
-- GitHub: https://github.com/fluxlab
 - Blog: https://flux-lab.dev/en/blog
