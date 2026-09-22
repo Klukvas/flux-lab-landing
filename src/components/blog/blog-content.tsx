@@ -1,5 +1,4 @@
-'use client';
-
+// A Server Component: posts render to HTML at build time and react-markdown never ships to the browser.
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
