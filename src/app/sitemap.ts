@@ -28,6 +28,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       });
     }
 
+    entries.push({
+      url: `${BASE_URL}/${locale}/privacy`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.3,
+    });
+
     for (const slug of getProjectSlugs()) {
       entries.push({
         url: `${BASE_URL}/${locale}/projects/${slug}`,

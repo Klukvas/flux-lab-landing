@@ -4,7 +4,7 @@ import type { BlogPostMeta } from "@/types";
 
 const BLOG_DIR = path.join(process.cwd(), "src/content/blog");
 
-function parseFrontmatter(content: string): {
+export function parseFrontmatter(content: string): {
   meta: Record<string, string | string[]>;
   body: string;
 } {
@@ -16,7 +16,7 @@ function parseFrontmatter(content: string): {
     const colonIdx = line.indexOf(":");
     if (colonIdx === -1) continue;
     const key = line.slice(0, colonIdx).trim();
-    let value = line.slice(colonIdx + 1).trim();
+    const value = line.slice(colonIdx + 1).trim();
     if (value.startsWith("[") && value.endsWith("]")) {
       meta[key] = value
         .slice(1, -1)
