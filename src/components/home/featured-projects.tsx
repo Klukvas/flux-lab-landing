@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
-import { Container, SectionHeading, AnimatedSection, Button } from '@/components/ui';
+import { Container, SectionHeading, AnimatedSection, buttonStyles } from '@/components/ui';
 import { ProjectCard } from '@/components/projects/project-card';
 import { getFeaturedProjects } from '@/data/projects';
 
@@ -20,8 +20,8 @@ export function FeaturedProjects() {
           ))}
         </div>
         <div className="mt-12 text-center">
-          <Link href="/projects">
-            <Button variant="outline">{t('viewAll')}</Button>
+          <Link href="/projects" className={buttonStyles({ variant: 'outline' })}>
+            {t('viewAll')}
           </Link>
         </div>
       </Container>

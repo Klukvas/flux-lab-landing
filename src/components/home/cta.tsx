@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { Container, Button, AnimatedSection } from "@/components/ui";
+import { Container, buttonStyles, AnimatedSection } from "@/components/ui";
 
 export function CTA() {
   const t = useTranslations("home.cta");
@@ -19,19 +19,21 @@ export function CTA() {
           </h2>
           <p className="mt-4 text-lg text-white/90">{t("subtitle")}</p>
           <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-            <Link href="/contact">
-              <Button size="lg" variant="inverted">
-                {t("button")}
-              </Button>
+            <Link
+              href="/contact"
+              className={buttonStyles({ size: "lg", variant: "inverted" })}
+            >
+              {t("button")}
             </Link>
-            <Link href="/projects">
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-white/30 text-white hover:bg-white/10"
-              >
-                {t("secondaryButton")}
-              </Button>
+            <Link
+              href="/projects"
+              className={buttonStyles({
+                size: "lg",
+                variant: "outline",
+                className: "border-white/30 text-white hover:bg-white/10",
+              })}
+            >
+              {t("secondaryButton")}
             </Link>
           </div>
         </div>

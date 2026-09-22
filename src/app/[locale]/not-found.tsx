@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { Container, Button } from "@/components/ui";
+import { Container, buttonStyles } from "@/components/ui";
 
 export default function NotFoundPage() {
   const t = useTranslations("common");
@@ -19,8 +19,8 @@ export default function NotFoundPage() {
             {t("notFoundDescription")}
           </p>
           <div className="mt-8">
-            <Link href="/">
-              <Button>{t("backToHome")}</Button>
+            <Link href="/" className={buttonStyles()}>
+              {t("backToHome")}
             </Link>
           </div>
         </div>

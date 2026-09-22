@@ -1,6 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { Container, Button, AnimatedSection } from "@/components/ui";
+import { Container, buttonStyles, AnimatedSection } from "@/components/ui";
 import { timelineEvents } from "@/data/team";
 import { STATS } from "@/lib/constants";
 import { generatePageMetadata } from "@/lib/metadata";
@@ -179,8 +179,11 @@ export default async function AboutPage() {
                 {t("cta.description")}
               </p>
               <div className="mt-8">
-                <Link href="/contact">
-                  <Button variant="inverted">{t("cta.button")}</Button>
+                <Link
+                  href="/contact"
+                  className={buttonStyles({ variant: "inverted" })}
+                >
+                  {t("cta.button")}
                 </Link>
               </div>
             </div>

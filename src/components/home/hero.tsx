@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import { Link } from "@/i18n/navigation";
-import { Button, Container } from "@/components/ui";
+import { buttonStyles, Container } from "@/components/ui";
 import { STATS } from "@/lib/constants";
 import { formatNumber } from "@/lib/utils";
 
@@ -36,14 +36,15 @@ export function Hero() {
             <p className="mt-5 text-lg text-gray-500 dark:text-gray-400">
               {t("subtitle")}
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link href="/projects">
-                <Button size="lg">{t("cta")}</Button>
+            <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row">
+              <Link href="/projects" className={buttonStyles({ size: "lg" })}>
+                {t("cta")}
               </Link>
-              <Link href="/contact">
-                <Button variant="outline" size="lg">
-                  {t("secondaryCta")}
-                </Button>
+              <Link
+                href="/contact"
+                className={buttonStyles({ variant: "outline", size: "lg" })}
+              >
+                {t("secondaryCta")}
               </Link>
             </div>
           </motion.div>

@@ -1,5 +1,5 @@
 import { Link } from "@/i18n/navigation";
-import { Container, Button } from "@/components/ui";
+import { Container, buttonStyles } from "@/components/ui";
 
 interface ProjectCtaProps {
   readonly title: string;
@@ -24,8 +24,11 @@ export function ProjectCta({
           </h2>
           <p className="mt-3 text-white/90">{description}</p>
           <div className="mt-6">
-            <Link href="/contact">
-              <Button variant="inverted">{buttonLabel}</Button>
+            <Link
+              href="/contact"
+              className={buttonStyles({ variant: "inverted" })}
+            >
+              {buttonLabel}
             </Link>
           </div>
         </div>
