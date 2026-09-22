@@ -44,6 +44,23 @@
   --color-error-bg: var(--error-bg);
 }
 
+/* --ease-spring is a critically damped spring (Apple's damping 1.0) sampled into a CSS
+   easing curve. The transition duration sets its response: 450ms is about response 0.3s,
+   600ms about 0.4s. Most of the movement lands early; the long tail is the settle. */
+@theme {
+  --ease-spring: linear(0, 0.015 2%, 0.053 4%, 0.107 6%, 0.169 8%, 0.236 10%, 0.337 13%, 0.434 16%, 0.551 20%, 0.649 24%, 0.73 28%, 0.808 33%, 0.874 39%, 0.925 46%, 0.962 55%, 0.984 66%, 0.995 80%, 1);
+
+  /* Tracking tightens as type grows, so each heading size carries its own value and
+     body-size text stays at 0. Headings take this from their size utility; adding a
+     tracking-* class on top would flatten the scale back to one value. */
+  --text-xl--letter-spacing: -0.01em;
+  --text-2xl--letter-spacing: -0.015em;
+  --text-3xl--letter-spacing: -0.02em;
+  --text-4xl--letter-spacing: -0.025em;
+  --text-5xl--letter-spacing: -0.03em;
+  --text-6xl--letter-spacing: -0.035em;
+}
+
 :root {
   --background: #FFFFFF;
   --foreground: #07060E;
@@ -204,4 +221,116 @@ html {
   background: rgba(4, 3, 10, 0.55);
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
+}
+
+/* Press feedback: the control dips the instant the pointer goes down and springs back on
+   release, so a tap is acknowledged before the click even fires. */
+@utility pressable {
+  transition-property: color, background-color, border-color, opacity, box-shadow, scale;
+  transition-duration: 150ms, 150ms, 150ms, 150ms, 150ms, 450ms;
+  transition-timing-function: ease, ease, ease, ease, ease, var(--ease-spring);
+
+  &:active:not(:disabled) {
+    scale: 0.97;
+    transition-duration: 150ms, 150ms, 150ms, 150ms, 150ms, 80ms;
+    transition-timing-function: ease, ease, ease, ease, ease, ease-out;
+  }
+}
+
+/* Extends a card's primary link over the whole card, so the card is one tap target. */
+@utility stretched-link {
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+}
+
+/* A card whose primary link is stretched over it dips slightly while that link is
+   pressed, and wears the keyboard focus ring around the whole card. */
+@utility card-pressable {
+  transition-property: border-color, scale;
+  transition-duration: 150ms, 450ms;
+  transition-timing-function: ease, var(--ease-spring);
+
+  &:has(.stretched-link:active) {
+    scale: 0.98;
+    transition-duration: 150ms, 80ms;
+    transition-timing-function: ease, ease-out;
+  }
+
+  &:has(.stretched-link:focus-visible) {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
+  }
+
+  & .stretched-link:focus-visible {
+    outline: none;
+  }
+}
+
+@layer components {
+  /* Translucent chrome: content scrolls under a blurred, tinted layer instead of
+     vanishing behind an opaque bar. */
+  .material-bar {
+    background-color: color-mix(in oklab, var(--bg-page) 72%, transparent);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(20px) saturate(180%);
+  }
+
+  /* Heavier material for surfaces that take over the screen, so their text stays
+     legible whatever is scrolling behind. */
+  .material-sheet {
+    background-color: color-mix(in oklab, var(--bg-page) 88%, transparent);
+    -webkit-backdrop-filter: blur(32px) saturate(180%);
+    backdrop-filter: blur(32px) saturate(180%);
+  }
+
+  @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+    .material-bar,
+    .material-sheet {
+      background-color: var(--bg-page);
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
+  }
+}
+
+/* Disclosures ease open and shut on the spring curve where the browser can animate to an
+   auto height; elsewhere they keep the instant toggle. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (interpolate-size: allow-keywords) {
+    details {
+      interpolate-size: allow-keywords;
+    }
+
+    details::details-content {
+      block-size: 0;
+      overflow-y: clip;
+      transition:
+        block-size 450ms var(--ease-spring),
+        content-visibility 450ms allow-discrete;
+    }
+
+    details[open]::details-content {
+      block-size: auto;
+    }
+  }
+}
+
+/* WebKit draws the disclosure triangle through a prefixed pseudo-element that
+   list-style: none does not reach. */
+summary.list-none::-webkit-details-marker {
+  display: none;
+}
+
+/* Theme switches cross-fade instead of flashing between light and dark. Pointer events
+   fall through to the live page, so the fade never swallows a click. */
+::view-transition {
+  pointer-events: none;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 300ms;
 }
