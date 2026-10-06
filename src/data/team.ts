@@ -68,4 +68,9 @@ export const timelineEvents: readonly TimelineEvent[] = [
     titleKey: "timeline.2025.title",
     descriptionKey: "timeline.2025.description",
   },
+  {
+    year: 2026,
+    titleKey: "timeline.2026.title",
+    descriptionKey: "timeline.2026.description",
+  },
 ] as const;

@@ -53,7 +53,7 @@
       "title": "Why fluxLab?",
       "subtitle": "What makes us different from other dev studios",
       "productBuilders": "Product Builders, Not Just Coders",
-      "productBuildersDesc": "We've built 6 of our own SaaS products. We think in user flows and business metrics, not just tickets.",
+      "productBuildersDesc": "We've built 7 of our own SaaS products. We think in user flows and business metrics, not just tickets.",
       "fullOwnership": "Full Ownership",
       "fullOwnershipDesc": "One team from design to deployment. No hand-offs, no gaps.",
       "battleTested": "Battle-Tested Stack",
@@ -78,7 +78,7 @@
     "title": "Our Projects",
     "subtitle": "Explore our portfolio of digital products",
     "metaTitle": "Case Studies: SaaS Products We Built and Run",
-    "metaDescription": "Case studies of SaaS products we designed, built and run: a car wash CRM, an AI job tracker, energy management and accounting tools.",
+    "metaDescription": "Case studies of SaaS products we designed, built and run: an SEO and AI-search site audit, a car wash CRM, an AI job tracker, energy and accounting tools.",
     "filterAll": "All",
     "viewProject": "View Project",
     "users": "Users",
@@ -279,7 +279,7 @@
       "members": {
         "0": {
           "role": "Founder & Lead Developer",
-          "bio": "Full-stack developer with 8+ years of experience building scalable web applications. Architected all six fluxLab products from the ground up."
+          "bio": "Full-stack developer with 8+ years of experience building scalable web applications. Architected all seven fluxLab products from the ground up."
         },
         "1": {
           "role": "Frontend Developer",
@@ -315,6 +315,10 @@
       "2025": {
         "title": "46K+ Users, 800+ Companies",
         "description": "Expanded the portfolio with Jobber (AI job tracker), Market (e-commerce), and LifeSpan (health). Added Go to our stack. Serving 800+ companies across multiple industries."
+      },
+      "2026": {
+        "title": "FluxRadar Launched",
+        "description": "Launched FluxRadar (fluxradar.net), a pay-per-scan website audit that checks SEO, security, performance and accessibility, and asks Claude and ChatGPT whether they mention a business."
       },
       "title": "Track Record"
     },

@@ -2,6 +2,168 @@ import type { Project } from "@/types";
 
 export const projects: readonly Project[] = [
   {
+    slug: "fluxradar",
+    name: "FluxRadar",
+    tagline: "Website Audit for SEO & AI Search",
+    description:
+      "A pay-per-scan website audit that shows how Google, AI assistants and visitors see a site: SEO, AI search, security, speed and accessibility in one report.",
+    overview:
+      "FluxRadar answers one question for a site owner: why aren't customers finding me, and what should I fix first? You enter a public URL; the crawler reads the site the way Google, AI assistants and visitors do, and the audit runs up to ten modules over it — SEO, AI search visibility (GEO), security, performance, accessibility, reliability, content quality, privacy, UX/conversion and analytics. The report is written in plain words: problems ranked by urgency, each with what to do and a ready-made message to send your developer. Pricing is one-time with no subscription: a free homepage check, then Basic ($55), Website Audit ($79) or Complete ($120). The interface is available in English and Ukrainian.",
+    challenge:
+      "Small businesses lose customers without knowing why. SEO tools are monthly subscriptions built for marketers — they bury owners in jargon and hundreds of warnings, and none of them say whether ChatGPT or Claude mention the business when someone asks for a recommendation. Security headers, accessibility and page speed each live in yet another tool.",
+    solution:
+      "We split the audit into focused packages: an SSRF-guarded fetch layer, a crawler that respects robots.txt by default and reads sitemaps within each package's limits, and a deterministic rule engine for SEO, security, accessibility, reliability, content and privacy. Performance comes from PageSpeed Insights lab runs and CrUX field data. For AI search, provider adapters ask Claude and ChatGPT (with Gemini and Perplexity available) whether they name the business, only with the owner's recorded consent. Every finding carries its evidence and states what could not be checked, so the report never claims more certainty than it has.",
+    targetAudience:
+      "Small-business owners, freelancers and agencies who want to know why a site isn't found in Google or in AI answers — without a subscription or a glossary.",
+    status: "active",
+    tags: ["Web App", "SaaS", "AI"],
+    techStack: [
+      "React",
+      "Vite",
+      "TypeScript",
+      "Express",
+      "PostgreSQL",
+      "Prisma",
+      "Docker",
+      "Hetzner Cloud",
+    ],
+    features: [
+      {
+        title: "SEO Audit",
+        description:
+          "21 deterministic checks: page titles and descriptions, headings, canonicals, indexing, JSON-LD structured data and social previews",
+        icon: "",
+      },
+      {
+        title: "AI Search Visibility (GEO)",
+        description:
+          "Which AI crawlers robots.txt lets in, and whether Claude and ChatGPT mention the business in their answers",
+        icon: "",
+      },
+      {
+        title: "Site Health Modules",
+        description:
+          "Passive security checks (OWASP ASVS public profile), WCAG 2.2 AA accessibility, reliability, content quality and privacy signals",
+        icon: "",
+      },
+      {
+        title: "Real Performance Data",
+        description:
+          "PageSpeed Insights lab runs and CrUX field data for mobile and desktop, with the median of repeated runs reported",
+        icon: "",
+      },
+      {
+        title: "Plain-Language Report",
+        description:
+          "Problems ranked by what to fix first, each with a copy-ready message for your developer, plus JSON/CSV export on Website Audit and Complete",
+        icon: "",
+      },
+      {
+        title: "Search Console & Analytics",
+        description:
+          "Optional OAuth connection to Google Search Console, Google Analytics and Bing Webmaster Tools",
+        icon: "",
+      },
+    ],
+    highlights: [
+      { label: "Audit Modules", value: "10" },
+      { label: "Automated Checks", value: "50+" },
+      { label: "AI Providers Supported", value: "4" },
+      { label: "One-Time Report From", value: "$55" },
+    ],
+    integrations: [
+      "Claude AI",
+      "OpenAI",
+      "Google Gemini",
+      "Perplexity",
+      "PageSpeed Insights",
+      "Google Search Console",
+      "Google Analytics",
+      "Bing Webmaster Tools",
+      "Creem",
+    ],
+    screenshots: [
+      {
+        src: "/images/projects/fluxradar_01_home.png",
+        title: "One URL, Every Signal",
+        description:
+          "The landing page explains the product in a sentence: FluxRadar reads a website the way Google, AI assistants and visitors see it, and returns one report. A free homepage check starts from the hero form.",
+        features: [
+          "One-sentence promise: what keeps customers from finding you",
+          "Live audit preview of what a scan reads",
+          "Signal score, coverage and findings counters",
+          "English and Ukrainian interface",
+        ],
+      },
+      {
+        src: "/images/projects/fluxradar_02_findings.png",
+        title: "Findings in Plain Words",
+        description:
+          "Every problem is written for the site owner, not for an SEO specialist: what is wrong, where it was found, and what to change. Severity decides the order.",
+        features: [
+          "Fix first / worth fixing ordering by urgency",
+          "Where each problem was found: links, pages or pictures",
+          'Concrete "what to do" for every finding',
+          "Example data clearly marked as made up",
+        ],
+      },
+      {
+        src: "/images/projects/fluxradar_03_modules.png",
+        title: "A Score for Every Part of the Site",
+        description:
+          "Each module gets its own score and coverage bar, so a site that is easy to use but hard to find doesn't look the same as the reverse. Partial measurements are labelled instead of hidden.",
+        features: [
+          "Separate scores for search, content, speed, accessibility and reliability",
+          "Coverage bar shows how many checks actually ran",
+          '"Checked with limits" status when a measurement is incomplete',
+          "UX/Conversion scored on the side, outside the overall score",
+        ],
+      },
+      {
+        src: "/images/projects/fluxradar_04_fix_first.png",
+        title: "Fix These First",
+        description:
+          "The most urgent problems come first, each as a single fix that clears every page it lists. The count beside each one shows how many places it was found.",
+        features: [
+          "High, Medium and Low severity badges",
+          "Finding counts per problem",
+          "Jump links to the full write-up of each problem",
+          "One fix per problem, not one per page",
+        ],
+      },
+      {
+        src: "/images/projects/fluxradar_05_developer.png",
+        title: "A Message for Your Developer",
+        description:
+          "Every problem has a Copy button that produces a ready-made task: the check, the affected pages, what was found and what to do — the owner forwards it without writing anything.",
+        features: [
+          "Stable check IDs such as SEO-TECH-006",
+          "Example pages listed with full URLs",
+          "What was found and what to do, in one block",
+          "Copy button on every problem in a real report",
+        ],
+      },
+      {
+        src: "/images/projects/fluxradar_06_pricing.png",
+        title: "Three One-Time Reports",
+        description:
+          "No subscription and no monthly quota: pay once for one scan of one public website and keep the report. A side-by-side table explains which package answers which question.",
+        features: [
+          "Basic ($55): SEO and AI search visibility",
+          "Website Audit ($79): the eight site-health modules",
+          "Complete ($120): all ten modules in one report",
+          "Free homepage check for any account",
+        ],
+      },
+    ],
+    color: "#66799b",
+    icon: "FR",
+    url: "https://fluxradar.net",
+    featured: true,
+    stats: { users: 1400, companies: 90 },
+    launchDate: "2026-09",
+  },
+  {
     slug: "efluxcom",
     name: "EFluxCom",
     tagline: "Smart Energy Management Platform",
@@ -295,7 +457,7 @@ export const projects: readonly Project[] = [
     screenshots: [],
     color: "#8b5cf6",
     icon: "AC",
-    featured: true,
+    featured: false,
     stats: { users: 6200, companies: 340 },
     launchDate: "2024-06",
   },

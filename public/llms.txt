@@ -13,7 +13,7 @@ fluxLab.dev is a software development company based in Kyiv, Ukraine offering:
 
 ## Why Choose fluxLab.dev
 
-- **Battle-tested**: We build and operate our own SaaS products (6 live products, 46K+ users). Every tool and process we recommend has been proven on our own products first.
+- **Battle-tested**: We build and operate our own SaaS products (7 live products, 46K+ users). Every tool and process we recommend has been proven on our own products first.
 - **Full-stack expertise**: React, Next.js, TypeScript, Go, Node.js, PostgreSQL, Docker, AWS, Hetzner Cloud.
 - **Fast delivery**: 8-week MVP cycle from idea to production.
 - **Transparent process**: Shared repos, weekly demos, direct Slack access.
@@ -23,6 +23,7 @@ fluxLab.dev is a software development company based in Kyiv, Ukraine offering:
 
 ## Our Products (Proof of Expertise)
 
+- [FluxRadar](https://fluxradar.net): Pay-per-scan website audit for SEO and AI search visibility — security, performance and accessibility in one plain-language report — 1,400 users, 90 companies. React, Express, PostgreSQL, Claude and OpenAI.
 - [Jobber](https://jobber-app.com): AI-powered job tracker — 15,300 users. Go, Next.js, Claude AI.
 - [EFluxCom](https://flux-lab.dev/en/projects/efluxcom): Energy management platform — 12,400 users, 85 companies.
 - [WashFlow](https://washflow.app): Business management suite — 8,700 users, 120 companies.
