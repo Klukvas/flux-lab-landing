@@ -650,6 +650,165 @@ export const projects: readonly Project[] = [
     launchDate: "2025-01",
   },
   {
+    slug: "autoflow",
+    name: "AutoFlow",
+    tagline: "Car Dealership Storefront Template",
+    description:
+      "A ready-made storefront and admin panel for a car dealership: a filterable catalog, detailed car pages and lead capture, rebranded and adapted for each client.",
+    overview:
+      "AutoFlow is a template we hand to car dealerships and lots that want their own site instead of a page on a classifieds board. The public storefront shows only what is in stock: a catalog with filters by make, model, body, fuel, gearbox, price, year and mileage, a detail page per car with a gallery, specs, options and a credit calculator, plus favorites and side-by-side comparison. Staff run everything from the admin panel — listings, photos, leads, team and branding — and every new car can be posted to the dealer's Telegram channels automatically. The live demo runs at autos-sale.com; each client gets their own brand, colors and the features they need on top of it.",
+    challenge:
+      "Most dealerships sell through classifieds boards, where their cars sit next to competitors' and the buyer leaves after one click. A site of their own is either a static page nobody updates or a custom project that takes months. Lots that also sell clients' cars on consignment need commissions and seller contacts handled correctly, and every listing still has to reach the Telegram channels where buyers actually look.",
+    solution:
+      "We built one solid base and reuse it per client. A NestJS modular monolith with a separate BullMQ worker handles the heavy work: photos upload straight to S3 through presigned URLs and come back as nine renditions (three sizes in WebP, AVIF and JPEG). Prices are entered in USD, UAH or EUR and normalized to the site's base currency, so filters and sorting stay correct. A publish check blocks listings without a processed photo or with inconsistent consignment fields, and the commission is fixed once at the moment of sale. Branding — logo, colors, contacts and SEO defaults — lives in site settings, so rebranding a copy is configuration, not a rewrite.",
+    targetAudience:
+      "Car dealerships, used-car lots and consignment sellers that want their own storefront with a working admin panel, launched in weeks rather than built from scratch.",
+    status: "active",
+    tags: ["Web App", "Template"],
+    techStack: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "NestJS",
+      "PostgreSQL",
+      "Redis",
+      "BullMQ",
+      "Docker",
+      "Hetzner Cloud",
+    ],
+    features: [
+      {
+        title: "Filterable Catalog",
+        description:
+          "Search and filters by make, model, body, fuel, gearbox, drive, price, year and mileage, with a strip of make logos above the grid",
+        icon: "",
+      },
+      {
+        title: "Car Detail Page",
+        description:
+          "Photo gallery, specs, grouped options, credit calculator, view counter, favorites, comparison and call, lead or test-drive buttons",
+        icon: "",
+      },
+      {
+        title: "Admin Panel with Roles",
+        description:
+          "Admins manage everything; editors handle only listings and leads. Every change lands in the audit log",
+        icon: "",
+      },
+      {
+        title: "Telegram Autoposting",
+        description:
+          "A new listing goes to up to 10 Telegram channels as a photo album; when the car sells, the post is edited to SOLD",
+        icon: "",
+      },
+      {
+        title: "Consignment & Multi-Currency",
+        description:
+          "Sell clients' cars with a percent or fixed commission; prices in USD, UAH or EUR normalized to one base currency",
+        icon: "",
+      },
+      {
+        title: "Lead Capture",
+        description:
+          "Call, message and test-drive requests with rate limiting and spam protection, collected in the admin panel with optional email alerts",
+        icon: "",
+      },
+    ],
+    highlights: [
+      { label: "Image Renditions per Photo", value: "9" },
+      { label: "Price Currencies", value: "3" },
+      { label: "Telegram Channels per Site", value: "10" },
+      { label: "Admin Roles", value: "2" },
+    ],
+    integrations: [
+      "Telegram Bot API",
+      "S3-compatible storage",
+      "SMTP",
+      "Simple Icons",
+      "GitHub Actions",
+      "Caddy",
+    ],
+    screenshots: [
+      {
+        src: "/images/projects/autoflow_01_home.png",
+        title: "The Dealer's Own Storefront",
+        description:
+          "The home page leads with a featured car and two actions: browse the catalog or leave a request. Logo, name, colors and contacts all come from the site settings, so each client's copy looks like their own brand.",
+        features: [
+          "Featured car with price on the first screen",
+          "Catalog and lead buttons above the fold",
+          "Light and dark themes",
+          "Branding set from the admin panel, not the code",
+        ],
+      },
+      {
+        src: "/images/projects/autoflow_02_new_arrivals.png",
+        title: "New Arrivals",
+        description:
+          "The latest published cars appear on the home page as cards with the essentials a buyer scans for: year, mileage, city and price.",
+        features: [
+          "Condition and lot number on every card",
+          "Year, mileage and city in one line",
+          "Favorites and comparison right on the card",
+          "Photo count badge",
+        ],
+      },
+      {
+        src: "/images/projects/autoflow_03_catalog.png",
+        title: "Catalog with Filters",
+        description:
+          "The catalog shows how many cars match the request and narrows them down with a sidebar of filters. Make logos above the grid act as one-tap shortcuts.",
+        features: [
+          "Search by make, model or keyword",
+          "Filters for make, model, body, fuel, gearbox and drive",
+          "Make logos as quick filters",
+          "Sorting by date, price, year and mileage",
+        ],
+      },
+      {
+        src: "/images/projects/autoflow_04_listing.png",
+        title: "Car Detail Page",
+        description:
+          "Each car gets a page with a full-screen gallery, availability status, view count and a price card with the actions that turn a visitor into a lead.",
+        features: [
+          "Gallery with full-screen mode",
+          "Call, lead and test-drive buttons",
+          "Seller shown: the dealership or a consignment client",
+          "Key facts: customs cleared, one owner, accident-free",
+        ],
+      },
+      {
+        src: "/images/projects/autoflow_05_credit.png",
+        title: "Credit Calculator",
+        description:
+          "Below the specs and options, buyers estimate a monthly payment by picking a down payment and a term. The estimate uses an indicative rate, and the page says the partner bank sets the final terms.",
+        features: [
+          "Down payment from 20% to 50%",
+          "Terms from 12 to 84 months",
+          "Estimated monthly payment updated instantly",
+          "Clear note that the bank sets the final terms",
+        ],
+      },
+      {
+        src: "/images/projects/autoflow_06_lead_form.png",
+        title: "Lead Form",
+        description:
+          "The contacts page combines showroom details and opening hours with a request form. Every request lands in the admin panel, and managers can also get it by email.",
+        features: [
+          "Call, message or test-drive request types",
+          "Ukrainian phone format hint and validation",
+          "Showroom address, map link and opening hours",
+          "Rate limiting and a honeypot against spam",
+        ],
+      },
+    ],
+    color: "#b5443b",
+    icon: "AF",
+    url: "https://autos-sale.com",
+    featured: false,
+    launchDate: "2026-07",
+  },
+  {
     slug: "market",
     name: "Market",
     tagline: "E-Commerce Marketplace Platform",

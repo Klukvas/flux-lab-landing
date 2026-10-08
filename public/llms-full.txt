@@ -80,6 +80,16 @@ Expert guidance on architecture, technology choices, and best practices. Include
 - Description: Mobile-first health companion. Privacy-first with on-device ML.
 - Tech: React Native, TypeScript, Node.js, PostgreSQL, Redis
 
+## Templates
+
+Ready-made bases we adapt to a client's brand and needs instead of building from scratch.
+
+### AutoFlow — Car Dealership Storefront Template
+- Live demo: https://autos-sale.com
+- Case study: https://flux-lab.dev/en/projects/autoflow
+- Description: Storefront and admin panel for a car dealership or used-car lot. Catalog with filters (make, model, body, fuel, gearbox, drive, price, year, mileage), car pages with gallery, specs, options and a credit calculator, favorites and comparison, call/message/test-drive leads. Admin roles (admin, editor) with an audit log; consignment sales with percent or fixed commission; prices in USD, UAH or EUR normalized to a base currency; automatic posting of new cars to up to 10 Telegram channels; photos processed into WebP, AVIF and JPEG renditions. Branding lives in site settings, so each client's copy is rebranded by configuration.
+- Tech: Next.js, React, TypeScript, NestJS, PostgreSQL, Redis, BullMQ, S3, Docker, Hetzner Cloud
+
 ## Technical Expertise
 
 **Languages:** TypeScript, Go, SQL

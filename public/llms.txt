@@ -31,6 +31,10 @@ fluxLab.dev is a software development company based in Kyiv, Ukraine offering:
 - [Market](https://flux-lab.dev/en/projects/market): E-commerce marketplace — beta, 3,400 users.
 - [LifeSpan](https://flux-lab.dev/en/projects/lifespan): Health tracking app — coming soon.
 
+## Templates
+
+- [AutoFlow](https://flux-lab.dev/en/projects/autoflow): Car dealership storefront template — filterable catalog, car pages, leads, admin panel and Telegram autoposting, rebranded per client. Live demo: https://autos-sale.com. Next.js, NestJS, PostgreSQL.
+
 ## Tech Stack
 
 - Frontend: React, Next.js, TypeScript, Tailwind CSS, React Native
