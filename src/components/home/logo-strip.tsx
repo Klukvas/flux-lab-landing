@@ -23,17 +23,26 @@ function LogoRow({ caption, logos }: LogoRowProps) {
             {/* Marks rest in gray and take their own brand color under the mouse. */}
             <span
               className="flex items-center gap-2 text-gray-500 transition-colors duration-200 hover:text-(--logo-color) dark:text-gray-400 dark:hover:text-(--logo-color)"
-              style={{ "--logo-color": `#${logo.icon.hex}` } as CSSProperties}
+              style={{ "--logo-color": `#${logo.hex}` } as CSSProperties}
             >
-              <svg
-                role="img"
-                aria-label={logo.name}
-                viewBox="0 0 24 24"
-                className="h-5 w-5 shrink-0"
-                fill="currentColor"
-              >
-                <path d={logo.icon.path} />
-              </svg>
+              {logo.mark.kind === "icon" ? (
+                <svg
+                  role="img"
+                  aria-label={logo.name}
+                  viewBox={logo.mark.viewBox}
+                  className="h-5 w-5 shrink-0"
+                  fill="currentColor"
+                >
+                  <path d={logo.mark.path} />
+                </svg>
+              ) : (
+                <span
+                  aria-hidden="true"
+                  className="flex h-5 w-5 shrink-0 items-center justify-center rounded-md border-[1.5px] border-current text-[11px] font-bold leading-none"
+                >
+                  {logo.mark.letter}
+                </span>
+              )}
               <span className="text-sm font-medium">{logo.name}</span>
             </span>
           </RevealItem>

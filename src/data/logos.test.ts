@@ -19,10 +19,15 @@ describe("logo strip", () => {
     }
   });
 
-  it("has an icon with a path and a color for every logo", () => {
+  it("has a drawable mark and a color for every logo", () => {
     for (const logo of [...builtWithLogos, ...integratedWithLogos]) {
-      expect(logo.icon.path.length).toBeGreaterThan(10);
-      expect(logo.icon.hex).toMatch(/^[0-9A-F]{6}$/i);
+      if (logo.mark.kind === "icon") {
+        expect(logo.mark.path.length).toBeGreaterThan(10);
+        expect(logo.mark.viewBox).toMatch(/^0 0 \d+ \d+$/);
+      } else {
+        expect(logo.mark.letter).toHaveLength(1);
+      }
+      expect(logo.hex).toMatch(/^[0-9A-F]{6}$/i);
     }
   });
 });
