@@ -21,7 +21,6 @@ export async function ServicesOverview() {
       <Container>
         <Reveal>
           <SectionHeading
-            className="clearing"
             eyebrow={`04 · ${t("eyebrow")}`}
             title={t("title")}
             subtitle={t("subtitle")}

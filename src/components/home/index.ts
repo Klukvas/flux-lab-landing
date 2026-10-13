@@ -8,4 +8,3 @@ export { Playbook } from './playbook';
 export { WhyUs } from './why-us';
 export { LatestPosts } from './latest-posts';
 export { Stats } from './stats';
-export { CTA } from './cta';

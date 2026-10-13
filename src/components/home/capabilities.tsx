@@ -22,7 +22,6 @@ export async function Capabilities() {
       <Container>
         <Reveal>
           <SectionHeading
-            className="clearing"
             eyebrow={`03 · ${t("eyebrow")}`}
             title={t("title")}
             subtitle={t("subtitle")}
