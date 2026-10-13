@@ -45,8 +45,8 @@ export function ThemeToggle() {
     );
   }
 
-  // resolvedTheme, not theme: under the default "system" setting theme stays "system"
-  // even when the page is dark, which made the first click on a dark page do nothing.
+  // resolvedTheme rather than theme, so the toggle also follows a stored "system" choice
+  // from before dark became the default.
   const isDark = resolvedTheme === "dark";
 
   return (

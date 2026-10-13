@@ -108,7 +108,8 @@ export default async function LocaleLayout({
       <body className={`${syne.variable} ${dmMono.variable} antialiased`}>
         <MotionProvider>
           <NextIntlClientProvider locale={locale} messages={messages}>
-            <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            {/* Dark is the brand's default; visitors who prefer light switch with the toggle. */}
+            <ThemeProvider attribute="class" defaultTheme="dark">
               <JsonLd />
               <DotBackground />
               <div className="flex min-h-screen flex-col overflow-x-clip">
