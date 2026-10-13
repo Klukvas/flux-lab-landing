@@ -1,4 +1,4 @@
-import type { Service, ProcessStep, EngagementModel } from "@/types";
+import type { Service, EngagementModel } from "@/types";
 
 export const services: readonly Service[] = [
   {
@@ -43,55 +43,19 @@ export const engagementModels: readonly EngagementModel[] = [
   {
     titleKey: "dedicatedTeam",
     descKey: "dedicatedTeamDesc",
+    fitKey: "dedicatedTeamFit",
     serviceType: "Dedicated development team",
   },
   {
     titleKey: "projectBased",
     descKey: "projectBasedDesc",
+    fitKey: "projectBasedFit",
     serviceType: "Custom software development",
   },
   {
     titleKey: "staffAug",
     descKey: "staffAugDesc",
+    fitKey: "staffAugFit",
     serviceType: "Staff augmentation",
-  },
-] as const;
-
-export const processSteps: readonly ProcessStep[] = [
-  {
-    id: "discovery",
-    titleKey: "services.process.discovery",
-    icon: "search",
-    order: 1,
-  },
-  {
-    id: "design",
-    titleKey: "services.process.design",
-    icon: "design",
-    order: 2,
-  },
-  {
-    id: "development",
-    titleKey: "services.process.development",
-    icon: "code",
-    order: 3,
-  },
-  {
-    id: "testing",
-    titleKey: "services.process.testing",
-    icon: "test",
-    order: 4,
-  },
-  {
-    id: "deployment",
-    titleKey: "services.process.deployment",
-    icon: "deploy",
-    order: 5,
-  },
-  {
-    id: "support",
-    titleKey: "services.process.support",
-    icon: "support",
-    order: 6,
   },
 ] as const;

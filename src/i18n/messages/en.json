@@ -292,7 +292,10 @@
       "projectBased": "Project-Based",
       "projectBasedDesc": "Fixed scope, clear milestones, predictable budget. Best for well-defined products with a known deadline.",
       "staffAug": "Staff Augmentation",
-      "staffAugDesc": "Individual senior developers who plug into your existing team. Perfect for filling skill gaps fast."
+      "staffAugDesc": "Individual senior developers who plug into your existing team. Perfect for filling skill gaps fast.",
+      "dedicatedTeamFit": "Best for long-term product work",
+      "projectBasedFit": "Best for a defined scope and deadline",
+      "staffAugFit": "Best for filling skill gaps fast"
     },
     "faq": {
       "eyebrow": "Questions",
@@ -313,14 +316,7 @@
     "customFeatures": ["Full-stack development", "Mobile applications", "API development", "Cloud infrastructure"],
     "process": {
       "eyebrow": "From idea to launch",
-      "title": "Our Process",
-      "step": "Step",
-      "discovery": "Discovery",
-      "design": "Design",
-      "development": "Development",
-      "testing": "Testing",
-      "deployment": "Deployment",
-      "support": "Support"
+      "title": "Our Process"
     }
   },
   "blog": {

@@ -21,6 +21,7 @@ export async function EngagementModels() {
             <RevealItem key={model.titleKey} className="grid">
               <EngagementModelCard
                 title={t(model.titleKey)}
+                fit={t(model.fitKey)}
                 description={t(model.descKey)}
               />
             </RevealItem>

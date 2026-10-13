@@ -10,12 +10,6 @@ export interface Service {
 export interface EngagementModel {
   readonly titleKey: string;
   readonly descKey: string;
+  readonly fitKey: string;
   readonly serviceType: string;
-}
-
-export interface ProcessStep {
-  readonly id: string;
-  readonly titleKey: string;
-  readonly icon: string;
-  readonly order: number;
 }
