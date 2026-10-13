@@ -1,6 +1,5 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { generatePageMetadata } from "@/lib/metadata";
-import { DotBackground } from "@/components/home/dot-background";
 import { Hero } from "@/components/home/hero";
 import { LogoStrip } from "@/components/home/logo-strip";
 import { Capabilities } from "@/components/home/capabilities";
@@ -9,7 +8,7 @@ import { ServicesOverview } from "@/components/home/services-overview";
 import { Playbook } from "@/components/home/playbook";
 import { WhyUs } from "@/components/home/why-us";
 import { LatestPosts } from "@/components/home/latest-posts";
-import { CTA } from "@/components/home/cta";
+import { CtaPanel } from "@/components/layout/cta-panel";
 import { getAllProjects } from "@/data/projects";
 
 export async function generateMetadata({
@@ -37,7 +36,6 @@ export default async function HomePage({
 
   return (
     <>
-      <DotBackground />
       <Hero productCount={productCount} />
       <LogoStrip />
       <FeaturedProjects />
@@ -46,7 +44,7 @@ export default async function HomePage({
       <ServicesOverview />
       <WhyUs />
       <LatestPosts locale={locale} />
-      <CTA />
+      <CtaPanel />
     </>
   );
 }

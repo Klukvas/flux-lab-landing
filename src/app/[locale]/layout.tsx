@@ -8,6 +8,7 @@ import { routing } from "@/i18n/routing";
 import { SITE_NAME, SITE_URL, SITE_DESCRIPTION } from "@/lib/constants";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { DotBackground } from "@/components/home/dot-background";
 import { ScrollToTop } from "@/components/layout/scroll-to-top";
 import { SupportButton } from "@/components/layout/support-button";
 import { MotionProvider } from "@/components/layout/motion-provider";
@@ -109,7 +110,8 @@ export default async function LocaleLayout({
           <NextIntlClientProvider locale={locale} messages={messages}>
             <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
               <JsonLd />
-              <div className="flex min-h-screen flex-col">
+              <DotBackground />
+              <div className="flex min-h-screen flex-col overflow-x-clip">
                 <Header />
                 <main className="flex-1">{children}</main>
                 <Footer />
