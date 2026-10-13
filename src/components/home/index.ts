@@ -4,6 +4,7 @@ export { ProductsMarquee } from './products-marquee';
 export { TechStackStrip } from './tech-stack-strip';
 export { FeaturedProjects } from './featured-projects';
 export { ServicesOverview } from './services-overview';
+export { Playbook } from './playbook';
 export { WhyUs } from './why-us';
 export { LatestPosts } from './latest-posts';
 export { Stats } from './stats';

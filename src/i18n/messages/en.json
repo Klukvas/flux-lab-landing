@@ -67,6 +67,36 @@
       "transparent": "Transparent Process",
       "transparentDesc": "Weekly demos, shared repos, direct Slack access. You see everything."
     },
+    "playbook": {
+      "eyebrow": "How we work",
+      "title": "The 8-Week MVP Playbook",
+      "subtitle": "How an idea becomes a product in production. Eight weeks is the default; a smaller scope ships sooner.",
+      "weeks": "Weeks",
+      "weekOne": "Week {week}",
+      "weekSpan": "Weeks {from}–{to}",
+      "phases": {
+        "discovery": {
+          "title": "Discovery",
+          "description": "Scope, user flows and a clickable prototype. You see the product before the first line of code."
+        },
+        "build": {
+          "title": "Build",
+          "description": "Working software every week, demoed on a call. The same stack and the same people that run our own products."
+        },
+        "hardening": {
+          "title": "Hardening",
+          "description": "Tests, performance, a security pass and the production setup on your infrastructure."
+        },
+        "launch": {
+          "title": "Launch",
+          "description": "Release, monitoring and a handover you own: repo, infrastructure and docs in your hands."
+        }
+      },
+      "after": {
+        "title": "Week 9 and on",
+        "description": "Most clients keep the team for the next features. Nothing to re-learn: it is the same people."
+      }
+    },
     "latestPosts": {
       "title": "From the Engineering Blog",
       "subtitle": "Notes from building SaaS in production",

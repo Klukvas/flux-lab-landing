@@ -6,6 +6,7 @@ import { ProductsMarquee } from "@/components/home/products-marquee";
 import { TechStackStrip } from "@/components/home/tech-stack-strip";
 import { FeaturedProjects } from "@/components/home/featured-projects";
 import { ServicesOverview } from "@/components/home/services-overview";
+import { Playbook } from "@/components/home/playbook";
 import { WhyUs } from "@/components/home/why-us";
 import { LatestPosts } from "@/components/home/latest-posts";
 import { CTA } from "@/components/home/cta";
@@ -42,6 +43,7 @@ export default async function HomePage({
       <FeaturedProjects />
       <TechStackStrip />
       <ServicesOverview />
+      <Playbook />
       <WhyUs />
       <LatestPosts locale={locale} />
       <CTA />
