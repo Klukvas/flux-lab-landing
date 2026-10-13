@@ -1,8 +1,11 @@
 'use client';
 
+import { useId } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { getAllTags } from '@/data/projects';
+import { SMOOTH_SPRING } from '@/lib/motion';
 import { cn } from '@/lib/utils';
 
 /**
@@ -38,6 +41,7 @@ export function ProjectFilterView({
   readonly activeTag: string | null;
 }) {
   const t = useTranslations('projects');
+  const markerId = useId();
   const options = [
     { tag: null, label: t('filterAll') },
     ...getAllTags().map((tag) => ({ tag, label: tag })),
@@ -54,13 +58,24 @@ export function ProjectFilterView({
             aria-pressed={isActive}
             onClick={() => showTag(tag)}
             className={cn(
-              'pressable rounded-md px-4 py-2 text-sm font-medium',
+              'pressable relative rounded-md border px-4 py-2 text-sm font-medium',
               isActive
-                ? 'border border-transparent bg-foreground text-background'
-                : 'border border-gray-200 bg-white text-gray-700 hover:border-gray-300 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-300 dark:hover:border-gray-700',
+                ? 'border-transparent text-background'
+                : 'border-gray-200 bg-white text-gray-700 hover:border-gray-300 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-300 dark:hover:border-gray-700',
             )}
           >
-            {label}
+            {/* One marker that slides to the chosen pill, rather than each pill repainting. */}
+            {isActive && (
+              <motion.span
+                layoutId={`${markerId}-marker`}
+                transition={SMOOTH_SPRING}
+                className="absolute inset-0 bg-foreground"
+                // Inline so Motion keeps the corners round while the marker stretches between pills.
+                style={{ borderRadius: 6 }}
+                aria-hidden="true"
+              />
+            )}
+            <span className="relative">{label}</span>
           </button>
         );
       })}

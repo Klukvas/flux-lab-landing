@@ -264,7 +264,10 @@
         "description": "Granular access control with per-module CRUD permissions. Business owners define exactly what each role can see and do — from viewing analytics to editing orders or managing payments.",
         "features": ["Modules: Analytics, Audit, Branches, Clients, Orders, Payments, Roles, Scheduling", "CRUD toggles per module: Create, View, Edit, Delete", "Permission counter showing selected out of total", "Custom role creation with any permission combination", "Changes apply instantly across all users with that role"]
       }
-    }
+    },
+    "results": "{count, plural, one {# project} other {# projects}}",
+    "resultsTagged": "{count, plural, one {# project} other {# projects}} tagged {tag}",
+    "onThisPage": "On this page"
   },
   "services": {
     "title": "Software Development Services",

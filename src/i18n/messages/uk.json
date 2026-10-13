@@ -553,7 +553,10 @@
         "2": { "label": "Джерел даних", "value": "12" },
         "3": { "label": "ML-моделей на пристрої", "value": "5" }
       }
-    }
+    },
+    "results": "{count, plural, one {# проєкт} few {# проєкти} many {# проєктів} other {# проєкту}}",
+    "resultsTagged": "{count, plural, one {# проєкт} few {# проєкти} many {# проєктів} other {# проєкту}} з тегом {tag}",
+    "onThisPage": "На цій сторінці"
   },
   "services": {
     "title": "Послуги з розробки ПЗ",
