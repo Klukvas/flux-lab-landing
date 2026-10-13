@@ -7,7 +7,14 @@ import { Container, buttonStyles, AnimatedSection } from "@/components/ui";
 /** The brand violet the panel keeps in both themes, so it reads the same everywhere. */
 const PANEL_COLOR = "#3D32A8";
 
-export function CTA() {
+interface CtaPanelProps {
+  /** Each defaults to the home page's copy; pages with their own message pass theirs. */
+  readonly title?: string;
+  readonly subtitle?: string;
+  readonly buttonLabel?: string;
+}
+
+export function CtaPanel({ title, subtitle, buttonLabel }: CtaPanelProps) {
   const t = useTranslations("home.cta");
 
   return (
@@ -29,16 +36,16 @@ export function CTA() {
           <div className="relative grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-16">
             <div>
               <h2 className="text-3xl font-bold text-white sm:text-5xl">
-                {t("title")}
+                {title ?? t("title")}
               </h2>
-              <p className="mt-4 max-w-xl text-lg text-white/85">{t("subtitle")}</p>
+              <p className="mt-4 max-w-xl text-lg text-white/85">{subtitle ?? t("subtitle")}</p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row lg:flex-col lg:items-stretch">
               <Link
                 href="/contact"
                 className={buttonStyles({ size: "lg", variant: "inverted" })}
               >
-                {t("button")}
+                {buttonLabel ?? t("button")}
               </Link>
               <Link
                 href="/projects"
