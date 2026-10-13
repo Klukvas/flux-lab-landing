@@ -2,6 +2,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { generatePageMetadata } from "@/lib/metadata";
 import { DotBackground } from "@/components/home/dot-background";
 import { Hero } from "@/components/home/hero";
+import { ProductsMarquee } from "@/components/home/products-marquee";
 import { TechStackStrip } from "@/components/home/tech-stack-strip";
 import { FeaturedProjects } from "@/components/home/featured-projects";
 import { ServicesOverview } from "@/components/home/services-overview";
@@ -37,8 +38,9 @@ export default async function HomePage({
     <>
       <DotBackground />
       <Hero productCount={productCount} />
-      <TechStackStrip />
+      <ProductsMarquee />
       <FeaturedProjects />
+      <TechStackStrip />
       <ServicesOverview />
       <WhyUs />
       <LatestPosts locale={locale} />

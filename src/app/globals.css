@@ -168,9 +168,9 @@ html {
   }
 }
 
-/* Subtle dot grid background */
+/* Subtle dot grid background; --grid-dot recolors the dots for a tinted surface. */
 .grid-bg {
-  background-image: radial-gradient(circle, var(--gray-300) 1px, transparent 1px);
+  background-image: radial-gradient(circle, var(--grid-dot, var(--gray-300)) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
@@ -198,6 +198,38 @@ html {
 .animate-layer-2 { animation: layer-float 2.4s ease-in-out infinite 0.32s; }
 .animate-layer-3 { animation: layer-float 2.4s ease-in-out infinite 0.64s; }
 .animate-glow-pulse { animation: glow-pulse 2.4s ease-in-out infinite; }
+
+/* A row that drifts sideways forever. The row holds two copies of its items, each item
+   carrying its own trailing space, so the half-way point lines up with the start exactly.
+   Hover pauses it; reduced motion stops it and drops the copy, and the row's own
+   motion-reduce classes let it wrap. */
+@keyframes marquee {
+  to {
+    translate: -50% 0;
+  }
+}
+
+@utility marquee {
+  animation: marquee var(--marquee-seconds, 40s) linear infinite;
+
+  &:hover {
+    animation-play-state: paused;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+
+    & > [aria-hidden="true"] {
+      display: none;
+    }
+  }
+}
+
+/* Fades a drifting row out at both ends instead of cutting it off. */
+@utility marquee-mask {
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
 
 /* Text that rises into place from the first paint. CSS rather than Motion, so it starts
    with the paint instead of waiting for hydration, which would hold the largest paint

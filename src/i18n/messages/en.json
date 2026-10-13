@@ -32,6 +32,9 @@
       "subtitle": "A selection of our recent work",
       "viewAll": "View All Projects"
     },
+    "products": {
+      "label": "The {count, plural, one {product} other {# products}} we run"
+    },
     "techStack": {
       "label": "The stack behind {count, plural, one {# product} other {# products}}"
     },
