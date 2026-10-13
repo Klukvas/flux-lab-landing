@@ -10,8 +10,8 @@ describe("sitemap", () => {
   const byUrl = new Map(entries.map((entry) => [entry.url, entry]));
 
   it("lists each URL once, job postings in both languages included", () => {
-    expect(urls).toContain("https://flux-lab.dev/en/careers/go-backend-developer");
-    expect(urls).toContain("https://flux-lab.dev/uk/careers/go-backend-developer");
+    expect(urls).toContain("https://flux-lab.dev/en/careers/rust-systems-engineer");
+    expect(urls).toContain("https://flux-lab.dev/uk/careers/rust-systems-engineer");
     expect(new Set(urls).size).toBe(urls.length);
   });
 

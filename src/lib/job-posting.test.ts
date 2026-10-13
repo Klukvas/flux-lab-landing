@@ -78,8 +78,8 @@ describe("buildJobPostingSchema", () => {
 
 describe("careers data", () => {
   it("serves each position translated for Ukrainian readers", () => {
-    const english = getPositionById("senior-frontend", "en");
-    const ukrainian = getPositionById("senior-frontend", "uk");
+    const english = getPositionById("rust-systems-engineer", "en");
+    const ukrainian = getPositionById("rust-systems-engineer", "uk");
 
     expect(ukrainian?.description).not.toBe(english?.description);
     expect(ukrainian?.location).toBe("Віддалено (Європа)");
@@ -92,7 +92,7 @@ describe("careers data", () => {
   });
 
   it("falls back to English for an unknown locale", () => {
-    expect(getPositionById("senior-frontend", "de")?.location).toBe(
+    expect(getPositionById("rust-systems-engineer", "de")?.location).toBe(
       "Remote (Europe)",
     );
   });
