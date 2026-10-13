@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import type { Service } from "@/types";
 import { Card } from "@/components/ui";
+import { CAPABILITY_ICONS } from "@/components/home/capability-icons";
 
 const featuresKeyMap: Record<string, string> = {
   outsourcing: "services.outsourcingFeatures",
@@ -38,19 +39,18 @@ export function ServiceCard({ service }: ServiceCardProps) {
   return (
     <Card hover className="h-full">
       <div className="flex flex-col gap-4">
-        <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-gray-200 dark:border-gray-800">
+        <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-gray-200 text-brand dark:border-gray-800">
           <svg
-            className="h-6 w-6 text-foreground"
-            fill="none"
             viewBox="0 0 24 24"
-            strokeWidth={1.5}
+            className="h-6 w-6"
+            fill="none"
             stroke="currentColor"
+            strokeWidth={1.6}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"
-            />
+            {CAPABILITY_ICONS[service.icon]}
           </svg>
         </div>
         <h2 className="text-xl font-semibold text-foreground">

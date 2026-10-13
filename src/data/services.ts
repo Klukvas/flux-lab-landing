@@ -3,7 +3,7 @@ import type { Service, ProcessStep, EngagementModel } from "@/types";
 export const services: readonly Service[] = [
   {
     id: "outsourcing",
-    icon: "team",
+    icon: "multitenant",
     titleKey: "services.outsourcing.title",
     descriptionKey: "services.outsourcing.description",
     features: [
@@ -15,7 +15,7 @@ export const services: readonly Service[] = [
   },
   {
     id: "consulting",
-    icon: "idea",
+    icon: "discovery",
     titleKey: "services.consulting.title",
     descriptionKey: "services.consulting.description",
     features: [
@@ -27,7 +27,7 @@ export const services: readonly Service[] = [
   },
   {
     id: "custom",
-    icon: "build",
+    icon: "mvp",
     titleKey: "services.custom.title",
     descriptionKey: "services.custom.description",
     features: [
