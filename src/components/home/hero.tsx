@@ -24,21 +24,21 @@ export function Hero({ productCount }: HeroProps) {
     <section className="relative overflow-hidden py-16 sm:py-24">
       <Container>
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-          {/* Left — text. Not animated in: the heading is the largest paint, and a
-              server-rendered opacity:0 would hold it back until hydration. */}
+          {/* Left — text. Rises in with CSS from the first paint: the heading is the
+              largest paint, and a Motion fade would hold it back until hydration. */}
           <div>
             <h1>
-              <span className="block text-sm font-medium uppercase tracking-widest text-brand">
+              <span className="rise-in block text-sm font-medium uppercase tracking-widest text-brand">
                 {t("eyebrow")}
               </span>{" "}
-              <span className="gradient-text mt-4 block text-4xl font-bold sm:text-5xl lg:text-6xl">
+              <span className="rise-in gradient-text mt-4 block text-4xl font-bold [--rise-delay:60ms] sm:text-5xl lg:text-6xl">
                 {t("title")}
               </span>
             </h1>
-            <p className="mt-5 text-lg text-gray-500 dark:text-gray-400">
+            <p className="rise-in mt-5 text-lg text-gray-500 [--rise-delay:140ms] dark:text-gray-400">
               {t("subtitle", { count: productCount })}
             </p>
-            <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row">
+            <div className="rise-in mt-8 flex flex-col items-start gap-3 [--rise-delay:220ms] sm:flex-row">
               <Link href="/projects" className={buttonStyles({ size: "lg" })}>
                 {t("cta")}
               </Link>

@@ -199,6 +199,21 @@ html {
 .animate-layer-3 { animation: layer-float 2.4s ease-in-out infinite 0.64s; }
 .animate-glow-pulse { animation: glow-pulse 2.4s ease-in-out infinite; }
 
+/* Text that rises into place from the first paint. CSS rather than Motion, so it starts
+   with the paint instead of waiting for hydration, which would hold the largest paint
+   back. Each block sets its own --rise-delay to take its turn. */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    translate: 0 12px;
+  }
+}
+
+@utility rise-in {
+  animation: rise-in 600ms var(--ease-spring) both;
+  animation-delay: var(--rise-delay, 0ms);
+}
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -209,6 +224,7 @@ html {
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
