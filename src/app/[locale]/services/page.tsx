@@ -2,7 +2,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container, SectionHeading, RevealGroup, RevealItem } from "@/components/ui";
 import { CtaPanel } from "@/components/layout/cta-panel";
 import { ServiceCard } from "@/components/services/service-card";
-import { ProcessTimeline } from "@/components/services/process-timeline";
+import { Playbook } from "@/components/home/playbook";
 import { EngagementModels } from "@/components/services/engagement-models";
 import { FAQ } from "@/components/services/faq";
 import { FaqJsonLd } from "@/components/seo/faq-json-ld";
@@ -68,7 +68,10 @@ export default async function ServicesPage({
         </Container>
       </section>
       <EngagementModels />
-      <ProcessTimeline />
+      <Playbook
+        eyebrow={`02 · ${t("process.eyebrow")}`}
+        title={t("process.title")}
+      />
       <FAQ />
       <CtaPanel />
     </>

@@ -3,8 +3,15 @@ import { Container, SectionHeading, Reveal } from "@/components/ui";
 import { PLAYBOOK_WEEKS, playbookPhases } from "@/data/playbook";
 import { PlaybookTimeline } from "./playbook-timeline";
 
-/** The 8-week promise from the hero, shown week by week. */
-export async function Playbook() {
+interface PlaybookProps {
+  /** Full eyebrow line including the section number; defaults to the home page's "02 · ...". */
+  readonly eyebrow?: string;
+  readonly title?: string;
+  readonly subtitle?: string;
+}
+
+/** The 8-week promise from the hero, shown week by week; other pages reuse it under their own heading. */
+export async function Playbook({ eyebrow, title, subtitle }: PlaybookProps = {}) {
   const t = await getTranslations("home.playbook");
   const phases = playbookPhases.map((phase) => ({
     ...phase,
@@ -21,9 +28,9 @@ export async function Playbook() {
       <Container>
         <Reveal>
           <SectionHeading
-            eyebrow={`02 · ${t("eyebrow")}`}
-            title={t("title")}
-            subtitle={t("subtitle")}
+            eyebrow={eyebrow ?? `02 · ${t("eyebrow")}`}
+            title={title ?? t("title")}
+            subtitle={subtitle ?? t("subtitle")}
           />
         </Reveal>
         <PlaybookTimeline
