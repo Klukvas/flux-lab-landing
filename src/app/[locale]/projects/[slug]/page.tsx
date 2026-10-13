@@ -3,7 +3,11 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getProjectBySlug, getProjectSlugs } from "@/data/projects";
 import { generatePageMetadata } from "@/lib/metadata";
 import { locales } from "@/i18n/config";
-import type { ProjectScreenshot, ProjectFeature, ProjectHighlight } from "@/types";
+import type {
+  ProjectScreenshot,
+  ProjectFeature,
+  ProjectHighlight,
+} from "@/types";
 import { ProjectHero } from "@/components/projects/project-hero";
 import { ProjectOverview } from "@/components/projects/project-overview";
 import { ProjectChallenge } from "@/components/projects/project-challenge";
@@ -11,6 +15,10 @@ import { ProjectFeatures } from "@/components/projects/project-features";
 import { ProjectHighlights } from "@/components/projects/project-highlights";
 import { ProjectCta } from "@/components/projects/project-cta";
 import { ProjectShowcase } from "@/components/projects/project-showcase";
+import {
+  ProjectSectionNav,
+  type SectionLink,
+} from "@/components/projects/project-section-nav";
 
 export async function generateStaticParams() {
   const slugs = getProjectSlugs();
@@ -89,13 +97,19 @@ export default async function ProjectDetailPage({
 
       const feats: string[] = [];
       for (let i = 0; i < screenshot.features.length; i++) {
-        feats.push(tGet(t, `${scrKey}.${idx}.features.${i}`, screenshot.features[i]));
+        feats.push(
+          tGet(t, `${scrKey}.${idx}.features.${i}`, screenshot.features[i]),
+        );
       }
 
       return {
         src: screenshot.src,
         title: tGet(t, `${scrKey}.${idx}.title`, screenshot.title),
-        description: tGet(t, `${scrKey}.${idx}.description`, screenshot.description),
+        description: tGet(
+          t,
+          `${scrKey}.${idx}.description`,
+          screenshot.description,
+        ),
         features: feats,
       };
     },
@@ -108,6 +122,17 @@ export default async function ProjectDetailPage({
     description,
   };
 
+  // Only sections that render get a link, in the order they appear on the page.
+  const sections: SectionLink[] = [
+    { id: "overview", label: t("overview") },
+    ...(localizedScreenshots.length > 0
+      ? [{ id: "screenshots", label: t("screenshots") }]
+      : []),
+    { id: "challenge", label: t("challenge") },
+    { id: "features", label: t("features") },
+    { id: "highlights", label: t("highlights") },
+  ];
+
   return (
     <>
       <ProjectHero
@@ -117,6 +142,7 @@ export default async function ProjectDetailPage({
         usersLabel={t("users")}
         companiesLabel={t("companies")}
       />
+      <ProjectSectionNav sections={sections} title={t("onThisPage")} />
       <ProjectOverview
         overview={overview}
         targetAudience={targetAudience}

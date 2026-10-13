@@ -21,7 +21,7 @@ export function ProjectOverview({
   launchedLabel,
 }: ProjectOverviewProps) {
   return (
-    <section className="py-24">
+    <section id="overview" className="scroll-mt-16 py-24">
       <Container>
         <SectionHeading title={title} />
         <div className="mx-auto max-w-3xl">

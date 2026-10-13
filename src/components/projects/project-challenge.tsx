@@ -17,7 +17,7 @@ export function ProjectChallenge({
   solutionLabel,
 }: ProjectChallengeProps) {
   return (
-    <section className="py-24">
+    <section id="challenge" className="scroll-mt-16 py-24">
       <Container>
         <div className="mx-auto max-w-3xl">
           <div className="grid gap-10 md:grid-cols-2">
