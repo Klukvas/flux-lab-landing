@@ -3,7 +3,6 @@ import { generatePageMetadata } from "@/lib/metadata";
 import { DotBackground } from "@/components/home/dot-background";
 import { Hero } from "@/components/home/hero";
 import { LogoStrip } from "@/components/home/logo-strip";
-import { ProductsMarquee } from "@/components/home/products-marquee";
 import { Capabilities } from "@/components/home/capabilities";
 import { FeaturedProjects } from "@/components/home/featured-projects";
 import { ServicesOverview } from "@/components/home/services-overview";
@@ -41,7 +40,6 @@ export default async function HomePage({
       <DotBackground />
       <Hero productCount={productCount} />
       <LogoStrip />
-      <ProductsMarquee />
       <FeaturedProjects />
       <Capabilities />
       <ServicesOverview />

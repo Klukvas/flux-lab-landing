@@ -10,9 +10,11 @@ import {
 } from "@/components/ui";
 import { ProjectCard } from "@/components/projects/project-card";
 import { getFeaturedProjects } from "@/data/projects";
+import { ProductsMarquee } from "./products-marquee";
 
 export async function FeaturedProjects() {
   const t = await getTranslations("home.featuredProjects");
+  const tProducts = await getTranslations("home.products");
   const featured = getFeaturedProjects();
 
   return (
@@ -33,7 +35,14 @@ export async function FeaturedProjects() {
             </RevealItem>
           ))}
         </RevealGroup>
-        <div className="mt-12 text-center">
+        {/* Three cards in depth, then every product in breadth. */}
+        <div className="mt-12">
+          <h3 className="clearing mb-5 text-center font-mono text-xs font-medium uppercase tracking-widest text-gray-500 dark:text-gray-400">
+            {tProducts("label")}
+          </h3>
+          <ProductsMarquee />
+        </div>
+        <div className="mt-10 text-center">
           <Link
             href="/projects"
             className={buttonStyles({ variant: "outline", className: "bg-background" })}

@@ -1,7 +1,6 @@
 export { DotBackground } from './dot-background';
 export { Hero } from './hero';
 export { LogoStrip } from './logo-strip';
-export { ProductsMarquee } from './products-marquee';
 export { Capabilities } from './capabilities';
 export { FeaturedProjects } from './featured-projects';
 export { ServicesOverview } from './services-overview';

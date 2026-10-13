@@ -1,6 +1,5 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { Container } from "@/components/ui";
 import { getAllProjects } from "@/data/projects";
 import type { Project } from "@/types";
 
@@ -33,9 +32,11 @@ function ProductCard({ project, tagline, isDuplicate }: ProductCardProps) {
   );
 }
 
-/** Every product in the portfolio drifting past, where other studios put their client logos. */
+/**
+ * Every product in the portfolio drifting past: the breadth under the featured cards'
+ * depth. Renders the row only; the section around it supplies the heading.
+ */
 export async function ProductsMarquee() {
-  const t = await getTranslations("home.products");
   const tProjects = await getTranslations("projects");
   const products = getAllProjects();
   const taglineOf = (project: Project) =>
@@ -44,29 +45,19 @@ export async function ProductsMarquee() {
       : project.tagline;
 
   return (
-    <section aria-labelledby="products-heading" className="py-10">
-      <Container>
-        <h2
-          id="products-heading"
-          className="clearing mb-6 text-center text-sm font-medium uppercase tracking-widest text-gray-500 dark:text-gray-400"
-        >
-          {t("label")}
-        </h2>
-      </Container>
-      <div className="marquee-mask overflow-hidden">
-        <ul className="marquee flex w-max motion-reduce:w-auto motion-reduce:flex-wrap motion-reduce:justify-center">
-          {[false, true].map((isDuplicate) =>
-            products.map((project) => (
-              <ProductCard
-                key={`${project.slug}-${isDuplicate ? "copy" : "first"}`}
-                project={project}
-                tagline={taglineOf(project)}
-                isDuplicate={isDuplicate}
-              />
-            )),
-          )}
-        </ul>
-      </div>
-    </section>
+    <div className="marquee-mask overflow-hidden">
+      <ul className="marquee flex w-max motion-reduce:w-auto motion-reduce:flex-wrap motion-reduce:justify-center">
+        {[false, true].map((isDuplicate) =>
+          products.map((project) => (
+            <ProductCard
+              key={`${project.slug}-${isDuplicate ? "copy" : "first"}`}
+              project={project}
+              tagline={taglineOf(project)}
+              isDuplicate={isDuplicate}
+            />
+          )),
+        )}
+      </ul>
+    </div>
   );
 }
