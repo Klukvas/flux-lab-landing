@@ -48,7 +48,9 @@ export function ProjectFilterView({
   ];
 
   return (
-    <div className="flex flex-wrap gap-2">
+    // The pills sit on the same soft violet ground as the stack and logo blocks, so the
+    // filter reads as one control rather than a loose row of buttons over the dots.
+    <div className="clearing-tinted mx-auto flex max-w-4xl flex-wrap justify-center gap-2">
       {options.map(({ tag, label }) => {
         const isActive = tag === activeTag;
         return (

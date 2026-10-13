@@ -64,7 +64,7 @@ export function BlogFilter({ posts, tags }: BlogFilterProps) {
       <div
         role="group"
         aria-label={t("filterLabel")}
-        className="mb-6 flex flex-wrap justify-center gap-2"
+        className="clearing-tinted mx-auto mb-6 flex max-w-4xl flex-wrap justify-center gap-2"
       >
         <FilterPill
           label={t("filterAll")}

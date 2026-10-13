@@ -30,7 +30,7 @@ export function ProjectGridView({
     <>
       <p
         aria-live="polite"
-        className="mb-6 font-mono text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400"
+        className="mb-6 text-center font-mono text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400"
       >
         {activeTag
           ? t('resultsTagged', { count: projects.length, tag: activeTag })
