@@ -89,14 +89,14 @@ export default async function CareerDetailPage({
 
           <div className="grid gap-12 lg:grid-cols-3">
             <div className="lg:col-span-2">
-              <div className="mb-6 flex flex-wrap items-center gap-3">
+              <div className="rise-in mb-6 flex flex-wrap items-center gap-3">
                 <h1 className="text-3xl font-bold text-foreground sm:text-4xl">
                   {position.title}
                 </h1>
                 <Badge>{t(`types.${position.type}`)}</Badge>
               </div>
 
-              <div className="mb-8 flex flex-wrap gap-4 text-sm text-gray-500 dark:text-gray-400">
+              <div className="rise-in mb-8 flex flex-wrap gap-4 text-sm text-gray-500 [--rise-delay:80ms] dark:text-gray-400">
                 <span className="flex items-center gap-1.5">
                   <svg
                     className="h-4 w-4"
