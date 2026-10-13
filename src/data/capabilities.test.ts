@@ -1,23 +1,29 @@
 import { describe, expect, it } from "vitest";
 import { capabilityColumns } from "./capabilities";
-import { getProjectSlugs } from "./projects";
+import { CAPABILITY_ICONS } from "@/components/home/capability-icons";
+import en from "@/i18n/messages/en.json";
+import uk from "@/i18n/messages/uk.json";
 
 describe("capabilityColumns", () => {
-  it("only cites case studies that exist", () => {
-    const slugs = new Set(getProjectSlugs());
+  it("keeps row ids unique within a column", () => {
     for (const column of capabilityColumns) {
-      for (const item of column.items) {
-        for (const slug of item.proof) {
-          expect(slugs.has(slug), `${column.id}.${item.id} cites ${slug}`).toBe(true);
-        }
-      }
+      expect(new Set(column.items).size).toBe(column.items.length);
     }
   });
 
-  it("keeps row ids unique within a column", () => {
+  it("has copy in both languages and an icon for every row", () => {
     for (const column of capabilityColumns) {
-      const ids = column.items.map((item) => item.id);
-      expect(new Set(ids).size).toBe(ids.length);
+      for (const messages of [en, uk]) {
+        const copy = messages.home.capabilities.columns[column.id];
+        expect(copy.title).toBeTruthy();
+        expect(copy.summary).toBeTruthy();
+        for (const item of column.items) {
+          expect(copy.items[item as keyof typeof copy.items], `${column.id}.${item}`).toBeTruthy();
+        }
+      }
+      for (const item of column.items) {
+        expect(CAPABILITY_ICONS[item], `icon for ${item}`).toBeDefined();
+      }
     }
   });
 });

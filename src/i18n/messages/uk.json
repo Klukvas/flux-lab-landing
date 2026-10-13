@@ -44,10 +44,11 @@
       "eyebrow": "Що ми робимо",
       "title": "Можливості",
       "subtitle": "Продуктове мислення, інженерія та експлуатація від однієї команди.",
-      "provenIn": "Реалізовано в {product}",
       "columns": {
         "product": {
           "title": "Продукт",
+          "summary": "Дослідження, прототипи, MVP за 8 тижнів",
+          "caption": "тижні 1-2 · прототип → тижні 3-6 · розробка → тиждень 8 · запуск",
           "items": {
             "discovery": "Дослідження та визначення обсягу",
             "flows": "Сценарії користувача та клікабельні прототипи",
@@ -59,6 +60,8 @@
         },
         "engineering": {
           "title": "Інженерія",
+          "summary": "React, Next.js, Node, Go, PostgreSQL",
+          "caption": "стек, на якому працюють наші продукти",
           "items": {
             "frontend": "Фронтенд на React і Next.js",
             "backend": "Бекенд на Node.js, NestJS і Go",
@@ -71,6 +74,8 @@
         },
         "platform": {
           "title": "Платформа",
+          "summary": "Docker, CI/CD, моніторинг, безпека",
+          "caption": "деплой · моніторинг · реагування · захист",
           "items": {
             "cicd": "Docker і CI/CD-пайплайни",
             "infra": "Інфраструктура на Hetzner і AWS",

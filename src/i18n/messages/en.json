@@ -44,10 +44,11 @@
       "eyebrow": "What we do",
       "title": "Capabilities",
       "subtitle": "Product thinking, engineering and operations from one team.",
-      "provenIn": "Shipped in {product}",
       "columns": {
         "product": {
           "title": "Product",
+          "summary": "Discovery, prototypes, an MVP in 8 weeks",
+          "caption": "week 1-2 · prototype → week 3-6 · build → week 8 · launch",
           "items": {
             "discovery": "Discovery and scoping",
             "flows": "User flows and clickable prototypes",
@@ -59,6 +60,8 @@
         },
         "engineering": {
           "title": "Engineering",
+          "summary": "React, Next.js, Node, Go, PostgreSQL",
+          "caption": "the stack that runs our own products",
           "items": {
             "frontend": "React and Next.js front-ends",
             "backend": "Node.js, NestJS and Go back-ends",
@@ -71,6 +74,8 @@
         },
         "platform": {
           "title": "Platform",
+          "summary": "Docker, CI/CD, monitoring, security",
+          "caption": "deploy · monitor · respond · harden",
           "items": {
             "cicd": "Docker and CI/CD pipelines",
             "infra": "Hetzner and AWS infrastructure",
