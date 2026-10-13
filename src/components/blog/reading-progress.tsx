@@ -17,7 +17,11 @@ const FADE_IN_AT_PROGRESS = 0.01;
 const subscribeToNothing = () => () => {};
 /** False while the server markup hydrates, true afterwards, without a state update in an effect. */
 function useIsHydrated(): boolean {
-  return useSyncExternalStore(subscribeToNothing, () => true, () => false);
+  return useSyncExternalStore(
+    subscribeToNothing,
+    () => true,
+    () => false,
+  );
 }
 
 interface ReadingProgressProps {
@@ -34,11 +38,17 @@ export function ReadingProgress({ children }: ReadingProgressProps) {
   const prefersReducedMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start 80%", "end 40%"],
+    // Starts once the body's top passes 30% of the viewport, so the line stays hidden
+    // while the hero is still what the reader is looking at.
+    offset: ["start 30%", "end 60%"],
   });
   const eased = useSpring(scrollYProgress, SMOOTH_SPRING);
   const complete = useMotionValue(1);
-  const opacity = useTransform(scrollYProgress, [0, FADE_IN_AT_PROGRESS], [0, 1]);
+  const opacity = useTransform(
+    scrollYProgress,
+    [0, FADE_IN_AT_PROGRESS],
+    [0, 1],
+  );
   // The server cannot know the motion preference, so the swap waits for hydration to
   // keep the first client render identical to the server markup.
   const isHydrated = useIsHydrated();
