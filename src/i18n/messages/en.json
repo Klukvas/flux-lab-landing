@@ -44,18 +44,41 @@
       "eyebrow": "What we do",
       "title": "Capabilities",
       "subtitle": "Product thinking, engineering and operations from one team.",
+      "provenIn": "Shipped in {product}",
       "columns": {
         "product": {
           "title": "Product",
-          "items": ["Discovery and scoping", "User flows and clickable prototypes", "UI design systems", "MVP in 8 weeks", "AI features: LLM agents, parsing, matching", "Analytics and growth loops"]
+          "items": {
+            "discovery": "Discovery and scoping",
+            "flows": "User flows and clickable prototypes",
+            "design": "UI design systems",
+            "mvp": "MVP in 8 weeks",
+            "ai": "AI features: LLM agents, parsing, matching",
+            "analytics": "Analytics and growth loops"
+          }
         },
         "engineering": {
           "title": "Engineering",
-          "items": ["React and Next.js front-ends", "Node.js, NestJS and Go back-ends", "PostgreSQL, Prisma and Redis", "REST APIs and third-party integrations", "Multi-tenant SaaS with roles and permissions", "Real-time features and background jobs", "React Native apps"]
+          "items": {
+            "frontend": "React and Next.js front-ends",
+            "backend": "Node.js, NestJS and Go back-ends",
+            "data": "PostgreSQL, Prisma and Redis",
+            "apis": "REST APIs and third-party integrations",
+            "multitenant": "Multi-tenant SaaS with roles and permissions",
+            "realtime": "Real-time features and background jobs",
+            "mobile": "React Native apps"
+          }
         },
         "platform": {
           "title": "Platform",
-          "items": ["Docker and CI/CD pipelines", "Hetzner and AWS infrastructure", "Monitoring and incident response", "Security review and GDPR", "Performance, SEO and accessibility audits", "Payments and billing"]
+          "items": {
+            "cicd": "Docker and CI/CD pipelines",
+            "infra": "Hetzner and AWS infrastructure",
+            "monitoring": "Monitoring and incident response",
+            "security": "Security review and GDPR",
+            "audits": "Performance, SEO and accessibility audits",
+            "payments": "Payments and billing"
+          }
         }
       }
     },
