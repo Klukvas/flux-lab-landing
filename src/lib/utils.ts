@@ -20,9 +20,20 @@ export function slugify(text: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
+export interface StatParts {
+  readonly value: number;
+  readonly suffix: string;
+}
+
+/** The figure formatNumber prints and the suffix it attaches, apart so the figure can count up on its own. */
+export function splitStat(n: number): StatParts {
+  if (n >= 1000) return { value: Math.floor(n / 1000), suffix: "K+" };
+  return { value: n, suffix: "+" };
+}
+
 export function formatNumber(n: number): string {
-  if (n >= 1000) return `${Math.floor(n / 1000)}K+`;
-  return `${n}+`;
+  const { value, suffix } = splitStat(n);
+  return `${value}${suffix}`;
 }
 
 export function calculateReadingTime(content: string): number {

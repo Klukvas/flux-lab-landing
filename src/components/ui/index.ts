@@ -6,3 +6,5 @@ export { Input } from './input';
 export { Textarea } from './textarea';
 export { SectionHeading } from './section-heading';
 export { AnimatedSection } from './animated-section';
+export { Reveal, RevealGroup, RevealItem } from './reveal';
+export { CountUp } from './count-up';
