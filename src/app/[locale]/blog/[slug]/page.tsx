@@ -8,15 +8,19 @@ import {
   getRelatedPosts,
 } from "@/lib/mdx";
 import { generatePageMetadata } from "@/lib/metadata";
-import { formatDate } from "@/lib/utils";
+import { cn, formatDate } from "@/lib/utils";
 import { locales } from "@/i18n/config";
 import { BlogContent } from "@/components/blog/blog-content";
+import { TableOfContents } from "@/components/blog/table-of-contents";
+import { extractHeadings } from "@/lib/blog-headings";
 import { ReadingProgress } from "@/components/blog/reading-progress";
 import { PostFooter } from "@/components/blog/post-footer";
 import { ArticleJsonLd } from "@/components/seo/article-json-ld";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 
 const RELATED_POST_COUNT = 2;
+/** Fewer sections than this and a table of contents is just noise. */
+const MIN_TOC_ITEMS = 3;
 
 export async function generateStaticParams() {
   return locales.flatMap((locale) =>
@@ -62,6 +66,8 @@ export default async function BlogPostPage({
 
   const t = await getTranslations("blog");
   const tNav = await getTranslations("nav");
+  const headings = extractHeadings(post.content);
+  const hasToc = headings.length >= MIN_TOC_ITEMS;
 
   return (
     <>
@@ -76,7 +82,16 @@ export default async function BlogPostPage({
       />
       <article className="py-24">
         <Container>
-          <div className="mx-auto max-w-3xl">
+          {/* The rail hangs off the article's right edge on wide screens and stays out of the
+              reading column; the mobile disclosure renders inside the column instead. */}
+          <div
+            className={cn(
+              "mx-auto max-w-3xl",
+              // No items-start: the aside must span the article so its sticky rail has room to travel.
+              hasToc && "xl:grid xl:max-w-5xl xl:grid-cols-[minmax(0,48rem)_14rem] xl:gap-8",
+            )}
+          >
+            <div className="min-w-0">
             <header className="mb-12">
               <div className="rise-in flex flex-wrap items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
                 <time dateTime={post.meta.date}>
@@ -102,12 +117,23 @@ export default async function BlogPostPage({
               </div>
             </header>
 
+            {hasToc && (
+              <div className="xl:hidden">
+                <TableOfContents items={headings} variant="disclosure" />
+              </div>
+            )}
             <ReadingProgress>
               <BlogContent content={post.content} />
             </ReadingProgress>
             <PostFooter
               relatedPosts={getRelatedPosts(locale, slug, RELATED_POST_COUNT)}
             />
+            </div>
+            {hasToc && (
+              <aside className="hidden xl:block">
+                <TableOfContents items={headings} variant="rail" />
+              </aside>
+            )}
           </div>
         </Container>
       </article>
