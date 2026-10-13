@@ -953,6 +953,26 @@ export function getFeaturedProjects(): readonly Project[] {
   return projects.filter((p) => p.featured);
 }
 
+export interface TechUsage {
+  readonly name: string;
+  readonly projectCount: number;
+}
+
+/** Every technology across the portfolio, most widely used first; ties fall back to name order. */
+export function getTechStackUsage(): readonly TechUsage[] {
+  const allUses = projects.flatMap((project) => project.techStack);
+  const names = [...new Set(allUses)];
+  return names
+    .map((name) => ({
+      name,
+      projectCount: allUses.filter((use) => use === name).length,
+    }))
+    .sort(
+      (a, b) =>
+        b.projectCount - a.projectCount || a.name.localeCompare(b.name),
+    );
+}
+
 export function getProjectBySlug(slug: string): Project | undefined {
   return projects.find((p) => p.slug === slug);
 }

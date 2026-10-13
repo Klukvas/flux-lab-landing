@@ -1,5 +1,9 @@
+export { DotBackground } from './dot-background';
 export { Hero } from './hero';
+export { TechStackStrip } from './tech-stack-strip';
 export { FeaturedProjects } from './featured-projects';
-export { TechStackOverview } from './tech-stack-overview';
+export { ServicesOverview } from './services-overview';
+export { WhyUs } from './why-us';
+export { LatestPosts } from './latest-posts';
 export { Stats } from './stats';
 export { CTA } from './cta';

@@ -3,8 +3,11 @@ import {
   Container,
   SectionHeading,
   Card,
-  AnimatedSection,
+  Reveal,
+  RevealGroup,
+  RevealItem,
 } from "@/components/ui";
+import { getAllProjects } from "@/data/projects";
 
 const DIFFERENTIATORS = [
   { titleKey: "productBuilders", descKey: "productBuildersDesc" },
@@ -15,24 +18,33 @@ const DIFFERENTIATORS = [
 
 export async function WhyUs() {
   const t = await getTranslations("home.whyUs");
+  const productCount = getAllProjects().length;
 
   return (
-    <AnimatedSection className="py-24">
+    <section className="py-24">
       <Container>
-        <SectionHeading title={t("title")} subtitle={t("subtitle")} />
-        <div className="grid gap-6 sm:grid-cols-2">
+        <Reveal>
+          <SectionHeading
+            className="clearing"
+            title={t("title")}
+            subtitle={t("subtitle")}
+          />
+        </Reveal>
+        <RevealGroup className="grid gap-6 sm:grid-cols-2">
           {DIFFERENTIATORS.map((item) => (
-            <Card key={item.titleKey}>
-              <h3 className="text-lg font-semibold text-brand-dark dark:text-brand">
-                {t(item.titleKey)}
-              </h3>
-              <p className="mt-2 text-gray-500 dark:text-gray-400">
-                {t(item.descKey)}
-              </p>
-            </Card>
+            <RevealItem key={item.titleKey} className="grid">
+              <Card>
+                <h3 className="text-lg font-semibold text-brand-dark dark:text-brand">
+                  {t(item.titleKey)}
+                </h3>
+                <p className="mt-2 text-gray-500 dark:text-gray-400">
+                  {t(item.descKey, { count: productCount })}
+                </p>
+              </Card>
+            </RevealItem>
           ))}
-        </div>
+        </RevealGroup>
       </Container>
-    </AnimatedSection>
+    </section>
   );
 }

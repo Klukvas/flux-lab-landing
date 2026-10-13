@@ -34,10 +34,3 @@ export const PROJECT_TAGS = [
   "IoT",
   "AI/ML",
 ] as const;
-
-export const TECH_CATEGORIES = {
-  frontend: ["React", "Next.js", "TypeScript", "Tailwind CSS", "React Native"],
-  backend: ["Node.js", "NestJS", "Python", "PostgreSQL", "Redis"],
-  devops: ["Docker", "AWS", "Vercel", "GitHub Actions", "Terraform"],
-  tools: ["Figma", "Git", "VS Code", "Jira", "Notion"],
-} as const;
