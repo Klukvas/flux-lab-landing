@@ -34,7 +34,7 @@ export function ProjectHero({
       <div className="absolute inset-0 -z-10 glow" />
       <Container>
         <div className="mx-auto max-w-3xl text-center">
-          <div className="flex items-center justify-center gap-3">
+          <div className="rise-in flex items-center justify-center gap-3">
             <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-gray-200 text-sm font-bold text-foreground dark:border-gray-800">
               {project.icon}
             </span>
@@ -45,14 +45,14 @@ export function ProjectHero({
               {project.status}
             </Badge>
           </div>
-          <p className="mt-2 text-lg text-gray-500 dark:text-gray-400">
+          <p className="rise-in mt-2 text-lg text-gray-500 [--rise-delay:80ms] dark:text-gray-400">
             {project.tagline}
           </p>
-          <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
+          <p className="rise-in mt-4 text-sm text-gray-500 [--rise-delay:160ms] dark:text-gray-400">
             {project.description}
           </p>
 
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
+          <div className="rise-in mt-6 flex flex-wrap items-center justify-center gap-4 [--rise-delay:240ms]">
             {project.stats && (
               <>
                 <div className="flex items-center gap-2 rounded-lg border border-gray-200 px-4 py-2 dark:border-gray-800">

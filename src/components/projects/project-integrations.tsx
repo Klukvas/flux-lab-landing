@@ -1,4 +1,4 @@
-import { Container, SectionHeading } from '@/components/ui';
+import { Container, RevealGroup, RevealItem, SectionHeading } from "@/components/ui";
 
 interface ProjectIntegrationsProps {
   readonly integrations: readonly string[];
@@ -12,9 +12,12 @@ export function ProjectIntegrations({ integrations, title }: ProjectIntegrations
     <section className="py-24">
       <Container>
         <SectionHeading title={title} />
-        <div className="mx-auto flex max-w-2xl flex-wrap justify-center gap-3">
+        <RevealGroup
+          staggerSeconds={0.04}
+          className="mx-auto flex max-w-2xl flex-wrap justify-center gap-3"
+        >
           {integrations.map((name) => (
-            <div
+            <RevealItem
               key={name}
               className="flex items-center gap-2 rounded-md border border-gray-200 bg-white px-4 py-2.5 text-sm text-foreground dark:border-gray-800 dark:bg-gray-950"
             >
@@ -24,6 +27,7 @@ export function ProjectIntegrations({ integrations, title }: ProjectIntegrations
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
+                aria-hidden="true"
               >
                 <path
                   strokeLinecap="round"
@@ -32,9 +36,9 @@ export function ProjectIntegrations({ integrations, title }: ProjectIntegrations
                 />
               </svg>
               {name}
-            </div>
+            </RevealItem>
           ))}
-        </div>
+        </RevealGroup>
       </Container>
     </section>
   );
