@@ -22,7 +22,7 @@ export async function ServicesOverview() {
         <Reveal>
           <SectionHeading
             className="clearing"
-            eyebrow={`03 · ${t("eyebrow")}`}
+            eyebrow={`04 · ${t("eyebrow")}`}
             title={t("title")}
             subtitle={t("subtitle")}
           />

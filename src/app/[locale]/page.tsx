@@ -41,9 +41,9 @@ export default async function HomePage({
       <Hero productCount={productCount} />
       <LogoStrip />
       <FeaturedProjects />
+      <Playbook />
       <Capabilities />
       <ServicesOverview />
-      <Playbook />
       <WhyUs />
       <LatestPosts locale={locale} />
       <CTA />

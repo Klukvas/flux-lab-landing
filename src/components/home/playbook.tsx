@@ -22,7 +22,7 @@ export async function Playbook() {
         <Reveal>
           <SectionHeading
             className="clearing"
-            eyebrow={`04 · ${t("eyebrow")}`}
+            eyebrow={`02 · ${t("eyebrow")}`}
             title={t("title")}
             subtitle={t("subtitle")}
           />
