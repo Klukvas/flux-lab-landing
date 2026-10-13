@@ -21,6 +21,7 @@ export async function FeaturedProjects() {
         <Reveal>
           <SectionHeading
             className="clearing"
+            eyebrow={`01 · ${t("eyebrow")}`}
             title={t("title")}
             subtitle={t("subtitle")}
           />

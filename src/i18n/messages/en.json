@@ -28,6 +28,7 @@
       "trustSince": "Studio founded"
     },
     "featuredProjects": {
+      "eyebrow": "Selected work",
       "title": "Featured Projects",
       "subtitle": "A selection of our recent work",
       "viewAll": "View All Projects"
@@ -39,6 +40,7 @@
       "label": "The stack behind {count, plural, one {# product} other {# products}}"
     },
     "services": {
+      "eyebrow": "How we engage",
       "title": "Ways to Work With Us",
       "subtitle": "Same team, same stack. Pick the format that fits your stage.",
       "viewAll": "Services, Process & FAQ"
@@ -56,6 +58,7 @@
       "project": "re: {project}"
     },
     "whyUs": {
+      "eyebrow": "Why us",
       "title": "Why fluxLab?",
       "subtitle": "What makes us different from other dev studios",
       "productBuilders": "Product Builders, Not Just Coders",
@@ -98,6 +101,7 @@
       }
     },
     "latestPosts": {
+      "eyebrow": "Writing",
       "title": "From the Engineering Blog",
       "subtitle": "Notes from building SaaS in production",
       "viewAll": "All Posts"

@@ -1,6 +1,8 @@
 import { cn } from '@/lib/utils';
 
 interface SectionHeadingProps {
+  /** A small mono line above the title, e.g. a section number and name. */
+  readonly eyebrow?: string;
   readonly title: string;
   readonly subtitle?: string;
   readonly className?: string;
@@ -11,6 +13,7 @@ interface SectionHeadingProps {
 }
 
 export function SectionHeading({
+  eyebrow,
   title,
   subtitle,
   className,
@@ -26,6 +29,11 @@ export function SectionHeading({
         className
       )}
     >
+      {eyebrow && (
+        <span className="mb-3 block font-mono text-xs font-medium uppercase tracking-widest text-brand">
+          {eyebrow}
+        </span>
+      )}
       <Heading
         className={cn(
           'text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl',
