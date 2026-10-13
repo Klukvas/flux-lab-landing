@@ -41,6 +41,8 @@ export async function generateMetadata({
     title: post.meta.title,
     description: post.meta.description,
     path: `/blog/${slug}`,
+    // The post's own opengraph-image and twitter-image files supply the card.
+    image: null,
     locale,
     availableLocales: getBlogPostLocales(slug),
     article: {

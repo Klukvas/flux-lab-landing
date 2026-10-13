@@ -41,7 +41,8 @@ interface GenerateMetadataParams {
   readonly title: string;
   readonly description: string;
   readonly path?: string;
-  readonly image?: string;
+  /** A social image path; null leaves the images to the route's own opengraph-image file. */
+  readonly image?: string | null;
   readonly locale?: string;
   /** Locales this page exists in; defaults to all. Blog posts can lack a translation. */
   readonly availableLocales?: readonly Locale[];
@@ -76,7 +77,9 @@ export function generatePageMetadata({
   article,
 }: GenerateMetadataParams): Metadata {
   const url = `${SITE_URL}/${locale}${path}`;
-  const ogImage = image ?? "/og-default.png";
+  const ogImage = image === null ? undefined : (image ?? "/og-default.png");
+  const images = ogImage === undefined ? {} : { images: [{ url: ogImage, width: 1200, height: 630, alt: title }] };
+  const twitterImages = ogImage === undefined ? {} : { images: [ogImage] };
   // The brand suffix is dropped when the title already names the brand or when the
   // suffix would push it past what search results show; Google displays the site name
   // above the title anyway.
@@ -92,7 +95,7 @@ export function generatePageMetadata({
     description: metaDescription,
     url,
     siteName: SITE_NAME,
-    images: [{ url: ogImage, width: 1200, height: 630, alt: title }],
+    ...images,
     locale: openGraphLocale,
   };
 
@@ -116,7 +119,7 @@ export function generatePageMetadata({
       card: "summary_large_image",
       title: fullTitle,
       description: metaDescription,
-      images: [ogImage],
+      ...twitterImages,
     },
   };
 }

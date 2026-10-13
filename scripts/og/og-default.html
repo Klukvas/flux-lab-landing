@@ -44,12 +44,21 @@
   </div>
 </div>
 <script>
+  // ?variant=blog renders the base for the per-post cards: the same field and wordmark,
+  // the mark tucked into the top-right corner, and no copy, which the post card adds.
+  const isBlogBase = new URLSearchParams(location.search).get("variant") === "blog";
+  if (isBlogBase) {
+    document.querySelector(".card > div:first-child").remove();
+    document.querySelector(".glow").style.background = "radial-gradient(ellipse 42% 60% at 34% 52%, #14112B 0%, transparent 70%)";
+  }
   // The same dot field as the site: a 24px grid, resting dots in gray, and the logo mark
   // drawn by lighting the cells under its shape in the brand color.
   const SPACING = 24;
   const canvas = document.getElementById("field");
   const ctx = canvas.getContext("2d");
-  const figure = { left: 796, top: 130, width: 340, height: 290 };
+  const figure = isBlogBase
+    ? { left: 868, top: 40, width: 272, height: 208 }
+    : { left: 796, top: 130, width: 340, height: 290 };
 
   const shape = document.createElement("canvas");
   shape.width = figure.width; shape.height = figure.height;

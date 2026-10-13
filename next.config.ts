@@ -5,6 +5,12 @@ const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
 const nextConfig: NextConfig = {
   output: 'standalone',
+  // The blog's social cards read fonts and a base image from src/assets/og at render time;
+  // the standalone bundle only carries what the tracer sees, so the folder is listed.
+  outputFileTracingIncludes: {
+    '/[locale]/blog/[slug]/opengraph-image': ['./src/assets/og/**/*'],
+    '/[locale]/blog/[slug]/twitter-image': ['./src/assets/og/**/*'],
+  },
   async headers() {
     return [
       {
