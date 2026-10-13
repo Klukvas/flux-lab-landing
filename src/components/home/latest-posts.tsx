@@ -10,6 +10,7 @@ import {
 } from "@/components/ui";
 import { BlogCard } from "@/components/blog/blog-card";
 import { getBlogPosts } from "@/lib/mdx";
+import { sortByLastTouched } from "@/lib/blog-freshness";
 
 const POST_COUNT = 3;
 
@@ -19,7 +20,8 @@ interface LatestPostsProps {
 
 export async function LatestPosts({ locale }: LatestPostsProps) {
   const t = await getTranslations("home.latestPosts");
-  const posts = getBlogPosts(locale).slice(0, POST_COUNT);
+  // Freshness counts revisions too, so a reworked post surfaces instead of a stale date.
+  const posts = sortByLastTouched(getBlogPosts(locale)).slice(0, POST_COUNT);
 
   if (posts.length === 0) return null;
 

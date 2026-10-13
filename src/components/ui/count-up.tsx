@@ -18,11 +18,14 @@ const COUNT_SPRING = spring({ damping: 1, response: 1 });
 interface CountUpProps {
   /** The raw figure; it is shown the way formatNumber prints it, e.g. 46000 as 46K+. */
   readonly value: number;
+  /** Replaces the K+ formatting: an exact count passes "" and is shown as is. */
+  readonly suffix?: string;
 }
 
 /** Counts from zero to the figure once it scrolls into view. The server renders the final figure. */
-export function CountUp({ value }: CountUpProps) {
-  const { value: target, suffix } = splitStat(value);
+export function CountUp({ value, suffix: exactSuffix }: CountUpProps) {
+  const { value: target, suffix } =
+    exactSuffix === undefined ? splitStat(value) : { value, suffix: exactSuffix };
   const prefersReducedMotion = useReducedMotion();
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true });

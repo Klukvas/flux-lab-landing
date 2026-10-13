@@ -6,13 +6,18 @@ import { buttonStyles, Container } from "@/components/ui";
 import { STATS } from "@/lib/constants";
 import { TrustMetrics, type TrustMetric } from "./trust-metrics";
 
-export function Hero() {
+interface HeroProps {
+  /** Products in the portfolio, counted by the page so the client bundle skips the case-study data. */
+  readonly productCount: number;
+}
+
+export function Hero({ productCount }: HeroProps) {
   const t = useTranslations("home.hero");
 
   const trustMetrics: readonly TrustMetric[] = [
     { key: "users", value: STATS.users, label: t("trustUsers") },
     { key: "companies", value: STATS.companies, label: t("trustCompanies") },
-    { key: "years", value: STATS.experience, label: t("trustYears") },
+    { key: "products", value: productCount, suffix: "", label: t("trustProducts") },
   ];
 
   return (
@@ -31,7 +36,7 @@ export function Hero() {
               </span>
             </h1>
             <p className="mt-5 text-lg text-gray-500 dark:text-gray-400">
-              {t("subtitle")}
+              {t("subtitle", { count: productCount })}
             </p>
             <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row">
               <Link href="/projects" className={buttonStyles({ size: "lg" })}>

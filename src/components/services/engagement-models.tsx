@@ -1,11 +1,7 @@
 import { getTranslations } from "next-intl/server";
-import {
-  Container,
-  SectionHeading,
-  Card,
-  AnimatedSection,
-} from "@/components/ui";
+import { Container, SectionHeading, AnimatedSection } from "@/components/ui";
 import { engagementModels } from "@/data/services";
+import { EngagementModelCard } from "./engagement-model-card";
 
 export async function EngagementModels() {
   const t = await getTranslations("services.engagement");
@@ -16,17 +12,12 @@ export async function EngagementModels() {
         <SectionHeading title={t("title")} subtitle={t("subtitle")} />
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {engagementModels.map((model) => (
-            <Card key={model.titleKey} className="flex flex-col">
-              <h3 className="text-lg font-semibold text-foreground">
-                {t(model.titleKey)}
-              </h3>
-              <div className="mt-2 text-2xl font-bold text-foreground">
-                {t(model.priceKey)}
-              </div>
-              <p className="mt-4 flex-1 text-gray-500 dark:text-gray-400">
-                {t(model.descKey)}
-              </p>
-            </Card>
+            <EngagementModelCard
+              key={model.titleKey}
+              title={t(model.titleKey)}
+              price={t(model.priceKey)}
+              description={t(model.descKey)}
+            />
           ))}
         </div>
       </Container>

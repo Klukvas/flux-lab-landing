@@ -8,6 +8,7 @@ import { ServicesOverview } from "@/components/home/services-overview";
 import { WhyUs } from "@/components/home/why-us";
 import { LatestPosts } from "@/components/home/latest-posts";
 import { CTA } from "@/components/home/cta";
+import { getAllProjects } from "@/data/projects";
 
 export async function generateMetadata({
   params,
@@ -30,11 +31,12 @@ export default async function HomePage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const productCount = getAllProjects().length;
 
   return (
     <>
       <DotBackground />
-      <Hero />
+      <Hero productCount={productCount} />
       <TechStackStrip />
       <FeaturedProjects />
       <ServicesOverview />

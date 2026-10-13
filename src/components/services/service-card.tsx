@@ -29,14 +29,9 @@ function getTranslatedFeatures(
 
 interface ServiceCardProps {
   readonly service: Service;
-  /** h2 on the services page, h3 where the cards sit under a section heading. */
-  readonly headingLevel?: "h2" | "h3";
 }
 
-export function ServiceCard({
-  service,
-  headingLevel: Heading = "h2",
-}: ServiceCardProps) {
+export function ServiceCard({ service }: ServiceCardProps) {
   const t = useTranslations();
   const features = getTranslatedFeatures(t, service);
 
@@ -58,9 +53,9 @@ export function ServiceCard({
             />
           </svg>
         </div>
-        <Heading className="text-xl font-semibold text-foreground">
+        <h2 className="text-xl font-semibold text-foreground">
           {t(service.titleKey)}
-        </Heading>
+        </h2>
         <p className="text-gray-500 dark:text-gray-400">
           {t(service.descriptionKey)}
         </p>

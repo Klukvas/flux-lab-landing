@@ -16,13 +16,12 @@
     "hero": {
       "eyebrow": "Software development studio · Kyiv, Ukraine",
       "title": "46K+ Users. One Team.",
-      "subtitle": "Kyiv-based dev studio that builds, ships, and scales SaaS products. Need the same team behind your next project?",
+      "subtitle": "A Kyiv product studio, not an agency. We run {count, plural, one {# SaaS product} other {# SaaS products}} of our own and build yours with the same team, the same stack and the same 8-week MVP playbook.",
       "cta": "View Our Work",
       "secondaryCta": "Get in Touch",
-      "trustProducts": "Products Live",
-      "trustUsers": "Users",
-      "trustCompanies": "Companies",
-      "trustYears": "Years"
+      "trustUsers": "Users on our products",
+      "trustCompanies": "Companies on our products",
+      "trustProducts": "Products live"
     },
     "featuredProjects": {
       "title": "Featured Projects",
@@ -33,9 +32,9 @@
       "label": "The stack behind {count, plural, one {# product} other {# products}}"
     },
     "services": {
-      "title": "What We Do",
-      "subtitle": "Three ways to work with us",
-      "viewAll": "All Services & Pricing"
+      "title": "Ways to Work With Us",
+      "subtitle": "Same team, same stack. Pick the format that fits your stage.",
+      "viewAll": "Services, Process & FAQ"
     },
     "stats": {
       "projects": "Products Live",
@@ -57,7 +56,7 @@
       "fullOwnership": "Full Ownership",
       "fullOwnershipDesc": "One team from design to deployment. No hand-offs, no gaps.",
       "battleTested": "Battle-Tested Stack",
-      "battleTestedDesc": "React, Next.js, Node.js, PostgreSQL — same stack powering our 46K+ user products.",
+      "battleTestedDesc": "React, Next.js, Go, Node.js, PostgreSQL — the same stack that runs our products for 46K+ users.",
       "transparent": "Transparent Process",
       "transparentDesc": "Weekly demos, shared repos, direct Slack access. You see everything."
     },
@@ -241,6 +240,7 @@
     "metaTitle": "Engineering Blog: SaaS, Go, React & PostgreSQL",
     "metaDescription": "Practical notes from building SaaS in production: Go backends, React performance, PostgreSQL tuning, Docker deployment and AI features.",
     "readMore": "Read More",
+    "updated": "Last updated",
     "publishedOn": "Published on",
     "minRead": "min read",
     "tableOfContents": "Table of Contents",

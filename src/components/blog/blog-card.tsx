@@ -3,6 +3,7 @@ import { Link } from "@/i18n/navigation";
 import type { BlogPostMeta } from "@/types";
 import { Card, Badge } from "@/components/ui";
 import { formatDate } from "@/lib/utils";
+import { lastTouched } from "@/lib/blog-freshness";
 
 interface BlogCardProps {
   readonly post: BlogPostMeta;
@@ -17,7 +18,10 @@ export function BlogCard({ post, headingLevel: Heading = "h2" }: BlogCardProps) 
     <Card hover>
       <div className="flex flex-col gap-3">
         <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-          <time dateTime={post.date}>{formatDate(post.date, post.locale)}</time>
+          <time dateTime={lastTouched(post)}>
+            {post.updated ? `${t("updated")} ` : ""}
+            {formatDate(lastTouched(post), post.locale)}
+          </time>
           <span>·</span>
           <span>
             {post.readingTime} {t("minRead")}
