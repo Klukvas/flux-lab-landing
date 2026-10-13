@@ -50,7 +50,7 @@ const POINTER_RADIUS_GROWTH_PX = 1.2;
 
 /** A dot that is part of a figure: fully lit in the accent color and visibly larger. */
 const FIGURE_ALPHA = 0.55;
-const FIGURE_RADIUS_GROWTH_PX = 1.1;
+const FIGURE_RADIUS_GROWTH_PX = 1.6;
 
 /** Deterministic noise in [0, 1) from a grid position: the same page cell always gets the same jitter. */
 function gridNoise(column: number, row: number): number {

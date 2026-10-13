@@ -4,6 +4,7 @@
  * layout and looked up per dot per frame, so drawing it costs no more than the field.
  */
 import { DOT_SPACING_PX } from "./dot-field";
+import type { DotBitmap } from "./dot-font";
 
 /** Where the figure sits on the page, in CSS pixels from the page's top-left corner. */
 export interface PageRect {
@@ -98,6 +99,46 @@ export function createFigureMask(
     if (cells[index]) delays[index] = (distances[index] / (farthest || 1)) * ASSEMBLY_SECONDS;
   }
   return { firstColumn, firstRow, columns, rows, cells, delays, dotCount };
+}
+
+/** How long a bitmap takes to light up, cell by cell in reading order. */
+const TYPING_SECONDS = 1.6;
+
+/**
+ * A figure whose cells are given directly, one bitmap cell per grid cell, centered in the
+ * rect. Cells light up in reading order, so text looks typed onto a dot-matrix board.
+ */
+export function createMatrixMask(rect: PageRect, bitmap: DotBitmap): FigureMask | null {
+  const spanStart = (edge: number) => Math.ceil((edge - DOT_SPACING_PX / 2) / DOT_SPACING_PX);
+  const spanEnd = (edge: number) => Math.floor((edge - DOT_SPACING_PX / 2) / DOT_SPACING_PX);
+  const availableColumns = spanEnd(rect.left + rect.width) - spanStart(rect.left) + 1;
+  const availableRows = spanEnd(rect.top + rect.height) - spanStart(rect.top) + 1;
+  if (availableColumns < bitmap.columns || availableRows < bitmap.rows) return null;
+
+  const firstColumn = spanStart(rect.left) + Math.floor((availableColumns - bitmap.columns) / 2);
+  const firstRow = spanStart(rect.top) + Math.floor((availableRows - bitmap.rows) / 2);
+  const size = bitmap.columns * bitmap.rows;
+  const cells = new Uint8Array(size);
+  const delays = new Float32Array(size);
+  let dotCount = 0;
+  bitmap.cells.forEach((row, y) => {
+    row.forEach((isLit, x) => {
+      if (!isLit) return;
+      const index = y * bitmap.columns + x;
+      cells[index] = 1;
+      delays[index] = (index / size) * TYPING_SECONDS;
+      dotCount += 1;
+    });
+  });
+  if (dotCount === 0) return null;
+  return { firstColumn, firstRow, columns: bitmap.columns, rows: bitmap.rows, cells, delays, dotCount };
+}
+
+/** True for any page cell inside the figure's box, lit or not. */
+export function isInsideFigure(mask: FigureMask, column: number, pageRow: number): boolean {
+  const localColumn = column - mask.firstColumn;
+  const localRow = pageRow - mask.firstRow;
+  return localColumn >= 0 && localColumn < mask.columns && localRow >= 0 && localRow < mask.rows;
 }
 
 /** The cell's index in the mask, or -1 when the page cell is not part of the figure. */

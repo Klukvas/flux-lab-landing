@@ -5,10 +5,13 @@ import { useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { createColorRamp, parseHexColor, type Rgb } from "@/lib/canvas-colors";
 import { DOT_SPACING_PX, createDotGrid, dotAt, type Dot } from "@/lib/dot-field";
+import { layoutDotText } from "@/lib/dot-font";
 import {
   createFigureMask,
+  createMatrixMask,
   figureCellIndex,
   figureProgress,
+  isInsideFigure,
   paintLayersMark,
   type FigureMask,
 } from "@/lib/dot-figure";
@@ -22,6 +25,8 @@ const RELEASE_SECONDS = 0.35;
 const MAX_FRAME_SECONDS = 0.1;
 /** The figure starts assembling a beat after the field appears, so it reads as drawn, not loaded. */
 const FIGURE_BIRTH_DELAY_MS = 400;
+/** Unlit dots inside a text figure's box fade to this share, so the letters stand out. */
+const TEXT_GROUND_ALPHA = 0.3;
 /** The element whose box the figure fills; the hero places it. */
 const FIGURE_ANCHOR_SELECTOR = "[data-dot-figure]";
 
@@ -49,6 +54,8 @@ interface Scene {
   pointer: { x: number; y: number; strength: number };
   /** The cells that light up as the logo mark, when the page has a place for it. */
   figure: FigureMask | null;
+  /** Text figures quiet the field around their letters; the logo mark does not need it. */
+  figureIsText: boolean;
   /** When the figure began assembling, in performance.now() time. */
   figureBornAt: number | null;
 }
@@ -73,12 +80,14 @@ function drawScene(
     const cell = figure ? figureCellIndex(figure, dot.column, dot.row + firstPageRow) : -1;
     const lit = cell >= 0 && figure ? figureProgress(figure, cell, figureAge) : 0;
     const frame = dotAt(dot, timeSeconds, scene.pointer, scrollY, lit);
+    const isQuietGround =
+      scene.figureIsText && cell < 0 && figure !== null && isInsideFigure(figure, dot.column, dot.row + firstPageRow);
     const fill = scene.ramp[Math.round(frame.accent * (RAMP_STEPS - 1))];
     if (fill !== currentFill) {
       context.fillStyle = fill;
       currentFill = fill;
     }
-    context.globalAlpha = frame.alpha;
+    context.globalAlpha = isQuietGround ? frame.alpha * TEXT_GROUND_ALPHA : frame.alpha;
     context.beginPath();
     context.arc(frame.x, frame.y, frame.radius, 0, 2 * Math.PI);
     context.fill();
@@ -107,6 +116,7 @@ export function DotBackground() {
       mouse: { x: 0, y: 0, isOver: false },
       pointer: { x: 0, y: 0, strength: 0 },
       figure: null,
+      figureIsText: false,
       figureBornAt: null,
     };
     const scratch = document.createElement("canvas");
@@ -158,7 +168,13 @@ export function DotBackground() {
         width: bounds.width,
         height: bounds.height,
       };
-      scene.figure = createFigureMask(rect, paintLayersMark, scratch);
+      // A "text" anchor spells its lines in dot-matrix letters; anything else draws the logo mark.
+      const lines = anchor!.dataset.dotLines;
+      scene.figureIsText = anchor!.dataset.dotFigure === "text" && Boolean(lines);
+      scene.figure =
+        anchor!.dataset.dotFigure === "text" && lines
+          ? createMatrixMask(rect, layoutDotText(lines.split("|")))
+          : createFigureMask(rect, paintLayersMark, scratch);
       if (scene.figure && scene.figureBornAt === null) {
         scene.figureBornAt = performance.now() + FIGURE_BIRTH_DELAY_MS;
       }

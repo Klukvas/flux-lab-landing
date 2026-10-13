@@ -3,6 +3,7 @@ import { DOT_SPACING_PX } from "./dot-field";
 import {
   FIGURE_RISE_SECONDS,
   createFigureMask,
+  createMatrixMask,
   figureCellIndex,
   figureProgress,
   type FigureMask,
@@ -68,6 +69,30 @@ describe("createFigureMask", () => {
     expect(figureProgress(mask, center, FIGURE_RISE_SECONDS)).toBe(1);
     expect(figureProgress(mask, edge, 0)).toBe(0);
     expect(figureProgress(mask, edge, mask.delays[edge] + FIGURE_RISE_SECONDS / 2)).toBeCloseTo(0.5);
+  });
+});
+
+describe("createMatrixMask", () => {
+  const bitmap = { columns: 3, rows: 2, cells: [[true, false, true], [false, true, false]] };
+
+  it("maps each bitmap cell to one grid cell, centered in the rect", () => {
+    const mask = createMatrixMask({ left: 0, top: 0, width: 5 * DOT_SPACING_PX, height: 2 * DOT_SPACING_PX }, bitmap) as FigureMask;
+
+    expect([mask.firstColumn, mask.firstRow, mask.columns, mask.rows]).toEqual([1, 0, 3, 2]);
+    expect(mask.dotCount).toBe(3);
+    expect(figureCellIndex(mask, 1, 0)).toBeGreaterThanOrEqual(0);
+    expect(figureCellIndex(mask, 2, 0)).toBe(-1);
+  });
+
+  it("lights cells in reading order", () => {
+    const mask = createMatrixMask({ left: 0, top: 0, width: 72, height: 48 }, bitmap) as FigureMask;
+
+    expect(mask.delays[figureCellIndex(mask, 2, 0)]).toBeGreaterThan(mask.delays[figureCellIndex(mask, 0, 0)]);
+    expect(mask.delays[figureCellIndex(mask, 1, 1)]).toBeGreaterThan(mask.delays[figureCellIndex(mask, 2, 0)]);
+  });
+
+  it("gives up when the rect cannot hold the bitmap", () => {
+    expect(createMatrixMask({ left: 0, top: 0, width: 48, height: 48 }, bitmap)).toBeNull();
   });
 });
 

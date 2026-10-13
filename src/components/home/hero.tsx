@@ -5,7 +5,7 @@ import { Link } from "@/i18n/navigation";
 import { buttonStyles, Container } from "@/components/ui";
 import { RotatingWords } from "@/components/ui/rotating-words";
 import { FOUNDED_YEAR, STATS } from "@/lib/constants";
-import { HeroFigure } from "./hero-figure";
+import { HeroPhrase } from "./hero-phrase";
 import { TrustMetrics, type TrustMetric } from "./trust-metrics";
 
 interface HeroProps {
@@ -32,7 +32,8 @@ export function Hero({ productCount }: HeroProps) {
   return (
     <section className="relative overflow-hidden py-14 sm:py-20">
       <Container>
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+        <HeroPhrase />
+        <div className="grid items-end gap-12 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-16">
           {/* Left — text. Rises in with CSS from the first paint: the heading is the
               largest paint, and a Motion fade would hold it back until hydration. */}
           <div>
@@ -63,16 +64,16 @@ export function Hero({ productCount }: HeroProps) {
                 {t("secondaryCta")}
               </Link>
             </div>
-            <TrustMetrics metrics={trustMetrics} />
           </div>
 
-          {/* Right — the logo mark, drawn by the dot field behind the page. */}
-          <HeroFigure />
+          {/* Right — the proof, beside the pitch now that the phrase has the top. */}
+          <TrustMetrics metrics={trustMetrics} />
         </div>
       </Container>
 
-      {/* The page-wide dot field sits behind; this adds the soft glow around the text. */}
-      <div className="absolute inset-0 -z-10 glow" />
+      {/* The page-wide dot field sits behind; this adds the soft glow around the text. It
+          stays below the phrase: painted over the field, it would dim the lit letters. */}
+      <div className="glow absolute inset-x-0 bottom-0 -z-10 h-full lg:h-1/2" />
     </section>
   );
 }
