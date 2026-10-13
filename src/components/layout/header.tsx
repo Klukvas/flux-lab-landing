@@ -43,13 +43,13 @@ export function Header() {
         )}
       />
       <Container>
-        <div className="flex h-12 items-center justify-between">
+        <div className="flex h-14 items-center justify-between">
           <Link
             href="/"
             className="flex items-center"
             aria-label="flux-lab.dev — home"
           >
-            <Logo size="md" />
+            <Logo size="lg" />
           </Link>
 
           <nav className="hidden lg:block">
@@ -62,7 +62,7 @@ export function Header() {
                       href={item.href}
                       aria-current={isCurrent ? "page" : undefined}
                       className={cn(
-                        "rounded-md px-3 py-2 text-sm font-medium transition-colors hover:text-brand dark:hover:text-brand",
+                        "rounded-md px-3 py-2 text-[15px] font-medium transition-colors hover:text-brand dark:hover:text-brand",
                         isCurrent
                           ? "text-foreground"
                           : "text-gray-500 dark:text-gray-400",

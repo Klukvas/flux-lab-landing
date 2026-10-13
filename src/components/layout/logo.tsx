@@ -1,5 +1,5 @@
 interface LogoProps {
-  readonly size?: "sm" | "md";
+  readonly size?: "sm" | "md" | "lg";
 }
 
 const sizeConfig = {
@@ -18,6 +18,14 @@ const sizeConfig = {
     name: "text-lg",
     tld: "text-[9px]",
     gap: "gap-2",
+  },
+  lg: {
+    icon: 36,
+    svg: 23,
+    svgH: 19,
+    name: "text-xl",
+    tld: "text-[10px]",
+    gap: "gap-2.5",
   },
 } as const;
 

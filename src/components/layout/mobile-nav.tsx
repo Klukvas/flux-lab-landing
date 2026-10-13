@@ -67,7 +67,7 @@ export function MobileNav({ isOpen, onOpenChange }: MobileNavProps) {
             initial="closed"
             animate="open"
             exit="closed"
-            className="material-sheet fixed inset-0 -z-10 overflow-y-auto overscroll-contain pt-12"
+            className="material-sheet fixed inset-0 -z-10 overflow-y-auto overscroll-contain pt-14"
           >
             <nav className="mx-auto max-w-7xl px-4 pb-10 pt-6 sm:px-6">
               <ul className="space-y-1">
