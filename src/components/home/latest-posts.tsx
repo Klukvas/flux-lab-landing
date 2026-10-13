@@ -31,7 +31,7 @@ export async function LatestPosts({ locale }: LatestPostsProps) {
         <Reveal>
           <SectionHeading
             className="clearing"
-            eyebrow={`05 · ${t("eyebrow")}`}
+            eyebrow={`06 · ${t("eyebrow")}`}
             title={t("title")}
             subtitle={t("subtitle")}
           />

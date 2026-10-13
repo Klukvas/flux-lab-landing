@@ -26,7 +26,7 @@ export async function WhyUs() {
         <Reveal>
           <SectionHeading
             className="clearing"
-            eyebrow={`04 · ${t("eyebrow")}`}
+            eyebrow={`05 · ${t("eyebrow")}`}
             title={t("title")}
             subtitle={t("subtitle")}
           />
