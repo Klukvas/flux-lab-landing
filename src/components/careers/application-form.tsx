@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Button, Input, Textarea } from "@/components/ui";
+import { FormSuccess } from "@/components/ui/form-success";
 import {
   applicationFormSchema,
   validateResumeFile,
@@ -88,9 +89,7 @@ export function ApplicationForm({ defaultPosition }: ApplicationFormProps) {
 
   if (status === "success") {
     return (
-      <div className="rounded-xl border border-gray-200 bg-white p-6 text-center dark:border-gray-800 dark:bg-gray-950">
-        <p className="text-foreground">{t("success")}</p>
-      </div>
+      <FormSuccess message={t("success")} isBare />
     );
   }
 

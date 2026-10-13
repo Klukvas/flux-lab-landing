@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Button, Input, Textarea } from "@/components/ui";
+import { FormSuccess } from "@/components/ui/form-success";
 import { contactFormSchema, type ContactFormData } from "@/lib/validation";
 import { trackFormSubmitted } from "@/lib/analytics";
 
@@ -56,9 +57,7 @@ export function ContactForm() {
 
   if (status === "success") {
     return (
-      <div className="rounded-xl border border-gray-200 bg-white p-6 text-center dark:border-gray-800 dark:bg-gray-950">
-        <p className="text-foreground">{t("success")}</p>
-      </div>
+      <FormSuccess message={t("success")} />
     );
   }
 

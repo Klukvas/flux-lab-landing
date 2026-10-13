@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { FormSuccess } from "@/components/ui/form-success";
 
 export type SupportFormStatus = "idle" | "sending" | "success" | "error";
 
@@ -18,9 +19,7 @@ export function SupportForm({ status, errors, onSubmit }: SupportFormProps) {
 
   if (status === "success") {
     return (
-      <p role="status" className="text-sm text-foreground">
-        {t("success")}
-      </p>
+      <FormSuccess message={t("success")} size="sm" isBare />
     );
   }
 
