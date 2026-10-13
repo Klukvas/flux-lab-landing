@@ -8,7 +8,7 @@ export function CTA() {
   const t = useTranslations("home.cta");
 
   return (
-    <AnimatedSection className="py-24">
+    <AnimatedSection className="py-16 sm:py-20">
       <Container>
         <div
           className="mx-auto max-w-2xl rounded-xl border border-brand/20 p-6 text-center sm:p-12"

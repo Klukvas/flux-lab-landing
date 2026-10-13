@@ -16,7 +16,7 @@ export async function FeaturedProjects() {
   const featured = getFeaturedProjects();
 
   return (
-    <section className="py-24">
+    <section className="py-16 sm:py-20">
       <Container>
         <Reveal>
           <SectionHeading

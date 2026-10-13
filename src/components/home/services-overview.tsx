@@ -17,7 +17,7 @@ export async function ServicesOverview() {
   const tEngagement = await getTranslations("services.engagement");
 
   return (
-    <section className="py-24">
+    <section className="py-16 sm:py-20">
       <Container>
         <Reveal>
           <SectionHeading

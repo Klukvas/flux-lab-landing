@@ -21,7 +21,7 @@ export async function WhyUs() {
   const productCount = getAllProjects().length;
 
   return (
-    <section className="py-24">
+    <section className="py-16 sm:py-20">
       <Container>
         <Reveal>
           <SectionHeading

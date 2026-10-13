@@ -21,7 +21,7 @@ export function Hero({ productCount }: HeroProps) {
   ];
 
   return (
-    <section className="relative overflow-hidden py-16 sm:py-24">
+    <section className="relative overflow-hidden py-14 sm:py-20">
       <Container>
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Left — text. Rises in with CSS from the first paint: the heading is the

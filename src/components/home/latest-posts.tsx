@@ -26,7 +26,7 @@ export async function LatestPosts({ locale }: LatestPostsProps) {
   if (posts.length === 0) return null;
 
   return (
-    <section className="py-24">
+    <section className="py-16 sm:py-20">
       <Container>
         <Reveal>
           <SectionHeading

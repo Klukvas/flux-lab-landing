@@ -12,7 +12,7 @@ export async function TechStackStrip() {
   const productCount = getAllProjects().length;
 
   return (
-    <section aria-labelledby="tech-stack-heading" className="py-12">
+    <section aria-labelledby="tech-stack-heading" className="py-10">
       <Container>
         <div className="clearing-tinted mx-auto flex max-w-4xl flex-col items-center gap-5 text-center">
           <h2
