@@ -38,7 +38,9 @@ export function ProjectCarousel({ children }: ProjectCarouselProps) {
       const count = Math.max(1, Math.ceil((scrollWidth - 1) / clientWidth));
       const current = Math.min(count - 1, Math.round(scrollLeft / clientWidth));
       setPages((previous) =>
-        previous.count === count && previous.current === current ? previous : { count, current },
+        previous.count === count && previous.current === current
+          ? previous
+          : { count, current },
       );
     }
 
@@ -82,7 +84,13 @@ export function ProjectCarousel({ children }: ProjectCarouselProps) {
       </ul>
 
       <div className="mt-6 flex items-center justify-between gap-4">
-        <ol className="flex items-center gap-2" aria-label={t("page", { page: pages.current + 1, count: pages.count })}>
+        <ol
+          className="flex items-center gap-2"
+          aria-label={t("page", {
+            page: pages.current + 1,
+            count: pages.count,
+          })}
+        >
           {Array.from({ length: pages.count }, (_, page) => (
             <li key={page}>
               <button
@@ -135,15 +143,32 @@ function ArrowIcon({ direction }: { readonly direction: "left" | "right" }) {
       stroke="currentColor"
       aria-hidden="true"
     >
-      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+      />
     </svg>
   );
 }
 
-/** One slide: a card that fills its cell, 1 per view on phones, 2 on tablets, 3 on desktops. */
-export function CarouselSlide({ children }: { readonly children: ReactNode }) {
+interface CarouselSlideProps {
+  readonly children: ReactNode;
+  /** "card" fits 1 per view on phones, 2 on tablets and 3 on desktops; "full" is always one wide. */
+  readonly size?: "card" | "full";
+}
+
+/** One slide: a card that fills its cell. */
+export function CarouselSlide({ children, size = "card" }: CarouselSlideProps) {
   return (
-    <li className="grid min-w-0 shrink-0 basis-[85%] snap-start sm:basis-[calc(50%-0.5rem)] lg:basis-[calc((100%-2rem)/3)]">
+    <li
+      className={cn(
+        "grid min-w-0 shrink-0 snap-start",
+        size === "full"
+          ? "basis-full"
+          : "basis-[85%] sm:basis-[calc(50%-0.5rem)] lg:basis-[calc((100%-2rem)/3)]",
+      )}
+    >
       {children}
     </li>
   );
