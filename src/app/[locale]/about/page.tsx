@@ -5,7 +5,9 @@ import {
   Reveal,
   RevealGroup,
   RevealItem,
+  CountUp,
 } from "@/components/ui";
+import { TrackRecordTimeline } from "@/components/about/track-record-timeline";
 import { CtaPanel } from "@/components/layout/cta-panel";
 import { timelineEvents } from "@/data/team";
 import { STATS } from "@/lib/constants";
@@ -60,9 +62,9 @@ export default async function AboutPage({
   ];
 
   const stats = [
-    { value: "46K+", label: t("stats.users") },
-    { value: "800+", label: t("stats.companies") },
-    { value: `${STATS.experience}+`, label: t("stats.years") },
+    { value: STATS.users, label: t("stats.users") },
+    { value: STATS.companies, label: t("stats.companies") },
+    { value: STATS.experience, label: t("stats.years") },
   ];
 
   return (
@@ -93,7 +95,7 @@ export default async function AboutPage({
                     className="flex items-center gap-4 rounded-xl border border-gray-200 bg-white px-6 py-4 dark:border-gray-800 dark:bg-gray-950"
                   >
                     <span className="text-3xl font-bold text-brand">
-                      {stat.value}
+                      <CountUp value={stat.value} />
                     </span>
                     <span className="text-sm text-gray-500 dark:text-gray-400">
                       {stat.label}
@@ -139,7 +141,7 @@ export default async function AboutPage({
         </Container>
       </section>
 
-      {/* Track Record — horizontal cards */}
+      {/* Track Record — a timeline that draws itself on scroll */}
       <section className="py-16">
         <Container>
           <Reveal>
@@ -150,29 +152,13 @@ export default async function AboutPage({
               title={t("timeline.title")}
             />
           </Reveal>
-          <RevealGroup className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {timelineEvents.map((event, idx) => (
-              <RevealItem key={event.year} className="grid">
-                <div
-                  className={`rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-gray-950 ${
-                    idx === timelineEvents.length - 1
-                      ? "border-brand/40 ring-1 ring-brand/20 dark:border-brand/40"
-                      : ""
-                  }`}
-                >
-                  <span className="inline-flex items-center rounded-full bg-brand/10 px-3 py-1 text-xs font-bold text-brand">
-                    {event.year}
-                  </span>
-                  <h3 className="mt-3 font-bold text-foreground">
-                    {t(event.titleKey)}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-gray-500 dark:text-gray-400">
-                    {t(event.descriptionKey)}
-                  </p>
-                </div>
-              </RevealItem>
-            ))}
-          </RevealGroup>
+          <TrackRecordTimeline
+            events={timelineEvents.map((event) => ({
+              year: event.year,
+              title: t(event.titleKey),
+              description: t(event.descriptionKey),
+            }))}
+          />
         </Container>
       </section>
 
