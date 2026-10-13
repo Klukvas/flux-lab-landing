@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "Software Development Company in Ukraine | fluxLab.dev",
-    "description": "Kyiv product studio behind SaaS apps used by 46K+ people. Hire our senior React, Next.js and Go team: dedicated teams from $8K/month."
+    "description": "Kyiv product studio behind SaaS apps used by 46K+ people. Hire the senior React, Next.js and Go team that builds and runs them."
   },
   "nav": {
     "home": "Home",
@@ -265,7 +265,7 @@
     "title": "Software Development Services",
     "subtitle": "How we can help you",
     "metaTitle": "Custom Software Development & Dedicated Teams",
-    "metaDescription": "Custom web and SaaS development, dedicated teams from $8K/month and staff augmentation from $4K per developer. Senior React, Next.js and Go engineers.",
+    "metaDescription": "Custom web and SaaS development, dedicated teams and staff augmentation. Senior React, Next.js and Go engineers from a studio that runs its own products.",
     "outsourcing": {
       "title": "Development Outsourcing",
       "description": "Extend your team with our experienced developers"
@@ -282,13 +282,10 @@
       "title": "Engagement Models",
       "subtitle": "Flexible options to fit your needs",
       "dedicatedTeam": "Dedicated Team",
-      "dedicatedTeamPrice": "From $8K/month",
       "dedicatedTeamDesc": "2-5 developers embedded in your workflow. Ideal for long-term product development and ongoing feature work.",
       "projectBased": "Project-Based",
-      "projectBasedPrice": "From $15K",
       "projectBasedDesc": "Fixed scope, clear milestones, predictable budget. Best for well-defined products with a known deadline.",
       "staffAug": "Staff Augmentation",
-      "staffAugPrice": "From $4K/month per dev",
       "staffAugDesc": "Individual senior developers who plug into your existing team. Perfect for filling skill gaps fast."
     },
     "faq": {

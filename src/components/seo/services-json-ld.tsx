@@ -10,7 +10,7 @@ interface ServicesJsonLdProps {
   readonly locale: string;
 }
 
-/** One Service node per engagement model, priced with the same "from" figures the page shows. */
+/** One Service node per engagement model. No offers: prices are quoted per project, not published. */
 export async function ServicesJsonLd({ locale }: ServicesJsonLdProps) {
   const t = await getTranslations({ locale, namespace: "services.engagement" });
 
@@ -23,17 +23,6 @@ export async function ServicesJsonLd({ locale }: ServicesJsonLdProps) {
       serviceType: model.serviceType,
       provider: organizationReference,
       areaServed: targetMarketsSchema,
-      offers: {
-        "@type": "Offer",
-        priceSpecification: {
-          "@type": model.billingUnit
-            ? "UnitPriceSpecification"
-            : "PriceSpecification",
-          minPrice: model.minPriceUsd,
-          priceCurrency: "USD",
-          ...(model.billingUnit && { unitText: model.billingUnit }),
-        },
-      },
     })),
   };
 

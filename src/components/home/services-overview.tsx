@@ -11,7 +11,7 @@ import {
 import { EngagementModelCard } from "@/components/services/engagement-model-card";
 import { engagementModels } from "@/data/services";
 
-/** The three ways to hire the studio, with prices: the concrete offer, not a list of service names. */
+/** The three ways to hire the studio: formats a client can picture, not a list of service names. */
 export async function ServicesOverview() {
   const t = await getTranslations("home.services");
   const tEngagement = await getTranslations("services.engagement");
@@ -32,7 +32,6 @@ export async function ServicesOverview() {
             <RevealItem key={model.titleKey} className="grid">
               <EngagementModelCard
                 title={tEngagement(model.titleKey)}
-                price={tEngagement(model.priceKey)}
                 description={tEngagement(model.descKey)}
               />
             </RevealItem>

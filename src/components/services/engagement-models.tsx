@@ -15,7 +15,6 @@ export async function EngagementModels() {
             <EngagementModelCard
               key={model.titleKey}
               title={t(model.titleKey)}
-              price={t(model.priceKey)}
               description={t(model.descKey)}
             />
           ))}

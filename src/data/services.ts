@@ -39,30 +39,21 @@ export const services: readonly Service[] = [
   },
 ] as const;
 
-// Keep minPriceUsd in step with the price labels in the en/uk messages.
 export const engagementModels: readonly EngagementModel[] = [
   {
     titleKey: "dedicatedTeam",
-    priceKey: "dedicatedTeamPrice",
     descKey: "dedicatedTeamDesc",
     serviceType: "Dedicated development team",
-    minPriceUsd: 8000,
-    billingUnit: "month",
   },
   {
     titleKey: "projectBased",
-    priceKey: "projectBasedPrice",
     descKey: "projectBasedDesc",
     serviceType: "Custom software development",
-    minPriceUsd: 15000,
   },
   {
     titleKey: "staffAug",
-    priceKey: "staffAugPrice",
     descKey: "staffAugDesc",
     serviceType: "Staff augmentation",
-    minPriceUsd: 4000,
-    billingUnit: "developer per month",
   },
 ] as const;
 
