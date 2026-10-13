@@ -50,7 +50,7 @@ export async function ProductsMarquee() {
           id="products-heading"
           className="clearing mb-6 text-center text-sm font-medium uppercase tracking-widest text-gray-500 dark:text-gray-400"
         >
-          {t("label", { count: products.length })}
+          {t("label")}
         </h2>
       </Container>
       <div className="marquee-mask overflow-hidden">

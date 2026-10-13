@@ -34,10 +34,30 @@
       "viewAll": "View All Projects"
     },
     "products": {
-      "label": "The {count, plural, one {product} other {# products}} we run"
+      "label": "The products we run"
     },
-    "techStack": {
-      "label": "The stack behind {count, plural, one {# product} other {# products}}"
+    "logos": {
+      "builtWith": "Built with",
+      "integratedWith": "Integrated with"
+    },
+    "capabilities": {
+      "eyebrow": "What we do",
+      "title": "Capabilities",
+      "subtitle": "Product thinking, engineering and operations from one team.",
+      "columns": {
+        "product": {
+          "title": "Product",
+          "items": ["Discovery and scoping", "User flows and clickable prototypes", "UI design systems", "MVP in 8 weeks", "AI features: LLM agents, parsing, matching", "Analytics and growth loops"]
+        },
+        "engineering": {
+          "title": "Engineering",
+          "items": ["React and Next.js front-ends", "Node.js, NestJS and Go back-ends", "PostgreSQL, Prisma and Redis", "REST APIs and third-party integrations", "Multi-tenant SaaS with roles and permissions", "Real-time features and background jobs", "React Native apps"]
+        },
+        "platform": {
+          "title": "Platform",
+          "items": ["Docker and CI/CD pipelines", "Hetzner and AWS infrastructure", "Monitoring and incident response", "Security review and GDPR", "Performance, SEO and accessibility audits", "Payments and billing"]
+        }
+      }
     },
     "services": {
       "eyebrow": "How we engage",
