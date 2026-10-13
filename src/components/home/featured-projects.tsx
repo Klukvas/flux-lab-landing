@@ -3,13 +3,13 @@ import { Link } from "@/i18n/navigation";
 import { Container, SectionHeading, Reveal, buttonStyles } from "@/components/ui";
 import { ProjectCard } from "@/components/projects/project-card";
 import { CarouselSlide, ProjectCarousel } from "@/components/projects/project-carousel";
-import { getAllProjects, getFeaturedProjects } from "@/data/projects";
+import { getFeaturedProjects, getLiveProjects } from "@/data/projects";
 
 /** Every product the studio runs, featured ones first, as a row the visitor flips through. */
 export async function FeaturedProjects() {
   const t = await getTranslations("home.featuredProjects");
   const featured = getFeaturedProjects();
-  const rest = getAllProjects().filter((project) => !project.featured);
+  const rest = getLiveProjects().filter((project) => !project.featured);
 
   return (
     <section className="py-16 sm:py-20">

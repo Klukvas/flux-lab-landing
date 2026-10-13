@@ -7,7 +7,7 @@ import {
   RevealGroup,
   RevealItem,
 } from "@/components/ui";
-import { getAllProjects } from "@/data/projects";
+import { getLiveProjects } from "@/data/projects";
 
 const DIFFERENTIATORS = [
   { titleKey: "productBuilders", descKey: "productBuildersDesc" },
@@ -18,7 +18,7 @@ const DIFFERENTIATORS = [
 
 export async function WhyUs() {
   const t = await getTranslations("home.whyUs");
-  const productCount = getAllProjects().length;
+  const productCount = getLiveProjects().length;
 
   return (
     <section className="py-16 sm:py-20">

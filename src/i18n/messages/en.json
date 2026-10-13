@@ -342,7 +342,9 @@
     "filterLabel": "Filter posts by tag",
     "filterAll": "All",
     "resultCount": "{count, plural, one {# post} other {# posts}}",
-    "resultCountTagged": "{count, plural, one {# post tagged {tag}} other {# posts tagged {tag}}}"
+    "resultCountTagged": "{count, plural, one {# post tagged {tag}} other {# posts tagged {tag}}}",
+      "moreTags": "{count} more",
+      "fewerTags": "Fewer tags"
   },
   "about": {
     "title": "About Us",

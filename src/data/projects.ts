@@ -177,7 +177,7 @@ export const projects: readonly Project[] = [
       "We built a modular platform that scales from a single office to a multi-site portfolio. Edge gateways aggregate data from heterogeneous sensors and push it to our cloud pipeline in real time. Machine learning models detect waste patterns automatically, and the recommendation engine suggests concrete actions with projected savings.",
     targetAudience:
       "Property managers, facility operators, and sustainability teams at commercial buildings, retail chains, and residential complexes.",
-    status: "active",
+    status: "archived",
     tags: ["Web App", "IoT", "SaaS"],
     techStack: [
       "React",
@@ -951,6 +951,11 @@ export function getAllProjects(): readonly Project[] {
 
 export function getFeaturedProjects(): readonly Project[] {
   return projects.filter((p) => p.featured);
+}
+
+/** The products the studio runs today: everything the portfolio has not archived. */
+export function getLiveProjects(): readonly Project[] {
+  return projects.filter((p) => p.status !== "archived");
 }
 
 export function getProjectBySlug(slug: string): Project | undefined {

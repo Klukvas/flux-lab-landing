@@ -165,7 +165,8 @@
     "status": {
       "active": "активний",
       "beta": "бета",
-      "coming-soon": "скоро"
+      "coming-soon": "скоро",
+      "archived": "в архіві"
     },
     "title": "Наші Проєкти",
     "subtitle": "Ознайомтесь з нашим портфоліо цифрових продуктів",
@@ -631,7 +632,9 @@
     "filterLabel": "Фільтр статей за тегом",
     "filterAll": "Усі",
     "resultCount": "{count, plural, one {# стаття} few {# статті} many {# статей} other {# статті}}",
-    "resultCountTagged": "{count, plural, one {# стаття з тегом {tag}} few {# статті з тегом {tag}} many {# статей з тегом {tag}} other {# статті з тегом {tag}}}"
+    "resultCountTagged": "{count, plural, one {# стаття з тегом {tag}} few {# статті з тегом {tag}} many {# статей з тегом {tag}} other {# статті з тегом {tag}}}",
+      "moreTags": "ще {count}",
+      "fewerTags": "Менше тегів"
   },
   "about": {
     "title": "Про Нас",

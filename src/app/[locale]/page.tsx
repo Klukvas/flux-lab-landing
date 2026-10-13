@@ -9,7 +9,7 @@ import { Playbook } from "@/components/home/playbook";
 import { WhyUs } from "@/components/home/why-us";
 import { LatestPosts } from "@/components/home/latest-posts";
 import { CtaPanel } from "@/components/layout/cta-panel";
-import { getAllProjects } from "@/data/projects";
+import { getLiveProjects } from "@/data/projects";
 
 export async function generateMetadata({
   params,
@@ -32,7 +32,7 @@ export default async function HomePage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const productCount = getAllProjects().length;
+  const productCount = getLiveProjects().length;
 
   return (
     <>
