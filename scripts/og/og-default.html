@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>fluxLab.dev — Open Graph card</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  /* The site's own tokens, copied rather than imported: the card must render without the app. */
+  :root { --bg: #07060E; --fg: #E8E7EF; --gray-300: #9896A8; --gray-400: #7A768F; --brand: #7B6EF6; --tile: #0a0916; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; background: var(--bg); color: var(--fg); font-family: "DM Mono", monospace; }
+  canvas { position: absolute; inset: 0; }
+  .glow { position: absolute; inset: 0; background: radial-gradient(ellipse 38% 55% at 26% 48%, #14112B 0%, transparent 70%); }
+  .card { position: absolute; inset: 0; padding: 72px 80px; display: flex; flex-direction: column; justify-content: space-between; }
+  .eyebrow { font-size: 18px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--brand); font-weight: 500; }
+  h1 { margin-top: 28px; font-family: "Syne", sans-serif; font-weight: 800; font-size: 74px; line-height: 1; letter-spacing: -0.035em; }
+  h1 .fade { background: linear-gradient(to right, var(--fg), var(--fg) 45%, var(--gray-400)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .lede { margin-top: 26px; max-width: 600px; font-size: 22px; line-height: 1.5; color: var(--gray-300); }
+  .wordmark { display: flex; align-items: center; gap: 14px; }
+  .tile { width: 44px; height: 44px; border-radius: 11px; background: var(--tile); border: 1px solid rgba(123,110,246,0.22); box-shadow: 0 0 0 1px rgba(123,110,246,0.07), 0 6px 20px rgba(123,110,246,0.15); display: grid; place-items: center; }
+  .name { font-family: "Syne", sans-serif; font-weight: 700; font-size: 26px; letter-spacing: -0.02em; line-height: 1; }
+  .tld { font-size: 12px; letter-spacing: 0.3em; color: var(--brand); margin-top: 4px; font-weight: 500; }
+</style>
+</head>
+<body>
+<canvas id="field" width="1200" height="630"></canvas>
+<div class="glow"></div>
+<div class="card">
+  <div>
+    <div class="eyebrow">Software development studio · Kyiv, Ukraine</div>
+    <h1>46K+ Users.<br /><span class="fade">One Team.</span></h1>
+    <p class="lede">A Kyiv product studio, not an agency. We run our own SaaS products and build yours with the same team.</p>
+  </div>
+  <div class="wordmark">
+    <div class="tile">
+      <svg width="24" height="20" viewBox="0 0 62 52" fill="none" aria-hidden="true">
+        <polygon points="31,3 57,15 31,27 5,15" fill="#fff" opacity=".92" />
+        <path d="M5 25 31 36 57 25" stroke="#9E94F9" stroke-width="2.6" stroke-linecap="round" opacity=".7" />
+        <path d="M5 35 31 47 57 35" stroke="#7B6EF6" stroke-width="3" stroke-linecap="round" />
+      </svg>
+    </div>
+    <div><div class="name">flux-lab</div><div class="tld">.dev</div></div>
+  </div>
+</div>
+<script>
+  // The same dot field as the site: a 24px grid, resting dots in gray, and the logo mark
+  // drawn by lighting the cells under its shape in the brand color.
+  const SPACING = 24;
+  const canvas = document.getElementById("field");
+  const ctx = canvas.getContext("2d");
+  const figure = { left: 796, top: 130, width: 340, height: 290 };
+
+  const shape = document.createElement("canvas");
+  shape.width = figure.width; shape.height = figure.height;
+  const sctx = shape.getContext("2d");
+  const scale = Math.min(figure.width / 62, figure.height / 52);
+  const ox = (figure.width - 62 * scale) / 2, oy = (figure.height - 52 * scale) / 2;
+  const p = (x, y) => [ox + x * scale, oy + y * scale];
+  sctx.fillStyle = "#000"; sctx.strokeStyle = "#000"; sctx.lineCap = "round"; sctx.lineJoin = "round";
+  sctx.beginPath(); sctx.moveTo(...p(31, 3)); sctx.lineTo(...p(57, 15)); sctx.lineTo(...p(31, 27)); sctx.lineTo(...p(5, 15)); sctx.closePath(); sctx.fill();
+  sctx.lineWidth = 7 * scale;
+  for (const top of [25, 35]) { sctx.beginPath(); sctx.moveTo(...p(5, top)); sctx.lineTo(...p(31, top + 11)); sctx.lineTo(...p(57, top)); sctx.stroke(); }
+  const mask = sctx.getImageData(0, 0, figure.width, figure.height).data;
+
+  for (let y = SPACING / 2; y < 630; y += SPACING) {
+    for (let x = SPACING / 2; x < 1200; x += SPACING) {
+      const fx = Math.round(x - figure.left), fy = Math.round(y - figure.top);
+      const inFigure = fx >= 0 && fy >= 0 && fx < figure.width && fy < figure.height && mask[(fy * figure.width + fx) * 4 + 3] > 128;
+      ctx.beginPath();
+      ctx.arc(x, y, inFigure ? 2.4 : 1.1, 0, Math.PI * 2);
+      ctx.fillStyle = inFigure ? "#7B6EF6" : "#9896A8";
+      ctx.globalAlpha = inFigure ? 0.95 : 0.38;
+      ctx.fill();
+    }
+  }
+</script>
+</body>
+</html>
