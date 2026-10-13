@@ -624,7 +624,11 @@
     "ctaTitle": "Потрібна команда, яка працює так само?",
     "ctaDescription": "Ми проєктуємо, розробляємо й підтримуємо SaaS-продукти на React, Next.js і Go — для себе та для наших клієнтів.",
     "ctaButton": "Наші послуги",
-    "ctaSecondary": "Зв'язатися"
+    "ctaSecondary": "Зв'язатися",
+    "filterLabel": "Фільтр статей за тегом",
+    "filterAll": "Усі",
+    "resultCount": "{count, plural, one {# стаття} few {# статті} many {# статей} other {# статті}}",
+    "resultCountTagged": "{count, plural, one {# стаття з тегом {tag}} few {# статті з тегом {tag}} many {# статей з тегом {tag}} other {# статті з тегом {tag}}}"
   },
   "about": {
     "title": "Про Нас",

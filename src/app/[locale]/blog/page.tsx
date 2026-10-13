@@ -1,7 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Container, SectionHeading, RevealGroup, RevealItem } from "@/components/ui";
-import { BlogCard } from "@/components/blog/blog-card";
-import { getBlogPosts } from "@/lib/mdx";
+import { Container, SectionHeading, Reveal } from "@/components/ui";
+import { BlogFilter } from "@/components/blog/blog-filter";
+import { getAllBlogTags, getBlogPosts } from "@/lib/mdx";
 import { generatePageMetadata } from "@/lib/metadata";
 
 export async function generateMetadata({
@@ -38,13 +38,9 @@ export default async function BlogPage({
             {t("noPosts")}
           </p>
         ) : (
-          <RevealGroup className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {posts.map((post) => (
-              <RevealItem key={post.slug} className="grid">
-                <BlogCard post={post} />
-              </RevealItem>
-            ))}
-          </RevealGroup>
+          <Reveal>
+            <BlogFilter posts={posts} tags={getAllBlogTags(locale)} />
+          </Reveal>
         )}
       </Container>
     </section>

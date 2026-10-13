@@ -335,7 +335,11 @@
     "ctaTitle": "Need a team that builds like this?",
     "ctaDescription": "We design, build and run SaaS products with React, Next.js and Go, for ourselves and for our clients.",
     "ctaButton": "See our services",
-    "ctaSecondary": "Get in touch"
+    "ctaSecondary": "Get in touch",
+    "filterLabel": "Filter posts by tag",
+    "filterAll": "All",
+    "resultCount": "{count, plural, one {# post} other {# posts}}",
+    "resultCountTagged": "{count, plural, one {# post tagged {tag}} other {# posts tagged {tag}}}"
   },
   "about": {
     "title": "About Us",
