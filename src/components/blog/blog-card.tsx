@@ -36,11 +36,11 @@ export function BlogCard({ post, headingLevel: Heading = "h2" }: BlogCardProps) 
         </div>
         <Link
           href={`/blog/${post.slug}`}
-          className="stretched-link inline-flex items-center text-sm font-medium text-foreground transition-opacity hover:opacity-70"
+          className="stretched-link group inline-flex items-center text-sm font-medium text-foreground transition-opacity hover:opacity-70"
         >
           {t("readMore")}
           <svg
-            className="ml-1 h-4 w-4"
+            className="ml-1 h-4 w-4 transition-transform duration-[450ms] ease-spring group-hover:translate-x-0.5"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={2}

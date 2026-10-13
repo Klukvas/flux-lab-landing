@@ -91,11 +91,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
       <Link
         href={`/projects/${project.slug}`}
-        className="stretched-link mt-4 inline-flex items-center text-sm font-medium text-foreground transition-opacity hover:opacity-70"
+        className="stretched-link group mt-4 inline-flex items-center text-sm font-medium text-foreground transition-opacity hover:opacity-70"
       >
         {t("viewProject")}
         <svg
-          className="ml-1 h-4 w-4"
+          className="ml-1 h-4 w-4 transition-transform duration-[450ms] ease-spring group-hover:translate-x-0.5"
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth={2}

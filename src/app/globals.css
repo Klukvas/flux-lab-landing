@@ -237,6 +237,39 @@ html {
   }
 }
 
+/* Text that sits on the dot field needs calm ground under it. The ground is the page
+   color fading out around the element, so the dots recede instead of stopping at an edge. */
+@utility clearing {
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -1.5rem -4rem;
+    z-index: -1;
+    background: radial-gradient(ellipse at center, var(--background) 35%, transparent 72%);
+  }
+}
+
+/* The same ground with the hero's violet lift: a soft elevated patch the block sits on. */
+@utility clearing-tinted {
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -2.5rem -5rem;
+    z-index: -1;
+    background: radial-gradient(ellipse at center, var(--bg-elevated) 30%, transparent 72%);
+  }
+}
+
+/* The dot field fades in below the header, so the navigation never sits on dots. */
+@utility dot-layer {
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 6rem);
+  mask-image: linear-gradient(to bottom, transparent, black 6rem);
+}
+
 /* Extends a card's primary link over the whole card, so the card is one tap target. */
 @utility stretched-link {
   &::after {
@@ -246,17 +279,29 @@ html {
   }
 }
 
-/* A card whose primary link is stretched over it dips slightly while that link is
-   pressed, and wears the keyboard focus ring around the whole card. */
+/* A card whose primary link is stretched over it lifts a touch under the mouse, dips
+   slightly while that link is pressed, and wears the keyboard focus ring around the
+   whole card. */
 @utility card-pressable {
-  transition-property: border-color, scale;
-  transition-duration: 150ms, 450ms;
-  transition-timing-function: ease, var(--ease-spring);
+  transition-property: border-color, box-shadow, translate, scale;
+  transition-duration: 150ms, 450ms, 450ms, 450ms;
+  transition-timing-function: ease, var(--ease-spring), var(--ease-spring), var(--ease-spring);
+
+  @media (hover: hover) {
+    &:hover {
+      translate: 0 -2px;
+      box-shadow: 0 16px 32px -20px rgba(91, 79, 210, 0.45);
+    }
+
+    .dark &:hover {
+      box-shadow: 0 16px 32px -16px rgba(123, 110, 246, 0.35);
+    }
+  }
 
   &:has(.stretched-link:active) {
     scale: 0.98;
-    transition-duration: 150ms, 80ms;
-    transition-timing-function: ease, ease-out;
+    transition-duration: 150ms, 450ms, 450ms, 80ms;
+    transition-timing-function: ease, var(--ease-spring), var(--ease-spring), ease-out;
   }
 
   &:has(.stretched-link:focus-visible) {

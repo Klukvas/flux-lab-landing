@@ -1,23 +1,18 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { motion } from "framer-motion";
 import { Link } from "@/i18n/navigation";
 import { buttonStyles, Container } from "@/components/ui";
 import { STATS } from "@/lib/constants";
-import { formatNumber } from "@/lib/utils";
+import { TrustMetrics, type TrustMetric } from "./trust-metrics";
 
 export function Hero() {
   const t = useTranslations("home.hero");
 
-  const trustItems = [
-    { key: "users", value: formatNumber(STATS.users), label: t("trustUsers") },
-    {
-      key: "companies",
-      value: formatNumber(STATS.companies),
-      label: t("trustCompanies"),
-    },
-    { key: "years", value: `${STATS.experience}+`, label: t("trustYears") },
+  const trustMetrics: readonly TrustMetric[] = [
+    { key: "users", value: STATS.users, label: t("trustUsers") },
+    { key: "companies", value: STATS.companies, label: t("trustCompanies") },
+    { key: "years", value: STATS.experience, label: t("trustYears") },
   ];
 
   return (
@@ -44,7 +39,11 @@ export function Hero() {
               </Link>
               <Link
                 href="/contact"
-                className={buttonStyles({ variant: "outline", size: "lg" })}
+                className={buttonStyles({
+                  variant: "outline",
+                  size: "lg",
+                  className: "bg-background",
+                })}
               >
                 {t("secondaryCta")}
               </Link>
@@ -52,31 +51,11 @@ export function Hero() {
           </div>
 
           {/* Right — trust metrics */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="grid grid-cols-3 gap-4"
-          >
-            {trustItems.map((item) => (
-              <div
-                key={item.key}
-                className="rounded-xl border border-gray-200 bg-white p-5 text-center dark:border-gray-800 dark:bg-gray-950"
-              >
-                <div className="text-2xl font-bold text-brand sm:text-3xl">
-                  {item.value}
-                </div>
-                <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                  {item.label}
-                </div>
-              </div>
-            ))}
-          </motion.div>
+          <TrustMetrics metrics={trustMetrics} />
         </div>
       </Container>
 
-      {/* Grid background decoration */}
-      <div className="absolute inset-0 -z-10 grid-bg opacity-40" />
+      {/* The page-wide dot field sits behind; this adds the soft glow around the text. */}
       <div className="absolute inset-0 -z-10 glow" />
     </section>
   );
