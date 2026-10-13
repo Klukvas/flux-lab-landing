@@ -11,6 +11,7 @@ import { generatePageMetadata } from "@/lib/metadata";
 import { formatDate } from "@/lib/utils";
 import { locales } from "@/i18n/config";
 import { BlogContent } from "@/components/blog/blog-content";
+import { ReadingProgress } from "@/components/blog/reading-progress";
 import { PostFooter } from "@/components/blog/post-footer";
 import { ArticleJsonLd } from "@/components/seo/article-json-ld";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
@@ -77,7 +78,7 @@ export default async function BlogPostPage({
         <Container>
           <div className="mx-auto max-w-3xl">
             <header className="mb-12">
-              <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+              <div className="rise-in flex flex-wrap items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
                 <time dateTime={post.meta.date}>
                   {t("publishedOn")} {formatDate(post.meta.date, locale)}
                 </time>
@@ -88,20 +89,22 @@ export default async function BlogPostPage({
                 <span>·</span>
                 <span>{post.meta.author}</span>
               </div>
-              <h1 className="mt-4 text-4xl font-bold text-foreground sm:text-5xl">
+              <h1 className="rise-in mt-4 text-4xl font-bold text-foreground [--rise-delay:60ms] sm:text-5xl">
                 {post.meta.title}
               </h1>
-              <p className="mt-4 text-lg text-gray-500 dark:text-gray-400">
+              <p className="rise-in mt-4 text-lg text-gray-500 [--rise-delay:140ms] dark:text-gray-400">
                 {post.meta.description}
               </p>
-              <div className="mt-4 flex flex-wrap gap-2">
+              <div className="rise-in mt-4 flex flex-wrap gap-2 [--rise-delay:220ms]">
                 {post.meta.tags.map((tag) => (
                   <Badge key={tag}>{tag}</Badge>
                 ))}
               </div>
             </header>
 
-            <BlogContent content={post.content} />
+            <ReadingProgress>
+              <BlogContent content={post.content} />
+            </ReadingProgress>
             <PostFooter
               relatedPosts={getRelatedPosts(locale, slug, RELATED_POST_COUNT)}
             />
