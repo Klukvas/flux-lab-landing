@@ -1,5 +1,5 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Container, SectionHeading } from "@/components/ui";
+import { Container, SectionHeading, RevealGroup, RevealItem } from "@/components/ui";
 import { PositionCard } from "@/components/careers/position-card";
 import { getAllPositions } from "@/data/careers";
 import { generatePageMetadata } from "@/lib/metadata";
@@ -38,11 +38,13 @@ export default async function CareersPage({
             {t("noPositions")}
           </p>
         ) : (
-          <div className="grid gap-6 lg:grid-cols-2">
+          <RevealGroup className="grid gap-6 lg:grid-cols-2">
             {positions.map((position) => (
-              <PositionCard key={position.id} position={position} />
+              <RevealItem key={position.id} className="grid">
+                <PositionCard position={position} />
+              </RevealItem>
             ))}
-          </div>
+          </RevealGroup>
         )}
       </Container>
     </section>

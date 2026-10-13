@@ -1,5 +1,5 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Container, SectionHeading } from "@/components/ui";
+import { Container, SectionHeading, RevealGroup, RevealItem } from "@/components/ui";
 import { BlogCard } from "@/components/blog/blog-card";
 import { getBlogPosts } from "@/lib/mdx";
 import { generatePageMetadata } from "@/lib/metadata";
@@ -38,11 +38,13 @@ export default async function BlogPage({
             {t("noPosts")}
           </p>
         ) : (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <RevealGroup className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {posts.map((post) => (
-              <BlogCard key={post.slug} post={post} />
+              <RevealItem key={post.slug} className="grid">
+                <BlogCard post={post} />
+              </RevealItem>
             ))}
-          </div>
+          </RevealGroup>
         )}
       </Container>
     </section>

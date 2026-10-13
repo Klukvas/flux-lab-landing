@@ -1,5 +1,6 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Container, SectionHeading } from "@/components/ui";
+import { Container, SectionHeading, RevealGroup, RevealItem } from "@/components/ui";
+import { CtaPanel } from "@/components/layout/cta-panel";
 import { ServiceCard } from "@/components/services/service-card";
 import { ProcessTimeline } from "@/components/services/process-timeline";
 import { EngagementModels } from "@/components/services/engagement-models";
@@ -57,16 +58,19 @@ export default async function ServicesPage({
       <section className="py-24">
         <Container>
           <SectionHeading as="h1" title={t("title")} subtitle={t("subtitle")} />
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <RevealGroup className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {services.map((service) => (
-              <ServiceCard key={service.id} service={service} />
+              <RevealItem key={service.id} className="grid">
+                <ServiceCard service={service} />
+              </RevealItem>
             ))}
-          </div>
+          </RevealGroup>
         </Container>
       </section>
       <EngagementModels />
       <ProcessTimeline />
       <FAQ />
+      <CtaPanel />
     </>
   );
 }

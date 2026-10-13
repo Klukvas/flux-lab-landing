@@ -1,6 +1,12 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
-import { Container, buttonStyles, AnimatedSection } from "@/components/ui";
+import {
+  Container,
+  SectionHeading,
+  Reveal,
+  RevealGroup,
+  RevealItem,
+} from "@/components/ui";
+import { CtaPanel } from "@/components/layout/cta-panel";
 import { timelineEvents } from "@/data/team";
 import { STATS } from "@/lib/constants";
 import { generatePageMetadata } from "@/lib/metadata";
@@ -80,9 +86,9 @@ export default async function AboutPage({
 
             {/* Right — stats */}
             <div className="lg:col-span-2">
-              <div className="grid gap-4">
+              <RevealGroup className="grid gap-4">
                 {stats.map((stat) => (
-                  <div
+                  <RevealItem
                     key={stat.label}
                     className="flex items-center gap-4 rounded-xl border border-gray-200 bg-white px-6 py-4 dark:border-gray-800 dark:bg-gray-950"
                   >
@@ -92,111 +98,89 @@ export default async function AboutPage({
                     <span className="text-sm text-gray-500 dark:text-gray-400">
                       {stat.label}
                     </span>
-                  </div>
+                  </RevealItem>
                 ))}
-              </div>
+              </RevealGroup>
             </div>
           </div>
         </Container>
       </section>
 
       {/* How We Work — 2×2 bento */}
-      <AnimatedSection className="py-16">
-        <Container>
-          <p className="text-sm font-medium uppercase tracking-widest text-brand">
-            {t("values.title")}
-          </p>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2">
-            {values.map((value) => (
-              <div
-                key={value.title}
-                className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-8 transition-colors hover:border-brand/30 dark:border-gray-800 dark:bg-gray-950 dark:hover:border-brand/30"
-              >
-                <span className="absolute -right-4 -top-4 text-[80px] font-bold leading-none text-gray-100 dark:text-gray-900">
-                  {value.num}
-                </span>
-                <div className="relative">
-                  <h3 className="text-lg font-bold text-foreground">
-                    {value.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-gray-500 dark:text-gray-400">
-                    {value.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </Container>
-      </AnimatedSection>
-
-      {/* Track Record — horizontal cards */}
-      <AnimatedSection className="py-16">
-        <Container>
-          <p className="text-sm font-medium uppercase tracking-widest text-brand">
-            {t("timeline.title")}
-          </p>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {timelineEvents.map((event, idx) => (
-              <div
-                key={event.year}
-                className={`rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-gray-950 ${
-                  idx === timelineEvents.length - 1
-                    ? "border-brand/40 ring-1 ring-brand/20 dark:border-brand/40"
-                    : ""
-                }`}
-              >
-                <span className="inline-flex items-center rounded-full bg-brand/10 px-3 py-1 text-xs font-bold text-brand">
-                  {event.year}
-                </span>
-                <h3 className="mt-3 font-bold text-foreground">
-                  {t(event.titleKey)}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-gray-500 dark:text-gray-400">
-                  {t(event.descriptionKey)}
-                </p>
-              </div>
-            ))}
-          </div>
-        </Container>
-      </AnimatedSection>
-
-      {/* CTA */}
       <section className="py-16">
         <Container>
-          <div
-            className="relative overflow-hidden rounded-2xl border border-brand/20 px-8 py-14 text-center sm:px-16"
-            style={{ background: "#3D32A8" }}
-          >
-            {/* Glow decoration */}
-            <div
-              className="absolute -left-20 -top-20 h-60 w-60 rounded-full opacity-20 blur-3xl"
-              style={{ backgroundColor: "#7B6EF6" }}
-              aria-hidden="true"
+          <Reveal>
+            <SectionHeading
+              align="left"
+              className="mb-8"
+              eyebrow={`01 · ${t("values.eyebrow")}`}
+              title={t("values.title")}
             />
-            <div
-              className="absolute -bottom-20 -right-20 h-60 w-60 rounded-full opacity-10 blur-3xl"
-              style={{ backgroundColor: "#7B6EF6" }}
-              aria-hidden="true"
-            />
-            <div className="relative">
-              <h2 className="text-2xl font-bold text-white sm:text-3xl">
-                {t("cta.title")}
-              </h2>
-              <p className="mx-auto mt-3 max-w-lg text-white/90">
-                {t("cta.description")}
-              </p>
-              <div className="mt-8">
-                <Link
-                  href="/contact"
-                  className={buttonStyles({ variant: "inverted" })}
-                >
-                  {t("cta.button")}
-                </Link>
-              </div>
-            </div>
-          </div>
+          </Reveal>
+          <RevealGroup className="grid gap-4 sm:grid-cols-2">
+            {values.map((value) => (
+              <RevealItem key={value.title} className="grid">
+                <div className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-8 transition-colors hover:border-brand/30 dark:border-gray-800 dark:bg-gray-950 dark:hover:border-brand/30">
+                  <span className="absolute -right-4 -top-4 text-[80px] font-bold leading-none text-gray-100 dark:text-gray-900">
+                    {value.num}
+                  </span>
+                  <div className="relative">
+                    <h3 className="text-lg font-bold text-foreground">
+                      {value.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-gray-500 dark:text-gray-400">
+                      {value.description}
+                    </p>
+                  </div>
+                </div>
+              </RevealItem>
+            ))}
+          </RevealGroup>
         </Container>
       </section>
+
+      {/* Track Record — horizontal cards */}
+      <section className="py-16">
+        <Container>
+          <Reveal>
+            <SectionHeading
+              align="left"
+              className="mb-8"
+              eyebrow={`02 · ${t("timeline.eyebrow")}`}
+              title={t("timeline.title")}
+            />
+          </Reveal>
+          <RevealGroup className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {timelineEvents.map((event, idx) => (
+              <RevealItem key={event.year} className="grid">
+                <div
+                  className={`rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-gray-950 ${
+                    idx === timelineEvents.length - 1
+                      ? "border-brand/40 ring-1 ring-brand/20 dark:border-brand/40"
+                      : ""
+                  }`}
+                >
+                  <span className="inline-flex items-center rounded-full bg-brand/10 px-3 py-1 text-xs font-bold text-brand">
+                    {event.year}
+                  </span>
+                  <h3 className="mt-3 font-bold text-foreground">
+                    {t(event.titleKey)}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-gray-500 dark:text-gray-400">
+                    {t(event.descriptionKey)}
+                  </p>
+                </div>
+              </RevealItem>
+            ))}
+          </RevealGroup>
+        </Container>
+      </section>
+
+      <CtaPanel
+        title={t("cta.title")}
+        subtitle={t("cta.description")}
+        buttonLabel={t("cta.button")}
+      />
     </>
   );
 }

@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container, SectionHeading } from "@/components/ui";
+import { CtaPanel } from "@/components/layout/cta-panel";
 import {
   ProjectFilter,
   ProjectFilterView,
@@ -37,27 +38,30 @@ export default async function ProjectsPage({
   const t = await getTranslations("projects");
 
   return (
-    <section className="py-24">
-      <Container>
-        <SectionHeading as="h1" title={t("title")} subtitle={t("subtitle")} />
-        {/* The filter reads ?tag= from the URL, which static HTML can't know, so the
-            fallback prerenders the unfiltered view and the URL's tag applies on hydration. */}
-        <Suspense
-          fallback={
-            <>
-              <div className="mb-8">
-                <ProjectFilterView activeTag={null} />
-              </div>
-              <ProjectGridView activeTag={null} />
-            </>
-          }
-        >
-          <div className="mb-8">
-            <ProjectFilter />
-          </div>
-          <ProjectGrid />
-        </Suspense>
-      </Container>
-    </section>
+    <>
+      <section className="py-24">
+        <Container>
+          <SectionHeading as="h1" title={t("title")} subtitle={t("subtitle")} />
+          {/* The filter reads ?tag= from the URL, which static HTML can't know, so the
+              fallback prerenders the unfiltered view and the URL's tag applies on hydration. */}
+          <Suspense
+            fallback={
+              <>
+                <div className="mb-8">
+                  <ProjectFilterView activeTag={null} />
+                </div>
+                <ProjectGridView activeTag={null} />
+              </>
+            }
+          >
+            <div className="mb-8">
+              <ProjectFilter />
+            </div>
+            <ProjectGrid />
+          </Suspense>
+        </Container>
+      </section>
+      <CtaPanel />
+    </>
   );
 }

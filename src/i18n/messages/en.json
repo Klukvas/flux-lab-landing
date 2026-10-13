@@ -284,6 +284,7 @@
       "description": "End-to-end development of web and mobile applications"
     },
     "engagement": {
+      "eyebrow": "Ways to work",
       "title": "Engagement Models",
       "subtitle": "Flexible options to fit your needs",
       "dedicatedTeam": "Dedicated Team",
@@ -294,6 +295,7 @@
       "staffAugDesc": "Individual senior developers who plug into your existing team. Perfect for filling skill gaps fast."
     },
     "faq": {
+      "eyebrow": "Questions",
       "title": "Frequently Asked Questions",
       "q1": "What's a typical project timeline?",
       "a1": "Most projects take 4-12 weeks from kickoff to launch, depending on scope. We define milestones upfront so you always know where things stand.",
@@ -310,6 +312,7 @@
     "consultingFeatures": ["Architecture review", "Technology assessment", "Performance audit", "Security analysis"],
     "customFeatures": ["Full-stack development", "Mobile applications", "API development", "Cloud infrastructure"],
     "process": {
+      "eyebrow": "From idea to launch",
       "title": "Our Process",
       "step": "Step",
       "discovery": "Discovery",
@@ -354,6 +357,7 @@
       "years": "Years Building Together"
     },
     "values": {
+      "eyebrow": "Our principles",
       "title": "How We Work",
       "quality": "Ship in 8 Weeks",
       "qualityDesc": "Every product starts with a ruthlessly scoped MVP. Each goes from idea to paying customers in under two months.",
@@ -387,6 +391,7 @@
       }
     },
     "timeline": {
+      "eyebrow": "Milestones",
       "2021": {
         "title": "Team Formed",
         "description": "Four senior developers from enterprise backgrounds joined forces. Combined 20+ years of experience in React, Node.js, PostgreSQL, and cloud infrastructure."

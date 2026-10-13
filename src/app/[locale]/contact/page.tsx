@@ -1,5 +1,5 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Container, SectionHeading } from "@/components/ui";
+import { Container, SectionHeading, RevealGroup, RevealItem } from "@/components/ui";
 import { ContactForm } from "@/components/contact/contact-form";
 import { ContactInfo } from "@/components/contact/contact-info";
 import { generatePageMetadata } from "@/lib/metadata";
@@ -33,14 +33,14 @@ export default async function ContactPage({
     <section className="py-24">
       <Container>
         <SectionHeading as="h1" title={t("title")} subtitle={t("subtitle")} />
-        <div className="grid gap-12 lg:grid-cols-2">
-          <div>
+        <RevealGroup className="grid gap-12 lg:grid-cols-2" staggerSeconds={0.12}>
+          <RevealItem>
             <ContactForm />
-          </div>
-          <div>
+          </RevealItem>
+          <RevealItem>
             <ContactInfo />
-          </div>
-        </div>
+          </RevealItem>
+        </RevealGroup>
       </Container>
     </section>
   );
