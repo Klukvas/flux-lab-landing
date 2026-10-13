@@ -48,6 +48,10 @@ const POINTER_PULL = 24;
 const POINTER_ALPHA = 0.6;
 const POINTER_RADIUS_GROWTH_PX = 1.2;
 
+/** A dot that is part of a figure: fully lit in the accent color and visibly larger. */
+const FIGURE_ALPHA = 0.55;
+const FIGURE_RADIUS_GROWTH_PX = 1.1;
+
 /** Deterministic noise in [0, 1) from a grid position: the same page cell always gets the same jitter. */
 function gridNoise(column: number, row: number): number {
   const raw = Math.sin(column * 12.9898 + row * 78.233) * 43758.5453;
@@ -88,13 +92,15 @@ export function pointerInfluence(distance: number): number {
 /**
  * Where and how a dot is drawn this frame. Scrolling slides the rows up, and each cell
  * takes on the breathing phase of the page row it currently stands for, so the field
- * looks anchored to the page rather than to the window.
+ * looks anchored to the page rather than to the window. `figure` is how far the dot has
+ * risen into a figure drawn with the field, 0 for a plain field dot.
  */
 export function dotAt(
   dot: Dot,
   timeSeconds: number,
   pointer: Pointer,
   scrollY = 0,
+  figure = 0,
 ): DotFrame {
   const firstPageRow = Math.floor(scrollY / DOT_SPACING_PX);
   const y = dot.y - (scrollY - firstPageRow * DOT_SPACING_PX);
@@ -112,11 +118,19 @@ export function dotAt(
   return {
     x: dot.x + dx * lean,
     y: y + dy * lean,
-    radius: REST_RADIUS_PX + BREATH_RADIUS_PX * breath + POINTER_RADIUS_GROWTH_PX * pull,
+    radius:
+      REST_RADIUS_PX +
+      BREATH_RADIUS_PX * breath +
+      POINTER_RADIUS_GROWTH_PX * pull +
+      FIGURE_RADIUS_GROWTH_PX * figure,
     alpha: Math.min(
       1,
-      REST_ALPHA - BREATH_ALPHA / 2 + BREATH_ALPHA * breath + POINTER_ALPHA * pull,
+      REST_ALPHA -
+        BREATH_ALPHA / 2 +
+        BREATH_ALPHA * breath +
+        POINTER_ALPHA * pull +
+        FIGURE_ALPHA * figure,
     ),
-    accent: pull,
+    accent: Math.max(pull, figure),
   };
 }

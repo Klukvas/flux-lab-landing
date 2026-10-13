@@ -16,6 +16,8 @@ export type SocialNetwork = "github" | "linkedin" | "twitter";
 export const SOCIAL_LINKS: Readonly<Partial<Record<SocialNetwork, string>>> =
   {};
 
+export const FOUNDED_YEAR = 2023;
+
 export const STATS = {
   projects: 0,
   experience: 3,

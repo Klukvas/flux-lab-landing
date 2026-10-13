@@ -29,7 +29,7 @@ const sizeConfig = {
   },
 } as const;
 
-function LayersIcon({
+export function LayersIcon({
   width,
   height,
 }: {

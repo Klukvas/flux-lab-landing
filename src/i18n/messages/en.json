@@ -15,13 +15,17 @@
   "home": {
     "hero": {
       "eyebrow": "Software development studio · Kyiv, Ukraine",
-      "title": "46K+ Users. One Team.",
+      "titleLead": "46K+ Users.",
+      "titleWord1": "One Team.",
+      "titleWord2": "{count, plural, one {# Product.} other {# Products.}}",
+      "titleWord3": "Zero Hand-offs.",
       "subtitle": "A Kyiv product studio, not an agency. We run {count, plural, one {# SaaS product} other {# SaaS products}} of our own and build yours with the same team, the same stack and the same 8-week MVP playbook.",
       "cta": "View Our Work",
       "secondaryCta": "Get in Touch",
       "trustUsers": "Users on our products",
       "trustCompanies": "Companies on our products",
-      "trustProducts": "Products live"
+      "trustProducts": "Products live",
+      "trustSince": "Studio founded"
     },
     "featuredProjects": {
       "title": "Featured Projects",

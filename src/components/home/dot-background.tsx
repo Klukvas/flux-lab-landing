@@ -4,7 +4,14 @@ import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { createColorRamp, parseHexColor, type Rgb } from "@/lib/canvas-colors";
-import { createDotGrid, dotAt, type Dot } from "@/lib/dot-field";
+import { DOT_SPACING_PX, createDotGrid, dotAt, type Dot } from "@/lib/dot-field";
+import {
+  createFigureMask,
+  figureCellIndex,
+  figureProgress,
+  paintLayersMark,
+  type FigureMask,
+} from "@/lib/dot-figure";
 
 const MAX_PIXEL_RATIO = 2;
 const RAMP_STEPS = 32;
@@ -13,6 +20,10 @@ const FOLLOW_SECONDS = 0.12;
 const RELEASE_SECONDS = 0.35;
 /** Guards against a huge first step after the tab was hidden. */
 const MAX_FRAME_SECONDS = 0.1;
+/** The figure starts assembling a beat after the field appears, so it reads as drawn, not loaded. */
+const FIGURE_BIRTH_DELAY_MS = 400;
+/** The element whose box the figure fills; the hero places it. */
+const FIGURE_ANCHOR_SELECTOR = "[data-dot-figure]";
 
 const FALLBACK_REST: Rgb = [152, 150, 168];
 const FALLBACK_ACCENT: Rgb = [91, 79, 210];
@@ -36,6 +47,10 @@ interface Scene {
   mouse: { x: number; y: number; isOver: boolean };
   /** The pointer the dots respond to: trails the mouse and fades out after it leaves. */
   pointer: { x: number; y: number; strength: number };
+  /** The cells that light up as the logo mark, when the page has a place for it. */
+  figure: FigureMask | null;
+  /** When the figure began assembling, in performance.now() time. */
+  figureBornAt: number | null;
 }
 
 function drawScene(
@@ -47,9 +62,17 @@ function drawScene(
   height: number,
 ) {
   context.clearRect(0, 0, width, height);
+  const firstPageRow = Math.floor(scrollY / DOT_SPACING_PX);
+  const { figure } = scene;
+  const figureAge =
+    figure && scene.figureBornAt !== null
+      ? (performance.now() - scene.figureBornAt) / 1000
+      : 0;
   let currentFill = "";
   for (const dot of scene.dots) {
-    const frame = dotAt(dot, timeSeconds, scene.pointer, scrollY);
+    const cell = figure ? figureCellIndex(figure, dot.column, dot.row + firstPageRow) : -1;
+    const lit = cell >= 0 && figure ? figureProgress(figure, cell, figureAge) : 0;
+    const frame = dotAt(dot, timeSeconds, scene.pointer, scrollY, lit);
     const fill = scene.ramp[Math.round(frame.accent * (RAMP_STEPS - 1))];
     if (fill !== currentFill) {
       context.fillStyle = fill;
@@ -83,7 +106,10 @@ export function DotBackground() {
       ramp: readThemeRamp(),
       mouse: { x: 0, y: 0, isOver: false },
       pointer: { x: 0, y: 0, strength: 0 },
+      figure: null,
+      figureBornAt: null,
     };
+    const scratch = document.createElement("canvas");
     let hasDrawnOnce = false;
     let width = 0;
     let height = 0;
@@ -119,6 +145,25 @@ export function DotBackground() {
       frameId = requestAnimationFrame(frame);
     }
 
+    function measureFigure() {
+      const anchor = document.querySelector<HTMLElement>(FIGURE_ANCHOR_SELECTOR);
+      const bounds = anchor?.getBoundingClientRect();
+      if (!bounds || bounds.width === 0) {
+        scene.figure = null;
+        return;
+      }
+      const rect = {
+        left: bounds.left,
+        top: bounds.top + window.scrollY,
+        width: bounds.width,
+        height: bounds.height,
+      };
+      scene.figure = createFigureMask(rect, paintLayersMark, scratch);
+      if (scene.figure && scene.figureBornAt === null) {
+        scene.figureBornAt = performance.now() + FIGURE_BIRTH_DELAY_MS;
+      }
+    }
+
     function resize() {
       const bounds = canvas!.getBoundingClientRect();
       const pixelRatio = Math.min(window.devicePixelRatio || 1, MAX_PIXEL_RATIO);
@@ -128,6 +173,7 @@ export function DotBackground() {
       canvas!.height = Math.round(height * pixelRatio);
       context!.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
       scene.dots = createDotGrid(width, height);
+      measureFigure();
     }
 
     function onPointerMove(event: PointerEvent) {
@@ -146,6 +192,10 @@ export function DotBackground() {
 
     const resizeObserver = new ResizeObserver(resize);
     resizeObserver.observe(canvas);
+    // The figure's place moves whenever the page reflows above it, e.g. when fonts land.
+    resizeObserver.observe(document.body);
+    const anchor = document.querySelector(FIGURE_ANCHOR_SELECTOR);
+    if (anchor) resizeObserver.observe(anchor);
     const themeObserver = new MutationObserver(onThemeChange);
     themeObserver.observe(document.documentElement, {
       attributes: true,

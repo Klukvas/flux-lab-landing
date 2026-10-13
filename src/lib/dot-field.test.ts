@@ -104,6 +104,18 @@ describe("dotAt", () => {
     expect(frame.y).toBe(dot.y);
   });
 
+  it("lights a figure dot in the accent color, larger and brighter", () => {
+    const field = dotAt(dot, 0, AWAY);
+    const lit = dotAt(dot, 0, AWAY, 0, 1);
+    const half = dotAt(dot, 0, AWAY, 0, 0.5);
+
+    expect(lit.accent).toBe(1);
+    expect(lit.radius).toBeGreaterThan(field.radius);
+    expect(lit.alpha).toBeGreaterThan(field.alpha);
+    expect(half.accent).toBe(0.5);
+    expect(lit.x).toBe(dot.x);
+  });
+
   it("scales the pointer's effect by its strength", () => {
     const half = dotAt(dot, 0, { x: dot.x + 60, y: dot.y, strength: 0.5 });
     const full = dotAt(dot, 0, { x: dot.x + 60, y: dot.y, strength: 1 });

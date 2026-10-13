@@ -3,7 +3,9 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { buttonStyles, Container } from "@/components/ui";
-import { STATS } from "@/lib/constants";
+import { RotatingWords } from "@/components/ui/rotating-words";
+import { FOUNDED_YEAR, STATS } from "@/lib/constants";
+import { HeroFigure } from "./hero-figure";
 import { TrustMetrics, type TrustMetric } from "./trust-metrics";
 
 interface HeroProps {
@@ -14,10 +16,17 @@ interface HeroProps {
 export function Hero({ productCount }: HeroProps) {
   const t = useTranslations("home.hero");
 
+  const titleWords = [
+    t("titleWord1"),
+    t("titleWord2", { count: productCount }),
+    t("titleWord3"),
+  ];
+
   const trustMetrics: readonly TrustMetric[] = [
     { key: "users", value: STATS.users, label: t("trustUsers") },
     { key: "companies", value: STATS.companies, label: t("trustCompanies") },
     { key: "products", value: productCount, suffix: "", label: t("trustProducts") },
+    { key: "since", value: FOUNDED_YEAR, suffix: "", isStatic: true, label: t("trustSince") },
   ];
 
   return (
@@ -31,8 +40,9 @@ export function Hero({ productCount }: HeroProps) {
               <span className="rise-in block text-sm font-medium uppercase tracking-widest text-brand">
                 {t("eyebrow")}
               </span>{" "}
-              <span className="rise-in gradient-text mt-4 block text-4xl font-bold [--rise-delay:60ms] sm:text-5xl lg:text-6xl">
-                {t("title")}
+              <span className="rise-in mt-4 block text-4xl font-bold text-foreground [--rise-delay:60ms] sm:text-5xl lg:text-6xl">
+                {t("titleLead")}{" "}
+                <RotatingWords words={titleWords} className="gradient-text" />
               </span>
             </h1>
             <p className="rise-in mt-5 text-lg text-gray-500 [--rise-delay:140ms] dark:text-gray-400">
@@ -53,10 +63,11 @@ export function Hero({ productCount }: HeroProps) {
                 {t("secondaryCta")}
               </Link>
             </div>
+            <TrustMetrics metrics={trustMetrics} />
           </div>
 
-          {/* Right — trust metrics */}
-          <TrustMetrics metrics={trustMetrics} />
+          {/* Right — the logo mark, drawn by the dot field behind the page. */}
+          <HeroFigure />
         </div>
       </Container>
 
