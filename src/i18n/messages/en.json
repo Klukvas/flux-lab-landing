@@ -28,13 +28,13 @@
       "trustSince": "Studio founded"
     },
     "featuredProjects": {
-      "eyebrow": "Selected work",
-      "title": "Featured Projects",
-      "subtitle": "A selection of our recent work",
-      "viewAll": "View All Projects"
-    },
-    "products": {
-      "label": "The products we run"
+      "eyebrow": "Our products",
+      "title": "Products We Run",
+      "subtitle": "Eight SaaS products, built and operated by the same team that will build yours.",
+      "viewAll": "View All Projects",
+      "previous": "Previous products",
+      "next": "Next products",
+      "page": "Page {page} of {count}"
     },
     "logos": {
       "builtWith": "Built with",

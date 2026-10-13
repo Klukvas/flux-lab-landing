@@ -1,21 +1,15 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import {
-  Container,
-  SectionHeading,
-  Reveal,
-  RevealGroup,
-  RevealItem,
-  buttonStyles,
-} from "@/components/ui";
+import { Container, SectionHeading, Reveal, buttonStyles } from "@/components/ui";
 import { ProjectCard } from "@/components/projects/project-card";
-import { getFeaturedProjects } from "@/data/projects";
-import { ProductsMarquee } from "./products-marquee";
+import { CarouselSlide, ProjectCarousel } from "@/components/projects/project-carousel";
+import { getAllProjects, getFeaturedProjects } from "@/data/projects";
 
+/** Every product the studio runs, featured ones first, as a row the visitor flips through. */
 export async function FeaturedProjects() {
   const t = await getTranslations("home.featuredProjects");
-  const tProducts = await getTranslations("home.products");
   const featured = getFeaturedProjects();
+  const rest = getAllProjects().filter((project) => !project.featured);
 
   return (
     <section className="py-16 sm:py-20">
@@ -28,20 +22,15 @@ export async function FeaturedProjects() {
             subtitle={t("subtitle")}
           />
         </Reveal>
-        <RevealGroup className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {featured.map((project) => (
-            <RevealItem key={project.slug} className="grid">
-              <ProjectCard project={project} />
-            </RevealItem>
-          ))}
-        </RevealGroup>
-        {/* Three cards in depth, then every product in breadth. */}
-        <div className="mt-12">
-          <h3 className="clearing mb-5 text-center font-mono text-xs font-medium uppercase tracking-widest text-gray-500 dark:text-gray-400">
-            {tProducts("label")}
-          </h3>
-          <ProductsMarquee />
-        </div>
+        <Reveal>
+          <ProjectCarousel>
+            {[...featured, ...rest].map((project) => (
+              <CarouselSlide key={project.slug}>
+                <ProjectCard project={project} />
+              </CarouselSlide>
+            ))}
+          </ProjectCarousel>
+        </Reveal>
         <div className="mt-10 text-center">
           <Link
             href="/projects"
