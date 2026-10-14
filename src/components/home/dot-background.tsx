@@ -10,9 +10,10 @@ import {
   createFigureMask,
   createMatrixMask,
   figureCellIndex,
+  figureLinks,
   figureProgress,
-  isInsideFigure,
   paintLayersMark,
+  type FigureLink,
   type FigureMask,
 } from "@/lib/dot-figure";
 
@@ -25,8 +26,10 @@ const RELEASE_SECONDS = 0.35;
 const MAX_FRAME_SECONDS = 0.1;
 /** The figure starts assembling a beat after the field appears, so it reads as drawn, not loaded. */
 const FIGURE_BIRTH_DELAY_MS = 400;
-/** Unlit dots inside a text figure's box fade to this share, so the letters stand out. */
-const TEXT_GROUND_ALPHA = 0.3;
+/** The letters' strokes and the glow around them, in canvas pixels at 1x. */
+const STROKE_WIDTH_PX = 1.25;
+const STROKE_ALPHA = 0.3;
+const GLOW_BLUR_PX = 10;
 /** The element whose box the figure fills; the hero places it. */
 const FIGURE_ANCHOR_SELECTOR = "[data-dot-figure]";
 
@@ -54,6 +57,8 @@ interface Scene {
   pointer: { x: number; y: number; strength: number };
   /** The cells that light up as the logo mark, when the page has a place for it. */
   figure: FigureMask | null;
+  /** The strokes joining a text figure's dots; empty for the logo mark. */
+  links: readonly FigureLink[];
   /** Text figures quiet the field around their letters; the logo mark does not need it. */
   figureIsText: boolean;
   /** When the figure began assembling, in performance.now() time. */
@@ -75,23 +80,56 @@ function drawScene(
     figure && scene.figureBornAt !== null
       ? (performance.now() - scene.figureBornAt) / 1000
       : 0;
+  // Where each lit figure cell is drawn this frame, so the strokes follow the dots' lean.
+  const placed = new Map<number, { x: number; y: number; lit: number }>();
   let currentFill = "";
   for (const dot of scene.dots) {
     const cell = figure ? figureCellIndex(figure, dot.column, dot.row + firstPageRow) : -1;
     const lit = cell >= 0 && figure ? figureProgress(figure, cell, figureAge) : 0;
     const frame = dotAt(dot, timeSeconds, scene.pointer, scrollY, lit);
-    const isQuietGround =
-      scene.figureIsText && cell < 0 && figure !== null && isInsideFigure(figure, dot.column, dot.row + firstPageRow);
+    if (cell >= 0 && lit > 0) placed.set(cell, { x: frame.x, y: frame.y, lit });
     const fill = scene.ramp[Math.round(frame.accent * (RAMP_STEPS - 1))];
     if (fill !== currentFill) {
       context.fillStyle = fill;
       currentFill = fill;
     }
-    context.globalAlpha = isQuietGround ? frame.alpha * TEXT_GROUND_ALPHA : frame.alpha;
+    context.globalAlpha = frame.alpha;
     context.beginPath();
     context.arc(frame.x, frame.y, frame.radius, 0, 2 * Math.PI);
     context.fill();
   }
+  drawStrokes(context, scene, placed);
+}
+
+/**
+ * Joins the lit dots into letter strokes with a soft glow. A stroke appears once both its
+ * dots have lit, so the lines draw in behind the typing. One path and one shadow per frame
+ * keeps the glow cheap however many strokes there are.
+ */
+function drawStrokes(
+  context: CanvasRenderingContext2D,
+  scene: Scene,
+  placed: ReadonlyMap<number, { x: number; y: number; lit: number }>,
+) {
+  if (scene.links.length === 0 || placed.size === 0) return;
+  const accent = scene.ramp[RAMP_STEPS - 1];
+  context.save();
+  context.strokeStyle = accent;
+  context.lineWidth = STROKE_WIDTH_PX;
+  context.lineCap = "round";
+  context.shadowColor = accent;
+  context.shadowBlur = GLOW_BLUR_PX;
+  context.globalAlpha = STROKE_ALPHA;
+  context.beginPath();
+  for (const { from, to } of scene.links) {
+    const start = placed.get(from);
+    const end = placed.get(to);
+    if (!start || !end || start.lit < 1 || end.lit < 1) continue;
+    context.moveTo(start.x, start.y);
+    context.lineTo(end.x, end.y);
+  }
+  context.stroke();
+  context.restore();
 }
 
 /**
@@ -116,6 +154,7 @@ export function DotBackground() {
       mouse: { x: 0, y: 0, isOver: false },
       pointer: { x: 0, y: 0, strength: 0 },
       figure: null,
+      links: [],
       figureIsText: false,
       figureBornAt: null,
     };
@@ -156,7 +195,10 @@ export function DotBackground() {
     }
 
     function measureFigure() {
-      const anchor = document.querySelector<HTMLElement>(FIGURE_ANCHOR_SELECTOR);
+      // The hero may hold one box per layout; only the displayed one has a size.
+      const anchor = [...document.querySelectorAll<HTMLElement>(FIGURE_ANCHOR_SELECTOR)].find(
+        (element) => element.getBoundingClientRect().width > 0,
+      );
       const bounds = anchor?.getBoundingClientRect();
       if (!bounds || bounds.width === 0) {
         scene.figure = null;
@@ -173,8 +215,9 @@ export function DotBackground() {
       scene.figureIsText = anchor!.dataset.dotFigure === "text" && Boolean(lines);
       scene.figure =
         anchor!.dataset.dotFigure === "text" && lines
-          ? createMatrixMask(rect, layoutDotText(lines.split("|")))
+          ? createMatrixMask(rect, layoutDotText(lines.split("|"), Number(anchor!.dataset.dotLineGap ?? 2)))
           : createFigureMask(rect, paintLayersMark, scratch);
+      scene.links = scene.figureIsText && scene.figure ? figureLinks(scene.figure) : [];
       if (scene.figure && scene.figureBornAt === null) {
         scene.figureBornAt = performance.now() + FIGURE_BIRTH_DELAY_MS;
       }
@@ -210,8 +253,7 @@ export function DotBackground() {
     resizeObserver.observe(canvas);
     // The figure's place moves whenever the page reflows above it, e.g. when fonts land.
     resizeObserver.observe(document.body);
-    const anchor = document.querySelector(FIGURE_ANCHOR_SELECTOR);
-    if (anchor) resizeObserver.observe(anchor);
+    document.querySelectorAll(FIGURE_ANCHOR_SELECTOR).forEach((anchor) => resizeObserver.observe(anchor));
     const themeObserver = new MutationObserver(onThemeChange);
     themeObserver.observe(document.documentElement, {
       attributes: true,

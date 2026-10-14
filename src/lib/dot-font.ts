@@ -67,14 +67,14 @@ function layoutLine(line: string): boolean[][] {
   return columns;
 }
 
-/** Lays the lines out centered under one another, LINE_GAP empty rows apart. */
-export function layoutDotText(lines: readonly string[]): DotBitmap {
+/** Lays the lines out centered under one another, `lineGap` empty rows apart. */
+export function layoutDotText(lines: readonly string[], lineGap = LINE_GAP): DotBitmap {
   const laidOut = lines.map(layoutLine);
   const columns = Math.max(0, ...laidOut.map((line) => line.length));
-  const rows = lines.length * GLYPH_ROWS + Math.max(0, lines.length - 1) * LINE_GAP;
+  const rows = lines.length * GLYPH_ROWS + Math.max(0, lines.length - 1) * lineGap;
   const cells = Array.from({ length: rows }, () => Array<boolean>(columns).fill(false));
   laidOut.forEach((line, lineIndex) => {
-    const top = lineIndex * (GLYPH_ROWS + LINE_GAP);
+    const top = lineIndex * (GLYPH_ROWS + lineGap);
     const left = Math.floor((columns - line.length) / 2);
     line.forEach((column, x) => {
       column.forEach((isLit, y) => {

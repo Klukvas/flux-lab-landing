@@ -134,11 +134,90 @@ export function createMatrixMask(rect: PageRect, bitmap: DotBitmap): FigureMask 
   return { firstColumn, firstRow, columns: bitmap.columns, rows: bitmap.rows, cells, delays, dotCount };
 }
 
-/** True for any page cell inside the figure's box, lit or not. */
-export function isInsideFigure(mask: FigureMask, column: number, pageRow: number): boolean {
-  const localColumn = column - mask.firstColumn;
-  const localRow = pageRow - mask.firstRow;
-  return localColumn >= 0 && localColumn < mask.columns && localRow >= 0 && localRow < mask.rows;
+export interface FigureLink {
+  readonly from: number;
+  readonly to: number;
+}
+
+/**
+ * The strokes of a dot-matrix figure: each lit cell joins its lit neighbour to the right
+ * and below, and diagonally only where no straight path already joins the two, so a W or
+ * a Z gets its slant while an E's corners stay square instead of growing a cross.
+ *
+ * A slant that stops one cell short of a stem is then carried into it: the diagonal
+ * reaches the stem's corner and the short horizontal stub it replaces is dropped, so an N
+ * or an M reads as stems joined by one clean diagonal rather than a zigzag.
+ */
+export function figureLinks(mask: FigureMask): readonly FigureLink[] {
+  const { columns, rows, cells } = mask;
+  const isLit = (x: number, y: number) =>
+    x >= 0 && x < columns && y >= 0 && y < rows && cells[y * columns + x] === 1;
+  const at = (x: number, y: number) => y * columns + x;
+  const key = (a: number, b: number) => (a < b ? `${a}-${b}` : `${b}-${a}`);
+
+  const straight = new Map<string, FigureLink>();
+  const diagonals: { x: number; y: number; dx: number }[] = [];
+  for (let y = 0; y < rows; y += 1) {
+    for (let x = 0; x < columns; x += 1) {
+      if (!isLit(x, y)) continue;
+      if (isLit(x + 1, y)) straight.set(key(at(x, y), at(x + 1, y)), { from: at(x, y), to: at(x + 1, y) });
+      if (isLit(x, y + 1)) straight.set(key(at(x, y), at(x, y + 1)), { from: at(x, y), to: at(x, y + 1) });
+      for (const dx of [1, -1]) {
+        const isBridged = isLit(x + dx, y) || isLit(x, y + 1);
+        if (isLit(x + dx, y + 1) && !isBridged) diagonals.push({ x, y, dx });
+      }
+    }
+  }
+
+  const slants = new Map<string, FigureLink>();
+  const hasSlant = (x: number, y: number, dx: number) =>
+    diagonals.some((d) => d.x === x && d.y === y && d.dx === dx);
+  // Where two opposite slants meet (a K's arms), the cell is a junction and keeps its stub.
+  const isJunction = (x: number, y: number, dx: number) =>
+    diagonals.some(
+      (d) => d.dx === -dx && ((d.x === x && d.y === y) || (d.x + d.dx === x && d.y + 1 === y)),
+    );
+  for (const { x, y, dx } of diagonals) {
+    slants.set(key(at(x, y), at(x + dx, y + 1)), { from: at(x, y), to: at(x + dx, y + 1) });
+    // The run's first cell: reach back to a stem corner above it.
+    if (!hasSlant(x - dx, y - 1, dx) && !isJunction(x, y, dx) && isLit(x - dx, y - 1) && isLit(x - dx, y)) {
+      slants.set(key(at(x - dx, y - 1), at(x, y)), { from: at(x - dx, y - 1), to: at(x, y) });
+      straight.delete(key(at(x - dx, y), at(x, y)));
+    }
+    // The run's last cell: reach on to a stem corner below it.
+    const endX = x + dx;
+    const endY = y + 1;
+    if (!hasSlant(endX, endY, dx) && !isJunction(endX, endY, dx) && isLit(endX + dx, endY + 1) && isLit(endX + dx, endY)) {
+      slants.set(key(at(endX, endY), at(endX + dx, endY + 1)), { from: at(endX, endY), to: at(endX + dx, endY + 1) });
+      straight.delete(key(at(endX, endY), at(endX + dx, endY)));
+    }
+  }
+
+  return [...straight.values(), ...slants.values()].sort((a, b) => a.from - b.from || a.to - b.to);
+}
+
+/** A segment between two bitmap cells, as [x, y] column and row pairs. */
+export type BitmapStroke = readonly [readonly [number, number], readonly [number, number]];
+
+/**
+ * The same strokes figureLinks draws on the page, for a bitmap drawn on its own (the
+ * phone layout and the reduced-motion drawing), so every rendering of a letter matches.
+ */
+export function bitmapStrokes(bitmap: DotBitmap): readonly BitmapStroke[] {
+  const { columns, rows } = bitmap;
+  const cells = new Uint8Array(columns * rows);
+  bitmap.cells.forEach((row, y) => row.forEach((lit, x) => { if (lit) cells[y * columns + x] = 1; }));
+  const mask: FigureMask = {
+    firstColumn: 0,
+    firstRow: 0,
+    columns,
+    rows,
+    cells,
+    delays: new Float32Array(columns * rows),
+    dotCount: cells.reduce((sum, cell) => sum + cell, 0),
+  };
+  const cellOf = (index: number): [number, number] => [index % columns, Math.floor(index / columns)];
+  return figureLinks(mask).map(({ from, to }) => [cellOf(from), cellOf(to)] as const);
 }
 
 /** The cell's index in the mask, or -1 when the page cell is not part of the figure. */

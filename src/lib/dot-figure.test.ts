@@ -4,7 +4,9 @@ import {
   FIGURE_RISE_SECONDS,
   createFigureMask,
   createMatrixMask,
+  bitmapStrokes,
   figureCellIndex,
+  figureLinks,
   figureProgress,
   type FigureMask,
   type ShapePainter,
@@ -93,6 +95,58 @@ describe("createMatrixMask", () => {
 
   it("gives up when the rect cannot hold the bitmap", () => {
     expect(createMatrixMask({ left: 0, top: 0, width: 48, height: 48 }, bitmap)).toBeNull();
+  });
+});
+
+describe("figureLinks", () => {
+  const maskOf = (pattern: readonly string[]) =>
+    createMatrixMask(
+      { left: 0, top: 0, width: pattern[0].length * DOT_SPACING_PX, height: pattern.length * DOT_SPACING_PX },
+      { columns: pattern[0].length, rows: pattern.length, cells: pattern.map((row) => [...row].map((c) => c === "#")) },
+    ) as FigureMask;
+
+  it("joins straight neighbours", () => {
+    expect(figureLinks(maskOf(["##", "#."]))).toEqual([
+      { from: 0, to: 1 },
+      { from: 0, to: 2 },
+    ]);
+  });
+
+  it("carries a slant into the stems instead of leaving horizontal stubs", () => {
+    // An N: the diagonal must start at the left stem's corner and end in the right stem.
+    const n = maskOf(["#...#", "#...#", "##..#", "#.#.#", "#..##", "#...#", "#...#"]);
+    const links = figureLinks(n).map(({ from, to }) => `${from}-${to}`);
+
+    expect(links).toContain(`${1 * 5 + 0}-${2 * 5 + 1}`);
+    expect(links).toContain(`${4 * 5 + 3}-${5 * 5 + 4}`);
+    expect(links).not.toContain(`${2 * 5 + 0}-${2 * 5 + 1}`);
+    expect(links).not.toContain(`${4 * 5 + 3}-${4 * 5 + 4}`);
+  });
+
+  it("leaves a K's junction alone so its arms do not cross", () => {
+    const k = maskOf(["#...#", "#..#.", "#.#..", "##...", "#.#..", "#..#.", "#...#"]);
+    const links = figureLinks(k).map(({ from, to }) => `${from}-${to}`);
+
+    expect(links).toContain(`${3 * 5 + 0}-${3 * 5 + 1}`);
+    expect(links).not.toContain(`${2 * 5 + 0}-${3 * 5 + 1}`);
+    expect(links).not.toContain(`${3 * 5 + 1}-${4 * 5 + 0}`);
+  });
+
+  it("joins a diagonal only when no straight path does", () => {
+    expect(figureLinks(maskOf(["#.", ".#"]))).toEqual([{ from: 0, to: 3 }]);
+    expect(figureLinks(maskOf([".#", "#."]))).toEqual([{ from: 1, to: 2 }]);
+    expect(figureLinks(maskOf(["##", ".#"]))).toEqual([
+      { from: 0, to: 1 },
+      { from: 1, to: 3 },
+    ]);
+  });
+});
+
+describe("bitmapStrokes", () => {
+  it("draws a bitmap's strokes with the same rules as the page", () => {
+    const bitmap = { columns: 2, rows: 2, cells: [[true, false], [false, true]] };
+
+    expect(bitmapStrokes(bitmap)).toEqual([[[0, 0], [1, 1]]]);
   });
 });
 

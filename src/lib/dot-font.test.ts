@@ -29,6 +29,10 @@ describe("layoutDotText", () => {
     expect(bitmap.rows).toBe(25);
   });
 
+  it("packs lines closer with a smaller line gap", () => {
+    expect(layoutDotText(["WE CAN", "MAKE IT", "HAPPEN"], 1).rows).toBe(23);
+  });
+
   it("skips characters it has no glyph for", () => {
     expect(layoutDotText(["A?"]).columns).toBe(5 + 1);
   });

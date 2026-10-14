@@ -30,10 +30,13 @@ export function Hero({ productCount }: HeroProps) {
   ];
 
   return (
-    <section className="relative overflow-hidden py-14 sm:py-20">
+    <section className="relative overflow-hidden py-14 sm:py-20 [@media(min-width:1024px)_and_(max-height:820px)]:pt-6">
       <Container>
-        <HeroPhrase />
-        <div className="grid items-end gap-12 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-16">
+        <HeroPhrase nextId="hero-pitch" scrollLabel={t("scrollCue")} />
+        <div
+          id="hero-pitch"
+          className="grid scroll-mt-24 items-end gap-12 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-16 lg:pt-12"
+        >
           {/* Left — text. Rises in with CSS from the first paint: the heading is the
               largest paint, and a Motion fade would hold it back until hydration. */}
           <div>
