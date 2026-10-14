@@ -27,6 +27,21 @@ export function SupportForm({ status, errors, onSubmit }: SupportFormProps) {
     <form onSubmit={onSubmit} className="space-y-3">
       <div className="space-y-1">
         <input
+          id="support-email"
+          name="email"
+          type="email"
+          autoComplete="email"
+          placeholder={t("email")}
+          aria-label={t("email")}
+          required
+          className={FIELD_CLASS}
+        />
+        {errors.email && (
+          <p className="text-xs text-red-500">{errors.email}</p>
+        )}
+      </div>
+      <div className="space-y-1">
+        <input
           id="support-subject"
           name="subject"
           placeholder={t("subject")}

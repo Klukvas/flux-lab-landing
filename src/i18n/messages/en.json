@@ -521,6 +521,7 @@
   },
   "support": {
     "title": "How can we help?",
+    "email": "Your email",
     "subject": "Subject",
     "message": "Describe your issue...",
     "submit": "Send",

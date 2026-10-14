@@ -137,12 +137,14 @@ function formatSourceLines(source: SubmissionSource): string[] {
 }
 
 export function formatSupportMessage(data: {
+  email: string;
   subject: string;
   message: string;
 }): string {
   return [
     `${SITE_TAG} Support Request`,
     "",
+    `<b>Email:</b> ${escapeTelegramHtml(data.email)}`,
     `<b>Subject:</b> ${escapeTelegramHtml(data.subject)}`,
     `<b>Message:</b>\n${escapeTelegramHtml(data.message)}`,
   ].join("\n");

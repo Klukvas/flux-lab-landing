@@ -44,6 +44,7 @@ export function validateResumeFile(
 }
 
 export const supportFormSchema = z.object({
+  email: z.email("Please enter a valid email address"),
   subject: z.string().min(3, "Subject must be at least 3 characters").max(200),
   message: z
     .string()
