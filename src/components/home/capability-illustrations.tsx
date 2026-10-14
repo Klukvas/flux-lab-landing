@@ -92,11 +92,13 @@ function EngineeringScene() {
 }
 
 function PlatformScene() {
-  const text = { fill: "currentColor", fontFamily: "ui-monospace, Menlo, monospace", fontSize: 11 } as const;
+  const text = { fill: "currentColor", fontFamily: "ui-monospace, Menlo, monospace", fontSize: 11, textAnchor: "middle" } as const;
+  // The cloud is only ~120 units wide, so its label takes two short lines centred on it.
   return (
     <>
       <motion.path variants={strokeVariants} custom={0} d="M110 96a26 26 0 01-4-51.7A40 40 0 01183 42a23 23 0 01-3 54H110z" {...STROKE_PROPS} />
-      <motion.text variants={labelVariants} custom={1} x="120" y="76" {...text}>CI/CD · deploy ok</motion.text>
+      <motion.text variants={labelVariants} custom={1} x="145" y="66" {...text}>CI/CD</motion.text>
+      <motion.text variants={labelVariants} custom={1} x="145" y="82" {...text} opacity={0.6}>deploy ok</motion.text>
       <motion.path variants={strokeVariants} custom={2} d="M145 96v36" {...STROKE_PROPS} opacity={0.6} />
       {[0, 1, 2].map((row) => (
         <motion.g key={row}>
@@ -107,8 +109,8 @@ function PlatformScene() {
       ))}
       <motion.path variants={strokeVariants} custom={6} d="M300 128l40 16v30c0 24-16 42-40 50-24-8-40-26-40-50v-30z" {...STROKE_PROPS} />
       <motion.path variants={strokeVariants} custom={7} d="M286 176l10 10 18-20" {...STROKE_PROPS} />
-      <motion.path variants={strokeVariants} custom={8} d="M40 318h40l12-20 14 40 14-50 12 30h20l10-16 12 16h186" {...STROKE_PROPS} />
-      <motion.text variants={labelVariants} custom={9} x="40" y="346" {...text} opacity={0.6}>uptime · alerts · on-call</motion.text>
+      <motion.path variants={strokeVariants} custom={8} d="M40 300h40l12-20 14 40 14-50 12 30h20l10-16 12 16h186" {...STROKE_PROPS} />
+      <motion.text variants={labelVariants} custom={9} x="200" y="338" {...text} opacity={0.6}>uptime · alerts · on-call</motion.text>
     </>
   );
 }
