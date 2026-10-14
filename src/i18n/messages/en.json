@@ -268,7 +268,9 @@
     },
     "results": "{count, plural, one {# project} other {# projects}}",
     "resultsTagged": "{count, plural, one {# project} other {# projects}} tagged {tag}",
-    "onThisPage": "On this page"
+    "onThisPage": "On this page",
+    "openScreenshot": "Open full-size screenshot: {title}",
+    "closeScreenshot": "Close screenshot"
   },
   "services": {
     "title": "Software Development Services",

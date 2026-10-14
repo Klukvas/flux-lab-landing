@@ -1,7 +1,7 @@
-import Image from "next/image";
 import type { ProjectScreenshot } from "@/types";
 import { Container, Reveal, SectionHeading } from "@/components/ui";
 import { CarouselSlide, ProjectCarousel } from "./project-carousel";
+import { ScreenshotZoom } from "./screenshot-zoom";
 
 interface ProjectShowcaseProps {
   readonly screenshots: readonly ProjectScreenshot[];
@@ -65,16 +65,11 @@ export function ProjectShowcase({
                           <span className="truncate">{displayUrl}</span>
                         </div>
                       </div>
-                      <div className="relative aspect-[2/1] w-full">
-                        <Image
-                          src={item.src}
-                          alt={item.title}
-                          fill
-                          className="object-cover object-top"
-                          sizes="(max-width: 768px) 100vw, 60vw"
-                          priority={idx === 0}
-                        />
-                      </div>
+                      <ScreenshotZoom
+                        src={item.src}
+                        alt={item.title}
+                        isPriority={idx === 0}
+                      />
                     </div>
                   </div>
 

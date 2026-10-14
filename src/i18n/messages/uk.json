@@ -558,7 +558,9 @@
     },
     "results": "{count, plural, one {# проєкт} few {# проєкти} many {# проєктів} other {# проєкту}}",
     "resultsTagged": "{count, plural, one {# проєкт} few {# проєкти} many {# проєктів} other {# проєкту}} з тегом {tag}",
-    "onThisPage": "На цій сторінці"
+    "onThisPage": "На цій сторінці",
+    "openScreenshot": "Відкрити скриншот у повному розмірі: {title}",
+    "closeScreenshot": "Закрити скриншот"
   },
   "services": {
     "title": "Послуги з розробки ПЗ",
