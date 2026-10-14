@@ -1,4 +1,4 @@
-import type { Project } from "@/types";
+import type { Project, ProjectStatus } from "@/types";
 
 export const projects: readonly Project[] = [
   {
@@ -945,17 +945,37 @@ export const projects: readonly Project[] = [
   },
 ] as const;
 
+// Live products lead, and within a status the most-used ones come first, so every list
+// opens with the strongest work rather than with whatever was written up first.
+const STATUS_RANK: Readonly<Record<ProjectStatus, number>> = {
+  active: 0,
+  beta: 1,
+  "coming-soon": 2,
+  archived: 3,
+};
+
+function compareByShowcaseOrder(a: Project, b: Project): number {
+  return (
+    STATUS_RANK[a.status] - STATUS_RANK[b.status] ||
+    (b.stats?.users ?? 0) - (a.stats?.users ?? 0)
+  );
+}
+
+const projectsInShowcaseOrder: readonly Project[] = [...projects].sort(
+  compareByShowcaseOrder,
+);
+
 export function getAllProjects(): readonly Project[] {
-  return projects;
+  return projectsInShowcaseOrder;
 }
 
 export function getFeaturedProjects(): readonly Project[] {
-  return projects.filter((p) => p.featured);
+  return projectsInShowcaseOrder.filter((p) => p.featured);
 }
 
 /** The products the studio runs today: everything the portfolio has not archived. */
 export function getLiveProjects(): readonly Project[] {
-  return projects.filter((p) => p.status !== "archived");
+  return projectsInShowcaseOrder.filter((p) => p.status !== "archived");
 }
 
 export function getProjectBySlug(slug: string): Project | undefined {
@@ -967,7 +987,7 @@ export function getProjectSlugs(): readonly string[] {
 }
 
 export function getProjectsByTag(tag: string): readonly Project[] {
-  return projects.filter((p) => p.tags.includes(tag));
+  return projectsInShowcaseOrder.filter((p) => p.tags.includes(tag));
 }
 
 export function getAllTags(): readonly string[] {
