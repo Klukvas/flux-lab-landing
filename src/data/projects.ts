@@ -710,7 +710,7 @@ export const projects: readonly Project[] = [
       {
         title: "Lead Capture",
         description:
-          "Call, message and test-drive requests with rate limiting and spam protection, collected in the admin panel with optional email alerts",
+          "Call, message and test-drive requests with rate limiting and spam protection, collected in the admin panel, with optional alerts to the managers' Telegram chat",
         icon: "",
       },
     ],
@@ -723,7 +723,6 @@ export const projects: readonly Project[] = [
     integrations: [
       "Telegram Bot API",
       "S3-compatible storage",
-      "SMTP",
       "Simple Icons",
       "GitHub Actions",
       "Caddy",
@@ -793,7 +792,7 @@ export const projects: readonly Project[] = [
         src: "/images/projects/autoflow_06_lead_form.png",
         title: "Lead Form",
         description:
-          "The contacts page combines showroom details and opening hours with a request form. Every request lands in the admin panel, and managers can also get it by email.",
+          "The contacts page combines showroom details and opening hours with a request form. Every request lands in the admin panel, and managers can also get it in their Telegram chat.",
         features: [
           "Call, message or test-drive request types",
           "Ukrainian phone format hint and validation",
