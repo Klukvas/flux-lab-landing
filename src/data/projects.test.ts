@@ -1,4 +1,7 @@
+import { existsSync } from "node:fs";
+import path from "node:path";
 import { describe, expect, it } from "vitest";
+import uk from "@/i18n/messages/uk.json";
 import {
   getAllProjects,
   getFeaturedProjects,
@@ -44,5 +47,39 @@ describe("project order", () => {
       .map((p) => p.slug);
 
     expect(tagged).toEqual(expected);
+  });
+});
+
+describe("design concepts", () => {
+  const withDesigns = getAllProjects().filter((p) => p.designs);
+  const ukProjects: Record<string, unknown> = uk.projects;
+
+  it("gives every design a name, a description and an image that ships in public/", () => {
+    expect(withDesigns.length).toBeGreaterThan(0);
+    for (const project of withDesigns) {
+      for (const design of project.designs?.items ?? []) {
+        const file = path.join(process.cwd(), "public", design.src);
+        expect(existsSync(file), design.src).toBe(true);
+        expect(design.name, design.src).toBeTruthy();
+        expect(design.description, design.src).toBeTruthy();
+      }
+    }
+  });
+
+  it("has Ukrainian copy for the intro and for each design, in step with the data", () => {
+    for (const project of withDesigns) {
+      const items = project.designs?.items ?? [];
+      const copy = ukProjects[project.slug] as { designsIntro?: string } | undefined;
+      const designs = (ukProjects[`${project.slug}Designs`] ?? {}) as Record<
+        string,
+        { description?: string }
+      >;
+
+      expect(copy?.designsIntro, `${project.slug}.designsIntro`).toBeTruthy();
+      expect(Object.keys(designs)).toHaveLength(items.length);
+      items.forEach((design, idx) => {
+        expect(designs[idx]?.description, design.name).toBeTruthy();
+      });
+    }
   });
 });

@@ -1,5 +1,7 @@
 export type {
   Project,
+  ProjectDesign,
+  ProjectDesignGallery,
   ProjectFeature,
   ProjectHighlight,
   ProjectScreenshot,

@@ -3,11 +3,20 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { cn } from "@/lib/utils";
 
 interface ScreenshotZoomProps {
   readonly src: string;
   readonly alt: string;
   readonly isPriority?: boolean;
+  /** The frame's aspect class. Carousel slides share the wide default so they line up. */
+  readonly aspectClassName?: string;
+  /** How wide the thumbnail renders, so the browser fetches a fitting size. */
+  readonly sizes?: string;
+  /** The zoom button's accessible name, for images that are not screenshots. */
+  readonly openLabel?: string;
+  /** The dialog's close button name, paired with `openLabel`. */
+  readonly closeLabel?: string;
 }
 
 /**
@@ -15,7 +24,15 @@ interface ScreenshotZoomProps {
  * height, so wide shots shrink to fit inside it rather than losing their edges; the
  * dialog then shows the whole thing as large as the screen allows.
  */
-export function ScreenshotZoom({ src, alt, isPriority }: ScreenshotZoomProps) {
+export function ScreenshotZoom({
+  src,
+  alt,
+  isPriority,
+  aspectClassName = "aspect-[2/1]",
+  sizes = "(max-width: 768px) 100vw, 60vw",
+  openLabel,
+  closeLabel,
+}: ScreenshotZoomProps) {
   const t = useTranslations("projects");
   const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -24,15 +41,19 @@ export function ScreenshotZoom({ src, alt, isPriority }: ScreenshotZoomProps) {
       <button
         type="button"
         onClick={() => dialogRef.current?.showModal()}
-        aria-label={t("openScreenshot", { title: alt })}
-        className="group relative block aspect-[2/1] w-full cursor-zoom-in bg-gray-950"
+        aria-label={openLabel ?? t("openScreenshot", { title: alt })}
+        className={cn(
+          "group relative block",
+          aspectClassName,
+          "w-full cursor-zoom-in bg-gray-950",
+        )}
       >
         <Image
           src={src}
           alt={alt}
           fill
           className="object-contain object-top"
-          sizes="(max-width: 768px) 100vw, 60vw"
+          sizes={sizes}
           priority={isPriority}
         />
         <span
@@ -62,7 +83,7 @@ export function ScreenshotZoom({ src, alt, isPriority }: ScreenshotZoomProps) {
         </div>
         <button
           type="button"
-          aria-label={t("closeScreenshot")}
+          aria-label={closeLabel ?? t("closeScreenshot")}
           className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-black/60 text-white backdrop-blur-sm hover:bg-black/80"
         >
           <CloseIcon />

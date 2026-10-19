@@ -180,6 +180,7 @@
     "techStack": "Tech Stack",
     "features": "Key Features",
     "screenshots": "Screenshots",
+    "designs": "Design Concepts",
     "visitSite": "Visit Site",
     "viewCode": "View Code",
     "overview": "Overview",
@@ -270,7 +271,10 @@
     "resultsTagged": "{count, plural, one {# project} other {# projects}} tagged {tag}",
     "onThisPage": "On this page",
     "openScreenshot": "Open full-size screenshot: {title}",
-    "closeScreenshot": "Close screenshot"
+    "closeScreenshot": "Close screenshot",
+    "openDesign": "Open full-size design concept: {title}",
+    "closeDesign": "Close design concept",
+    "designAlt": "{title} — {project} design concept"
   },
   "services": {
     "title": "Software Development Services",

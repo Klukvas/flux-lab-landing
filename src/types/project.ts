@@ -23,6 +23,19 @@ export interface ProjectScreenshot {
   readonly features: readonly string[];
 }
 
+/** One visual direction a template can be dressed in for a client, shown as a mockup. */
+export interface ProjectDesign {
+  readonly src: string;
+  readonly name: string;
+  readonly description: string;
+}
+
+export interface ProjectDesignGallery {
+  /** One line above the grid saying what the designs are and what the live demo shows. */
+  readonly intro: string;
+  readonly items: readonly ProjectDesign[];
+}
+
 export interface Project {
   readonly slug: string;
   readonly name: string;
@@ -39,6 +52,7 @@ export interface Project {
   readonly highlights: readonly ProjectHighlight[];
   readonly integrations: readonly string[];
   readonly screenshots: readonly ProjectScreenshot[];
+  readonly designs?: ProjectDesignGallery;
   readonly color: string;
   readonly icon: string;
   readonly url?: string;

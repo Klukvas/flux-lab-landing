@@ -1,4 +1,5 @@
 import type { Project, ProjectStatus } from "@/types";
+import { autoflowDesigns } from "./autoflow-designs";
 
 export const projects: readonly Project[] = [
   {
@@ -801,6 +802,7 @@ export const projects: readonly Project[] = [
         ],
       },
     ],
+    designs: autoflowDesigns,
     color: "#b5443b",
     icon: "AF",
     url: "https://autos-sale.com",

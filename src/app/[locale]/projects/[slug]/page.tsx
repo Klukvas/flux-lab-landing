@@ -4,6 +4,7 @@ import { getProjectBySlug, getProjectSlugs } from "@/data/projects";
 import { generatePageMetadata } from "@/lib/metadata";
 import { locales } from "@/i18n/config";
 import type {
+  ProjectDesign,
   ProjectScreenshot,
   ProjectFeature,
   ProjectHighlight,
@@ -15,6 +16,7 @@ import { ProjectFeatures } from "@/components/projects/project-features";
 import { ProjectHighlights } from "@/components/projects/project-highlights";
 import { ProjectCta } from "@/components/projects/project-cta";
 import { ProjectShowcase } from "@/components/projects/project-showcase";
+import { ProjectDesigns } from "@/components/projects/project-designs";
 import {
   ProjectSectionNav,
   type SectionLink,
@@ -115,6 +117,25 @@ export default async function ProjectDetailPage({
     },
   );
 
+  // Localize design concepts
+  const designKey = `${p}Designs`;
+  const localizedDesigns: ProjectDesign[] = (project.designs?.items ?? []).map(
+    (design, idx) => ({
+      src: design.src,
+      name: tGet(t, `${designKey}.${idx}.name`, design.name),
+      description: tGet(
+        t,
+        `${designKey}.${idx}.description`,
+        design.description,
+      ),
+    }),
+  );
+  const designsIntro = tGet(
+    t,
+    `${p}.designsIntro`,
+    project.designs?.intro ?? "",
+  );
+
   // Build localized hero project
   const localizedProject = {
     ...project,
@@ -127,6 +148,9 @@ export default async function ProjectDetailPage({
     { id: "overview", label: t("overview") },
     ...(localizedScreenshots.length > 0
       ? [{ id: "screenshots", label: t("screenshots") }]
+      : []),
+    ...(localizedDesigns.length > 0
+      ? [{ id: "designs", label: t("designs") }]
       : []),
     { id: "challenge", label: t("challenge") },
     { id: "features", label: t("features") },
@@ -157,6 +181,15 @@ export default async function ProjectDetailPage({
           title={t("screenshots")}
           color={project.color}
           url={project.url}
+        />
+      )}
+      {localizedDesigns.length > 0 && (
+        <ProjectDesigns
+          designs={localizedDesigns}
+          title={t("designs")}
+          intro={designsIntro}
+          projectName={project.name}
+          color={project.color}
         />
       )}
       <ProjectChallenge
