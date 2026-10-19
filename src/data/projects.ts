@@ -8,7 +8,7 @@ export const projects: readonly Project[] = [
     description:
       "A pay-per-scan website audit that shows how Google, AI assistants and visitors see a site: SEO, AI search, security, speed and accessibility in one report.",
     overview:
-      "FluxRadar answers one question for a site owner: why aren't customers finding me, and what should I fix first? You enter a public URL; the crawler reads the site the way Google, AI assistants and visitors do, and the audit runs up to ten modules over it — SEO, AI search visibility (GEO), security, performance, accessibility, reliability, content quality, privacy, UX/conversion and analytics. The report is written in plain words: problems ranked by urgency, each with what to do and a ready-made message to send your developer. Pricing is one-time with no subscription: a free homepage check, then Basic ($55), Website Audit ($79) or Complete ($120). The interface is available in English and Ukrainian.",
+      "FluxRadar answers one question for a site owner: why aren't customers finding me, and what should I fix first? You enter a public URL; the crawler reads the site the way Google, AI assistants and visitors do, and the audit runs up to ten modules over it — SEO, AI search visibility (GEO), security, performance, accessibility, reliability, content quality, privacy, UX/conversion and analytics. The report is written in plain words: problems ranked by urgency, each with what to do and a ready-made message to send your developer. Pricing is one-time with no subscription: a free homepage check, then Basic ($39) or Complete ($87). The interface is available in English and Ukrainian.",
     challenge:
       "Small businesses lose customers without knowing why. SEO tools are monthly subscriptions built for marketers — they bury owners in jargon and hundreds of warnings, and none of them say whether ChatGPT or Claude mention the business when someone asks for a recommendation. Security headers, accessibility and page speed each live in yet another tool.",
     solution:
@@ -55,7 +55,7 @@ export const projects: readonly Project[] = [
       {
         title: "Plain-Language Report",
         description:
-          "Problems ranked by what to fix first, each with a copy-ready message for your developer, plus JSON/CSV export on Website Audit and Complete",
+          "Problems ranked by what to fix first, each with a copy-ready message for your developer, plus JSON/CSV export on Complete",
         icon: "",
       },
       {
@@ -69,7 +69,7 @@ export const projects: readonly Project[] = [
       { label: "Audit Modules", value: "10" },
       { label: "Automated Checks", value: "50+" },
       { label: "AI Providers Supported", value: "4" },
-      { label: "One-Time Report From", value: "$55" },
+      { label: "One-Time Report From", value: "$39" },
     ],
     integrations: [
       "Claude AI",
@@ -85,13 +85,13 @@ export const projects: readonly Project[] = [
     screenshots: [
       {
         src: "/images/projects/fluxradar_01_home.png",
-        title: "One URL, Every Signal",
+        title: "What Keeps Customers From Finding You",
         description:
-          "The landing page explains the product in a sentence: FluxRadar reads a website the way Google, AI assistants and visitors see it, and returns one report. A free homepage check starts from the hero form.",
+          "The first screen says what the product does in plain words and shows a sample of the report beside it. A free homepage check starts from the form, and a full report on the whole site starts at $39.",
         features: [
           "One-sentence promise: what keeps customers from finding you",
-          "Live audit preview of what a scan reads",
-          "Signal score, coverage and findings counters",
+          "A sample report with problems ranked and what to do",
+          "No passwords or site access, no subscription",
           "English and Ukrainian interface",
         ],
       },
@@ -145,13 +145,12 @@ export const projects: readonly Project[] = [
       },
       {
         src: "/images/projects/fluxradar_06_pricing.png",
-        title: "Three One-Time Reports",
+        title: "Two One-Time Reports",
         description:
           "No subscription and no monthly quota: pay once for one scan of one public website and keep the report. A side-by-side table explains which package answers which question.",
         features: [
-          "Basic ($55): SEO and AI search visibility",
-          "Website Audit ($79): the eight site-health modules",
-          "Complete ($120): all ten modules in one report",
+          "Basic ($39): why customers can't find you, in Google and AI assistants",
+          "Complete ($87): all ten modules in one report, with an AI action plan",
           "Free homepage check for any account",
         ],
       },

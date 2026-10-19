@@ -37,7 +37,7 @@ Expert guidance on architecture, technology choices, and best practices. Include
 - URL: https://fluxradar.net
 - Status: Active (launched September 2026)
 - Users: 1,400 | Companies: 90
-- Description: Pay-per-scan website audit. Reads a public site the way Google, AI assistants and visitors see it and returns one plain-language report ranked by what to fix first, with a copy-ready message for the developer. Ten modules: SEO (21 deterministic checks), AI search visibility / GEO (AI-crawler readiness plus whether Claude and ChatGPT mention the business), security (passive OWASP ASVS profile), performance (PageSpeed Insights + CrUX), accessibility (WCAG 2.2 AA), reliability, content quality, privacy, UX/conversion and analytics (Search Console, Google Analytics, Bing Webmaster). One-time pricing: free homepage check, Basic $55, Website Audit $79, Complete $120. English and Ukrainian.
+- Description: Pay-per-scan website audit. Reads a public site the way Google, AI assistants and visitors see it and returns one plain-language report ranked by what to fix first, with a copy-ready message for the developer. Ten modules: SEO (21 deterministic checks), AI search visibility / GEO (AI-crawler readiness plus whether Claude and ChatGPT mention the business), security (passive OWASP ASVS profile), performance (PageSpeed Insights + CrUX), accessibility (WCAG 2.2 AA), reliability, content quality, privacy, UX/conversion and analytics (Search Console, Google Analytics, Bing Webmaster). One-time pricing: free homepage check, Basic $39, Complete $87. English and Ukrainian.
 - Tech: React, Vite, TypeScript, Express, PostgreSQL, Prisma, Docker, Hetzner Cloud
 - AI: Claude and OpenAI by default, Gemini and Perplexity optional
 
