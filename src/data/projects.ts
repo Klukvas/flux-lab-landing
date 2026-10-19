@@ -715,10 +715,10 @@ export const projects: readonly Project[] = [
       },
     ],
     highlights: [
-      { label: "Image Renditions per Photo", value: "9" },
-      { label: "Price Currencies", value: "3" },
-      { label: "Telegram Channels per Site", value: "10" },
-      { label: "Admin Roles", value: "2" },
+      { label: "Design Concepts for Your Brand", value: "19" },
+      { label: "Telegram Channels with Auto-Posting", value: "10" },
+      { label: "Catalog Filters", value: "10+" },
+      { label: "Price Currencies: $,\u00a0₴,\u00a0€", value: "3" },
     ],
     integrations: [
       "Telegram Bot API",
