@@ -149,8 +149,8 @@ export const projects: readonly Project[] = [
         description:
           "No subscription and no monthly quota: pay once for one scan of one public website and keep the report. A side-by-side table explains which package answers which question.",
         features: [
-          "Basic ($39): why customers can't find you, in Google and AI assistants",
-          "Complete ($87): all ten modules in one report, with an AI action plan",
+          "Basic ($39): why customers can't find you in Google and AI assistants, with an AI action plan",
+          "Complete ($87): all ten modules in one report, with scan history and export",
           "Free homepage check for any account",
         ],
       },
