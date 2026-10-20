@@ -729,43 +729,43 @@ export const projects: readonly Project[] = [
     ],
     screenshots: [
       {
-        src: "/images/projects/autoflow_01_home.png",
+        src: "/images/projects/autoflow_v2_01_home.webp",
         title: "The Dealer's Own Storefront",
         description:
-          "The home page leads with a featured car and two actions: browse the catalog or leave a request. Logo, name, colors and contacts all come from the site settings, so each client's copy looks like their own brand.",
+          "The home page opens on a full-screen photo of the latest published car, with its name and price, and a single action: choose a car in the catalog. The logo, name, tagline and contacts come from the site settings, so each client's copy looks like their own brand.",
         features: [
-          "Featured car with price on the first screen",
-          "Catalog and lead buttons above the fold",
-          "Light and dark themes",
+          "Photo, name and price of the latest published car on the first screen",
+          "One call to action, straight to the catalog",
+          "“Contact us” button in the header",
           "Branding set from the admin panel, not the code",
         ],
       },
       {
-        src: "/images/projects/autoflow_02_new_arrivals.png",
-        title: "New Arrivals",
+        src: "/images/projects/autoflow_v2_02_in_stock.webp",
+        title: "Cars in Stock",
         description:
           "The latest published cars appear on the home page as cards with the essentials a buyer scans for: year, mileage, city and price.",
         features: [
-          "Condition and lot number on every card",
-          "Year, mileage and city in one line",
+          "The six latest published cars, including the one in the hero",
+          "Price in large type, mileage and city below it",
           "Favorites and comparison right on the card",
-          "Photo count badge",
+          "A link to the full catalog",
         ],
       },
       {
-        src: "/images/projects/autoflow_03_catalog.png",
+        src: "/images/projects/autoflow_v2_03_catalog.webp",
         title: "Catalog with Filters",
         description:
           "The catalog shows how many cars match the request and narrows them down with a sidebar of filters. Make logos above the grid act as one-tap shortcuts.",
         features: [
-          "Search by make, model or keyword",
+          "Search by make, model or city",
           "Filters for make, model, body, fuel, gearbox and drive",
           "Make logos as quick filters",
           "Sorting by date, price, year and mileage",
         ],
       },
       {
-        src: "/images/projects/autoflow_04_listing.png",
+        src: "/images/projects/autoflow_v2_04_listing.webp",
         title: "Car Detail Page",
         description:
           "Each car gets a page with a full-screen gallery, availability status, view count and a price card with the actions that turn a visitor into a lead.",
@@ -777,10 +777,10 @@ export const projects: readonly Project[] = [
         ],
       },
       {
-        src: "/images/projects/autoflow_05_credit.png",
+        src: "/images/projects/autoflow_v2_05_credit.webp",
         title: "Credit Calculator",
         description:
-          "Below the specs and options, buyers estimate a monthly payment by picking a down payment and a term. The estimate uses an indicative rate, and the page says the partner bank sets the final terms.",
+          "Below the specs, options and description, buyers estimate a monthly payment by picking a down payment and a term. The estimate uses an indicative rate, and the page says the partner bank sets the final terms.",
         features: [
           "Down payment from 20% to 50%",
           "Terms from 12 to 84 months",
@@ -789,15 +789,51 @@ export const projects: readonly Project[] = [
         ],
       },
       {
-        src: "/images/projects/autoflow_06_lead_form.png",
+        src: "/images/projects/autoflow_v2_06_lead_form.webp",
         title: "Lead Form",
         description:
           "The contacts page combines showroom details and opening hours with a request form. Every request lands in the admin panel, and managers can also get it in their Telegram chat.",
         features: [
           "Call, message or test-drive request types",
-          "Ukrainian phone format hint and validation",
+          "Phone hint in the Ukrainian format, plus number validation",
           "Showroom address, map link and opening hours",
           "Rate limiting and a honeypot against spam",
+        ],
+      },
+      {
+        src: "/images/projects/autoflow_v2_07_compare.webp",
+        title: "Car Comparison",
+        description:
+          "Buyers add up to three cars from any card and see them side by side, with price, year, mileage, engine, power and the other specs in rows. Where a spec has a clear winner, such as price or mileage, the best car gets a tick, and one request sends the whole shortlist to a manager.",
+        features: [
+          "Up to three cars, no sign-up needed",
+          "Best price, year, mileage and power ticked",
+          "An only-differences switch hides matching rows",
+          "One request sends the shortlist to a manager",
+        ],
+      },
+      {
+        src: "/images/projects/autoflow_v2_08_tariffs.webp",
+        title: "Placement Tariffs",
+        description:
+          "For owners who sell by themselves, the dealer offers paid placement in its own channels, and buyers call the owner directly. Each tariff card shows the price in hryvnias, the channels it covers and what's included, and a tariff can be marked as popular.",
+        features: [
+          "Price, channels and what's included on every card",
+          "A Popular badge on the featured tariff",
+          "The Choose button puts the tariff into the request form",
+          "Tariffs set in the admin panel, not the code",
+        ],
+      },
+      {
+        src: "/images/projects/autoflow_v2_09_consignment.webp",
+        title: "Consignment Sale",
+        description:
+          "Owners who would rather not deal with buyers hand the sale to the dealer: photos, the listing, calls and viewings are on the dealer, and the commission comes only after the sale. The request form takes the car's details and a phone number, with consignment or a tariff picked at the top.",
+        features: [
+          "Commission only after the sale",
+          "Three steps from request to payout",
+          "Consignment or a tariff, picked in the same form",
+          "Each request lands in the admin panel, and managers can also get it in Telegram",
         ],
       },
     ],

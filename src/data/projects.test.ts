@@ -9,6 +9,8 @@ import {
   getProjectsByTag,
 } from "./projects";
 
+const ukProjects: Record<string, unknown> = uk.projects;
+
 describe("getLiveProjects", () => {
   it("leaves archived products out and keeps every other one", () => {
     const live = getLiveProjects();
@@ -52,7 +54,6 @@ describe("project order", () => {
 
 describe("design concepts", () => {
   const withDesigns = getAllProjects().filter((p) => p.designs);
-  const ukProjects: Record<string, unknown> = uk.projects;
 
   it("gives every design a name, a description and an image that ships in public/", () => {
     expect(withDesigns.length).toBeGreaterThan(0);
@@ -81,5 +82,37 @@ describe("design concepts", () => {
         expect(designs[idx]?.description, design.name).toBeTruthy();
       });
     }
+  });
+});
+
+describe("screenshots", () => {
+
+  it("points every screenshot at an image that ships in public/", () => {
+    for (const project of getAllProjects()) {
+      for (const screenshot of project.screenshots) {
+        const file = path.join(process.cwd(), "public", screenshot.src);
+        expect(existsSync(file), screenshot.src).toBe(true);
+      }
+    }
+  });
+
+  // The page reads Ukrainian slides by index and features by the English count,
+  // so a slide or bullet missing here would silently fall back to English.
+  it("keeps the AutoFlow Ukrainian slides in step with the data", () => {
+    const project = getAllProjects().find((p) => p.slug === "autoflow");
+    const slides = (ukProjects.autoflowScreenshots ?? {}) as Record<
+      string,
+      { title?: string; description?: string; features?: string[] }
+    >;
+
+    expect(project?.screenshots.length).toBeGreaterThan(0);
+    expect(Object.keys(slides)).toHaveLength(project?.screenshots.length ?? 0);
+    project?.screenshots.forEach((screenshot, idx) => {
+      expect(slides[idx]?.title, screenshot.title).toBeTruthy();
+      expect(slides[idx]?.description, screenshot.title).toBeTruthy();
+      expect(slides[idx]?.features, screenshot.title).toHaveLength(
+        screenshot.features.length,
+      );
+    });
   });
 });
