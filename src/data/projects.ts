@@ -32,7 +32,7 @@ export const projects: readonly Project[] = [
       {
         title: "SEO Audit",
         description:
-          "21 deterministic checks: page titles and descriptions, headings, canonicals, indexing, JSON-LD structured data and social previews",
+          "24 deterministic checks: page titles and descriptions, headings, canonicals, indexing, JSON-LD structured data and social previews",
         icon: "",
       },
       {
