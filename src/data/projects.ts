@@ -541,6 +541,7 @@ export const projects: readonly Project[] = [
     screenshots: [
       {
         src: "/images/projects/01_applications_list.png",
+        srcDark: "/images/projects/01_applications_list_dark.png",
         title: "Application Tracking — List View",
         description:
           "The central hub for managing your job search pipeline. Every application is displayed as a card showing the job title, company, role, current status, linked resume, and timestamps.",
@@ -553,6 +554,7 @@ export const projects: readonly Project[] = [
       },
       {
         src: "/images/projects/02_applications_board.png",
+        srcDark: "/images/projects/02_applications_board_dark.png",
         title: "Application Tracking — Kanban Board",
         description:
           "Visualize your pipeline as a Kanban board organized by status or interview stage. Drag-and-drop cards between columns to update application progress instantly.",
@@ -565,6 +567,7 @@ export const projects: readonly Project[] = [
       },
       {
         src: "/images/projects/04_resumes.png",
+        srcDark: "/images/projects/04_resumes_dark.png",
         title: "Resume Management & AI Builder",
         description:
           "Manage multiple resume versions — both uploaded PDFs and resumes built directly in Cursopus. The AI builder generates professional summaries and bullet points tailored to your experience.",
@@ -578,6 +581,7 @@ export const projects: readonly Project[] = [
       },
       {
         src: "/images/projects/05_companies.png",
+        srcDark: "/images/projects/05_companies_dark.png",
         title: "Company Management",
         description:
           "Organize and track all companies you're applying to. Each card shows enriched statistics calculated from your applications — total count, active applications, last activity, and derived status.",
@@ -591,6 +595,7 @@ export const projects: readonly Project[] = [
       },
       {
         src: "/images/projects/06_jobs.png",
+        srcDark: "/images/projects/06_jobs_dark.png",
         title: "Job Board & Chrome Extension Import",
         description:
           "Browse and manage all saved job postings. Jobs can be added manually or imported from any website with one click using the Chrome extension — AI automatically parses job details.",
@@ -604,6 +609,7 @@ export const projects: readonly Project[] = [
       },
       {
         src: "/images/projects/07_cover_letters.png",
+        srcDark: "/images/projects/07_cover_letters_dark.png",
         title: "AI Cover Letter Generation",
         description:
           "Create and manage cover letters tailored to specific jobs and companies. AI generates drafts based on the job description and your resume, which you can edit and refine.",
@@ -617,6 +623,7 @@ export const projects: readonly Project[] = [
       },
       {
         src: "/images/projects/08_stages.png",
+        srcDark: "/images/projects/08_stages_dark.png",
         title: "Customizable Interview Stage Templates",
         description:
           "Define your interview pipeline stages once, then reuse them across all applications. Recommended stages can be added with one click, or create custom stages that match your process.",
@@ -630,6 +637,7 @@ export const projects: readonly Project[] = [
       },
       {
         src: "/images/projects/09_analytics_top.png",
+        srcDark: "/images/projects/09_analytics_top_dark.png",
         title: "Analytics Dashboard",
         description:
           "Get data-driven insights into your job search. The dashboard shows KPI cards, a visual application funnel with conversion rates, and additional reports for time-in-stage, resume effectiveness, and source performance.",

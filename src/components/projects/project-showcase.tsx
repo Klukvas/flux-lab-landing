@@ -67,6 +67,7 @@ export function ProjectShowcase({
                       </div>
                       <ScreenshotZoom
                         src={item.src}
+                        srcDark={item.srcDark}
                         alt={item.title}
                         isPriority={idx === 0}
                       />

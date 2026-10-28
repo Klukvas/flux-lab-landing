@@ -105,7 +105,7 @@ export default async function ProjectDetailPage({
       }
 
       return {
-        src: screenshot.src,
+        ...screenshot,
         title: tGet(t, `${scrKey}.${idx}.title`, screenshot.title),
         description: tGet(
           t,

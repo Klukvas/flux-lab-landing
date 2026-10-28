@@ -1,12 +1,14 @@
 "use client";
 
 import { useRef } from "react";
-import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
+import { ThemedImage } from "./themed-image";
 
 interface ScreenshotZoomProps {
   readonly src: string;
+  /** The dark-theme variant, shown instead of `src` while the dark theme is active. */
+  readonly srcDark?: string;
   readonly alt: string;
   readonly isPriority?: boolean;
   /** The frame's aspect class. Carousel slides share the wide default so they line up. */
@@ -26,6 +28,7 @@ interface ScreenshotZoomProps {
  */
 export function ScreenshotZoom({
   src,
+  srcDark,
   alt,
   isPriority,
   aspectClassName = "aspect-[2/1]",
@@ -48,13 +51,13 @@ export function ScreenshotZoom({
           "w-full cursor-zoom-in bg-gray-950",
         )}
       >
-        <Image
+        <ThemedImage
           src={src}
+          srcDark={srcDark}
           alt={alt}
-          fill
           className="object-contain object-top"
           sizes={sizes}
-          priority={isPriority}
+          isPriority={isPriority}
         />
         <span
           aria-hidden="true"
@@ -73,10 +76,10 @@ export function ScreenshotZoom({
         className="m-0 h-dvh max-h-none w-dvw max-w-none cursor-zoom-out bg-transparent p-4 backdrop:bg-black/85 backdrop:backdrop-blur-sm sm:p-8"
       >
         <div className="relative h-full w-full">
-          <Image
+          <ThemedImage
             src={src}
+            srcDark={srcDark}
             alt={alt}
-            fill
             className="object-contain"
             sizes="100vw"
           />

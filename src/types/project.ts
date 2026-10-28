@@ -18,6 +18,8 @@ export interface ProjectHighlight {
 
 export interface ProjectScreenshot {
   readonly src: string;
+  /** Same screen in the dark theme; shown instead of `src` while the site is dark. */
+  readonly srcDark?: string;
   readonly title: string;
   readonly description: string;
   readonly features: readonly string[];
