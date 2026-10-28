@@ -38,6 +38,7 @@ export function formatApplicationMessage(
     email: string;
     position: string;
     message: string;
+    hasMarketingConsent: boolean;
   },
   source: SubmissionSource,
 ): string {
@@ -48,6 +49,7 @@ export function formatApplicationMessage(
       `<b>Name:</b> ${escapeTelegramHtml(data.name)}`,
       `<b>Email:</b> ${escapeTelegramHtml(data.email)}`,
       `<b>Position:</b> ${escapeTelegramHtml(data.position)}`,
+      `<b>Mailing list:</b> ${data.hasMarketingConsent ? "yes, opted in" : "no"}`,
       `<b>Cover Letter:</b>\n${escapeTelegramHtml(coverLetter)}`,
       "",
       ...formatSourceLines(source),

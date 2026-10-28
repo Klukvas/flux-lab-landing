@@ -88,9 +88,7 @@ export function ApplicationForm({ defaultPosition }: ApplicationFormProps) {
   }
 
   if (status === "success") {
-    return (
-      <FormSuccess message={t("success")} isBare />
-    );
+    return <FormSuccess message={t("success")} isBare />;
   }
 
   return (
@@ -145,6 +143,17 @@ export function ApplicationForm({ defaultPosition }: ApplicationFormProps) {
         error={errors.message}
         required
       />
+      {/* Unticked and optional on purpose: consent to marketing emails must
+          be an active choice and cannot be a condition of applying. */}
+      <label className="flex items-start gap-2 pt-2 text-sm text-gray-700 dark:text-gray-300">
+        <input
+          type="checkbox"
+          name="marketingConsent"
+          value="yes"
+          className="mt-0.5 size-4 shrink-0 accent-brand"
+        />
+        <span>{t("marketingConsent")}</span>
+      </label>
       {status === "error" && (
         <p className="text-sm text-red-500">{t("error")}</p>
       )}
