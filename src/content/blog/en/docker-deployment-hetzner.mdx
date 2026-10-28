@@ -69,7 +69,7 @@ services:
 Caddy provides automatic HTTPS with Let's Encrypt — no certbot setup, no certificate renewal cron jobs. The Caddyfile is readable:
 
 ```
-jobber-app.com {
+cursopus.com {
     reverse_proxy app:3000
 }
 ```
@@ -114,7 +114,7 @@ All services output structured JSON logs. We use `docker compose logs -f --since
 
 ## Cost Breakdown
 
-Running Jobber in production on Hetzner:
+Running Cursopus in production on Hetzner:
 
 - **CX31 server** (4 vCPU, 8GB RAM): €8.50/month
 - **100GB volume** for PostgreSQL: €4.40/month

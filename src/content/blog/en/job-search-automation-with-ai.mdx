@@ -1,14 +1,14 @@
 ---
 title: How We Built an AI-Powered Job Application Tracker
-description: The technical story behind Jobber by fluxLab.dev — building a job search management platform with AI resume matching, automated job parsing, and analytics.
+description: The technical story behind Cursopus by fluxLab.dev — building a job search management platform with AI resume matching, automated job parsing, and analytics.
 date: 2025-03-15
 author: fluxLab.dev
-tags: [AI, Jobber, Product, Go]
+tags: [AI, Cursopus, Product, Go]
 ---
 
 ## Introduction
 
-Jobber started as an internal tool. Engineers at fluxLab.dev were tracking job applications in spreadsheets — losing track of which resume went where, which companies they'd heard back from, and which interviews were next. We built Jobber to solve our own problem, then realized every job seeker has the same pain.
+Cursopus started as an internal tool. Engineers at fluxLab.dev were tracking job applications in spreadsheets — losing track of which resume went where, which companies they'd heard back from, and which interviews were next. We built Cursopus to solve our own problem, then realized every job seeker has the same pain.
 
 ## The Problem
 
@@ -20,13 +20,13 @@ Job searching is chaotic. A typical active job seeker:
 - Misses follow-up deadlines because there's no reminder system
 - Has no idea which resume version or application source performs best
 
-## The Solution: Jobber
+## The Solution: Cursopus
 
-Jobber is a personal job search management platform. It handles the entire pipeline from finding a job to tracking the outcome:
+Cursopus is a personal job search management platform. It handles the entire pipeline from finding a job to tracking the outcome:
 
 ### Job Import
 
-Users save jobs from any website using a Chrome extension. When they click "Save to Jobber," the extension captures the page content and sends it to our backend.
+Users save jobs from any website using a Chrome extension. When they click "Save to Cursopus," the extension captures the page content and sends it to our backend.
 
 The backend uses a three-layer parsing approach:
 
@@ -47,7 +47,7 @@ Applications are organized in both list and Kanban board views. Users can:
 
 ### AI Resume Builder
 
-Jobber includes a full resume builder with AI assistance:
+Cursopus includes a full resume builder with AI assistance:
 
 - **Section management**: Work experience, education, skills, projects, certifications
 - **AI summary generation**: Creates a professional summary from work history
@@ -67,7 +67,7 @@ This helps users decide whether to apply or tailor their resume first.
 
 ### Cover Letter Generation
 
-For each application, Jobber generates a tailored cover letter based on:
+For each application, Cursopus generates a tailored cover letter based on:
 
 - The job description and requirements
 - The user's resume content
@@ -96,8 +96,8 @@ The analytics dashboard provides insights that spreadsheets can't:
 
 ## What's Next
 
-We're working on Google Calendar integration for scheduling interviews directly from Jobber, reminder notifications for follow-ups, and a tagging system for organizing applications by priority.
+We're working on Google Calendar integration for scheduling interviews directly from Cursopus, reminder notifications for follow-ups, and a tagging system for organizing applications by priority.
 
 ## Conclusion
 
-Jobber proves that AI features don't need to be the entire product — they enhance a solid workflow. The core value is organization and visibility. AI makes it faster and smarter. If you're actively job searching, give Jobber a try at [jobber-app.com](https://jobber-app.com). The [Jobber case study](/en/projects/jobber) covers the product side in more detail.
+Cursopus proves that AI features don't need to be the entire product — they enhance a solid workflow. The core value is organization and visibility. AI makes it faster and smarter. If you're actively job searching, give Cursopus a try at [cursopus.com](https://cursopus.com). The [Cursopus case study](/en/projects/jobber) covers the product side in more detail.

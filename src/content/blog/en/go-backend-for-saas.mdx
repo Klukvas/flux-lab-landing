@@ -8,7 +8,7 @@ tags: [Go, Backend, SaaS, Architecture]
 
 ## Introduction
 
-At fluxLab.dev, we build and maintain multiple production SaaS products serving over 46,000 users. When we started building Jobber — our AI-powered job application tracker — we made a deliberate choice to use Go instead of Node.js for the backend. Here's why, and what we learned.
+At fluxLab.dev, we build and maintain multiple production SaaS products serving over 46,000 users. When we started building Cursopus — our AI-powered job application tracker — we made a deliberate choice to use Go instead of Node.js for the backend. Here's why, and what we learned.
 
 ## The Problem with Node.js at Scale
 
@@ -27,7 +27,7 @@ After evaluating Rust, Go, and staying with Node.js + worker threads, we chose G
 
 ### Concurrency Model
 
-Go's goroutines and channels handle thousands of concurrent connections with minimal overhead. For Jobber, where users trigger AI parsing jobs, calendar syncs, and webhook processing simultaneously, this was critical.
+Go's goroutines and channels handle thousands of concurrent connections with minimal overhead. For Cursopus, where users trigger AI parsing jobs, calendar syncs, and webhook processing simultaneously, this was critical.
 
 ### Compilation and Deployment
 
@@ -63,7 +63,7 @@ Key patterns we adopted:
 
 ## Results After 6 Months
 
-Comparing Jobber's Go backend with similar Node.js services:
+Comparing Cursopus's Go backend with similar Node.js services:
 
 - **Memory usage**: 30MB idle vs 180MB (6x reduction)
 - **Throughput**: 12,000 req/s vs 4,000 req/s on the same hardware
@@ -88,4 +88,4 @@ We haven't abandoned Node.js entirely. Our Next.js frontends still run on Node.j
 
 For CPU-efficient, memory-lean backend services that need to handle concurrent workloads reliably, Go has been a clear win for fluxLab.dev. If you're building a SaaS product and hitting scaling walls with Node.js, Go deserves serious consideration.
 
-Jobber's backend is the largest Go service we run; the [Jobber case study](/en/projects/jobber) covers the whole product. And if this kind of systems work is your thing, [see our open roles](/en/careers).
+Cursopus's backend is the largest Go service we run; the [Cursopus case study](/en/projects/jobber) covers the whole product. And if this kind of systems work is your thing, [see our open roles](/en/careers).

@@ -41,8 +41,8 @@ Expert guidance on architecture, technology choices, and best practices. Include
 - Tech: React, Vite, TypeScript, Express, PostgreSQL, Prisma, Docker, Hetzner Cloud
 - AI: Claude and OpenAI by default, Gemini and Perplexity optional
 
-### Jobber — AI-Powered Job Application Tracker
-- URL: https://jobber-app.com
+### Cursopus — AI-Powered Job Application Tracker
+- URL: https://cursopus.com
 - Status: Active (launched January 2025)
 - Users: 15,300 | Companies: 210
 - Description: Personal job search management platform. Chrome extension imports jobs from any website. AI (Claude) parses job details via layered approach (JSON-LD, DOM, LLM). Resume builder with AI-generated summaries. Cover letter generation. Application tracking with list and Kanban views. Analytics: funnel visualization, time-in-stage, resume effectiveness, source performance.

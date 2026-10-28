@@ -21,7 +21,7 @@ Only add `'use client'` when you need:
 - Browser APIs (`localStorage`, `window`)
 - React hooks (`useState`, `useEffect`)
 
-In Jobber's frontend, 70% of components are Server Components. They add zero JavaScript to the client bundle.
+In Cursopus's frontend, 70% of components are Server Components. They add zero JavaScript to the client bundle.
 
 ## Pattern 2: Lazy Load Below the Fold
 
@@ -35,7 +35,7 @@ const Analytics = dynamic(() => import('./analytics'), {
 });
 ```
 
-For Jobber's analytics dashboard, lazy loading the chart components reduced the initial bundle by 120KB. Users see the page layout instantly and charts load as they scroll.
+For Cursopus's analytics dashboard, lazy loading the chart components reduced the initial bundle by 120KB. Users see the page layout instantly and charts load as they scroll.
 
 ## Pattern 3: Optimize Images With Next/Image
 
@@ -69,15 +69,15 @@ function useDebounce<T>(value: T, delay: number): T {
 }
 ```
 
-In Jobber's company list, this reduced API calls by 80% while keeping the interface responsive.
+In Cursopus's company list, this reduced API calls by 80% while keeping the interface responsive.
 
 ## Pattern 5: Virtualize Long Lists
 
-For lists with more than 50 items, we use virtualization. Only visible items render in the DOM. The Kanban board in Jobber uses this pattern — even with hundreds of application cards, scrolling stays smooth because only 10-15 cards are in the DOM at any time.
+For lists with more than 50 items, we use virtualization. Only visible items render in the DOM. The Kanban board in Cursopus uses this pattern — even with hundreds of application cards, scrolling stays smooth because only 10-15 cards are in the DOM at any time.
 
 ## Pattern 6: Optimistic Updates for Drag-and-Drop
 
-When a user drags an application card between columns in Jobber's Kanban board, we update the UI immediately — before the API call completes. If the API call fails, we revert the change and show an error.
+When a user drags an application card between columns in Cursopus's Kanban board, we update the UI immediately — before the API call completes. If the API call fails, we revert the change and show an error.
 
 This makes drag-and-drop feel instant, even though the backend update takes 50-100ms.
 

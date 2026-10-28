@@ -463,16 +463,16 @@ export const projects: readonly Project[] = [
   },
   {
     slug: "jobber",
-    name: "Jobber",
+    name: "Cursopus",
     tagline: "AI-Powered Job Application Tracker",
     description:
       "A personal job search management platform with AI-powered resume building, cover letter generation, application tracking, and recruitment analytics.",
     overview:
-      "Jobber helps job seekers take control of their job search. Instead of juggling spreadsheets and browser tabs, users manage their entire pipeline in one place: save jobs from any website with a Chrome extension, track applications through customizable stages, build and tailor resumes with AI assistance, generate cover letters, and analyze their search performance with detailed analytics. The platform supports both list and Kanban board views, giving users flexibility in how they organize their pipeline.",
+      "Cursopus helps job seekers take control of their job search. Instead of juggling spreadsheets and browser tabs, users manage their entire pipeline in one place: save jobs from any website with a Chrome extension, track applications through customizable stages, build and tailor resumes with AI assistance, generate cover letters, and analyze their search performance with detailed analytics. The platform supports both list and Kanban board views, giving users flexibility in how they organize their pipeline.",
     challenge:
       "Job seekers lose track of applications across dozens of job boards and email threads. They have no visibility into their pipeline health — which stages have the highest drop-off, which resume versions perform best, or how long they've been waiting for responses. Manually tailoring resumes and cover letters for each application is time-consuming and inconsistent.",
     solution:
-      "Jobber centralizes the entire job search workflow. A Chrome extension captures job postings with one click, AI parses job details automatically using a layered approach (JSON-LD, DOM extraction, Claude LLM). The built-in resume builder creates ATS-friendly resumes with AI-generated summaries and bullet points. Cover letters are generated and tailored per job. Analytics dashboards show funnel conversion rates, time-in-stage metrics, resume effectiveness comparisons, and application source performance.",
+      "Cursopus centralizes the entire job search workflow. A Chrome extension captures job postings with one click, AI parses job details automatically using a layered approach (JSON-LD, DOM extraction, Claude LLM). The built-in resume builder creates ATS-friendly resumes with AI-generated summaries and bullet points. Cover letters are generated and tailored per job. Analytics dashboards show funnel conversion rates, time-in-stage metrics, resume effectiveness comparisons, and application source performance.",
     targetAudience:
       "Software engineers, tech professionals, and active job seekers who want to organize, optimize, and accelerate their job search with AI-powered tools.",
     status: "active",
@@ -567,7 +567,7 @@ export const projects: readonly Project[] = [
         src: "/images/projects/04_resumes.png",
         title: "Resume Management & AI Builder",
         description:
-          "Manage multiple resume versions — both uploaded PDFs and resumes built directly in Jobber. The AI builder generates professional summaries and bullet points tailored to your experience.",
+          "Manage multiple resume versions — both uploaded PDFs and resumes built directly in Cursopus. The AI builder generates professional summaries and bullet points tailored to your experience.",
         features: [
           "Filter by All, Uploaded, or Built resumes",
           "Visual resume previews with live formatting",
@@ -642,9 +642,9 @@ export const projects: readonly Project[] = [
         ],
       },
     ],
-    color: "#f59e0b",
-    icon: "JB",
-    url: "https://jobber-app.com",
+    color: "#84cc16",
+    icon: "CU",
+    url: "https://cursopus.com",
     featured: true,
     stats: { users: 15300, companies: 210 },
     launchDate: "2025-01",

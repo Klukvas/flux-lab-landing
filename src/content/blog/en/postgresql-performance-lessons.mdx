@@ -23,7 +23,7 @@ ON applications (user_id, status)
 WHERE status = 'active';
 ```
 
-Partial indexes are powerful. In Jobber, most queries filter by `user_id` and `status = 'active'`. A partial index on just active records is smaller and faster than a full index.
+Partial indexes are powerful. In Cursopus, most queries filter by `user_id` and `status = 'active'`. A partial index on just active records is smaller and faster than a full index.
 
 ### What Didn't Work
 

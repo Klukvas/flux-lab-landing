@@ -206,7 +206,7 @@
       },
       "2": {
         "title": "Resume Management & AI Builder",
-        "description": "Manage multiple resume versions — both uploaded PDFs and resumes built directly in Jobber. The AI builder generates professional summaries and bullet points tailored to your experience.",
+        "description": "Manage multiple resume versions — both uploaded PDFs and resumes built directly in Cursopus. The AI builder generates professional summaries and bullet points tailored to your experience.",
         "features": ["Filter by All, Uploaded, or Built resumes", "Visual resume previews with live formatting", "Sort by Last Modified, Created Date, or Title", "Track which resumes are used in how many applications", "Active/Inactive status to manage resume versions"]
       },
       "3": {
@@ -422,7 +422,7 @@
       },
       "2025": {
         "title": "46K+ Users, 800+ Companies",
-        "description": "Expanded the portfolio with Jobber (AI job tracker), Market (e-commerce), and LifeSpan (health). Added Go to our stack. Serving 800+ companies across multiple industries."
+        "description": "Expanded the portfolio with Cursopus (AI job tracker), Market (e-commerce), and LifeSpan (health). Added Go to our stack. Serving 800+ companies across multiple industries."
       },
       "2026": {
         "title": "FluxRadar Launched",
