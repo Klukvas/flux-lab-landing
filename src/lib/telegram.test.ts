@@ -8,6 +8,7 @@ const application = {
   email: "ada@example.com",
   position: "Go Backend Developer",
   message: "I would love to work on Jobber.",
+  hasMarketingConsent: false,
 };
 
 describe("formatApplicationMessage", () => {
@@ -34,6 +35,17 @@ describe("formatApplicationMessage", () => {
     expect(message).toContain("<b>Language:</b> uk-UA");
     expect(message).toContain("<b>Browser:</b> Mozilla/5.0 &lt;Chrome&gt;");
     expect(message).toContain("<b>Time on form:</b> 95s");
+  });
+
+  it("says whether the applicant opted in to the mailing list", () => {
+    const optedIn = formatApplicationMessage(
+      { ...application, hasMarketingConsent: true },
+      { referrer: "" },
+    );
+    const optedOut = formatApplicationMessage(application, { referrer: "" });
+
+    expect(optedIn).toContain("<b>Mailing list:</b> yes, opted in");
+    expect(optedOut).toContain("<b>Mailing list:</b> no");
   });
 
   it("calls an empty referrer a direct visit and skips unknown fields", () => {

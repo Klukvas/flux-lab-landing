@@ -203,7 +203,9 @@ export default async function CareerDetailPage({
             </div>
 
             <div className="lg:col-span-1">
-              <div className="sticky top-24">
+              {/* On short screens the pinned form is taller than the viewport, so it
+                  scrolls on its own; otherwise the submit button sits off-screen. */}
+              <div className="sticky top-24 lg:max-h-[calc(100dvh-7rem)] lg:overflow-y-auto">
                 <Card>
                   <h3 className="text-lg font-semibold text-foreground mb-4">
                     {t("apply")}
