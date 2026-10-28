@@ -1,6 +1,10 @@
 import type { ProjectScreenshot } from "@/types";
 import { Container, Reveal, SectionHeading } from "@/components/ui";
-import { CarouselSlide, ProjectCarousel } from "./project-carousel";
+import {
+  CarouselControls,
+  CarouselSlide,
+  ProjectCarousel,
+} from "./project-carousel";
 import { ScreenshotZoom } from "./screenshot-zoom";
 
 interface ProjectShowcaseProps {
@@ -29,7 +33,7 @@ export function ProjectShowcase({
         </Reveal>
 
         <Reveal>
-          <ProjectCarousel>
+          <ProjectCarousel controls="inside">
             {screenshots.map((item, idx) => (
               <CarouselSlide key={item.src} size="full">
                 <article className="grid min-w-0 gap-6 rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-950 sm:p-6 lg:grid-cols-5 lg:items-center lg:gap-10">
@@ -72,6 +76,7 @@ export function ProjectShowcase({
                         isPriority={idx === 0}
                       />
                     </div>
+                    <CarouselControls className="relative mt-4" />
                   </div>
 
                   {/* Feature description */}
