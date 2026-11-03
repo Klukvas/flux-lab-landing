@@ -458,6 +458,7 @@
       "message": "Cover Letter",
       "resume": "Resume (PDF, DOC, DOCX)",
       "resumeRequired": "Please attach your resume",
+      "marketingConsent": "Email me about new openings and fluxLab products",
       "submit": "Submit Application",
       "sending": "Submitting...",
       "success": "Application submitted successfully!",

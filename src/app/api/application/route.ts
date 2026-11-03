@@ -56,7 +56,13 @@ export async function POST(request: Request) {
     }
 
     const source = collectSubmissionSource(formData, headersList);
-    const text = formatApplicationMessage(result.data, source);
+    const text = formatApplicationMessage(
+      {
+        ...result.data,
+        hasMarketingConsent: formData.get("marketingConsent") === "yes",
+      },
+      source,
+    );
     await sendTelegramMessage(text);
     await sendTelegramDocument(
       file,
