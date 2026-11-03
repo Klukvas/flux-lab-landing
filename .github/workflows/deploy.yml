@@ -90,6 +90,9 @@ jobs:
 
             docker compose pull
             docker compose up -d
+            # nginx looks up the web container's address only when it starts, so a
+            # recreated web container is unreachable (502) until nginx restarts.
+            docker compose restart nginx
 
             echo "Waiting for container to start..."
             sleep 10
