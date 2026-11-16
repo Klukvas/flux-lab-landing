@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "Software Development Company in Ukraine | fluxLab.dev",
-    "description": "Kyiv product studio behind SaaS apps used by 46K+ people. Hire the senior React, Next.js and Go team that builds and runs them."
+    "description": "Kyiv-based product studio. We design, build and run digital products — and bring the same team to your next product."
   },
   "nav": {
     "home": "Home",
@@ -167,7 +167,8 @@
       "active": "Active",
       "beta": "Beta",
       "coming-soon": "Coming Soon",
-      "archived": "Archived"
+      "archived": "Archived",
+      "in-development": "In development"
     },
     "title": "Our Projects",
     "subtitle": "Explore our portfolio of digital products",
@@ -423,7 +424,7 @@
       },
       "2024": {
         "title": "3 Products, 27K Users",
-        "description": "Launched EFluxCom (energy management), WashFlow (car wash CRM), and Accounting (financial management). All three reached paying customers within weeks of launch."
+        "description": "Building our own digital products and refining how we design, ship and operate them."
       },
       "2025": {
         "title": "46K+ Users, 800+ Companies",
@@ -518,17 +519,9 @@
     "rights": "All rights reserved."
   },
   "testimonials": {
-    "efluxcom": {
-      "quote": "Reduced our energy monitoring costs by 27% in the first quarter. The dashboard gives us real-time visibility we never had before.",
-      "role": "CTO"
-    },
     "washflow": {
       "quote": "Went from spreadsheets to managing 120 locations in one platform. Our operators finally have the tools they deserve.",
       "role": "Founder"
-    },
-    "accounting": {
-      "quote": "890K+ invoices processed with zero downtime. The automation alone saved us 40 hours per week across the team.",
-      "role": "CFO"
     }
   },
   "support": {

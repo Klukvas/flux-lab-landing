@@ -81,7 +81,7 @@ updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 
 ## Lesson 6: Soft Deletes Create Query Complexity
 
-We tried soft deletes (adding a `deleted_at` column) in our [Accounting](/en/projects/accounting) product. Every query needed `WHERE deleted_at IS NULL`, and we missed it in several places. Now we prefer hard deletes with proper foreign key constraints and a separate audit log table when we need history.
+We tried soft deletes (adding a `deleted_at` column) in an earlier internal application. Every query needed `WHERE deleted_at IS NULL`, and we missed it in several places. Now we prefer hard deletes with proper foreign key constraints and a separate audit log table when we need history.
 
 ## Lesson 7: Migrations Must Be Reversible
 

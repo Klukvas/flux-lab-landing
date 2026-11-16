@@ -1,7 +1,7 @@
 export const SITE_NAME = "fluxLab.dev";
 export const SITE_URL = "https://flux-lab.dev";
 export const SITE_DESCRIPTION =
-  "Kyiv-based software development studio building production SaaS products. 46K+ users. React, Next.js, TypeScript, Go, PostgreSQL.";
+  "Kyiv-based software development studio building digital products. React, Next.js, TypeScript, Go, PostgreSQL.";
 
 export const CONTACT_EMAIL = "hello@flux-lab.dev";
 export const CONTACT_LOCATION = "Kyiv, Ukraine";

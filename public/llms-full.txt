@@ -49,13 +49,6 @@ Expert guidance on architecture, technology choices, and best practices. Include
 - Tech: Go (chi, pgx), Next.js, TypeScript, PostgreSQL, Redis, Docker, Hetzner Cloud, Caddy
 - AI: Claude API (Haiku for parsing, Sonnet for generation)
 
-### EFluxCom — Smart Energy Management
-- Case study: https://flux-lab.dev/en/projects/efluxcom
-- Status: Active (launched March 2024)
-- Users: 12,400 | Companies: 85
-- Description: Comprehensive energy management system for monitoring, analyzing, and optimizing power consumption. AI engine analyzes patterns and recommends load-shifting strategies cutting costs by up to 30%.
-- Tech: React, Next.js, TypeScript, Node.js, PostgreSQL, Redis, Docker, AWS
-
 ### WashFlow — Business Management Suite
 - URL: https://washflow.app
 - Status: Active (launched May 2024)
@@ -63,22 +56,20 @@ Expert guidance on architecture, technology choices, and best practices. Include
 - Description: All-in-one management platform for car wash and laundry businesses. Order tracking, scheduling, CRM with loyalty programs, role-based access control.
 - Tech: React, Next.js, TypeScript, NestJS, PostgreSQL, React Native, Docker
 
-### Accounting — Financial Management
-- Status: Active (launched June 2024)
-- Users: 6,200 | Companies: 340
-- Description: Streamlined accounting for SMBs in Ukraine/Eastern Europe. Multi-currency, automatic VAT, bank sync, 1C/BAS export.
-- Tech: React, TypeScript, Node.js, PostgreSQL, Redis, Docker, AWS
+### Market — Orders, Receipts & Analytics
+- Case study: https://flux-lab.dev/en/projects/market
+- Status: Active
+- Description: ReceiptMaster brings products, orders, PDF receipts and sales analytics into one workspace. Receipt templates: Standard, Compact and Thermal.
 
-### Market — E-Commerce Marketplace
-- Status: Beta (launched February 2025)
-- Users: 3,400 | Companies: 45
-- Description: White-label multi-vendor marketplace. Plugin architecture, split payments, escrow, Elasticsearch search.
-- Tech: React, Next.js, TypeScript, Node.js, PostgreSQL, Redis
+### LifeSpan — Your Life, Visualized
+- Case study: https://flux-lab.dev/en/projects/lifespan
+- Status: Beta
+- Description: A personal life timeline: record days and moods, organize chapters, and keep memories in context.
 
-### LifeSpan — Health Tracking
-- Status: Coming Soon (Q3 2025)
-- Description: Mobile-first health companion. Privacy-first with on-device ML.
-- Tech: React Native, TypeScript, Node.js, PostgreSQL, Redis
+### EFluxCom — Product in Development
+- Case study: https://flux-lab.dev/en/projects/efluxcom
+- Status: In development
+- Description: An e-commerce product in development. Details will be shared when it is ready.
 
 ## Templates
 

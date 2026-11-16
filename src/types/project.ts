@@ -1,4 +1,5 @@
-export type ProjectStatus = "active" | "beta" | "coming-soon" | "archived";
+export type ProjectStatus =
+  "active" | "beta" | "coming-soon" | "in-development" | "archived";
 
 export interface ProjectFeature {
   readonly title: string;

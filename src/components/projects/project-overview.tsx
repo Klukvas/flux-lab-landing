@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { Container, SectionHeading } from '@/components/ui';
+import { motion } from "framer-motion";
+import { Container, SectionHeading } from "@/components/ui";
 
 interface ProjectOverviewProps {
   readonly overview: string;
@@ -42,22 +42,22 @@ export function ProjectOverview({
             transition={{ duration: 0.5, delay: 0.1 }}
             className="mt-8 grid gap-6 sm:grid-cols-2"
           >
-            <div className="rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-950">
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                {targetAudienceLabel}
-              </h3>
-              <p className="mt-2 text-sm text-foreground">
-                {targetAudience}
-              </p>
-            </div>
-            <div className="rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-950">
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                {launchedLabel}
-              </h3>
-              <p className="mt-2 text-sm text-foreground">
-                {launchDate}
-              </p>
-            </div>
+            {targetAudience && (
+              <div className="rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-950">
+                <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                  {targetAudienceLabel}
+                </h3>
+                <p className="mt-2 text-sm text-foreground">{targetAudience}</p>
+              </div>
+            )}
+            {launchDate && (
+              <div className="rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-950">
+                <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                  {launchedLabel}
+                </h3>
+                <p className="mt-2 text-sm text-foreground">{launchDate}</p>
+              </div>
+            )}
           </motion.div>
         </div>
       </Container>
