@@ -173,7 +173,6 @@
     "subtitle": "Ознайомтесь з нашим портфоліо цифрових продуктів",
     "metaTitle": "Кейси: SaaS-продукти, які ми створили",
     "metaDescription": "Кейси SaaS-продуктів і шаблонів, які ми створили: аудит сайтів для SEO та ШІ-пошуку, CRM для автомийок, ШІ-трекер вакансій і вітрина для автосалону.",
-    "filterAll": "Всі",
     "viewProject": "Переглянути",
     "users": "Користувачів",
     "companies": "Компаній",
@@ -670,8 +669,6 @@
         }
       }
     },
-    "results": "{count, plural, one {# проєкт} few {# проєкти} many {# проєктів} other {# проєкту}}",
-    "resultsTagged": "{count, plural, one {# проєкт} few {# проєкти} many {# проєктів} other {# проєкту}} з тегом {tag}",
     "onThisPage": "На цій сторінці",
     "openScreenshot": "Відкрити скриншот у повному розмірі: {title}",
     "closeScreenshot": "Закрити скриншот",
@@ -684,7 +681,8 @@
     "catalogPrevious": "Попередній проєкт",
     "catalogNext": "Наступний проєкт",
     "catalogPosition": "Проєкт {current} з {total}",
-    "catalogVisit": "Відкрити {site}"
+    "catalogVisit": "Відкрити {site}",
+    "catalogIndex": "Усі проєкти"
   },
   "services": {
     "title": "Послуги з розробки ПЗ",

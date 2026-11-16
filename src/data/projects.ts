@@ -1100,12 +1100,3 @@ export function getProjectBySlug(slug: string): Project | undefined {
 export function getProjectSlugs(): readonly string[] {
   return projects.map((p) => p.slug);
 }
-
-export function getProjectsByTag(tag: string): readonly Project[] {
-  return projectsInShowcaseOrder.filter((p) => p.tags.includes(tag));
-}
-
-export function getAllTags(): readonly string[] {
-  const tagSet = new Set(projects.flatMap((p) => p.tags));
-  return [...tagSet].sort();
-}

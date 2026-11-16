@@ -1,0 +1,118 @@
+/* The project index: one strip of names across the top of the stage. */
+.index {
+  position: absolute;
+  top: 16px;
+  left: max(16px, env(safe-area-inset-left, 0px));
+  /* Leaves room for the counter and arrows on the right. */
+  right: calc(max(16px, env(safe-area-inset-right, 0px)) + 168px);
+  z-index: 20;
+  display: flex;
+  pointer-events: none;
+}
+
+.list {
+  display: flex;
+  gap: 2px;
+  max-width: 100%;
+  margin: 0;
+  padding: 4px;
+  overflow-x: auto;
+  border-radius: 999px;
+  background: var(--p-bar);
+  color: var(--p-bar-ink, var(--p-ink));
+  font-family: var(--p-font);
+  font-size: 13px;
+  list-style: none;
+  pointer-events: auto;
+  scrollbar-width: none;
+  backdrop-filter: blur(10px);
+  transition:
+    background-color 0.6s ease,
+    color 0.6s ease;
+}
+
+.list::-webkit-scrollbar {
+  display: none;
+}
+
+.index[data-theme="fluxradar"] .list {
+  border: 2px solid #000;
+  border-radius: 0;
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 12px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  opacity: 0.72;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.item:hover {
+  opacity: 1;
+}
+
+.item:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: -2px;
+}
+
+.itemCurrent {
+  background: var(--p-accent);
+  color: var(--p-accent-ink);
+  opacity: 1;
+}
+
+.index[data-theme="fluxradar"] .item {
+  border-radius: 0;
+}
+
+.index[data-theme="fluxradar"] .itemCurrent {
+  box-shadow: inset 0 0 0 2px #000;
+}
+
+/* Status keeps its semantic colours, apart from each product's accent. */
+.dot {
+  --status: #22c55e;
+
+  width: 6px;
+  height: 6px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--status);
+}
+
+.status-beta {
+  --status: #f59e0b;
+}
+
+.status-coming-soon,
+.status-in-development {
+  --status: #8b8ff8;
+}
+
+.status-archived {
+  --status: #9ca3af;
+}
+
+.itemCurrent .dot {
+  box-shadow: 0 0 0 1.5px var(--p-accent-ink);
+}
+
+@media (max-width: 1023px) {
+  .index {
+    top: 64px;
+    right: max(16px, env(safe-area-inset-right, 0px));
+  }
+}

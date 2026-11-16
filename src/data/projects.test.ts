@@ -6,7 +6,6 @@ import {
   getAllProjects,
   getFeaturedProjects,
   getLiveProjects,
-  getProjectsByTag,
 } from "./projects";
 
 const ukProjects: Record<string, unknown> = uk.projects;
@@ -39,16 +38,6 @@ describe("project order", () => {
     const users = active.map((p) => p.stats?.users ?? 0);
 
     expect(users).toEqual([...users].sort((a, b) => b - a));
-  });
-
-  it("keeps the same order when filtered by tag", () => {
-    const [tag] = getAllProjects()[0].tags;
-    const tagged = getProjectsByTag(tag).map((p) => p.slug);
-    const expected = getAllProjects()
-      .filter((p) => p.tags.includes(tag))
-      .map((p) => p.slug);
-
-    expect(tagged).toEqual(expected);
   });
 });
 

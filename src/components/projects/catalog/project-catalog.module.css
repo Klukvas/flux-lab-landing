@@ -573,6 +573,11 @@
 
 /* ---------- Narrow screens: one column, numbers inside the card ---------- */
 @media (max-width: 1023px) {
+  /* The index strip sits over the card peeking from above and already names it. */
+  .card[data-position="previous"] .peekTag {
+    display: none;
+  }
+
   .stage {
     --cw: min(calc(100cqw - 32px), 640px);
     --card-h: 72cqh;

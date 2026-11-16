@@ -1,35 +1,25 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
-import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { getAllProjects, getProjectsByTag } from "@/data/projects";
+import { getAllProjects } from "@/data/projects";
 import { cn } from "@/lib/utils";
 import type { Project } from "@/types";
 import { CatalogCard } from "./catalog-card";
 import { catalogFontVariables } from "./catalog-fonts";
+import { CatalogIndex } from "./catalog-index";
 import { positionFor, stepTarget } from "./catalog-model";
 import { CatalogStickers } from "./catalog-stickers";
 import { catalogTheme } from "./catalog-theme";
 import { useCatalogNavigation } from "./use-catalog-navigation";
 import styles from "./project-catalog.module.css";
 
-export function ProjectCatalog() {
-  return <ProjectCatalogView activeTag={useSearchParams().get("tag")} />;
-}
-
 /**
- * The catalog for a given tag. Prerendered with no tag as the Suspense fallback, so the
- * static HTML carries every project and its link for crawlers and first paint.
+ * Every project in one looping stack. The static HTML carries each card and its link, so
+ * crawlers and first paint see the whole portfolio before the stack comes alive.
  */
-export function ProjectCatalogView({
-  activeTag,
-}: {
-  readonly activeTag: string | null;
-}) {
-  const projects = activeTag ? getProjectsByTag(activeTag) : getAllProjects();
-  // A new tag is a new stack: start again from its first project.
-  return <CatalogStage key={activeTag ?? "all"} projects={projects} />;
+export function ProjectCatalog() {
+  return <CatalogStage projects={getAllProjects()} />;
 }
 
 const pad = (n: number) => String(n).padStart(2, "0");
@@ -79,6 +69,13 @@ function CatalogStage({ projects }: { readonly projects: readonly Project[] }) {
           />
         );
       })}
+
+      <CatalogIndex
+        projects={projects}
+        current={current}
+        theme={centredTheme}
+        onSelect={setCurrent}
+      />
 
       <div
         className={cn(styles.bar, centredTheme.className)}
