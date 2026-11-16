@@ -11,11 +11,14 @@ import { ThemeToggle } from "./theme-toggle";
 import { LocaleSwitcher } from "./locale-switcher";
 import { MobileNav } from "./mobile-nav";
 import { useScrolledPast } from "./use-scrolled-past";
+import { useHeaderTheme } from "./header-theme";
+import themedStyles from "./header-theme.module.css";
 
 export function Header() {
   const t = useTranslations("nav");
   const pathname = usePathname();
   const hasContentUnderneath = useScrolledPast(0);
+  const pageTheme = useHeaderTheme();
   // The menu belongs to the page it was opened on, so moving to another page (a menu
   // link, the Back button) closes it without an effect to keep the two in sync. A
   // language switch remounts the whole locale layout, which closes it as well.
@@ -26,10 +29,21 @@ export function Header() {
     setMenuPathname(isOpen ? pathname : null);
   }
 
+  // The open menu is the site's own sheet, so it keeps the site's look.
+  const theme = isMenuOpen ? null : pageTheme;
+
   return (
     // Open, the menu is a modal sheet: it has to cover the floating buttons (z-50) and
     // the cookie card (z-[60]), which it has just made inert.
-    <header className={cn("sticky top-0", isMenuOpen ? "z-[70]" : "z-50")}>
+    <header
+      className={cn(
+        "sticky top-0",
+        isMenuOpen ? "z-[70]" : "z-50",
+        theme && [theme.className, themedStyles.themed],
+      )}
+      style={theme?.style}
+      data-theme={theme?.key}
+    >
       {/* Scroll edge: the bar stays clear until content scrolls under it, then its
           material and hairline fade in. The open menu brings its own material, so the
           bar's steps aside instead of stacking one translucent layer on another. The
@@ -39,7 +53,9 @@ export function Header() {
         aria-hidden="true"
         className={cn(
           "material-bar absolute inset-0 -z-10 border-b border-gray-200/60 transition-opacity duration-200 contrast-more:border-gray-400 dark:border-gray-800/60",
-          hasContentUnderneath && !isMenuOpen ? "opacity-100" : "opacity-0",
+          hasContentUnderneath && !isMenuOpen && !theme
+            ? "opacity-100"
+            : "opacity-0",
         )}
       />
       <Container>

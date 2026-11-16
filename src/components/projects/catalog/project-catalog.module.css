@@ -8,18 +8,23 @@
 /* ---------- Stage ---------- */
 .stage {
   --cw: clamp(640px, 58cqw, 940px);
-  --card-h: clamp(440px, 60cqh, 560px);
-  --teaser-h: clamp(320px, 52cqh, 460px);
+  /* The stage runs up under the transparent site header (h-14), so the product's
+     background fills the whole screen; content is laid out in the area below it. */
+  --top-inset: 56px;
+  --area: calc(100cqh - var(--top-inset));
+  --card-h: clamp(440px, calc(var(--area) * 0.6), 560px);
+  --teaser-h: clamp(320px, calc(var(--area) * 0.52), 460px);
   /* Neighbours peek this far past the centred card, whatever their own height. */
   --peek-gap: calc(var(--card-h) * 0.2);
   --centred-h: var(--card-h);
-  --cy: 55%;
+  --cy: calc(var(--top-inset) + var(--area) * 0.55);
   --sticker-w: clamp(150px, 14cqw, 200px);
 
   position: relative;
-  /* The catalog is the whole page: everything below the site header's h-14 bar. */
-  height: calc(100svh - 56px);
-  min-height: 600px;
+  /* The catalog is the whole page, header included. */
+  height: 100svh;
+  min-height: 656px;
+  margin-top: calc(-1 * var(--top-inset));
   overflow: hidden;
   isolation: isolate;
   container-type: size;
@@ -93,7 +98,7 @@
 /* ---------- Bar ---------- */
 .bar {
   position: absolute;
-  top: 16px;
+  top: calc(var(--top-inset) + 16px);
   right: max(16px, env(safe-area-inset-right, 0px));
   z-index: 20;
   display: flex;
@@ -582,12 +587,12 @@
 
   .stage {
     --cw: min(calc(100cqw - 32px), 640px);
-    --card-h: 72cqh;
-    --teaser-h: 56cqh;
+    --card-h: calc(var(--area) * 0.72);
+    --teaser-h: calc(var(--area) * 0.56);
     --peek-gap: calc(var(--card-h) * 0.16);
-    --cy: 54%;
+    --cy: calc(var(--top-inset) + var(--area) * 0.54);
 
-    min-height: 560px;
+    min-height: 616px;
   }
 
   .cardInner {

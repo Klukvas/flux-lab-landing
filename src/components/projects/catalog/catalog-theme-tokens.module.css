@@ -24,6 +24,8 @@
   --p-surface: #111;
   --p-ink: #fff;
   --p-muted: #c4c9d3;
+  /* The header sits on the slate ground itself, where the muted grey reads too faint. */
+  --p-header-muted: rgba(255, 255, 255, 0.8);
   --p-accent: #38f24a;
   --p-accent-ink: #000;
   --p-line: #3a3a3a;
