@@ -1,6 +1,4 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Container, SectionHeading } from "@/components/ui";
-import { CtaPanel } from "@/components/layout/cta-panel";
 import { ProjectCatalog } from "@/components/projects/catalog/project-catalog";
 import { generatePageMetadata } from "@/lib/metadata";
 
@@ -29,18 +27,12 @@ export default async function ProjectsPage({
 
   const t = await getTranslations("projects");
 
+  // The catalog is the page: it fills the screen under the header, so the title is
+  // kept for search engines and screen readers only.
   return (
     <>
-      <section className="pt-24 pb-24">
-        <Container>
-          <div className="mb-12">
-            <SectionHeading as="h1" title={t("title")} subtitle={t("subtitle")} />
-          </div>
-        </Container>
-        {/* Full bleed: the stage is a band of the page dressed in the centred product. */}
-        <ProjectCatalog />
-      </section>
-      <CtaPanel />
+      <h1 className="sr-only">{t("title")}</h1>
+      <ProjectCatalog />
     </>
   );
 }
