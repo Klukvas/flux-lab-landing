@@ -6,7 +6,6 @@ import {
   getAllProjects,
   getFeaturedProjects,
   getLiveProjects,
-  getProjectsByTag,
 } from "./projects";
 
 const ukProjects: Record<string, unknown> = uk.projects;
@@ -39,16 +38,6 @@ describe("project order", () => {
     const users = active.map((p) => p.stats?.users ?? 0);
 
     expect(users).toEqual([...users].sort((a, b) => b - a));
-  });
-
-  it("keeps the same order when filtered by tag", () => {
-    const [tag] = getAllProjects()[0].tags;
-    const tagged = getProjectsByTag(tag).map((p) => p.slug);
-    const expected = getAllProjects()
-      .filter((p) => p.tags.includes(tag))
-      .map((p) => p.slug);
-
-    expect(tagged).toEqual(expected);
   });
 });
 
@@ -114,5 +103,33 @@ describe("screenshots", () => {
         screenshot.features.length,
       );
     });
+  });
+});
+
+describe("catalog", () => {
+  it("keeps at most four stickers per card so they fit around it", () => {
+    for (const project of getAllProjects()) {
+      expect(project.catalog?.stats.length ?? 0, project.slug).toBeLessThanOrEqual(4);
+    }
+  });
+
+  // The catalog reads Ukrainian sticker labels by index, so a missing one would fall back to English.
+  it("has Ukrainian copy for every catalog audience and sticker", () => {
+    for (const project of getAllProjects()) {
+      const catalog = project.catalog;
+      if (!catalog) continue;
+      const copy = (
+        ukProjects[project.slug] as
+          | { catalog?: { audience?: string; stats?: Record<string, string> } }
+          | undefined
+      )?.catalog;
+
+      if (catalog.audience) {
+        expect(copy?.audience, `${project.slug}.catalog.audience`).toBeTruthy();
+      }
+      catalog.stats.forEach((stat, idx) => {
+        expect(copy?.stats?.[idx], `${project.slug}: ${stat.label}`).toBeTruthy();
+      });
+    }
   });
 });

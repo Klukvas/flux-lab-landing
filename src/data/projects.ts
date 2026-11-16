@@ -156,6 +156,21 @@ export const projects: readonly Project[] = [
         ],
       },
     ],
+    catalog: {
+      audience: "Small-business owners and agencies",
+      stats: [
+        { value: "1,500+", label: "Sites checked" },
+        { value: "10", label: "Audit modules in one report" },
+        { value: "4", label: "AI assistants we ask about you" },
+        { value: "White label", label: "Reports under your agency's brand" },
+      ],
+      motif: {
+        kind: "finding",
+        badge: "Fix first",
+        text: "3 links lead to a page that no longer exists.",
+        hint: "What to do: fix the links or remove them.",
+      },
+    },
     color: "#66799b",
     icon: "FR",
     url: "https://fluxradar.net",
@@ -382,6 +397,29 @@ export const projects: readonly Project[] = [
         ],
       },
     ],
+    catalog: {
+      audience: "Car washes, from one post to a chain",
+      stats: [
+        { value: "60+", label: "Car washes use it" },
+        { value: "2.3M+", label: "Orders processed" },
+        { value: "30 days", label: "Free trial" },
+      ],
+      motif: {
+        kind: "schedule",
+        rows: [
+          {
+            label: "Post 1",
+            slots: ["free", "busy", "busy", "free", "free", "busy", "free"],
+          },
+          {
+            label: "Post 2",
+            slots: ["busy", "free", "free", "free", "busy", "busy", "free"],
+          },
+        ],
+        freeLabel: "Free",
+        busyLabel: "Busy",
+      },
+    },
     color: "#3b82f6",
     icon: "WF",
     url: "https://washflow.app",
@@ -650,6 +688,26 @@ export const projects: readonly Project[] = [
         ],
       },
     ],
+    catalog: {
+      audience: "Engineers in an active job search",
+      stats: [
+        { value: "48K+", label: "Applications tracked" },
+        { value: "12K+", label: "Resumes built" },
+        {
+          value: "1 click",
+          label: "To save a job from any site, Chrome extension",
+        },
+      ],
+      motif: {
+        kind: "stages",
+        stages: [
+          { label: "Applied", count: 12, color: "#84cc16" },
+          { label: "Interview", count: 4, color: "#0ea5e9" },
+          { label: "Offer", count: 2, color: "#22c55e" },
+          { label: "Rejected", count: 7, color: "#ef4444" },
+        ],
+      },
+    },
     color: "#84cc16",
     icon: "CU",
     url: "https://cursopus.com",
@@ -846,6 +904,19 @@ export const projects: readonly Project[] = [
       },
     ],
     designs: autoflowDesigns,
+    catalog: {
+      audience: "Dealerships and consignment sellers",
+      stats: [
+        { value: "19", label: "Design concepts to start from" },
+        { value: "10", label: "Telegram channels with autoposting" },
+        { value: "3", label: "Price currencies: $, ₴, €" },
+      ],
+      motif: {
+        kind: "listing",
+        caption: "BMW 5 Series 530i xDrive · 2021",
+        price: "$ 38 500",
+      },
+    },
     color: "#b5443b",
     icon: "AF",
     url: "https://autos-sale.com",
@@ -1028,13 +1099,4 @@ export function getProjectBySlug(slug: string): Project | undefined {
 
 export function getProjectSlugs(): readonly string[] {
   return projects.map((p) => p.slug);
-}
-
-export function getProjectsByTag(tag: string): readonly Project[] {
-  return projectsInShowcaseOrder.filter((p) => p.tags.includes(tag));
-}
-
-export function getAllTags(): readonly string[] {
-  const tagSet = new Set(projects.flatMap((p) => p.tags));
-  return [...tagSet].sort();
 }

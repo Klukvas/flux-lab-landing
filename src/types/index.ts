@@ -1,5 +1,9 @@
 export type {
   Project,
+  ProjectCatalog,
+  ProjectCatalogMotif,
+  ProjectCatalogStat,
+  ProjectScheduleSlot,
   ProjectDesign,
   ProjectDesignGallery,
   ProjectFeature,

@@ -173,7 +173,6 @@
     "subtitle": "Explore our portfolio of digital products",
     "metaTitle": "Case Studies: SaaS Products We Built and Run",
     "metaDescription": "Case studies of SaaS products and templates we built and run: an SEO and AI-search site audit, a car wash CRM, an AI job tracker and a car dealer storefront.",
-    "filterAll": "All",
     "viewProject": "View Project",
     "users": "Users",
     "companies": "Companies",
@@ -267,14 +266,20 @@
         "features": ["Modules: Analytics, Audit, Branches, Clients, Orders, Payments, Roles, Scheduling", "CRUD toggles per module: Create, View, Edit, Delete", "Permission counter showing selected out of total", "Custom role creation with any permission combination", "Changes apply instantly across all users with that role"]
       }
     },
-    "results": "{count, plural, one {# project} other {# projects}}",
-    "resultsTagged": "{count, plural, one {# project} other {# projects}} tagged {tag}",
     "onThisPage": "On this page",
     "openScreenshot": "Open full-size screenshot: {title}",
     "closeScreenshot": "Close screenshot",
     "openDesign": "Open full-size design concept: {title}",
     "closeDesign": "Close design concept",
-    "designAlt": "{title} — {project} design concept"
+    "designAlt": "{title} — {project} design concept",
+    "catalogLabel": "Our products",
+    "catalogInside": "What's inside",
+    "catalogFor": "For",
+    "catalogPrevious": "Previous project",
+    "catalogNext": "Next project",
+    "catalogPosition": "Project {current} of {total}",
+    "catalogVisit": "Open {site}",
+    "catalogIndex": "All projects"
   },
   "services": {
     "title": "Software Development Services",
@@ -350,8 +355,8 @@
     "filterAll": "All",
     "resultCount": "{count, plural, one {# post} other {# posts}}",
     "resultCountTagged": "{count, plural, one {# post tagged {tag}} other {# posts tagged {tag}}}",
-      "moreTags": "{count} more",
-      "fewerTags": "Fewer tags"
+    "moreTags": "{count} more",
+    "fewerTags": "Fewer tags"
   },
   "about": {
     "title": "About Us",
