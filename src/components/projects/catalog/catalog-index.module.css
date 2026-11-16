@@ -1,7 +1,7 @@
 /* The project index: one strip of names across the top of the stage. */
 .index {
   position: absolute;
-  top: 16px;
+  top: calc(var(--top-inset) + 16px);
   left: max(16px, env(safe-area-inset-left, 0px));
   /* Leaves room for the counter and arrows on the right. */
   right: calc(max(16px, env(safe-area-inset-right, 0px)) + 168px);
@@ -112,7 +112,7 @@
 
 @media (max-width: 1023px) {
   .index {
-    top: 64px;
+    top: calc(var(--top-inset) + 64px);
     right: max(16px, env(safe-area-inset-right, 0px));
   }
 }

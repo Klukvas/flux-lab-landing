@@ -1,7 +1,8 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
+import { setHeaderTheme } from "@/components/layout/header-theme";
 import { getAllProjects } from "@/data/projects";
 import { cn } from "@/lib/utils";
 import type { Project } from "@/types";
@@ -39,6 +40,13 @@ function CatalogStage({ projects }: { readonly projects: readonly Project[] }) {
   const isLoop = count > 1;
 
   const centred = projects[current];
+
+  // The site header wears the centred product's colours while the catalog is on screen.
+  useEffect(() => {
+    if (centred) setHeaderTheme(catalogTheme(centred));
+  }, [centred]);
+  useEffect(() => () => setHeaderTheme(null), []);
+
   if (!centred) return null;
   const centredTheme = catalogTheme(centred);
 
