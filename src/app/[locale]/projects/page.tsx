@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { Suspense, type ReactNode } from "react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container, SectionHeading } from "@/components/ui";
 import { CtaPanel } from "@/components/layout/cta-panel";
@@ -7,9 +7,9 @@ import {
   ProjectFilterView,
 } from "@/components/projects/project-filter";
 import {
-  ProjectGrid,
-  ProjectGridView,
-} from "@/components/projects/project-grid";
+  ProjectCatalog,
+  ProjectCatalogView,
+} from "@/components/projects/catalog/project-catalog";
 import { generatePageMetadata } from "@/lib/metadata";
 
 export async function generateMetadata({
@@ -27,6 +27,24 @@ export async function generateMetadata({
   });
 }
 
+function CatalogSection({
+  filter,
+  catalog,
+}: {
+  readonly filter: ReactNode;
+  readonly catalog: ReactNode;
+}) {
+  return (
+    <>
+      <Container>
+        <div className="mb-10">{filter}</div>
+      </Container>
+      {/* Full bleed: the stage is a band of the page dressed in the centred product. */}
+      {catalog}
+    </>
+  );
+}
+
 export default async function ProjectsPage({
   params,
 }: {
@@ -39,27 +57,25 @@ export default async function ProjectsPage({
 
   return (
     <>
-      <section className="py-24">
+      <section className="pt-24 pb-24">
         <Container>
           <SectionHeading as="h1" title={t("title")} subtitle={t("subtitle")} />
-          {/* The filter reads ?tag= from the URL, which static HTML can't know, so the
-              fallback prerenders the unfiltered view and the URL's tag applies on hydration. */}
-          <Suspense
-            fallback={
-              <>
-                <div className="mb-8">
-                  <ProjectFilterView activeTag={null} />
-                </div>
-                <ProjectGridView activeTag={null} />
-              </>
-            }
-          >
-            <div className="mb-8">
-              <ProjectFilter />
-            </div>
-            <ProjectGrid />
-          </Suspense>
         </Container>
+        {/* The filter reads ?tag= from the URL, which static HTML can't know, so the
+            fallback prerenders the unfiltered view and the URL's tag applies on hydration. */}
+        <Suspense
+          fallback={
+            <CatalogSection
+              filter={<ProjectFilterView activeTag={null} />}
+              catalog={<ProjectCatalogView activeTag={null} />}
+            />
+          }
+        >
+          <CatalogSection
+            filter={<ProjectFilter />}
+            catalog={<ProjectCatalog />}
+          />
+        </Suspense>
       </section>
       <CtaPanel />
     </>

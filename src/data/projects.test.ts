@@ -116,3 +116,31 @@ describe("screenshots", () => {
     });
   });
 });
+
+describe("catalog", () => {
+  it("keeps at most four stickers per card so they fit around it", () => {
+    for (const project of getAllProjects()) {
+      expect(project.catalog?.stats.length ?? 0, project.slug).toBeLessThanOrEqual(4);
+    }
+  });
+
+  // The catalog reads Ukrainian sticker labels by index, so a missing one would fall back to English.
+  it("has Ukrainian copy for every catalog audience and sticker", () => {
+    for (const project of getAllProjects()) {
+      const catalog = project.catalog;
+      if (!catalog) continue;
+      const copy = (
+        ukProjects[project.slug] as
+          | { catalog?: { audience?: string; stats?: Record<string, string> } }
+          | undefined
+      )?.catalog;
+
+      if (catalog.audience) {
+        expect(copy?.audience, `${project.slug}.catalog.audience`).toBeTruthy();
+      }
+      catalog.stats.forEach((stat, idx) => {
+        expect(copy?.stats?.[idx], `${project.slug}: ${stat.label}`).toBeTruthy();
+      });
+    }
+  });
+});

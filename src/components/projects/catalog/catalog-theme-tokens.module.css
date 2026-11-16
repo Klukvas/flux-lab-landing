@@ -1,0 +1,157 @@
+/* One class per product slug: the --p-* tokens every part of the catalog reads. */
+
+.fallback {
+  --p-bg: color-mix(in srgb, var(--project-color) 18%, #0d0e10);
+  --p-surface: #141518;
+  --p-ink: #eeeef0;
+  --p-muted: #a1a3a8;
+  --p-accent: var(--project-color);
+  --p-accent-ink: #fff;
+  --p-line: #2a2c31;
+  --p-radius: 14px;
+  --p-chip: #1c1d21;
+  --p-font: var(--font-catalog-inter), system-ui, sans-serif;
+  --p-num: var(--p-font);
+  --p-display-weight: 600;
+  --p-track: -0.03em;
+  --p-bar: rgba(13, 14, 16, 0.8);
+  --p-sticker: #141518;
+  --p-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.85);
+}
+
+.fluxradar {
+  --p-bg: #66799b;
+  --p-surface: #111;
+  --p-ink: #fff;
+  --p-muted: #c4c9d3;
+  --p-accent: #38f24a;
+  --p-accent-ink: #000;
+  --p-line: #3a3a3a;
+  --p-radius: 0px;
+  --p-chip: #2a2a2a;
+  --p-font: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --p-num: var(--font-catalog-plex), ui-monospace, monospace;
+  --p-display-weight: 500;
+  --p-track: -0.025em;
+  --p-bar: #d6d6d6;
+  --p-bar-ink: #111;
+  --p-sticker: #fff;
+  --p-sticker-ink: #111;
+  --p-sticker-muted: #555;
+  --p-shadow: 7px 7px 0 rgba(0, 0, 0, 0.32);
+}
+
+.jobber {
+  --p-bg: #f2f4ee;
+  --p-surface: #fff;
+  --p-ink: #141a10;
+  --p-muted: #5b6455;
+  --p-accent: #84cc16;
+  --p-accent-ink: #0f1a00;
+  --p-line: #e2e6db;
+  --p-radius: 20px;
+  --p-chip: #f1f5e8;
+  --p-font: var(--font-catalog-inter), system-ui, sans-serif;
+  --p-num: var(--p-font);
+  --p-display-weight: 700;
+  --p-track: -0.03em;
+  --p-bar: rgba(255, 255, 255, 0.82);
+  --p-sticker: #fff;
+  --p-shadow: 0 24px 60px -24px rgba(46, 70, 10, 0.28);
+}
+
+.washflow {
+  --p-bg: #070b12;
+  --p-surface: #0d1320;
+  --p-ink: #e8edf5;
+  --p-muted: #8b97ab;
+  --p-accent: #3b82f6;
+  --p-accent-ink: #fff;
+  --p-line: #1d2738;
+  --p-radius: 12px;
+  --p-chip: #131c2c;
+  --p-font: var(--font-catalog-inter), system-ui, sans-serif;
+  --p-num: var(--p-font);
+  --p-display-weight: 600;
+  --p-track: -0.02em;
+  --p-bar: rgba(9, 13, 22, 0.9);
+  --p-sticker: #0d1320;
+  --p-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.9);
+}
+
+.autoflow {
+  --p-bg: #0c0d0e;
+  --p-surface: rgba(15, 16, 17, 0.92);
+  --p-ink: #f2f0ec;
+  --p-muted: #a3a09a;
+  --p-accent: #f2f0ec;
+  --p-accent-ink: #111;
+  --p-line: rgba(255, 255, 255, 0.2);
+  --p-radius: 0px;
+  --p-chip: transparent;
+  --p-font: var(--font-catalog-manrope), system-ui, sans-serif;
+  --p-num: var(--p-font);
+  --p-display-weight: 300;
+  --p-track: -0.035em;
+  --p-bar: rgba(12, 13, 14, 0.55);
+  --p-sticker: rgba(12, 13, 14, 0.6);
+  --p-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.9);
+}
+
+.market {
+  --p-bg: #ece9f7;
+  --p-surface: #fff;
+  --p-ink: #1d1730;
+  --p-muted: #625b78;
+  --p-accent: #8755f6;
+  --p-accent-ink: #fff;
+  --p-line: #e1dcf0;
+  --p-radius: 10px;
+  --p-chip: #f4f1fd;
+  --p-font: var(--font-catalog-inter), system-ui, sans-serif;
+  --p-num: var(--font-catalog-plex), ui-monospace, monospace;
+  --p-display-weight: 700;
+  --p-track: -0.03em;
+  --p-bar: rgba(255, 255, 255, 0.8);
+  --p-sticker: #fff;
+  --p-shadow: 0 24px 60px -28px rgba(60, 30, 140, 0.3);
+}
+
+.lifespan {
+  --p-bg: #e9f6f2;
+  --p-surface: #fbfefd;
+  --p-ink: #0e2a25;
+  --p-muted: #4f6e68;
+  --p-accent: #12d9ba;
+  --p-accent-ink: #062c25;
+  --p-line: #cfe7e1;
+  --p-radius: 26px;
+  --p-chip: #e3f5f0;
+  --p-font: var(--font-catalog-manrope), system-ui, sans-serif;
+  --p-num: var(--p-font);
+  --p-display-weight: 600;
+  --p-track: -0.035em;
+  --p-bar: rgba(251, 254, 253, 0.8);
+  --p-sticker: #fbfefd;
+  --p-shadow: 0 30px 60px -30px rgba(14, 90, 78, 0.35);
+}
+
+.efluxcom {
+  --p-bg: #0e0d16;
+  --p-surface: #15131f;
+  --p-ink: #ecebf5;
+  --p-muted: #9a97b0;
+  --p-accent: #7b6ef6;
+  --p-accent-ink: #fff;
+  --p-line: #2a2740;
+  --p-radius: 16px;
+  --p-chip: #1c1a2b;
+  --p-font: var(--font-catalog-inter), system-ui, sans-serif;
+  --p-num: var(--p-font);
+  --p-display-weight: 600;
+  --p-track: -0.03em;
+  --p-bar: rgba(14, 13, 22, 0.85);
+  --p-sticker: #15131f;
+  --p-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.9);
+}
+

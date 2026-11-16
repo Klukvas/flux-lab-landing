@@ -274,7 +274,14 @@
     "closeScreenshot": "Close screenshot",
     "openDesign": "Open full-size design concept: {title}",
     "closeDesign": "Close design concept",
-    "designAlt": "{title} — {project} design concept"
+    "designAlt": "{title} — {project} design concept",
+    "catalogLabel": "Our products",
+    "catalogInside": "What's inside",
+    "catalogFor": "For",
+    "catalogPrevious": "Previous project",
+    "catalogNext": "Next project",
+    "catalogPosition": "Project {current} of {total}",
+    "catalogVisit": "Open {site}"
   },
   "services": {
     "title": "Software Development Services",
@@ -350,8 +357,8 @@
     "filterAll": "All",
     "resultCount": "{count, plural, one {# post} other {# posts}}",
     "resultCountTagged": "{count, plural, one {# post tagged {tag}} other {# posts tagged {tag}}}",
-      "moreTags": "{count} more",
-      "fewerTags": "Fewer tags"
+    "moreTags": "{count} more",
+    "fewerTags": "Fewer tags"
   },
   "about": {
     "title": "About Us",
