@@ -19,6 +19,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
     active: "success" as const,
     beta: "warning" as const,
     "coming-soon": "default" as const,
+    "in-development": "default" as const,
     archived: "default" as const,
   };
 

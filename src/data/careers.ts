@@ -131,7 +131,7 @@ export const positions: readonly CareerPosition[] = [
         department: "Engineering",
         location: "Remote (Europe)",
         description:
-          "Accounting is our financial platform for small and medium businesses: invoicing, expense tracking, bank synchronization, VAT and exports to 1C/BAS. We're building its next core on .NET and need a C# engineer to own it: the double-entry ledger, the tax and reporting engine, bank and payment-provider integrations, and the background jobs that keep thousands of businesses' books in sync. Correctness matters more than speed here — money math, audit trails and idempotent processing are the daily work. You'll work with the TypeScript frontend team and define the API contract between backend and client.",
+          "We’re looking for a C# engineer to work on backend services and integrations. You’ll work with the TypeScript frontend team and define the API contract between backend and client. Correctness, clear data models, audit trails and idempotent processing are central to the role.",
         requirements: [
           "4+ years of production C# and .NET (ASP.NET Core, EF Core or Dapper)",
           "Strong PostgreSQL skills: transactions, isolation levels, schema design and migrations",
@@ -157,7 +157,7 @@ export const positions: readonly CareerPosition[] = [
         department: "Розробка",
         location: "Віддалено (Європа)",
         description:
-          "Accounting — наша фінансова платформа для малого й середнього бізнесу: виставлення рахунків, облік витрат, синхронізація з банками, ПДВ та експорт в 1C/BAS. Її наступне ядро ми будуємо на .NET і шукаємо C#-інженера, який візьме його на себе: леджер із подвійним записом, податковий і звітний рушій, інтеграції з банками та платіжними провайдерами, а також фонові задачі, що тримають бухгалтерію тисяч бізнесів синхронізованою. Тут коректність важливіша за швидкість: грошова арифметика, аудит-трейли й ідемпотентна обробка — це щоденна робота. Ви працюватимете разом із фронтенд-командою на TypeScript і визначатимете контракт API між бекендом і клієнтом.",
+          "Шукаємо C#-інженера для роботи над бекенд-сервісами та інтеграціями. Ви працюватимете з фронтенд-командою на TypeScript і визначатимете контракт API між бекендом і клієнтом. Для цієї ролі важливі коректність, зрозумілі моделі даних, аудит та ідемпотентна обробка.",
         requirements: [
           "4+ роки продакшн-досвіду з C# і .NET (ASP.NET Core, EF Core або Dapper)",
           "Сильні навички PostgreSQL: транзакції, рівні ізоляції, проєктування схем і міграції",
