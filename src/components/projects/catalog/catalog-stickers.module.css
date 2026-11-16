@@ -114,7 +114,8 @@
 }
 
 .stickers[data-theme="jobber"] .sticker,
-.stickers[data-theme="market"] .sticker {
+.stickers[data-theme="receiptmaster"] .sticker,
+.stickers[data-theme="fluxkit"] .sticker {
   border: 1px solid var(--p-line);
 }
 

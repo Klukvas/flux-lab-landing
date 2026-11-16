@@ -100,23 +100,23 @@
   --p-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.9);
 }
 
-.market {
-  --p-bg: #ece9f7;
-  --p-surface: #fff;
-  --p-ink: #1d1730;
-  --p-muted: #625b78;
-  --p-accent: #8755f6;
+.receiptmaster {
+  --p-bg: #111113;
+  --p-surface: #19191c;
+  --p-ink: #f2f2f4;
+  --p-muted: #9c9ca6;
+  --p-accent: #7c6cf6;
   --p-accent-ink: #fff;
-  --p-line: #e1dcf0;
-  --p-radius: 10px;
-  --p-chip: #f4f1fd;
-  --p-font: var(--font-catalog-inter), system-ui, sans-serif;
+  --p-line: #2b2b31;
+  --p-radius: 16px;
+  --p-chip: #222226;
+  --p-font: var(--font-catalog-manrope), system-ui, sans-serif;
   --p-num: var(--font-catalog-plex), ui-monospace, monospace;
-  --p-display-weight: 700;
-  --p-track: -0.03em;
-  --p-bar: rgba(255, 255, 255, 0.8);
-  --p-sticker: #fff;
-  --p-shadow: 0 24px 60px -28px rgba(60, 30, 140, 0.3);
+  --p-display-weight: 600;
+  --p-track: -0.035em;
+  --p-bar: rgba(17, 17, 19, 0.82);
+  --p-sticker: #19191c;
+  --p-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.9);
 }
 
 .lifespan {
@@ -138,22 +138,22 @@
   --p-shadow: 0 30px 60px -30px rgba(14, 90, 78, 0.35);
 }
 
-.efluxcom {
-  --p-bg: #0e0d16;
-  --p-surface: #15131f;
-  --p-ink: #ecebf5;
-  --p-muted: #9a97b0;
-  --p-accent: #7b6ef6;
-  --p-accent-ink: #fff;
-  --p-line: #2a2740;
-  --p-radius: 16px;
-  --p-chip: #1c1a2b;
+.fluxkit {
+  --p-bg: #16100d;
+  --p-surface: #211814;
+  --p-ink: #f3e9dc;
+  --p-muted: #b4a592;
+  --p-accent: #e8664f;
+  --p-accent-ink: #1d130f;
+  --p-line: #3a2c24;
+  --p-radius: 18px;
+  --p-chip: #2a1f1a;
   --p-font: var(--font-catalog-inter), system-ui, sans-serif;
   --p-num: var(--p-font);
   --p-display-weight: 600;
   --p-track: -0.03em;
-  --p-bar: rgba(14, 13, 22, 0.85);
-  --p-sticker: #15131f;
+  --p-bar: rgba(22, 16, 13, 0.82);
+  --p-sticker: #211814;
   --p-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.9);
 }
 

@@ -79,16 +79,18 @@
   filter: blur(16px) brightness(0.5) saturate(0.75);
 }
 
-.background[data-theme="market"] {
-  background-image: repeating-linear-gradient(0deg, rgba(135, 85, 246, 0.06) 0 1px, transparent 1px 28px);
+.background[data-theme="receiptmaster"] {
+  background-image: radial-gradient(60cqw 55cqh at 85% 5%, rgba(124, 108, 246, 0.22), transparent 70%);
 }
 
 .background[data-theme="lifespan"] {
   background-image: radial-gradient(70cqw 60cqh at 10% 0%, rgba(18, 217, 186, 0.22), transparent 70%);
 }
 
-.background[data-theme="efluxcom"] {
-  background-image: repeating-linear-gradient(135deg, rgba(123, 110, 246, 0.07) 0 1px, transparent 1px 22px);
+.background[data-theme="fluxkit"] {
+  background-image:
+    radial-gradient(55cqw 50cqh at 80% 10%, rgba(232, 102, 79, 0.16), transparent 70%),
+    radial-gradient(50cqw 45cqh at 5% 95%, rgba(199, 154, 75, 0.14), transparent 70%);
 }
 
 .background[data-theme="fallback"] {

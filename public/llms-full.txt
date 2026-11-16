@@ -56,24 +56,27 @@ Expert guidance on architecture, technology choices, and best practices. Include
 - Description: All-in-one management platform for car wash and laundry businesses. Order tracking, scheduling, CRM with loyalty programs, role-based access control.
 - Tech: React, Next.js, TypeScript, NestJS, PostgreSQL, React Native, Docker
 
-### Market — Orders, Receipts & Analytics
-- Case study: https://flux-lab.dev/en/projects/market
+### ReceiptMaster — Orders, Documents & Analytics
+- URL: https://receiptmaster.org
+- Case study: https://flux-lab.dev/en/projects/receiptmaster
 - Status: Active
-- Description: ReceiptMaster brings products, orders, PDF receipts and sales analytics into one workspace. Receipt templates: Standard, Compact and Thermal.
+- Description: Workspace for small businesses that sell: products with purchase and sale prices and stock, customers with order history, orders from draft to confirmed with payment tracking. For a confirmed order it makes PDF documents in the background with the company's details: waybills in 15 templates, quotes, invoices, acts of completed work, non-fiscal sales receipts, packing lists and return notes, in English, Ukrainian or Russian. A Telegram bot takes orders in chat; analytics show revenue, order status and turnover with CSV export.
+- Tech: React, Vite, TypeScript, NestJS, PostgreSQL, Redis, BullMQ, Playwright, Docker
 
 ### LifeSpan — Your Life, Visualized
 - Case study: https://flux-lab.dev/en/projects/lifespan
-- Status: Beta
-- Description: A personal life timeline: record days and moods, organize chapters, and keep memories in context.
-
-### EFluxCom — Product in Development
-- Case study: https://flux-lab.dev/en/projects/efluxcom
 - Status: In development
-- Description: An e-commerce product in development. Details will be shared when it is ready.
+- Description: A personal life timeline: record days and moods, organize chapters, and keep memories in context.
 
 ## Templates
 
 Ready-made bases we adapt to a client's brand and needs instead of building from scratch.
+
+### FluxKit — White-Label Online Store Template
+- Live demo: https://fluxkitcore.com/en
+- Case study: https://flux-lab.dev/en/projects/fluxkit
+- Description: The online store we adapt for a client instead of building one from scratch. Catalog with variants and filterable attributes, prices and stock per variant, guest and customer carts, a checkout that reserves stock, customer accounts and order history, delivery methods (courier, pickup point, store pickup) and an admin with roles (owner, manager, viewer). The design lives in tokens; optional features are separate modules switched on per client. Ukrainian and English.
+- Tech: Next.js, React, TypeScript, Node.js, PostgreSQL, Redis, Meilisearch, Docker
 
 ### AutoFlow — Car Dealership Storefront Template
 - Live demo: https://autos-sale.com

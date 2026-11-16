@@ -28,7 +28,10 @@ export function CatalogMotif({ motif, text }: CatalogMotifProps) {
       return (
         <div className={styles.stages}>
           {motif.stages.map((stage, index) => (
-            <span key={stage.label} style={{ "--dot": stage.color } as CSSProperties}>
+            <span
+              key={stage.label}
+              style={{ "--dot": stage.color } as CSSProperties}
+            >
               {text(`catalog.motif.stages.${index}`, stage.label)}
               <em>{stage.count}</em>
             </span>
@@ -49,7 +52,9 @@ export function CatalogMotif({ motif, text }: CatalogMotifProps) {
                 <span
                   // Slots have no identity beyond their place in the row.
                   key={slotIndex}
-                  className={slot === "free" ? styles.slotFree : styles.slotBusy}
+                  className={
+                    slot === "free" ? styles.slotFree : styles.slotBusy
+                  }
                 >
                   {slot === "free" ? free : busy}
                 </span>
@@ -92,11 +97,32 @@ export function CatalogMotif({ motif, text }: CatalogMotifProps) {
             <i
               key={index}
               style={
-                { "--level": DAY_LEVELS[(index * 5) % DAY_LEVELS.length] } as CSSProperties
+                {
+                  "--level": DAY_LEVELS[(index * 5) % DAY_LEVELS.length],
+                } as CSSProperties
               }
             />
           ))}
           <small>{text("catalog.motif.caption", motif.caption)}</small>
+        </div>
+      );
+    case "product":
+      return (
+        <div className={styles.product}>
+          <span className={styles.productImage} aria-hidden="true" />
+          <div className={styles.productBody}>
+            <small>{motif.brand}</small>
+            <b>{text("catalog.motif.name", motif.name)}</b>
+            <span className={styles.productPrice}>
+              {text("catalog.motif.price", motif.price)}
+            </span>
+            <span className={styles.productStock}>
+              {text("catalog.motif.stock", motif.stock)}
+            </span>
+          </div>
+          <span className={styles.productAction}>
+            {text("catalog.motif.action", motif.action)}
+          </span>
         </div>
       );
   }

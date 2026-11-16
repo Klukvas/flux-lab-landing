@@ -26,12 +26,12 @@ fluxLab.dev is a software development company based in Kyiv, Ukraine offering:
 - [FluxRadar](https://fluxradar.net): Pay-per-scan website audit for SEO and AI search visibility — security, performance and accessibility in one plain-language report — 1,400 users, 90 companies. React, Express, PostgreSQL, Claude and OpenAI.
 - [Cursopus](https://cursopus.com): AI-powered job tracker — 15,300 users. Go, Next.js, Claude AI.
 - [WashFlow](https://washflow.app): Business management suite — 8,700 users, 120 companies.
-- [Market](https://flux-lab.dev/en/projects/market): ReceiptMaster — products, orders, PDF receipts (Standard, Compact and Thermal templates) and sales analytics in one workspace.
-- [LifeSpan](https://flux-lab.dev/en/projects/lifespan): Personal life timeline for days, moods, chapters and memories — in beta.
-- [EFluxCom](https://flux-lab.dev/en/projects/efluxcom): E-commerce product in development; details will be shared when it is ready.
+- [ReceiptMaster](https://receiptmaster.org): Orders, documents and analytics for small businesses — products, customers and orders with PDF waybills (15 templates), quotes, invoices, acts and packing lists, a Telegram sales bot and analytics.
+- [LifeSpan](https://flux-lab.dev/en/projects/lifespan): Personal life timeline for days, moods, chapters and memories — in development.
 
 ## Templates
 
+- [FluxKit](https://fluxkitcore.com/en): White-label online store template — catalog with variants, cart, checkout with stock reservation, delivery methods and an admin with roles, rebranded through design tokens per client. Live demo: a coffee-shop supplies store.
 - [AutoFlow](https://flux-lab.dev/en/projects/autoflow): Car dealership storefront template — filterable catalog, car pages, leads, admin panel and Telegram autoposting, rebranded per client. Live demo: https://autos-sale.com. Next.js, NestJS, PostgreSQL.
 
 ## Tech Stack

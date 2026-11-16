@@ -31,6 +31,17 @@ const nextConfig: NextConfig = {
         destination: 'https://flux-lab.dev/:path*',
         permanent: true,
       },
+      // Two products were renamed; their old case-study addresses lead to the new ones.
+      {
+        source: '/:locale(en|uk)/projects/market',
+        destination: '/:locale/projects/receiptmaster',
+        permanent: true,
+      },
+      {
+        source: '/:locale(en|uk)/projects/efluxcom',
+        destination: '/:locale/projects/fluxkit',
+        permanent: true,
+      },
     ];
   },
 };

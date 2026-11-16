@@ -17,9 +17,9 @@ describe("public project roster", () => {
       "washflow",
       "jobber",
       "autoflow",
-      "market",
+      "receiptmaster",
       "lifespan",
-      "efluxcom",
+      "fluxkit",
     ]);
     expect(getAllProjects().map((p) => p.status)).toEqual([
       "active",
@@ -27,25 +27,29 @@ describe("public project roster", () => {
       "active",
       "active",
       "active",
-      "beta",
       "in-development",
+      "active",
     ]);
   });
   it("counts only production products as live", () => {
-    expect(getLiveProjects()).toHaveLength(5);
+    expect(getLiveProjects()).toHaveLength(6);
     expect(getLiveProjects().every((p) => p.status === "active")).toBe(true);
     expect(getFeaturedProjects().every((p) => p.status === "active")).toBe(
       true,
     );
   });
   it("never advertises an unfinished product as a live site", () => {
-    const development = getAllProjects().find((p) => p.slug === "efluxcom");
-    expect(development?.url).toBeUndefined();
-    expect(development?.features).toEqual([]);
-    expect(development?.screenshots).toEqual([]);
-    expect(
-      getAllProjects().find((p) => p.slug === "accounting"),
-    ).toBeUndefined();
+    const unfinished = getAllProjects().filter(
+      (p) => p.status === "in-development" || p.status === "coming-soon",
+    );
+    expect(unfinished.length).toBeGreaterThan(0);
+    for (const project of unfinished) {
+      expect(project.url, project.slug).toBeUndefined();
+      expect(project.screenshots, project.slug).toEqual([]);
+    }
+    for (const gone of ["accounting", "market", "efluxcom"]) {
+      expect(getAllProjects().find((p) => p.slug === gone)).toBeUndefined();
+    }
   });
 });
 
