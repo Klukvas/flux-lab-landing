@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import type { Project } from "@/types";
 import { Container, Badge, Button } from "@/components/ui";
 
@@ -21,10 +22,12 @@ export function ProjectHero({
   usersLabel,
   companiesLabel,
 }: ProjectHeroProps) {
+  const t = useTranslations("projects.status");
   const statusVariant = {
     active: "success" as const,
     beta: "warning" as const,
     "coming-soon": "default" as const,
+    "in-development": "default" as const,
     archived: "default" as const,
   };
 
@@ -42,7 +45,7 @@ export function ProjectHero({
               {project.name}
             </h1>
             <Badge variant={statusVariant[project.status]}>
-              {project.status}
+              {t(project.status)}
             </Badge>
           </div>
           <p className="rise-in mt-2 text-lg text-gray-500 [--rise-delay:80ms] dark:text-gray-400">

@@ -152,10 +152,33 @@ export default async function ProjectDetailPage({
     ...(localizedDesigns.length > 0
       ? [{ id: "designs", label: t("designs") }]
       : []),
-    { id: "challenge", label: t("challenge") },
-    { id: "features", label: t("features") },
-    { id: "highlights", label: t("highlights") },
+    ...(challenge || solution
+      ? [{ id: "challenge", label: t("challenge") }]
+      : []),
+    ...(features.length > 0 ? [{ id: "features", label: t("features") }] : []),
+    ...(highlights.length > 0
+      ? [{ id: "highlights", label: t("highlights") }]
+      : []),
   ];
+
+  if (project.status === "in-development") {
+    return (
+      <>
+        <ProjectHero
+          project={localizedProject}
+          visitSiteLabel={t("visitSite")}
+          viewCodeLabel={t("viewCode")}
+          usersLabel={t("users")}
+          companiesLabel={t("companies")}
+        />
+        <ProjectCta
+          title={t("getStarted")}
+          description={description}
+          buttonLabel={t("contactUs")}
+        />
+      </>
+    );
+  }
 
   return (
     <>
@@ -192,14 +215,20 @@ export default async function ProjectDetailPage({
           color={project.color}
         />
       )}
-      <ProjectChallenge
-        challenge={challenge}
-        solution={solution}
-        challengeLabel={t("challenge")}
-        solutionLabel={t("solution")}
-      />
-      <ProjectFeatures features={features} title={t("features")} />
-      <ProjectHighlights highlights={highlights} title={t("highlights")} />
+      {(challenge || solution) && (
+        <ProjectChallenge
+          challenge={challenge}
+          solution={solution}
+          challengeLabel={t("challenge")}
+          solutionLabel={t("solution")}
+        />
+      )}
+      {features.length > 0 && (
+        <ProjectFeatures features={features} title={t("features")} />
+      )}
+      {highlights.length > 0 && (
+        <ProjectHighlights highlights={highlights} title={t("highlights")} />
+      )}
       <ProjectCta
         title={t("getStarted")}
         description={t("getStartedDesc")}

@@ -10,34 +10,42 @@ import {
 
 const ukProjects: Record<string, unknown> = uk.projects;
 
-describe("getLiveProjects", () => {
-  it("leaves archived products out and keeps every other one", () => {
-    const live = getLiveProjects();
-
-    expect(live.every((project) => project.status !== "archived")).toBe(true);
-    expect(live.length).toBe(getAllProjects().filter((p) => p.status !== "archived").length);
-    expect(live.length).toBeLessThan(getAllProjects().length);
+describe("public project roster", () => {
+  it("keeps the approved seven products in one shared order", () => {
+    expect(getAllProjects().map((p) => p.slug)).toEqual([
+      "fluxradar",
+      "washflow",
+      "jobber",
+      "autoflow",
+      "market",
+      "lifespan",
+      "efluxcom",
+    ]);
+    expect(getAllProjects().map((p) => p.status)).toEqual([
+      "active",
+      "active",
+      "active",
+      "active",
+      "active",
+      "beta",
+      "in-development",
+    ]);
   });
-
-  it("never features an archived product", () => {
-    expect(getFeaturedProjects().every((project) => project.status !== "archived")).toBe(true);
+  it("counts only production products as live", () => {
+    expect(getLiveProjects()).toHaveLength(5);
+    expect(getLiveProjects().every((p) => p.status === "active")).toBe(true);
+    expect(getFeaturedProjects().every((p) => p.status === "active")).toBe(
+      true,
+    );
   });
-});
-
-describe("project order", () => {
-  const statusRank = ["active", "beta", "coming-soon", "archived"];
-
-  it("lists live products before beta, upcoming and archived ones", () => {
-    const ranks = getAllProjects().map((p) => statusRank.indexOf(p.status));
-
-    expect(ranks).toEqual([...ranks].sort((a, b) => a - b));
-  });
-
-  it("puts the most-used product first within a status", () => {
-    const active = getAllProjects().filter((p) => p.status === "active");
-    const users = active.map((p) => p.stats?.users ?? 0);
-
-    expect(users).toEqual([...users].sort((a, b) => b - a));
+  it("never advertises an unfinished product as a live site", () => {
+    const development = getAllProjects().find((p) => p.slug === "efluxcom");
+    expect(development?.url).toBeUndefined();
+    expect(development?.features).toEqual([]);
+    expect(development?.screenshots).toEqual([]);
+    expect(
+      getAllProjects().find((p) => p.slug === "accounting"),
+    ).toBeUndefined();
   });
 });
 
@@ -59,7 +67,8 @@ describe("design concepts", () => {
   it("has Ukrainian copy for the intro and for each design, in step with the data", () => {
     for (const project of withDesigns) {
       const items = project.designs?.items ?? [];
-      const copy = ukProjects[project.slug] as { designsIntro?: string } | undefined;
+      const copy = ukProjects[project.slug] as
+        { designsIntro?: string } | undefined;
       const designs = (ukProjects[`${project.slug}Designs`] ?? {}) as Record<
         string,
         { description?: string }
@@ -75,7 +84,6 @@ describe("design concepts", () => {
 });
 
 describe("screenshots", () => {
-
   it("points every screenshot at an image that ships in public/", () => {
     for (const project of getAllProjects()) {
       for (const screenshot of project.screenshots) {
@@ -109,7 +117,10 @@ describe("screenshots", () => {
 describe("catalog", () => {
   it("keeps at most four stickers per card so they fit around it", () => {
     for (const project of getAllProjects()) {
-      expect(project.catalog?.stats.length ?? 0, project.slug).toBeLessThanOrEqual(4);
+      expect(
+        project.catalog?.stats.length ?? 0,
+        project.slug,
+      ).toBeLessThanOrEqual(4);
     }
   });
 
@@ -128,7 +139,10 @@ describe("catalog", () => {
         expect(copy?.audience, `${project.slug}.catalog.audience`).toBeTruthy();
       }
       catalog.stats.forEach((stat, idx) => {
-        expect(copy?.stats?.[idx], `${project.slug}: ${stat.label}`).toBeTruthy();
+        expect(
+          copy?.stats?.[idx],
+          `${project.slug}: ${stat.label}`,
+        ).toBeTruthy();
       });
     }
   });
