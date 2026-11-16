@@ -17,7 +17,9 @@
   --sticker-w: clamp(150px, 14cqw, 200px);
 
   position: relative;
-  height: clamp(640px, calc(100svh - 96px), 860px);
+  /* The catalog is the whole page: everything below the site header's h-14 bar. */
+  height: calc(100svh - 56px);
+  min-height: 600px;
   overflow: hidden;
   isolation: isolate;
   container-type: size;
@@ -585,7 +587,7 @@
     --peek-gap: calc(var(--card-h) * 0.16);
     --cy: 54%;
 
-    height: clamp(620px, calc(100svh - 72px), 780px);
+    min-height: 560px;
   }
 
   .cardInner {

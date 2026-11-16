@@ -8,6 +8,7 @@ import { routing } from "@/i18n/routing";
 import { SITE_NAME, SITE_URL, SITE_DESCRIPTION } from "@/lib/constants";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { FooterGate } from "@/components/layout/footer-gate";
 import { DotBackground } from "@/components/home/dot-background";
 import { ScrollToTop } from "@/components/layout/scroll-to-top";
 import { SupportButton } from "@/components/layout/support-button";
@@ -115,7 +116,9 @@ export default async function LocaleLayout({
               <div className="flex min-h-screen flex-col overflow-x-clip">
                 <Header />
                 <main className="flex-1">{children}</main>
-                <Footer />
+                <FooterGate>
+                  <Footer />
+                </FooterGate>
                 <ScrollToTop />
                 <SupportButton />
                 <TrafficSourceRecorder />
