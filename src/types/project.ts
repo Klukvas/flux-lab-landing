@@ -90,7 +90,15 @@ export type ProjectCatalogMotif =
       readonly totalLabel: string;
       readonly total: string;
     }
-  | { readonly kind: "days"; readonly caption: string };
+  | { readonly kind: "days"; readonly caption: string }
+  | {
+      readonly kind: "product";
+      readonly brand: string;
+      readonly name: string;
+      readonly price: string;
+      readonly stock: string;
+      readonly action: string;
+    };
 
 /** What the projects catalog shows for a product beyond its tagline and description. */
 export interface ProjectCatalog {

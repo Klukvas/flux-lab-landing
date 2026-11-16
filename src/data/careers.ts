@@ -71,7 +71,7 @@ export const positions: readonly CareerPosition[] = [
         department: "Engineering",
         location: "Remote (Europe)",
         description:
-          "We're moving the performance-critical parts of our platform to Rust and need an engineer to lead that work. The first target is FluxRadar's crawling and analysis engine: fetching and parsing thousands of pages per audit, running site-health checks, and turning raw signals into scores — all within a tight time and memory budget on modest Hetzner Cloud instances. From there you'll own shared infrastructure such as job queues, rate limiters and the ingestion pipeline that receives data from 18K+ EFluxCom devices. You'll work alongside our Go and TypeScript services and decide where Rust earns its place.",
+          "We're moving the performance-critical parts of our platform to Rust and need an engineer to lead that work. The first target is FluxRadar's crawling and analysis engine: fetching and parsing thousands of pages per audit, running site-health checks, and turning raw signals into scores — all within a tight time and memory budget on modest Hetzner Cloud instances. From there you'll own shared infrastructure such as job queues, rate limiters and data ingestion pipelines. You'll work alongside our Go and TypeScript services and decide where Rust earns its place.",
         requirements: [
           "3+ years of production Rust experience (tokio, axum or actix-web, sqlx or diesel)",
           "Solid grasp of ownership, lifetimes and trait-based design — you write idiomatic Rust, not C++ in disguise",
@@ -97,7 +97,7 @@ export const positions: readonly CareerPosition[] = [
         department: "Розробка",
         location: "Віддалено (Європа)",
         description:
-          "Критичні до продуктивності частини платформи ми переносимо на Rust і шукаємо інженера, який очолить цю роботу. Перша ціль — рушій краулінгу й аналізу FluxRadar: завантаження та парсинг тисяч сторінок за один аудит, перевірки здоров'я сайту й перетворення сирих сигналів на оцінки — усе в жорсткому бюджеті часу та пам'яті на скромних інстансах Hetzner Cloud. Далі ви відповідатимете за спільну інфраструктуру: черги задач, rate limiter'и та пайплайн, який приймає дані з 18K+ пристроїв EFluxCom. Ви працюватимете поруч із нашими сервісами на Go й TypeScript і вирішуватимете, де Rust справді виправдовує себе.",
+          "Критичні до продуктивності частини платформи ми переносимо на Rust і шукаємо інженера, який очолить цю роботу. Перша ціль — рушій краулінгу й аналізу FluxRadar: завантаження та парсинг тисяч сторінок за один аудит, перевірки здоров'я сайту й перетворення сирих сигналів на оцінки — усе в жорсткому бюджеті часу та пам'яті на скромних інстансах Hetzner Cloud. Далі ви відповідатимете за спільну інфраструктуру: черги задач, rate limiter'и та пайплайни приймання даних. Ви працюватимете поруч із нашими сервісами на Go й TypeScript і вирішуватимете, де Rust справді виправдовує себе.",
         requirements: [
           "3+ роки продакшн-досвіду з Rust (tokio, axum або actix-web, sqlx або diesel)",
           "Глибоке розуміння ownership, lifetimes і дизайну на трейтах — ви пишете ідіоматичний Rust, а не замаскований C++",
